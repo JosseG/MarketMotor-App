@@ -19,5 +19,5 @@ public class EmpleadoDto implements Serializable {
 
     private String correo;
 
-    private String idUsuario;
+    private Long idUsuario;
 }
