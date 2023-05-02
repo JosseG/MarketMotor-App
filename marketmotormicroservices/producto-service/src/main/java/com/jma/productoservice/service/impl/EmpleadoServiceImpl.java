@@ -46,6 +46,7 @@ public class EmpleadoServiceImpl implements EmpleadoService<EmpleadoEntity> {
             return new EmpleadoEntity();
         }
         return empleadoRepository.findById((Long)id).get();
+
     }
 
 

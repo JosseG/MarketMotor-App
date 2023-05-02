@@ -1,8 +1,12 @@
 package com.jma.productoservice.controller;
 
 import com.jma.productoservice.api.EmpleadoResponse;
+import com.jma.productoservice.dto.EmpleadoDto;
 import com.jma.productoservice.entity.EmpleadoEntity;
+import com.jma.productoservice.entity.UsuarioEntity;
+import com.jma.productoservice.mapping.EmpleadoMapper;
 import com.jma.productoservice.service.EmpleadoService;
+import com.jma.productoservice.service.UsuarioService;
 import com.jma.productoservice.utils.ConstantsService;
 import com.jma.productoservice.utils.EstadoD;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +21,12 @@ import java.util.List;
 public class EmpleadoController {
 
     private final EmpleadoService<EmpleadoEntity> empleadoService;
+    private final UsuarioService<UsuarioEntity> usuarioService;
 
     @Autowired
-    public EmpleadoController(EmpleadoService<EmpleadoEntity> empleadoService){
+    public EmpleadoController(EmpleadoService<EmpleadoEntity> empleadoService,UsuarioService<UsuarioEntity> usuarioService){
         this.empleadoService = empleadoService;
+        this.usuarioService = usuarioService;
     }
 
     @GetMapping()
@@ -66,9 +72,13 @@ public class EmpleadoController {
     }
 
     @PostMapping()
-    public ResponseEntity<EmpleadoEntity> guardar(@RequestBody EmpleadoEntity empleado){
+    public ResponseEntity<EmpleadoEntity> guardar(@RequestBody EmpleadoDto empleado){
         try{
-            EmpleadoEntity empleadoGuardado = empleadoService.guardar(empleado);
+            UsuarioEntity usuarioEntity = usuarioService.obtenerPorId(empleado.getIdUsuario());
+            System.out.println(usuarioEntity);
+            EmpleadoEntity empleadoToSave = EmpleadoMapper.mapToEntity(empleado);
+            empleadoToSave.setUsuario(usuarioEntity);
+            EmpleadoEntity empleadoGuardado = empleadoService.guardar(empleadoToSave);
             return ResponseEntity.ok(empleadoGuardado);
         } catch(Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
