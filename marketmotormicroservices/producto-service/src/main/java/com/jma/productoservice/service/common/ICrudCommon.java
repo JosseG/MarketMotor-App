@@ -7,9 +7,11 @@ public interface ICrudCommon<T> {
     T guardar(T object);
     List<T> obtenerTodos();
 
-    void eliminar(Object id);
+    String eliminar(Object id);
 
     T obtenerPorId(Object id);
+
+    T actualizar(T object);
 
 
 }

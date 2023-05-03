@@ -61,14 +61,7 @@ public class EmpleadoEntity {
     @JoinColumn(name = "id_usuario")
     private UsuarioEntity usuario;
 
-    public void declararDisponibilidad(EstadoD estadoD){
-        switch (estadoD){
-            case ACTIVO:
-                setEstado(true);break;
-            default:
-                setEstado(false);break;
-        }
-    }
+
 
 
 }

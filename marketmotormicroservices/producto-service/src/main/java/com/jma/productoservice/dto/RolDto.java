@@ -4,27 +4,14 @@ import com.jma.productoservice.utils.EstadoD;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
-
 @Getter
 @Setter
-public class EmpleadoDto implements Serializable {
+public class RolDto {
 
     private Long id;
-
     private String nombre;
+    private Boolean estado;
 
-    private String apellidoPat;
-
-    private String apellidoMat;
-
-    private String telefono;
-
-    private String correo;
-
-    private boolean estado;
-
-    private UsuarioDto usuarioDto;
 
     public void declararDisponibilidad(EstadoD estadoD){
         switch (estadoD){

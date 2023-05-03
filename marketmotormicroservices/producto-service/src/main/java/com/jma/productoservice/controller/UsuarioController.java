@@ -1,7 +1,7 @@
 package com.jma.productoservice.controller;
 
+import com.jma.productoservice.api.usuario.UsuarioCommandInsert;
 import com.jma.productoservice.dto.UsuarioDto;
-import com.jma.productoservice.entity.UsuarioEntity;
 import com.jma.productoservice.mapping.UsuarioMapper;
 import com.jma.productoservice.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,24 +14,33 @@ import java.util.List;
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
-    private final UsuarioService<UsuarioEntity> usuarioService;
+    private final UsuarioService<UsuarioDto> usuarioService;
 
     @Autowired
-    public UsuarioController(UsuarioService<UsuarioEntity> usuarioService){
+    public UsuarioController(UsuarioService<UsuarioDto> usuarioService){
         this.usuarioService = usuarioService;
     }
 
     @GetMapping
-    public ResponseEntity<List<UsuarioEntity>> obtenerTodos(){
+    public ResponseEntity<List<UsuarioDto>> obtenerTodos(){
         return ResponseEntity.ok(usuarioService.obtenerTodos());
     }
 
     @PostMapping()
-    public ResponseEntity<UsuarioEntity> guardar(@RequestBody UsuarioDto usuarioDto){
+    public ResponseEntity<UsuarioDto> guardar(@RequestBody UsuarioCommandInsert usuarioCommandInsert){
 
-        UsuarioEntity usuarioGuardado = usuarioService.guardar(UsuarioMapper.mapToEntity(usuarioDto));
-
+        UsuarioDto usuarioGuardado = usuarioService.guardar(UsuarioMapper.mapFromCommandInsertToDto(usuarioCommandInsert));
         return ResponseEntity.ok(usuarioGuardado);
+
+    }
+
+    @PostMapping("/guardarTodos")
+    public ResponseEntity<List<UsuarioDto>> guardarTodos(@RequestBody List<UsuarioCommandInsert> UsuariosCommand){
+
+        List<UsuarioDto> usuariosMappeados = UsuariosCommand.stream().map(UsuarioMapper::mapFromCommandInsertToDto).toList();
+        List<UsuarioDto> usuariosGuardados = usuarioService.guardarTodos(usuariosMappeados);
+
+        return ResponseEntity.ok(usuariosGuardados);
 
     }
 

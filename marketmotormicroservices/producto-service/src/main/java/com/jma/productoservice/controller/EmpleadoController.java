@@ -1,9 +1,10 @@
 package com.jma.productoservice.controller;
 
 import com.jma.productoservice.api.EmpleadoResponse;
+import com.jma.productoservice.api.empleado.EmpleadoCommandInsert;
+import com.jma.productoservice.api.empleado.EmpleadoCommandUpdate;
 import com.jma.productoservice.dto.EmpleadoDto;
-import com.jma.productoservice.entity.EmpleadoEntity;
-import com.jma.productoservice.entity.UsuarioEntity;
+import com.jma.productoservice.dto.UsuarioDto;
 import com.jma.productoservice.mapping.EmpleadoMapper;
 import com.jma.productoservice.service.EmpleadoService;
 import com.jma.productoservice.service.UsuarioService;
@@ -14,46 +15,47 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
 @RequestMapping("/empleados")
 public class EmpleadoController {
 
-    private final EmpleadoService<EmpleadoEntity> empleadoService;
-    private final UsuarioService<UsuarioEntity> usuarioService;
+    private final EmpleadoService<EmpleadoDto> empleadoService;
+    private final UsuarioService<UsuarioDto> usuarioService;
 
     @Autowired
-    public EmpleadoController(EmpleadoService<EmpleadoEntity> empleadoService,UsuarioService<UsuarioEntity> usuarioService){
+    public EmpleadoController(EmpleadoService<EmpleadoDto> empleadoService, UsuarioService<UsuarioDto> usuarioService){
         this.empleadoService = empleadoService;
         this.usuarioService = usuarioService;
     }
 
     @GetMapping()
-    public ResponseEntity<List<EmpleadoEntity>> obtenerTodos(){
+    public ResponseEntity<List<EmpleadoDto>> obtenerTodos(){
         return ResponseEntity.ok(empleadoService.obtenerTodos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EmpleadoEntity> obtenerPorId(@PathVariable("id") Long id){
-        EmpleadoEntity empleado = empleadoService.obtenerPorId(id);
+    public ResponseEntity<EmpleadoDto> obtenerPorId(@PathVariable("id") Long id){
+        EmpleadoDto empleado = empleadoService.obtenerPorId(id);
         if(empleado == null)
             return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(empleado);
     }
 
-    @PatchMapping("/desactivar/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<String> desactivar(@PathVariable("id") Long id){
 
         try{
-            EmpleadoEntity empleado = empleadoService.obtenerPorId(id);
+            EmpleadoDto empleado = empleadoService.obtenerPorId(id);
             if(empleado == null)
                 return ResponseEntity.notFound().build();
 
             empleado.declararDisponibilidad(EstadoD.INACTIVO);
             empleadoService.guardar(empleado);
-
             return ResponseEntity.ok("Se desactivó correctamente");
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -61,38 +63,81 @@ public class EmpleadoController {
     }
 
 
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(@PathVariable("id") Long id){
         try{
-            empleadoService.eliminar(id);
-            return ResponseEntity.ok("Se eliminó correctamente");
+            String respuesta = empleadoService.eliminar(id);
+            return ResponseEntity.ok(respuesta);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping()
-    public ResponseEntity<EmpleadoEntity> guardar(@RequestBody EmpleadoDto empleado){
+    public ResponseEntity<EmpleadoDto> guardar(@RequestBody EmpleadoCommandInsert empleadoCommandInsert){
         try{
-            UsuarioEntity usuarioEntity = usuarioService.obtenerPorId(empleado.getIdUsuario());
-            System.out.println(usuarioEntity);
-            EmpleadoEntity empleadoToSave = EmpleadoMapper.mapToEntity(empleado);
-            empleadoToSave.setUsuario(usuarioEntity);
-            EmpleadoEntity empleadoGuardado = empleadoService.guardar(empleadoToSave);
+            UsuarioDto usuarioDto = new UsuarioDto();
+            usuarioDto.setId(empleadoCommandInsert.getIdUsuario());
+            EmpleadoDto empleadoToSave = EmpleadoMapper.mapFromCommandInsertToDto(empleadoCommandInsert);
+            empleadoToSave.setUsuarioDto(usuarioDto);
+            EmpleadoDto empleadoGuardado = empleadoService.guardar(empleadoToSave);
             return ResponseEntity.ok(empleadoGuardado);
         } catch(Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+
+    @PostMapping("/guardarTodos")
+    public ResponseEntity<List<EmpleadoDto>> guardarTodos(@RequestBody List<EmpleadoCommandInsert> empleadoscommand){
+        try{
+            List<UsuarioDto> usuariosObtenidosPorId = empleadoscommand.stream().map(e -> usuarioService.obtenerPorId(e.getIdUsuario())).toList();
+
+            List<EmpleadoDto> empleadosMapeados = empleadoscommand.stream().map(EmpleadoMapper::mapFromCommandInsertToDto).toList();
+
+            Iterator<UsuarioDto> usuariosIterator = usuariosObtenidosPorId.iterator();
+            Iterator<EmpleadoDto> empleadosIterator = empleadosMapeados.iterator();
+
+            List<EmpleadoDto> empleadosToTransferData = new ArrayList<>();
+
+           while (usuariosIterator.hasNext() && empleadosIterator.hasNext()) {
+               EmpleadoDto empleadoToList = empleadosIterator.next();
+               empleadoToList.setUsuarioDto(usuariosIterator.next());
+               empleadosToTransferData.add(empleadoToList);
+            }
+
+           //Segunda manera de setear el usuario al empleado
+           /* for (int i = 0; i < empleadosMapeados.size(); i++) {
+                empleadosMapeados.get(i).setUsuario(usuariosObtenidosPorId.get(i));
+                System.out.println("L");
+                //String processedData = String.format("%s: %s", usuariosIterator.next().getId(), empleadosIterator.next().getNombre());
+            } */
+
+            List<EmpleadoDto> empleadosGuardados = empleadoService.guardarTodos(empleadosToTransferData);
+            return ResponseEntity.ok(empleadosGuardados);
+
+        } catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/pagination")
-    public EmpleadoResponse obtenerTodosP(
+    public ResponseEntity<EmpleadoResponse> obtenerTodosP(
             @RequestParam(value = "pageNo", defaultValue = ConstantsService.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = ConstantsService.DEFAULT_PAGE_SIZE, required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = ConstantsService.DEFAULT_SORT_BY, required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = ConstantsService.DEFAULT_SORT_DIRECTION, required = false) String sortDir
     ){
-        return empleadoService.obtenerTodosP(pageNo, pageSize, sortBy, sortDir);
+        return ResponseEntity.ok(empleadoService.obtenerTodosP(pageNo, pageSize, sortBy, sortDir));
+    }
+
+    @PutMapping()
+    public ResponseEntity<EmpleadoDto> actualizar(@RequestBody EmpleadoCommandUpdate empleadoCommandUpdate){
+
+        EmpleadoDto empleadoDto = EmpleadoMapper.mapFromCommandUpdateToDto(empleadoCommandUpdate);
+        EmpleadoDto empleadoActualizado = empleadoService.actualizar(empleadoDto);
+
+        return ResponseEntity.ok(empleadoActualizado);
     }
 
 
