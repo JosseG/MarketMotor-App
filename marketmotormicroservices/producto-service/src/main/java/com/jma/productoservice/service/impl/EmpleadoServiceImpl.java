@@ -5,6 +5,7 @@ import com.jma.productoservice.dto.EmpleadoDto;
 import com.jma.productoservice.entity.EmpleadoEntity;
 import com.jma.productoservice.entity.UsuarioEntity;
 import com.jma.productoservice.mapping.EmpleadoMapper;
+import com.jma.productoservice.mapping.UsuarioMapper;
 import com.jma.productoservice.repository.EmpleadoRepository;
 import com.jma.productoservice.repository.UsuarioRepository;
 import com.jma.productoservice.service.EmpleadoService;
@@ -60,7 +61,25 @@ public class EmpleadoServiceImpl implements EmpleadoService<EmpleadoDto> {
 
     @Override
     public List<EmpleadoDto> guardarTodos(List<EmpleadoDto> list) {
-        return empleadoRepository.saveAll(list.stream().map(EmpleadoMapper::mapToEntity).collect(Collectors.toList())).stream().map(EmpleadoMapper::mapToDto).collect(Collectors.toList());
+
+        List<UsuarioEntity> usuarioEntities = list.stream().map( e -> usuarioRepository.findById(e.getUsuarioDto().getId()).orElse(null)).toList();
+        List<EmpleadoEntity> empleadoEntities = list.stream().map(EmpleadoMapper::mapToEntity).toList();
+
+        for (int i = 0; i < empleadoEntities.size(); i++) {
+            empleadoEntities.get(i).setUsuario(usuarioEntities.get(i));
+        }
+        List<EmpleadoEntity> empleadosGuardados = empleadoRepository.saveAll(empleadoEntities);
+        return getEmpleadoDtosWithSetUsuarioDto(empleadosGuardados);
+    }
+
+    private List<EmpleadoDto> getEmpleadoDtosWithSetUsuarioDto(List<EmpleadoEntity> empleadosGuardados) {
+        List<EmpleadoDto> empleadosDtoObt = empleadosGuardados.stream().map(EmpleadoMapper::mapToDto).toList();
+
+        for (int i = 0; i < empleadosDtoObt.size(); i++) {
+            empleadosDtoObt.get(i).setUsuarioDto(UsuarioMapper.mapToDto(empleadosGuardados.get(i).getUsuario()));
+        }
+
+        return empleadosDtoObt;
     }
 
     @Override
@@ -76,7 +95,9 @@ public class EmpleadoServiceImpl implements EmpleadoService<EmpleadoDto> {
 
     @Override
     public List<EmpleadoDto> obtenerTodos() {
-        return empleadoRepository.findAll().stream().map(EmpleadoMapper::mapToDto).collect(Collectors.toList());
+
+        List<EmpleadoEntity> empleadoEntities = empleadoRepository.findAll();
+        return getEmpleadoDtosWithSetUsuarioDto(empleadoEntities);
     }
 
     @Override
@@ -91,7 +112,11 @@ public class EmpleadoServiceImpl implements EmpleadoService<EmpleadoDto> {
 
     @Override
     public EmpleadoDto obtenerPorId(Object id) {
-        return empleadoRepository.findById((Long)id).map(EmpleadoMapper::mapToDto).orElse(new EmpleadoDto());
+        EmpleadoEntity empleadoEntity = empleadoRepository.findById((Long)id).orElse(new EmpleadoEntity());
+        EmpleadoDto empleadoDto = EmpleadoMapper.mapToDto(empleadoEntity);
+        empleadoDto.setUsuarioDto(UsuarioMapper.mapToDto(empleadoEntity.getUsuario()));
+
+        return empleadoDto;
     }
 
     @Override

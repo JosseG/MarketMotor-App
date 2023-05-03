@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -21,6 +22,10 @@ public class EmpleadoDto implements Serializable {
     private String telefono;
 
     private String correo;
+
+    private LocalDateTime actualizadoEn;
+
+    private LocalDateTime creadoEn;
 
     private boolean estado;
 

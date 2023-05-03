@@ -14,7 +14,6 @@ public class RolMapper {
         rolDto.setId(rolEntity.getId());
         rolDto.setNombre(rolEntity.getNombre());
         rolDto.setEstado(rolEntity.isEstado());
-        rolDto.declararDisponibilidad(EstadoD.ACTIVO);
         return rolDto;
     }
 
@@ -29,6 +28,7 @@ public class RolMapper {
     public static RolDto mapFromCommandInsertToDto(RolCommandInsert rolCommandInsert){
         RolDto rolDto = new RolDto();
         rolDto.setNombre(rolCommandInsert.getNombre());
+        rolDto.declararDisponibilidad(EstadoD.ACTIVO);
         return rolDto;
     }
 

@@ -19,19 +19,22 @@ public class EmpleadoMapper {
         empleadoEntity.setTelefono(empleadoDto.getTelefono());
         empleadoEntity.setApellidoMat(empleadoDto.getApellidoMat());
         empleadoEntity.setApellidoPat(empleadoDto.getApellidoPat());
-        empleadoEntity.setEstado(empleadoEntity.isEstado());
+        empleadoEntity.setEstado(empleadoDto.isEstado());
         return empleadoEntity;
     }
 
     public static EmpleadoDto mapToDto(EmpleadoEntity empleadoEntity){
 
         EmpleadoDto empleadoDto = new EmpleadoDto();
+        empleadoDto.setId(empleadoEntity.getId());
         empleadoDto.setNombre(empleadoEntity.getNombre());
         empleadoDto.setCorreo(empleadoEntity.getCorreo());
         empleadoDto.setTelefono(empleadoEntity.getTelefono());
         empleadoDto.setApellidoMat(empleadoEntity.getApellidoMat());
         empleadoDto.setApellidoPat(empleadoEntity.getApellidoPat());
-        empleadoDto.declararDisponibilidad(EstadoD.ACTIVO);
+        empleadoDto.setActualizadoEn(empleadoEntity.getActualizadoEn());
+        empleadoDto.setCreadoEn(empleadoEntity.getCreadoEn());
+        empleadoDto.setEstado(empleadoEntity.isEstado());
         return empleadoDto;
     }
 
@@ -47,6 +50,7 @@ public class EmpleadoMapper {
         empleadoDto.setCorreo(empleadoCommandInsert.getCorreo());
         empleadoDto.setTelefono(empleadoCommandInsert.getTelefono());
         empleadoDto.setUsuarioDto(usuarioDto);
+        empleadoDto.declararDisponibilidad(EstadoD.ACTIVO);
         return empleadoDto;
     }
 

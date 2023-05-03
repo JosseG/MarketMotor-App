@@ -40,6 +40,9 @@ public class UsuarioEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime creadoEn;
 
+    @Column(name = "estado")
+    private boolean estado;
+
     @JsonIgnore
     @OneToOne(mappedBy = "usuario")
     private EmpleadoEntity empleado;

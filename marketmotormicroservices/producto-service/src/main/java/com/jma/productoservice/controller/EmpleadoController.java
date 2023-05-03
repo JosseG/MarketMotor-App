@@ -106,12 +106,6 @@ public class EmpleadoController {
                empleadosToTransferData.add(empleadoToList);
             }
 
-           //Segunda manera de setear el usuario al empleado
-           /* for (int i = 0; i < empleadosMapeados.size(); i++) {
-                empleadosMapeados.get(i).setUsuario(usuariosObtenidosPorId.get(i));
-                System.out.println("L");
-                //String processedData = String.format("%s: %s", usuariosIterator.next().getId(), empleadosIterator.next().getNombre());
-            } */
 
             List<EmpleadoDto> empleadosGuardados = empleadoService.guardarTodos(empleadosToTransferData);
             return ResponseEntity.ok(empleadosGuardados);
