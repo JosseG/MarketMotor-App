@@ -53,13 +53,7 @@ public class RolServiceImpl implements RolService<RolDto> {
 
         List<RolEntity> rolEntities = rolRepository.findAll();
 
-        List<RolDto> rolDtos = rolEntities.stream().map(RolMapper::mapToDto).toList();
-
-        for(int i=0;i<rolDtos.size();i++){
-            rolDtos.get(i).setPermisos(rolEntities.get(i).getPermisos().stream().map(PermisoMapper::mapToDto).sorted(Comparator.comparing(PermisoDto::getId)).collect(Collectors.toCollection(LinkedHashSet::new)));
-        }
-
-        return rolDtos;
+        return getRolDtos(rolEntities);
     }
 
     @Override
@@ -110,6 +104,9 @@ public class RolServiceImpl implements RolService<RolDto> {
 
         List<RolEntity> rolEntities = rolRepository.findRolEntitiesByPermisoId(permisoId);
 
+        return getRolDtos(rolEntities);
+    }
+    private List<RolDto> getRolDtos(List<RolEntity> rolEntities) {
         List<RolDto> rolDtos = rolEntities.stream().map(RolMapper::mapToDto).toList();
 
         for(int i=0;i<rolDtos.size();i++){
@@ -118,6 +115,5 @@ public class RolServiceImpl implements RolService<RolDto> {
 
         return rolDtos;
     }
-
 
 }
