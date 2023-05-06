@@ -1,12 +1,16 @@
-package com.jma.productoservice.api.rol;
+package com.jma.productoservice.api.permiso;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class RolCommandUpdate {
+public class PermisoCommandUpdate {
+
     private Long id;
-    private String nombre;
+
+    private String tipo;
+
     private boolean estado;
+
 }

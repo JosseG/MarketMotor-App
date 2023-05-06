@@ -19,4 +19,5 @@ public class EmpleadoCommandUpdate {
 
     private String correo;
 
+    private boolean estado;
 }

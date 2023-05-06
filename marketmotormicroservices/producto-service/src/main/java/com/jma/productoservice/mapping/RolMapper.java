@@ -14,13 +14,14 @@ public class RolMapper {
         rolDto.setId(rolEntity.getId());
         rolDto.setNombre(rolEntity.getNombre());
         rolDto.setEstado(rolEntity.isEstado());
+
         return rolDto;
     }
 
     public static RolEntity mapToEntity(RolDto rolDto){
         RolEntity rolEntity = new RolEntity();
         rolEntity.setNombre(rolDto.getNombre());
-        rolEntity.setEstado(rolDto.getEstado());
+        rolEntity.setEstado(rolDto.isEstado());
         return rolEntity;
     }
 
@@ -36,6 +37,7 @@ public class RolMapper {
         RolDto rolDto = new RolDto();
         rolDto.setId(rolCommandUpdate.getId());
         rolDto.setNombre(rolCommandUpdate.getNombre());
+        rolDto.setEstado(rolCommandUpdate.isEstado());
         return rolDto;
     }
 

@@ -4,18 +4,17 @@ import com.jma.productoservice.utils.EstadoD;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.io.Serializable;
 
 @Getter
 @Setter
-public class RolDto {
+public class PermisoDto implements Serializable {
 
     private Long id;
-    private String nombre;
-    private boolean estado;
-    private Set<PermisoDto> permisos = new HashSet<>();
 
+    private String tipo;
+
+    private boolean estado;
 
     public void declararDisponibilidad(EstadoD estadoD){
         switch (estadoD){
@@ -25,4 +24,5 @@ public class RolDto {
                 setEstado(false);break;
         }
     }
+
 }
