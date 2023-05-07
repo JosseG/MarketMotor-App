@@ -11,4 +11,6 @@ public class UsuarioCommandUpdate {
 
     private String alias;
 
+    private String contrasena;
+
 }

@@ -28,6 +28,12 @@ public class UsuarioEntity {
     @Column(name = "alias_usuario")
     private String alias;
 
+    @Column(name = "contrasena_usuario")
+    private String contrasena;
+
+    @Column(name = "estado")
+    private boolean estado;
+
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     @Column(name = "actualizado_en")
     @UpdateTimestamp
@@ -39,9 +45,6 @@ public class UsuarioEntity {
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime creadoEn;
-
-    @Column(name = "estado")
-    private boolean estado;
 
     @JsonIgnore
     @OneToOne(mappedBy = "usuario")
