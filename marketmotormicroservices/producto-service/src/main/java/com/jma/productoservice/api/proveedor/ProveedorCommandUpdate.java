@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class ProveedorCommandUpdate {
 
-    private Long idProveedor;
+    private Long id;
 
     private String razonSocial;
 

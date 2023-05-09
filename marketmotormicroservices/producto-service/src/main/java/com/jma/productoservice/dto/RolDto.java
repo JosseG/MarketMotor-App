@@ -4,12 +4,14 @@ import com.jma.productoservice.utils.EstadoD;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
 @Setter
-public class RolDto {
+public class RolDto implements Serializable {
 
     private Long id;
     private String nombre;
@@ -18,11 +20,7 @@ public class RolDto {
 
 
     public void declararDisponibilidad(EstadoD estadoD){
-        switch (estadoD){
-            case ACTIVO:
-                setEstado(true);break;
-            default:
-                setEstado(false);break;
-        }
+        setEstado(Objects.requireNonNull(estadoD) == EstadoD.ACTIVO);
     }
+
 }

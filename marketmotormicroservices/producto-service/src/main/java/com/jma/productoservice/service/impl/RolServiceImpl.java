@@ -35,6 +35,9 @@ public class RolServiceImpl implements RolService<RolDto> {
     public RolDto guardar(RolDto object) {
 
         RolEntity rolEntity = RolMapper.mapToEntity(object);
+        if (object.getId()!= null) {
+            rolEntity.setId(object.getId());
+        }
 
         return RolMapper.mapToDto(rolRepository.save(rolEntity));
     }
@@ -91,7 +94,7 @@ public class RolServiceImpl implements RolService<RolDto> {
     @Override
     public RolDto removerPermiso(Long idRol, Long idPermiso) {
         RolEntity rol = rolRepository.findById(idRol)
-                .orElseThrow(() -> new RuntimeException("Not found Tutorial with id = " + idRol));
+                .orElseThrow(() -> new RuntimeException("No fue encontrado el rol " + idRol));
 
         rol.removerPermiso(idPermiso);
         RolEntity rolsaved = rolRepository.save(rol);
@@ -106,6 +109,15 @@ public class RolServiceImpl implements RolService<RolDto> {
 
         return getRolDtos(rolEntities);
     }
+
+    @Override
+    public List<RolDto> guardarTodos(List<RolDto> list) {
+        List<RolEntity> rolesEntities = list.stream().map(RolMapper::mapToEntity).toList();
+
+        List<RolEntity> rolesGuardados = rolRepository.saveAll(rolesEntities);
+        return rolesGuardados.stream().map(RolMapper::mapToDto).collect(Collectors.toList());
+    }
+
     private List<RolDto> getRolDtos(List<RolEntity> rolEntities) {
         List<RolDto> rolDtos = rolEntities.stream().map(RolMapper::mapToDto).toList();
 
@@ -115,5 +127,6 @@ public class RolServiceImpl implements RolService<RolDto> {
 
         return rolDtos;
     }
+
 
 }

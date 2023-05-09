@@ -65,7 +65,6 @@ public class EmpleadoMapper {
         empleadoDto.setApellidoMat(empleadoCommandUpdate.getApellidoMat());
         empleadoDto.setCorreo(empleadoCommandUpdate.getCorreo());
         empleadoDto.setTelefono(empleadoCommandUpdate.getTelefono());
-        empleadoDto.setEstado(empleadoCommandUpdate.isEstado());
         return empleadoDto;
     }
 

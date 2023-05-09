@@ -5,12 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Getter
 @Setter
 public class ProveedorDto implements Serializable {
 
-    private Long idProveedor;
+    private Long id;
 
     private String razonSocial;
 
@@ -28,14 +30,13 @@ public class ProveedorDto implements Serializable {
 
     private boolean estado;
 
+    private LocalDateTime actualizadoEn;
+
+    private LocalDateTime creadoEn;
+
     private UsuarioDto usuarioDto;
 
     public void declararDisponibilidad(EstadoD estadoD){
-        switch (estadoD){
-            case ACTIVO:
-                setEstado(true);break;
-            default:
-                setEstado(false);break;
-        }
+        setEstado(Objects.requireNonNull(estadoD) == EstadoD.ACTIVO);
     }
 }

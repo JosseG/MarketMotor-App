@@ -1,7 +1,11 @@
 package com.jma.productoservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,7 +30,7 @@ public class RolEntity {
     private boolean estado;
 
 
-    @ManyToMany(fetch = FetchType.EAGER,
+    @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
@@ -35,8 +39,15 @@ public class RolEntity {
             name = "tb_permiso_rol",
             joinColumns = {@JoinColumn(name = "id_rol")},
             inverseJoinColumns = {@JoinColumn(name = "id_permiso")}
+
     )
     private Set<PermisoEntity> permisos = new HashSet<>();
+
+
+    @OneToMany(mappedBy = "rol")
+    @JsonIgnore
+    private Set<UsuarioEntity> usuarios;
+
 
 
     public void agregarPermiso(PermisoEntity permisoEntity) {
@@ -45,11 +56,12 @@ public class RolEntity {
     }
 
     public void removerPermiso(long permisoId) {
-        PermisoEntity permiso = this.permisos.stream().filter(t -> t.getId() == permisoId).findFirst().orElse(null);
+        PermisoEntity permiso = this.permisos.stream().filter(t -> getId() == permisoId).findFirst().orElse(null);
         if (permiso != null) {
             this.permisos.remove(permiso);
             permiso.getRoles().remove(this);
         }
     }
+
 
 }

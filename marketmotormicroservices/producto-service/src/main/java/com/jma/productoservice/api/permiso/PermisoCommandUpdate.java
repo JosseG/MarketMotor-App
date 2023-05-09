@@ -11,6 +11,4 @@ public class PermisoCommandUpdate {
 
     private String tipo;
 
-    private boolean estado;
-
 }

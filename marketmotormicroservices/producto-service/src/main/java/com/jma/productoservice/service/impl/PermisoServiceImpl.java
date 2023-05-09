@@ -66,4 +66,12 @@ public class PermisoServiceImpl implements PermisoService<PermisoDto> {
 
         return permisoEntities.stream().map(PermisoMapper::mapToDto).collect(Collectors.toList());
     }
+
+    @Override
+    public List<PermisoDto> guardarTodos(List<PermisoDto> list) {
+        List<PermisoEntity> permisosEntities = list.stream().map(PermisoMapper::mapToEntity).toList();
+
+        List<PermisoEntity> permisosGuardados = permisoRepository.saveAll(permisosEntities);
+        return permisosGuardados.stream().map(PermisoMapper::mapToDto).collect(Collectors.toList());
+    }
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -23,20 +24,15 @@ public class EmpleadoDto implements Serializable {
 
     private String correo;
 
+    private boolean estado;
+
     private LocalDateTime actualizadoEn;
 
     private LocalDateTime creadoEn;
 
-    private boolean estado;
-
     private UsuarioDto usuarioDto;
 
     public void declararDisponibilidad(EstadoD estadoD){
-        switch (estadoD){
-            case ACTIVO:
-                setEstado(true);break;
-            default:
-                setEstado(false);break;
-        }
+        setEstado(Objects.requireNonNull(estadoD) == EstadoD.ACTIVO);
     }
 }

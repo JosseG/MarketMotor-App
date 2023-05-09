@@ -47,7 +47,7 @@ public class RolController {
         return ResponseEntity.ok(rolDtoObt);
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<RolDto>> obtenerTodos(){
 
         List<RolDto> roles = rolService.obtenerTodos();
@@ -121,6 +121,14 @@ public class RolController {
     }
 
 
+    @PostMapping("/guardarTodos")
+    public ResponseEntity<List<RolDto>> guardarTodos(@RequestBody List<RolCommandInsert> rolCommandInserts){
 
+        List<RolDto> rolesMapeados = rolCommandInserts.stream().map(RolMapper::mapFromCommandInsertToDto).toList();
+        List<RolDto> rolesGuardados = rolService.guardarTodos(rolesMapeados);
+
+        return ResponseEntity.ok(rolesGuardados);
+
+    }
 
 }

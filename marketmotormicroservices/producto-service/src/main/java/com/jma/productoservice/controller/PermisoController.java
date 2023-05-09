@@ -33,12 +33,30 @@ public class PermisoController {
         return ResponseEntity.ok(permisoDto);
     }
 
+    @PostMapping("/guardarTodos")
+    public ResponseEntity<List<PermisoDto>> guardarTodos(@RequestBody List<PermisoCommandInsert> permisoCommandInserts){
+
+        List<PermisoDto> permisosMappeados = permisoCommandInserts.stream().map(PermisoMapper::mapFromCommandInsertToDto).toList();
+        List<PermisoDto> permisosGuardados = permisoService.guardarTodos(permisosMappeados);
+
+        return ResponseEntity.ok(permisosGuardados);
+
+    }
+
     @GetMapping
     public ResponseEntity<List<PermisoDto>> obtenerTodos(){
 
         List<PermisoDto> permisoDtos = permisoService.obtenerTodos();
 
         return ResponseEntity.ok(permisoDtos);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PermisoDto> obtenerPorId(@PathVariable Long id){
+
+        PermisoDto permisoDto = permisoService.obtenerPorId(id);
+
+        return ResponseEntity.ok(permisoDto);
     }
 
 
@@ -60,7 +78,7 @@ public class PermisoController {
                 return ResponseEntity.notFound().build();
 
             permiso.declararDisponibilidad(EstadoD.INACTIVO);
-            permisoService.guardar(permiso);
+            permisoService.actualizar(permiso);
             return ResponseEntity.ok("Se desactivó correctamente");
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

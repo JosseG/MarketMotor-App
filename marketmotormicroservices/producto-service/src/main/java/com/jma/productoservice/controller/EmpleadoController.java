@@ -1,5 +1,6 @@
 package com.jma.productoservice.controller;
 
+
 import com.jma.productoservice.api.EmpleadoResponse;
 import com.jma.productoservice.api.empleado.EmpleadoCommandInsert;
 import com.jma.productoservice.api.empleado.EmpleadoCommandUpdate;
@@ -32,18 +33,18 @@ public class EmpleadoController {
         this.usuarioService = usuarioService;
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<EmpleadoDto>> obtenerTodos(){
         return ResponseEntity.ok(empleadoService.obtenerTodos());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<EmpleadoDto> obtenerPorId(@PathVariable("id") Long id){
-        EmpleadoDto empleado = empleadoService.obtenerPorId(id);
-        if(empleado == null)
-            return ResponseEntity.notFound().build();
+        @GetMapping("/{id}")
+        public ResponseEntity<EmpleadoDto> obtenerPorId(@PathVariable("id") Long id){
+            EmpleadoDto empleado = empleadoService.obtenerPorId(id);
+            if(empleado == null)
+                return ResponseEntity.notFound().build();
 
-        return ResponseEntity.ok(empleado);
+            return ResponseEntity.ok(empleado);
     }
 
     @PatchMapping("/{id}")
@@ -73,7 +74,7 @@ public class EmpleadoController {
         }
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<EmpleadoDto> guardar(@RequestBody EmpleadoCommandInsert empleadoCommandInsert){
         try{
             UsuarioDto usuarioDto = new UsuarioDto();
@@ -116,16 +117,16 @@ public class EmpleadoController {
     }
 
     @GetMapping("/pagination")
-    public ResponseEntity<EmpleadoResponse> obtenerTodosP(
+    public ResponseEntity<EmpleadoResponse> obtenerTodosPaginados(
             @RequestParam(value = "pageNo", defaultValue = ConstantsService.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = ConstantsService.DEFAULT_PAGE_SIZE, required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = ConstantsService.DEFAULT_SORT_BY, required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = ConstantsService.DEFAULT_SORT_DIRECTION, required = false) String sortDir
     ){
-        return ResponseEntity.ok(empleadoService.obtenerTodosP(pageNo, pageSize, sortBy, sortDir));
+        return ResponseEntity.ok(empleadoService.obtenerTodosPaginados(pageNo, pageSize, sortBy, sortDir));
     }
 
-    @PutMapping()
+    @PutMapping
     public ResponseEntity<EmpleadoDto> actualizar(@RequestBody EmpleadoCommandUpdate empleadoCommandUpdate){
 
         EmpleadoDto empleadoDto = EmpleadoMapper.mapFromCommandUpdateToDto(empleadoCommandUpdate);

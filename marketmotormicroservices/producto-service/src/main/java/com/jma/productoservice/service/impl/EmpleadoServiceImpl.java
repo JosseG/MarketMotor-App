@@ -17,7 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class EmpleadoServiceImpl implements EmpleadoService<EmpleadoDto> {
@@ -32,10 +32,8 @@ public class EmpleadoServiceImpl implements EmpleadoService<EmpleadoDto> {
         this.usuarioRepository = usuarioRepository;
     }
 
-
-
     @Override
-    public EmpleadoResponse obtenerTodosP(int pageNo, int pageSize, String sortBy, String sortDir) {
+    public EmpleadoResponse obtenerTodosPaginados(int pageNo, int pageSize, String sortBy, String sortDir) {
 
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
@@ -46,13 +44,13 @@ public class EmpleadoServiceImpl implements EmpleadoService<EmpleadoDto> {
 
         List<EmpleadoEntity> empleados = empleadospageable.getContent();
 
-        List<EmpleadoDto> content = empleados.stream().map(EmpleadoMapper::mapToDto).toList();
+        List<EmpleadoDto> content = getEmpleadoDtosWithSetUsuarioDto(empleados);
 
         EmpleadoResponse empleadoResponse = new EmpleadoResponse();
 
         empleadoResponse.setContent(content);
-        empleadoResponse.setPageNo(empleadospageable.getNumber());
         empleadoResponse.setPageSize(empleadospageable.getSize());
+        empleadoResponse.setPageNo(empleadospageable.getNumber());
         empleadoResponse.setTotalElements(empleadospageable.getTotalElements());
         empleadoResponse.setTotalPages(empleadospageable.getTotalPages());
         empleadoResponse.setLast(empleadospageable.isLast());
@@ -86,11 +84,22 @@ public class EmpleadoServiceImpl implements EmpleadoService<EmpleadoDto> {
     public EmpleadoDto guardar(EmpleadoDto object) {
 
         UsuarioEntity usuarioEntity = usuarioRepository.findById(object.getUsuarioDto().getId()).orElse(null);
-        //validación para cortar flujo
-        EmpleadoEntity empleadoEntityObt = empleadoRepository.save(EmpleadoMapper.mapToEntity(object));
-        empleadoEntityObt.setUsuario(usuarioEntity);
 
-        return EmpleadoMapper.mapToDto(empleadoEntityObt);
+
+        //validación para cortar flujo
+        EmpleadoEntity empleadoEntityObt = EmpleadoMapper.mapToEntity(object);
+
+        if (object.getId()!= null) {
+            empleadoEntityObt.setId(object.getId());
+        }
+
+        empleadoEntityObt.setUsuario(usuarioEntity);
+        EmpleadoEntity empleadoEntitysaved = empleadoRepository.save(empleadoEntityObt);
+        EmpleadoDto empleadoDto = EmpleadoMapper.mapToDto(empleadoEntitysaved);
+        empleadoDto.setUsuarioDto(UsuarioMapper.mapToDto(empleadoEntitysaved.getUsuario()));
+
+
+        return empleadoDto;
     }
 
     @Override
@@ -121,9 +130,30 @@ public class EmpleadoServiceImpl implements EmpleadoService<EmpleadoDto> {
 
     @Override
     public EmpleadoDto actualizar(EmpleadoDto object) {
-        EmpleadoEntity empleadoEntity = EmpleadoMapper.mapToEntity(object);
-        empleadoEntity.setId(object.getId());
+        //EmpleadoEntity empleadoEntity = EmpleadoMapper.mapToEntity(object);
+        Optional<EmpleadoEntity> opcional = empleadoRepository.findById(object.getId());
+        EmpleadoEntity empleado;
 
-        return EmpleadoMapper.mapToDto(empleadoRepository.save(empleadoEntity));
+        if(opcional.isPresent()){
+            empleado = opcional.get();
+            empleado.setNombre(object.getNombre());
+            empleado.setApellidoMat(object.getApellidoMat());
+            empleado.setApellidoPat(object.getApellidoPat());
+            empleado.setTelefono(object.getTelefono());
+            empleado.setCorreo(object.getCorreo());
+            return EmpleadoMapper.mapToDto(empleadoRepository.save(empleado));
+        }
+
+        return null;
     }
+
+    /*private List<EmpleadoDto> empleadosMapeados(List<EmpleadoEntity> empleados) {
+        List<EmpleadoDto> content = empleados.stream().map(EmpleadoMapper::mapToDto).toList();
+
+        for (int i = 0; i < content.size(); i++) {
+            content.get(i).setUsuarioDto(UsuarioMapper.mapToDto(empleados.get(i).getUsuario()));
+        }
+        return content;
+    }
+*/
 }

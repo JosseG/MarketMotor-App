@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -28,11 +29,6 @@ public class ProductoDto implements Serializable{
     private LocalDateTime creadoEn;
 
     public void declararDisponibilidad(EstadoD estadoD){
-        switch (estadoD){
-            case ACTIVO:
-                setEstado(true);break;
-            default:
-                setEstado(false);break;
-        }
+        setEstado(Objects.requireNonNull(estadoD) == EstadoD.ACTIVO);
     }
 }

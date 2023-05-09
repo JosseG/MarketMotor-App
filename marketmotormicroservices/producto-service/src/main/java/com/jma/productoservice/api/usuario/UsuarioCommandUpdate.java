@@ -13,4 +13,5 @@ public class UsuarioCommandUpdate {
 
     private String contrasena;
 
+
 }

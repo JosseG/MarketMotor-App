@@ -11,5 +11,6 @@ public class UsuarioCommandInsert {
 
     private String contrasena;
 
-    private String estado;
+    private Long idRol;
+
 }

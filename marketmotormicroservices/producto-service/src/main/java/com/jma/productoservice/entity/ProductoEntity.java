@@ -1,6 +1,7 @@
 package com.jma.productoservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_producto")
@@ -49,5 +51,9 @@ public class ProductoEntity {
 
     @Column(name = "estado")
     private boolean estado;
+
+    @OneToMany(mappedBy = "producto")
+    @JsonIgnore
+    private Set<DetalleOrdenCompraEntity> detallesOrdenCompra;
 
 }

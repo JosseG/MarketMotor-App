@@ -1,7 +1,6 @@
 package com.jma.productoservice.service;
 
 
-
 import com.jma.productoservice.service.common.ICrudCommon;
 
 import java.util.List;

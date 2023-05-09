@@ -1,6 +1,5 @@
 package com.jma.productoservice.mapping;
 
-
 import com.jma.productoservice.api.permiso.PermisoCommandInsert;
 import com.jma.productoservice.api.permiso.PermisoCommandUpdate;
 import com.jma.productoservice.dto.PermisoDto;
@@ -36,7 +35,6 @@ public class PermisoMapper {
         PermisoDto permisoDto = new PermisoDto();
         permisoDto.setId(permisoCommandUpdate.getId());
         permisoDto.setTipo(permisoCommandUpdate.getTipo());
-        permisoDto.setEstado(permisoCommandUpdate.isEstado());
         return permisoDto;
     }
 

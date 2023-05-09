@@ -7,8 +7,6 @@ import lombok.Setter;
 @Setter
 public class ProveedorCommandInsert {
 
-    private Long idProveedor;
-
     private String razonSocial;
 
     private String nombreComercial;
@@ -22,4 +20,6 @@ public class ProveedorCommandInsert {
     private String departamento;
 
     private String telefonoProveedor;
+
+    private Long idUsuario;
 }

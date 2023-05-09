@@ -4,12 +4,13 @@ package com.jma.productoservice.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -31,9 +32,6 @@ public class UsuarioEntity {
     @Column(name = "contrasena_usuario")
     private String contrasena;
 
-    @Column(name = "estado")
-    private boolean estado;
-
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     @Column(name = "actualizado_en")
     @UpdateTimestamp
@@ -50,4 +48,14 @@ public class UsuarioEntity {
     @OneToOne(mappedBy = "usuario")
     private EmpleadoEntity empleado;
 
+    @Column(name = "estado")
+    private boolean estado;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_rol",updatable = false,nullable = false)
+    private RolEntity rol;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "usuario")
+    private ProveedorEntity proveedor;
 }

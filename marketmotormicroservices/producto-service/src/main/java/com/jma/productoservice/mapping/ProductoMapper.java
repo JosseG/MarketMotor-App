@@ -1,10 +1,10 @@
 package com.jma.productoservice.mapping;
 
-
 import com.jma.productoservice.api.producto.ProductoCommandInsert;
 import com.jma.productoservice.api.producto.ProductoCommandUpdate;
 import com.jma.productoservice.dto.ProductoDto;
 import com.jma.productoservice.entity.ProductoEntity;
+import com.jma.productoservice.utils.EstadoD;
 
 public class ProductoMapper {
 
@@ -40,6 +40,7 @@ public class ProductoMapper {
         productoDto.setMarca(productoCommandInsert.getMarca());
         productoDto.setSerial(productoCommandInsert.getSerial());
         productoDto.setDescripcion(productoCommandInsert.getDescripcion());
+        productoDto.declararDisponibilidad(EstadoD.ACTIVO);
         return productoDto;
     }
 

@@ -14,7 +14,6 @@ public class RolMapper {
         rolDto.setId(rolEntity.getId());
         rolDto.setNombre(rolEntity.getNombre());
         rolDto.setEstado(rolEntity.isEstado());
-
         return rolDto;
     }
 
@@ -37,7 +36,6 @@ public class RolMapper {
         RolDto rolDto = new RolDto();
         rolDto.setId(rolCommandUpdate.getId());
         rolDto.setNombre(rolCommandUpdate.getNombre());
-        rolDto.setEstado(rolCommandUpdate.isEstado());
         return rolDto;
     }
 
