@@ -39,7 +39,7 @@ public class UsuarioEntity {
     private LocalDateTime actualizadoEn;
 
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-    @Column(name = "creado_en")
+    @Column(name = "creado_en",updatable = false)
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime creadoEn;
