@@ -1,0 +1,26 @@
+.bi-trash-fill{
+   font-size: 1.5em;
+    color:brown;
+    margin-left: 8px
+
+}
+.bi-pencil-square{
+    font-size: 1.5em;
+    margin-left: 10px;
+}
+
+.bi-chevron-down{
+    color:black;
+    font-size: 1.5em;
+    margin-left: 10px;
+}
+
+.accordion-header {
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    
+}
+
+.td{
+    margin-top: 17px;
+}
