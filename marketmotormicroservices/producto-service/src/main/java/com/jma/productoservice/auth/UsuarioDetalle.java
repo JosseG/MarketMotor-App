@@ -1,7 +1,7 @@
-package com.jma.marketmotor.auth;
+package com.jma.productoservice.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.jma.marketmotor.dto.UsuarioDto;
+import com.jma.productoservice.dto.UsuarioDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -15,6 +15,7 @@ public class ProductoMapper {
         productoEntity.setMarca(productoDto.getMarca());
         productoEntity.setSerial(productoDto.getSerial());
         productoEntity.setDescripcion(productoDto.getDescripcion());
+
         productoEntity.setEstado(productoDto.isEstado());
         return productoEntity;
     }

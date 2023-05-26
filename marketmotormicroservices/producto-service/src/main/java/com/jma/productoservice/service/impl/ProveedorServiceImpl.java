@@ -4,8 +4,7 @@ import com.jma.productoservice.api.ProveedorResponse;
 import com.jma.productoservice.dto.ProveedorDto;
 import com.jma.productoservice.entity.ProveedorEntity;
 import com.jma.productoservice.entity.UsuarioEntity;
-import com.jma.productoservice.mapping.ProveedorMapper;
-import com.jma.productoservice.mapping.UsuarioMapper;
+import com.jma.productoservice.mapping.*;
 import com.jma.productoservice.repository.ProveedorRepository;
 import com.jma.productoservice.repository.UsuarioRepository;
 import com.jma.productoservice.service.ProveedorService;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ProveedorServiceImpl implements ProveedorService<ProveedorDto> {
@@ -65,7 +63,8 @@ public class ProveedorServiceImpl implements ProveedorService<ProveedorDto> {
 
     @Override
     public List<ProveedorDto> obtenerTodos(){
-        return proveedorRepository.findAll().stream().map(ProveedorMapper::mapToDto).collect(Collectors.toList());
+        List<ProveedorEntity> proveedorEntities = proveedorRepository.findAll();
+        return proveedoresMapeados(proveedorEntities);
     }
 
     @Override
@@ -142,4 +141,5 @@ public class ProveedorServiceImpl implements ProveedorService<ProveedorDto> {
         }
         return content;
     }
+
 }

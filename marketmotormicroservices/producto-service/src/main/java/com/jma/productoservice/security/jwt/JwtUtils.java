@@ -1,7 +1,6 @@
-package com.jma.marketmotor.security.jwt;
+package com.jma.productoservice.security.jwt;
 
 
-import com.jma.marketmotor.auth.UsuarioDetalle;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,13 +19,13 @@ public class JwtUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${marketmotor.app.jwtSecret}")
+    @Value("${productoservice.app.jwtSecret}")
     private String jwtSecret;
 
-    @Value("${marketmotor.app.jwtExpirationMs}")
+    @Value("${productoservice.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
-    @Value("${marketmotor.app.jwtCookieName}")
+    @Value("${productoservice.app.jwtCookieName}")
     private String jwtCookie;
 
     public String getJwtFromCookies(HttpServletRequest request) {

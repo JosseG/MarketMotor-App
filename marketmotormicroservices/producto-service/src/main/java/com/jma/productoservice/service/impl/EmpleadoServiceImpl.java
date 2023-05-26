@@ -130,7 +130,6 @@ public class EmpleadoServiceImpl implements EmpleadoService<EmpleadoDto> {
 
     @Override
     public EmpleadoDto actualizar(EmpleadoDto object) {
-        //EmpleadoEntity empleadoEntity = EmpleadoMapper.mapToEntity(object);
         Optional<EmpleadoEntity> opcional = empleadoRepository.findById(object.getId());
         EmpleadoEntity empleado;
 
@@ -147,13 +146,4 @@ public class EmpleadoServiceImpl implements EmpleadoService<EmpleadoDto> {
         return null;
     }
 
-    /*private List<EmpleadoDto> empleadosMapeados(List<EmpleadoEntity> empleados) {
-        List<EmpleadoDto> content = empleados.stream().map(EmpleadoMapper::mapToDto).toList();
-
-        for (int i = 0; i < content.size(); i++) {
-            content.get(i).setUsuarioDto(UsuarioMapper.mapToDto(empleados.get(i).getUsuario()));
-        }
-        return content;
-    }
-*/
 }

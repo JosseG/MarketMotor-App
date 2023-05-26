@@ -1,4 +1,4 @@
-package com.jma.marketmotor.utils;
+package com.jma.productoservice.utils;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

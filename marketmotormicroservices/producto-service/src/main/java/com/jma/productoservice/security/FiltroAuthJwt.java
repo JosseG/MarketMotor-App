@@ -1,7 +1,7 @@
-package com.jma.marketmotor.security;
+package com.jma.productoservice.security;
 
-import com.jma.marketmotor.security.jwt.JwtUtils;
-import com.jma.marketmotor.service.userdetails.MyUserDetailsService;
+import com.jma.productoservice.security.jwt.JwtUtils;
+import com.jma.productoservice.service.userdetails.MyUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,7 +13,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;

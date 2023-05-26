@@ -1,4 +1,4 @@
-package com.jma.marketmotor.security.jwt;
+package com.jma.productoservice.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;

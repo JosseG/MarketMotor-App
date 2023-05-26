@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pemisos")
+@RequestMapping("/permisos")
 public class PermisoController {
 
     private final PermisoService<PermisoDto> permisoService;

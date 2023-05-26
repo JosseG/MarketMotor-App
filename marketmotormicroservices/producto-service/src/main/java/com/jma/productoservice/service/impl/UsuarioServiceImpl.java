@@ -9,6 +9,7 @@ import com.jma.productoservice.repository.RolRepository;
 import com.jma.productoservice.repository.UsuarioRepository;
 import com.jma.productoservice.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,10 +34,22 @@ public class UsuarioServiceImpl implements UsuarioService<UsuarioDto> {
         List<UsuarioEntity> usuarioEntities = list.stream().map(UsuarioMapper::mapToEntity).toList();
 
         for (int i = 0; i < usuarioEntities.size(); i++) {
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
+            //El String que mandamos al metodo encode es el password que queremos encriptar.
+            System.out.println("Codificando -> "+bCryptPasswordEncoder.encode(usuarioEntities.get(i).getContrasena()));
+            usuarioEntities.get(i).setContrasena(bCryptPasswordEncoder.encode(usuarioEntities.get(i).getContrasena()));
             usuarioEntities.get(i).setRol(rolesEntities.get(i));
         }
         List<UsuarioEntity> usuariossGuardados = usuarioRepository.saveAll(usuarioEntities);
         return usuariosMapeados(usuariossGuardados);
+    }
+
+    @Override
+    public UsuarioDto getUsuarioByAlias(String alias) {
+        UsuarioEntity usuarioEntity = usuarioRepository.findUsuarioEntityByAlias(alias).orElse(new UsuarioEntity());
+        UsuarioDto usuarioDto = UsuarioMapper.mapToDto(usuarioEntity);
+        usuarioDto.setRol(RolMapper.mapToDto(usuarioEntity.getRol()));
+        return usuarioDto;
     }
 
     @Override

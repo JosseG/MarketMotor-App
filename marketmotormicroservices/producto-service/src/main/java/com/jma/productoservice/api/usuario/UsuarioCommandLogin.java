@@ -1,4 +1,4 @@
-package com.jma.marketmotor.api.usuario;
+package com.jma.productoservice.api.usuario;
 
 import lombok.Getter;
 import lombok.Setter;
