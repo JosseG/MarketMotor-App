@@ -9,15 +9,18 @@ import com.jma.productoservice.mapping.ProveedorMapper;
 import com.jma.productoservice.service.ProveedorService;
 import com.jma.productoservice.utils.ConstantsService;
 import com.jma.productoservice.utils.EstadoD;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/proveedores")
+@Validated
 public class ProveedorController {
 
     private final ProveedorService<ProveedorDto> proveedorService;
@@ -35,7 +38,7 @@ public class ProveedorController {
 
 
     @PostMapping
-    public ResponseEntity<ProveedorDto> guardar(@RequestBody ProveedorCommandInsert proveedorCommandInsert){
+    public ResponseEntity<ProveedorDto> guardar(@RequestBody @Valid ProveedorCommandInsert proveedorCommandInsert){
 
         ProveedorDto proveedorDtoObt = proveedorService.guardar(ProveedorMapper.mapFromCommandInsertToDto(proveedorCommandInsert));
 
@@ -52,7 +55,7 @@ public class ProveedorController {
     }
 
     @PutMapping
-    public ResponseEntity<ProveedorDto> actualizar(@RequestBody ProveedorCommandUpdate proveedorCommandUpdate) {
+    public ResponseEntity<ProveedorDto> actualizar(@RequestBody @Valid ProveedorCommandUpdate proveedorCommandUpdate) {
 
         ProveedorDto proveedorDtoObt = proveedorService.actualizar(ProveedorMapper.mapFromCommandUpdateToDto(proveedorCommandUpdate));
 

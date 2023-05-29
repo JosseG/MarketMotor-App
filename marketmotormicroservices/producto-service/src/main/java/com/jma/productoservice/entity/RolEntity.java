@@ -2,6 +2,7 @@ package com.jma.productoservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class RolEntity {
     private Long id;
 
     @Column(name = "nombre_rol")
+    @NotBlank
     private String nombre;
 
     @Column(name = "estado")

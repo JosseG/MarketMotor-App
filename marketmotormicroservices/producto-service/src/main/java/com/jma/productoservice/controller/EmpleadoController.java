@@ -11,9 +11,11 @@ import com.jma.productoservice.service.EmpleadoService;
 import com.jma.productoservice.service.UsuarioService;
 import com.jma.productoservice.utils.ConstantsService;
 import com.jma.productoservice.utils.EstadoD;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/empleados")
+@Validated
 public class EmpleadoController {
 
     private final EmpleadoService<EmpleadoDto> empleadoService;
@@ -75,7 +78,7 @@ public class EmpleadoController {
     }
 
     @PostMapping
-    public ResponseEntity<EmpleadoDto> guardar(@RequestBody EmpleadoCommandInsert empleadoCommandInsert){
+    public ResponseEntity<EmpleadoDto> guardar(@RequestBody @Valid EmpleadoCommandInsert empleadoCommandInsert){
         try{
             UsuarioDto usuarioDto = new UsuarioDto();
             usuarioDto.setId(empleadoCommandInsert.getIdUsuario());
@@ -90,7 +93,7 @@ public class EmpleadoController {
 
 
     @PostMapping("/guardarTodos")
-    public ResponseEntity<List<EmpleadoDto>> guardarTodos(@RequestBody List<EmpleadoCommandInsert> empleadoscommand){
+    public ResponseEntity<List<EmpleadoDto>> guardarTodos(@RequestBody @Valid List<EmpleadoCommandInsert> empleadoscommand){
         try{
             List<UsuarioDto> usuariosObtenidosPorId = empleadoscommand.stream().map(e -> usuarioService.obtenerPorId(e.getIdUsuario())).toList();
 
@@ -127,7 +130,7 @@ public class EmpleadoController {
     }
 
     @PutMapping
-    public ResponseEntity<EmpleadoDto> actualizar(@RequestBody EmpleadoCommandUpdate empleadoCommandUpdate){
+    public ResponseEntity<EmpleadoDto> actualizar(@RequestBody @Valid EmpleadoCommandUpdate empleadoCommandUpdate){
 
         EmpleadoDto empleadoDto = EmpleadoMapper.mapFromCommandUpdateToDto(empleadoCommandUpdate);
         EmpleadoDto empleadoActualizado = empleadoService.actualizar(empleadoDto);

@@ -2,6 +2,7 @@ package com.jma.productoservice.controller;
 
 import com.jma.productoservice.api.usuario.UsuarioCommandLogin;
 import com.jma.productoservice.security.jwt.JwtUtils;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -12,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
+@Validated
 public class AuthController {
 
 
@@ -34,7 +37,7 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<String> authenticateUser(@RequestBody UsuarioCommandLogin loginCommand) {
+    public ResponseEntity<String> authenticateUser(@RequestBody @Valid UsuarioCommandLogin loginCommand) {
 
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginCommand.getAlias(), loginCommand.getContrasena()));

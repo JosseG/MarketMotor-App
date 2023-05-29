@@ -8,15 +8,18 @@ import com.jma.productoservice.mapping.OrdenCompraMapper;
 import com.jma.productoservice.service.OrdenCompraService;
 import com.jma.productoservice.utils.ConstantsService;
 import com.jma.productoservice.utils.EstadoD;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/ordencompra")
+@Validated
 public class OrdenCompraController {
 
     private final OrdenCompraService<OrdenCompraDto> ordenCompraService;
@@ -69,7 +72,7 @@ public class OrdenCompraController {
     }
 
     @PostMapping
-    public ResponseEntity<OrdenCompraDto> guardar(@RequestBody OrdenCompraCommandInsert ordenCompraCommandInsert){
+    public ResponseEntity<OrdenCompraDto> guardar(@RequestBody @Valid OrdenCompraCommandInsert ordenCompraCommandInsert){
         try{
             ProveedorDto proveedorDto = new ProveedorDto();
             proveedorDto.setId(ordenCompraCommandInsert.getIdProveedor());
@@ -100,7 +103,7 @@ public class OrdenCompraController {
     }
 
     @PutMapping
-    public ResponseEntity<OrdenCompraDto> actualizar(@RequestBody OrdenCompraCommandUpdate ordenCompraCommandUpdate){
+    public ResponseEntity<OrdenCompraDto> actualizar(@RequestBody @Valid OrdenCompraCommandUpdate ordenCompraCommandUpdate){
 
         OrdenCompraDto ordenCompraDto = OrdenCompraMapper.mapFromCommandUpdateToDto(ordenCompraCommandUpdate);
         OrdenCompraDto ordenActualizado = ordenCompraService.actualizar(ordenCompraDto);

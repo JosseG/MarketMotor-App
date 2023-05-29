@@ -34,6 +34,7 @@ public class EmpleadoEntity {
     private Long id;
 
     @Column(name = "nombre_empleado")
+    @NotBlank
     private String nombre;
 
     @Column(name = "apellidoPat_empleado")

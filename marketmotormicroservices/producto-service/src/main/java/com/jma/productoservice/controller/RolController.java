@@ -9,15 +9,18 @@ import com.jma.productoservice.mapping.RolMapper;
 import com.jma.productoservice.service.PermisoService;
 import com.jma.productoservice.service.RolService;
 import com.jma.productoservice.utils.EstadoD;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/roles")
+@Validated
 public class RolController {
 
     private final RolService<RolDto> rolService;
@@ -32,7 +35,7 @@ public class RolController {
 
 
     @PostMapping
-    public ResponseEntity<RolDto> guardar(@RequestBody RolCommandInsert rolCommandInsert){
+    public ResponseEntity<RolDto> guardar(@RequestBody @Valid RolCommandInsert rolCommandInsert){
 
         RolDto rolDtoObt = rolService.guardar(RolMapper.mapFromCommandInsertToDto(rolCommandInsert));
         return ResponseEntity.ok(rolDtoObt);
@@ -56,7 +59,7 @@ public class RolController {
     }
 
     @PutMapping
-    public ResponseEntity<RolDto> actualizar(@RequestBody RolCommandUpdate rolCommandUpdate) {
+    public ResponseEntity<RolDto> actualizar(@RequestBody  @Valid RolCommandUpdate rolCommandUpdate) {
 
         RolDto rolDtoObt = rolService.actualizar(RolMapper.mapFromCommandUpdateToDto(rolCommandUpdate));
 
@@ -122,7 +125,7 @@ public class RolController {
 
 
     @PostMapping("/guardarTodos")
-    public ResponseEntity<List<RolDto>> guardarTodos(@RequestBody List<RolCommandInsert> rolCommandInserts){
+    public ResponseEntity<List<RolDto>> guardarTodos(@RequestBody @Valid List<RolCommandInsert> rolCommandInserts){
 
         List<RolDto> rolesMapeados = rolCommandInserts.stream().map(RolMapper::mapFromCommandInsertToDto).toList();
         List<RolDto> rolesGuardados = rolService.guardarTodos(rolesMapeados);

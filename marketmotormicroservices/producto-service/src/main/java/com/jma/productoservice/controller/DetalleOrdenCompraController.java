@@ -8,15 +8,18 @@ import com.jma.productoservice.mapping.DetalleOrdenCompraMapper;
 import com.jma.productoservice.service.DetalleOrdenCompraService;
 import com.jma.productoservice.utils.ConstantsService;
 import com.jma.productoservice.utils.EstadoD;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/detalleordencompra")
+@Validated
 public class DetalleOrdenCompraController {
 
     private final DetalleOrdenCompraService<DetalleOrdenCompraDto> detalleOrdenCompraService;
@@ -68,7 +71,7 @@ public class DetalleOrdenCompraController {
     }
 
     @PostMapping
-    public ResponseEntity<DetalleOrdenCompraDto> guardar(@RequestBody DetalleOrdenCompraCommandInsert detalleOrdenCompraCommandInsert){
+    public ResponseEntity<DetalleOrdenCompraDto> guardar(@RequestBody @Valid DetalleOrdenCompraCommandInsert detalleOrdenCompraCommandInsert){
         try{
             ProductoDto productoDto = new ProductoDto();
             productoDto.setId(detalleOrdenCompraCommandInsert.getIdProducto());

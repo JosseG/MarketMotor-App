@@ -3,6 +3,8 @@ package com.jma.productoservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,9 +29,11 @@ public class DetalleOrdenCompraEntity {
     private Long id;
 
     @Column(name = "cantidad_det_orden_compra")
+    @PositiveOrZero
     private int cantidad;
 
     @Column(name = "preciou_det_orden_compra")
+    @PositiveOrZero
     private double precioUnitario;
 
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
@@ -49,12 +53,14 @@ public class DetalleOrdenCompraEntity {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_producto", nullable = false)
+    @JoinColumn(name = "id_producto")
+    @NotNull
     private ProductoEntity producto;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_orden_compra", nullable = false)
+    @JoinColumn(name = "id_orden_compra")
+    @NotNull
     private OrdenCompraEntity ordenCompra;
 
 }

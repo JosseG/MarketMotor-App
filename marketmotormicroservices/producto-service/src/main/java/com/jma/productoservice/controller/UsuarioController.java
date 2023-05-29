@@ -6,15 +6,18 @@ import com.jma.productoservice.dto.UsuarioDto;
 import com.jma.productoservice.mapping.UsuarioMapper;
 import com.jma.productoservice.service.UsuarioService;
 import com.jma.productoservice.utils.EstadoD;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/usuarios")
+@Validated
 public class UsuarioController {
 
     private final UsuarioService<UsuarioDto> usuarioService;
@@ -30,7 +33,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioDto> guardar(@RequestBody UsuarioCommandInsert usuarioCommandInsert){
+    public ResponseEntity<UsuarioDto> guardar(@RequestBody @Valid UsuarioCommandInsert usuarioCommandInsert){
 
         UsuarioDto usuarioGuardado = usuarioService.guardar(UsuarioMapper.mapFromCommandInsertToDto(usuarioCommandInsert));
         return ResponseEntity.ok(usuarioGuardado);
@@ -38,7 +41,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/guardarTodos")
-    public ResponseEntity<List<UsuarioDto>> guardarTodos(@RequestBody List<UsuarioCommandInsert> usuariosCommand){
+    public ResponseEntity<List<UsuarioDto>> guardarTodos(@RequestBody @Valid List<UsuarioCommandInsert> usuariosCommand){
 
         List<UsuarioDto> usuariosMappeados = usuariosCommand.stream().map(UsuarioMapper::mapFromCommandInsertToDto).toList();
         List<UsuarioDto> usuariosGuardados = usuarioService.guardarTodos(usuariosMappeados);
@@ -57,7 +60,7 @@ public class UsuarioController {
 
 
     @PutMapping
-    public ResponseEntity<UsuarioDto> actualizar(@RequestBody UsuarioCommandUpdate usuarioCommandUpdate){
+    public ResponseEntity<UsuarioDto> actualizar(@RequestBody @Valid UsuarioCommandUpdate usuarioCommandUpdate){
 
         UsuarioDto usuarioDto = usuarioService.actualizar(UsuarioMapper.mapFromCommandUpdateToDto(usuarioCommandUpdate));
 

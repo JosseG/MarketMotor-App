@@ -6,15 +6,18 @@ import com.jma.productoservice.dto.PermisoDto;
 import com.jma.productoservice.mapping.PermisoMapper;
 import com.jma.productoservice.service.PermisoService;
 import com.jma.productoservice.utils.EstadoD;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/permisos")
+@Validated
 public class PermisoController {
 
     private final PermisoService<PermisoDto> permisoService;
@@ -26,7 +29,7 @@ public class PermisoController {
 
 
     @PostMapping
-    public ResponseEntity<PermisoDto> guardar(@RequestBody PermisoCommandInsert permisoCommandInsert){
+    public ResponseEntity<PermisoDto> guardar(@RequestBody @Valid PermisoCommandInsert permisoCommandInsert){
 
         PermisoDto permisoDto = permisoService.guardar(PermisoMapper.mapFromCommandInsertToDto(permisoCommandInsert));
 
@@ -34,7 +37,7 @@ public class PermisoController {
     }
 
     @PostMapping("/guardarTodos")
-    public ResponseEntity<List<PermisoDto>> guardarTodos(@RequestBody List<PermisoCommandInsert> permisoCommandInserts){
+    public ResponseEntity<List<PermisoDto>> guardarTodos(@RequestBody @Valid List<PermisoCommandInsert> permisoCommandInserts){
 
         List<PermisoDto> permisosMappeados = permisoCommandInserts.stream().map(PermisoMapper::mapFromCommandInsertToDto).toList();
         List<PermisoDto> permisosGuardados = permisoService.guardarTodos(permisosMappeados);
@@ -61,7 +64,7 @@ public class PermisoController {
 
 
     @PutMapping
-    public ResponseEntity<PermisoDto> actualizar(@RequestBody PermisoCommandUpdate permisoCommandUpdate){
+    public ResponseEntity<PermisoDto> actualizar(@RequestBody @Valid PermisoCommandUpdate permisoCommandUpdate){
 
         PermisoDto permisoDto = permisoService.actualizar(PermisoMapper.mapFromCommandUpdateToDto(permisoCommandUpdate));
 

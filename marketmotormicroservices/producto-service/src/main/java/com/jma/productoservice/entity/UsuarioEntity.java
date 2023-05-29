@@ -4,6 +4,7 @@ package com.jma.productoservice.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,9 +28,11 @@ public class UsuarioEntity {
     private Long id;
 
     @Column(name = "alias_usuario")
+    @NotBlank
     private String alias;
 
     @Column(name = "contrasena_usuario")
+    @NotBlank
     private String contrasena;
 
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")

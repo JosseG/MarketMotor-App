@@ -3,6 +3,8 @@ package com.jma.productoservice.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,24 +29,31 @@ public class ProveedorEntity {
     private Long id;
 
     @Column(name = "razon_social_proveedor")
+    @NotBlank
     private String razonSocial;
 
     @Column(name = "nombre_comercial_proveedor")
+    @NotBlank
     private String nombreComercial;
 
     @Column(name = "numero_ruc_proveedor")
+    @Pattern( regexp = "\\d{11}")
     private String numeroRuc;
 
     @Column(name = "correo_proveedor")
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
     private String correo;
 
     @Column(name = "direccion_proveedor")
+    @NotBlank
     private String direccion;
 
     @Column(name = "departamento_proveedor")
+    @NotBlank
     private String departamento;
 
     @Column(name = "telefono_proveedor")
+    @Pattern(regexp = "\\d")
     private String telefonoProveedor;
 
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")

@@ -3,6 +3,7 @@ package com.jma.productoservice.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,15 +27,19 @@ public class ProductoEntity {
     private Long id;
 
     @Column(name = "descripcion_producto")
+    @NotBlank
     private String descripcion;
 
     @Column(name = "tipo_producto")
+    @NotBlank
     private String tipo;
 
     @Column(name = "serial_producto")
+    @NotBlank
     private String serial;
 
     @Column(name = "marca_producto")
+    @NotBlank
     private String marca;
 
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")

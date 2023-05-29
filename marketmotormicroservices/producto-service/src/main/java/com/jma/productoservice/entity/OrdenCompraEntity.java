@@ -33,6 +33,7 @@ public class OrdenCompraEntity {
     private boolean confirmado;
 
     @Column(name = "numero_orden_compra")
+    @NotNull
     private int numero;
 
     @Column(name = "fecha_orden_compra")
