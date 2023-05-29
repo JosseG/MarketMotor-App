@@ -3,6 +3,9 @@ package com.jma.productoservice.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,9 +36,11 @@ public class OrdenCompraEntity {
     private int numero;
 
     @Column(name = "fecha_orden_compra")
+    @NotNull
     private LocalDateTime fecha;
 
     @Column(name = "valort_orden_compra")
+    @PositiveOrZero
     private double valorTotal;
 
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
@@ -54,12 +59,14 @@ public class OrdenCompraEntity {
     private boolean estado;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_empleado",updatable = false,nullable = false)
+    @JoinColumn(name = "id_empleado",updatable = false)
+    @NotNull
     private EmpleadoEntity empleado;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_proveedor",updatable = false,nullable = false)
+    @JoinColumn(name = "id_proveedor",updatable = false)
+    @NotNull
     private ProveedorEntity proveedor;
 
     @OneToMany(mappedBy = "ordenCompra")

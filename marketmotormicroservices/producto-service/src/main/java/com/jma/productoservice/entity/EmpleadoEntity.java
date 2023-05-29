@@ -4,12 +4,17 @@ package com.jma.productoservice.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -20,6 +25,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Validated
 public class EmpleadoEntity {
 
     @Id
@@ -31,15 +37,20 @@ public class EmpleadoEntity {
     private String nombre;
 
     @Column(name = "apellidoPat_empleado")
+    @NotBlank
     private String apellidoPat;
 
     @Column(name = "apellidoMat_empleado")
+    @NotBlank
     private String apellidoMat;
 
     @Column(name = "telefono_empleado")
+    @NotBlank
+    @Pattern(regexp = "^\\+\\d{1,3}\\s?\\(\\d{1,3}\\)\\s?\\d{3}\\s?\\d{2}\\s?\\d{2}$")
     private String telefono;
 
     @Column(name = "correo_empleado")
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
     private String correo;
 
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
@@ -59,6 +70,7 @@ public class EmpleadoEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario")
+    @NotNull
     private UsuarioEntity usuario;
 
 

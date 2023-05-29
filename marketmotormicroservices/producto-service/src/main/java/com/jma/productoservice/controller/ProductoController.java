@@ -8,15 +8,18 @@ import com.jma.productoservice.mapping.ProductoMapper;
 import com.jma.productoservice.service.ProductoService;
 import com.jma.productoservice.utils.ConstantsService;
 import com.jma.productoservice.utils.EstadoD;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/productos")
+@Validated
 public class ProductoController {
 
     private final ProductoService<ProductoDto> productoService;
@@ -29,7 +32,7 @@ public class ProductoController {
 
 
     @PostMapping
-    public ResponseEntity<ProductoDto> guardar(@RequestBody ProductoCommandInsert productoCommandInsert){
+    public ResponseEntity<ProductoDto> guardar(@RequestBody @Valid ProductoCommandInsert productoCommandInsert){
 
         ProductoDto productoDtoObt = productoService.guardar(ProductoMapper.mapFromCommandInsertToDto(productoCommandInsert));
 
