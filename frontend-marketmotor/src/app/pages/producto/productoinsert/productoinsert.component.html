@@ -26,6 +26,11 @@
         <label for="">Marca:</label>
         <input type="text" [(ngModel)]="modelProducto.marca" name="marca" class="form-control">
       </div>
+
+      <div class="form-group">
+        <label for="">Precio:</label>
+        <input type="number" [(ngModel)]="modelProducto.precio" name="precio" class="form-control">
+      </div>
       <button (click)="guardar(modelProducto)" class="btn btn-danger">Guardar</button>
     </form>
   </div>

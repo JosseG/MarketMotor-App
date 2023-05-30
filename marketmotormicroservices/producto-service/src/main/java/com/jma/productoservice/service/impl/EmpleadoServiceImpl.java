@@ -92,6 +92,7 @@ public class EmpleadoServiceImpl implements EmpleadoService<EmpleadoDto> {
         if (object.getId()!= null) {
             empleadoEntityObt.setId(object.getId());
         }
+        System.out.println("El objeto entiti usuario" + usuarioEntity.getAlias());
 
         empleadoEntityObt.setUsuario(usuarioEntity);
         EmpleadoEntity empleadoEntitysaved = empleadoRepository.save(empleadoEntityObt);

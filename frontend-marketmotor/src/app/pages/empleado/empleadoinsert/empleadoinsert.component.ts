@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Empleado } from 'src/app/models/dtos/Empleado';
 import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
@@ -10,30 +11,48 @@ import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
 })
 export class EmpleadoinsertComponent implements OnInit {
 
+  formulario: FormGroup = this.formbuilder.group({
+    nombre:[],
+    apellidoPat:[],
+    apellidoMat:[],
+    telefono:[],
+    correo:[],
+    idUsuario:[],
+
+  })
+
   empleados?: Empleado[];
 
-  constructor(private empleadoService: EmpleadoService, private router:Router) { }
+  constructor(private empleadoService: EmpleadoService, private router:Router, private formbuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.empleadoService.getEmpleado().subscribe(
-      data=>{
-        this.empleados=data;
-        console.log(data);
-      },
-      error=>{
-        console.log(error);
-      }
-    );
+    
   }
 
 
-  nuevo():void {
-    this.router.navigate(['nuevoEmpleado']);
-  }
 
-  editar(empleado: Empleado): void{
-    localStorage.setItem("id",empleado.id.toString());
+
+
+  editar(id: number): void{
+    localStorage.setItem("id",id.toString());
       this.router.navigate(['editarEmpleado']);
+  }
+
+  guardar(){
+    const values = this.formulario.value
+    this.empleadoService.createEmpleado(values)
+    .subscribe({
+      next: () => {
+        this.formulario.get("nombre")?.reset()
+        this.formulario.get("apellidoPat")?.reset()
+        this.formulario.get("apellidoMat")?.reset()
+        this.formulario.get("telefono")?.reset()
+        this.formulario.get("correo")?.reset()
+        this.formulario.get("idUsuario")?.reset()
+      },
+      error: (e) => console.log(e)
+      
+    })
   }
 
   eliminar(empleado: Empleado):void {

@@ -15,19 +15,19 @@ export class UsuarioService {
     return this.http.get<Usuario[]>(this.url);
   }
 
-  createUsuario(){
-    return this.http.post<Usuario>(this.url,Usuario);
+  createUsuario(usuario: Usuario){
+    return this.http.post<Usuario>(this.url,usuario);
   }
 
   getUsuarioId(id: number){
     return this.http.get<Usuario>(this.url+'/'+id);
   }
 
-  updateUsuario(id: number, Usuario: Usuario){
-    return this.http.put<Usuario>(this.url,Usuario);
+  updateUsuario(id: number, usuario: Usuario){
+    return this.http.put<Usuario>(this.url,usuario);
   }
 
-  deleteUsuario(Usuario: Usuario){
-    return this.http.delete<Usuario>(this.url+"/"+Usuario.id);
+  deleteUsuario(usuario: Usuario){
+    return this.http.delete<Usuario>(this.url+"/"+usuario.id);
   }
 }

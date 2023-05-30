@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ProductoInsert } from 'src/app/models/commands/producto/ProductoInsert';
 import { Producto } from 'src/app/models/dtos/Producto';
 
 
@@ -15,8 +16,8 @@ export class ProductoService {
     return this.http.get<Producto[]>(this.url);
   }
 
-  createProducto(producto: Producto){
-    return this.http.post<Producto>(this.url,producto);
+  createProducto(producto: ProductoInsert){
+    return this.http.post<ProductoInsert>(this.url,producto);
   }
 
   getProductoId(id: number){

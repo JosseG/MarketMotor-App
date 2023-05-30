@@ -1,0 +1,159 @@
+:root {
+    --azul: #134074;
+    --azulOscuro: #0b2545;
+    --azulGris: #8da9c4;
+    --blanco: #fff;
+    --fuente: 'Quicksand', sans-serif;
+  }
+  
+  html {
+    box-sizing: border-box;
+  }
+  
+  *,
+  *::after,
+  *::before {
+    box-sizing: inherit;
+  }
+  
+  body {
+    font-family: var(--fuente);
+    background: linear-gradient(to right, #5de0e6, #004aad);
+    display: flex;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .contenedor {
+    margin: 0 auto;
+    max-width: 1200px;
+    width: 95%;
+  }
+  
+  .imagen-login {
+    background-image: url(../../../assets/imagen_login.jpg);
+    background-position: center center;
+    background-size: cover;
+    height: 200px;
+    flex: 0 0 calc(60%);
+  }
+  
+  @media(min-width:768px) {
+    .imagen-login {
+        height: auto;
+        background-position: right;
+    }
+  }
+  
+  @media(min-width:1200px) {
+    .imagen-login {
+        background-position: center;
+    }
+  }
+  
+  
+  @media(min-width:768px) {
+    .contenedor-login {
+        display: flex;
+    }
+  }
+  
+  .login {
+    width: 500px;
+    height: 650px;
+    padding: 10px 30px;
+    background-color: var(--blanco);
+  
+  }
+  
+  .logo-login .avatar {
+    width: 150px;
+    height: 100px;
+  }
+  
+  .texto-login h1,
+  .input label,
+  .password-olvidada a {
+    color: black;
+  
+  }
+  
+  .texto-login h1 {
+    font-size: 50px;
+    text-align: center;
+  }
+  
+  .login-with p {
+    font-size: 22px;
+    text-align: center;
+  }
+  
+  .input label {
+    display: block;
+    font-size: 22px;
+    font-weight: bold;
+    margin: 15px 0;
+  }
+  
+  .input a {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+  }
+  
+  .input input {
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  .form-check input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-top: 20px;
+  }
+  
+  .form-check label {
+    margin-top: 15px;
+    font-size: 20px;
+  }
+  
+  
+  .input input[type="submit"] {
+    background-color: #5de0e6;
+    color: var(--blanco);
+    font-size: 22px;
+    font-weight: bold;
+    border: none;
+    transition: background-color .3s ease-in-out;
+    margin-top: 20px;
+  }
+  
+  .input input[type="submit"]:hover {
+    cursor: pointer;
+    background-color: #004aad;
+  }
+  
+  .login-with p {
+    margin-top: 15px;
+    font-size: 20px;
+  }
+  
+  .login-google button{
+    border: none;
+    outline: none;
+    height: 50px;
+    background: rgb(202, 199, 199);
+    color: black;
+    width: 35%;
+    margin-bottom: 20px;
+    font-size: 20px;
+    transition: 0.25s;
+    cursor: pointer;
+  }
+  .login-google button:hover {
+    background: rgb(88, 87, 87);
+    color: white;
+  }

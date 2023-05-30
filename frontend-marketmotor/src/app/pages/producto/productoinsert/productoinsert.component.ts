@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Producto } from 'src/app/models/dtos/Producto';
+import { ProductoInsert } from 'src/app/models/commands/producto/ProductoInsert';
 import { ProductoService } from 'src/app/services/producto/producto.service';
 
 @Component({
@@ -10,14 +10,14 @@ import { ProductoService } from 'src/app/services/producto/producto.service';
 })
 export class ProductoinsertComponent implements OnInit{
 
-  modelProducto = new Producto();
+  modelProducto = new ProductoInsert();
 
   constructor(private productoService: ProductoService, private router:Router) { }
 
   ngOnInit(): void{
   }
 
-  guardar(producto: Producto) {
+  guardar(producto: ProductoInsert) {
     this.productoService.createProducto(producto).subscribe(data=>{
       this.router.navigate(['productos']);
     });

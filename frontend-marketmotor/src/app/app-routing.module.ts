@@ -5,13 +5,19 @@ import { EmpleadolistComponent } from './pages/empleado/empleadolist/empleadolis
 import { UsuariolistComponent } from './pages/usuario/usuariolist/usuariolist.component';
 import { ProveedorlistComponent } from './pages/proveedor/proveedorlist/proveedorlist.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
+import { ProductoinsertComponent } from './pages/producto/productoinsert/productoinsert.component';
+import { EmpleadoinsertComponent } from './pages/empleado/empleadoinsert/empleadoinsert.component';
+import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
   { path: 'inicio', component: InicioComponent },
   { path: 'productos', component: ProductolistComponent },
+  { path: 'productos/insertar', component: ProductoinsertComponent },
   { path: 'empleados', component: EmpleadolistComponent },
+  { path: 'empleados/insertar', component: EmpleadoinsertComponent },
   { path: 'usuarios', component: UsuariolistComponent },
-  { path: 'proveedores', component: ProveedorlistComponent }
+  { path: 'proveedores', component: ProveedorlistComponent },
+  { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({

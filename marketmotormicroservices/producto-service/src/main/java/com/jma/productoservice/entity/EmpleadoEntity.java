@@ -46,11 +46,9 @@ public class EmpleadoEntity {
 
     @Column(name = "telefono_empleado")
     @NotBlank
-    @Pattern(regexp = "^\\+\\d{1,3}\\s?\\(\\d{1,3}\\)\\s?\\d{3}\\s?\\d{2}\\s?\\d{2}$")
     private String telefono;
 
     @Column(name = "correo_empleado")
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
     private String correo;
 
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")

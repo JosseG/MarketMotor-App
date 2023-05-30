@@ -81,6 +81,7 @@ public class EmpleadoController {
     public ResponseEntity<EmpleadoDto> guardar(@RequestBody @Valid EmpleadoCommandInsert empleadoCommandInsert){
         try{
             UsuarioDto usuarioDto = new UsuarioDto();
+            System.out.println("Llego aqui " + empleadoCommandInsert.getIdUsuario() + " " + empleadoCommandInsert.getNombre() + " "+ empleadoCommandInsert.getCorreo());
             usuarioDto.setId(empleadoCommandInsert.getIdUsuario());
             EmpleadoDto empleadoToSave = EmpleadoMapper.mapFromCommandInsertToDto(empleadoCommandInsert);
             empleadoToSave.setUsuarioDto(usuarioDto);
