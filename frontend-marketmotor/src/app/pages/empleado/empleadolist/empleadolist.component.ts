@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { Empleado } from 'src/app/models/dtos/Empleado';
 import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
 
 
@@ -9,11 +11,15 @@ import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
 })
 export class EmpleadolistComponent {
 
-  constructor(private empleadoService: EmpleadoService){}
+  constructor(private empleadoService: EmpleadoService,private router:Router){}
 
-  empleados: any[] = [];
+  empleados: Empleado[] = [];
   ngOnInit():void{
-    this.getAll();
+    this.empleadoService.getEmpleado().subscribe( {
+      next: (empleados : any) => this.empleados = empleados,
+      error: (e) => console.log(e),
+      complete: () => console.log("Completado")
+  });
   }
 
   getAll(){
@@ -22,6 +28,12 @@ export class EmpleadolistComponent {
       console.log(usuarios)
       this.empleados = usuarios
     })
+  }
+
+  eliminar(empleado: Empleado):void {
+    this.empleadoService.deleteEmpleado(empleado).subscribe(data=>{
+      this.empleados=this.empleados!.filter(e=>e!==empleado);
+    });
   }
 
 }

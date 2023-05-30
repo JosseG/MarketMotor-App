@@ -22,6 +22,8 @@ public class ProductoDto implements Serializable{
 
     private String marca;
 
+    private double precio;
+
     private boolean estado;
 
     private LocalDateTime actualizadoEn;

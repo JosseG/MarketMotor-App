@@ -15,7 +15,7 @@ public class ProductoMapper {
         productoEntity.setMarca(productoDto.getMarca());
         productoEntity.setSerial(productoDto.getSerial());
         productoEntity.setDescripcion(productoDto.getDescripcion());
-
+        productoEntity.setPrecio(productoDto.getPrecio());
         productoEntity.setEstado(productoDto.isEstado());
         return productoEntity;
     }
@@ -27,6 +27,7 @@ public class ProductoMapper {
         productoDto.setTipo(productoEntity.getTipo());
         productoDto.setMarca(productoEntity.getMarca());
         productoDto.setSerial(productoEntity.getSerial());
+        productoDto.setPrecio(productoEntity.getPrecio());
         productoDto.setDescripcion(productoEntity.getDescripcion());
         productoDto.setActualizadoEn(productoEntity.getActualizadoEn());
         productoDto.setCreadoEn(productoEntity.getCreadoEn());
@@ -41,6 +42,7 @@ public class ProductoMapper {
         productoDto.setMarca(productoCommandInsert.getMarca());
         productoDto.setSerial(productoCommandInsert.getSerial());
         productoDto.setDescripcion(productoCommandInsert.getDescripcion());
+        productoDto.setPrecio(productoCommandInsert.getPrecio());
         productoDto.declararDisponibilidad(EstadoD.ACTIVO);
         return productoDto;
     }
@@ -53,6 +55,7 @@ public class ProductoMapper {
         productoDto.setMarca(productoCommandUpdate.getMarca());
         productoDto.setSerial(productoCommandUpdate.getSerial());
         productoDto.setDescripcion(productoCommandUpdate.getDescripcion());
+        productoDto.setPrecio(productoCommandUpdate.getPrecio());
         return productoDto;
     }
 }

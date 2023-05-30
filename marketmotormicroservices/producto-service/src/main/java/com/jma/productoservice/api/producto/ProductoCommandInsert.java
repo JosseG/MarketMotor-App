@@ -15,4 +15,6 @@ public class ProductoCommandInsert {
 
     private String descripcion;
 
+    private double precio;
+
 }

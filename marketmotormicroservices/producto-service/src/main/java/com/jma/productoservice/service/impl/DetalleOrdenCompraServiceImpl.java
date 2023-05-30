@@ -2,8 +2,12 @@ package com.jma.productoservice.service.impl;
 
 import com.jma.productoservice.api.DetalleOrdenCompraResponse;
 import com.jma.productoservice.dto.DetalleOrdenCompraDto;
-import com.jma.productoservice.entity.*;
-import com.jma.productoservice.mapping.*;
+import com.jma.productoservice.entity.DetalleOrdenCompraEntity;
+import com.jma.productoservice.entity.OrdenCompraEntity;
+import com.jma.productoservice.entity.ProductoEntity;
+import com.jma.productoservice.mapping.DetalleOrdenCompraMapper;
+import com.jma.productoservice.mapping.OrdenCompraMapper;
+import com.jma.productoservice.mapping.ProductoMapper;
 import com.jma.productoservice.repository.DetalleOrdenCompraRepository;
 import com.jma.productoservice.repository.OrdenCompraRepository;
 import com.jma.productoservice.repository.ProductoRepository;

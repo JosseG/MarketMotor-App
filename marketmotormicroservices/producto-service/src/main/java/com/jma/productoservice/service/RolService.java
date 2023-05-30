@@ -12,6 +12,5 @@ public interface RolService<T> extends ICrudCommon<T> {
 
     List<T> buscarRolesPorPermisosId(Long permisoId);
 
-
     List<T> guardarTodos(List<T> list);
 }

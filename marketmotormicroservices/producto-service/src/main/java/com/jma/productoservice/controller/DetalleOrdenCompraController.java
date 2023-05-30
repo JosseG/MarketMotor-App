@@ -3,7 +3,9 @@ package com.jma.productoservice.controller;
 import com.jma.productoservice.api.DetalleOrdenCompraResponse;
 import com.jma.productoservice.api.ordencompra.DetalleOrdenCompraCommandInsert;
 import com.jma.productoservice.api.ordencompra.DetalleOrdenCompraCommandUpdate;
-import com.jma.productoservice.dto.*;
+import com.jma.productoservice.dto.DetalleOrdenCompraDto;
+import com.jma.productoservice.dto.OrdenCompraDto;
+import com.jma.productoservice.dto.ProductoDto;
 import com.jma.productoservice.mapping.DetalleOrdenCompraMapper;
 import com.jma.productoservice.service.DetalleOrdenCompraService;
 import com.jma.productoservice.utils.ConstantsService;
@@ -102,7 +104,7 @@ public class DetalleOrdenCompraController {
     }
 
     @PutMapping
-    public ResponseEntity<DetalleOrdenCompraDto> actualizar(@RequestBody DetalleOrdenCompraCommandUpdate detalleOrdenCompraCommandUpdate){
+    public ResponseEntity<DetalleOrdenCompraDto> actualizar(@RequestBody @Valid DetalleOrdenCompraCommandUpdate detalleOrdenCompraCommandUpdate){
 
         DetalleOrdenCompraDto detalleOrdenCompraDto = DetalleOrdenCompraMapper.mapFromCommandUpdateToDto(detalleOrdenCompraCommandUpdate);
         DetalleOrdenCompraDto detalleActualizado = detalleOrdenCompraService.actualizar(detalleOrdenCompraDto);

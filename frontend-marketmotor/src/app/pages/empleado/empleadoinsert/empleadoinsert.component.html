@@ -1,1 +1,32 @@
-<p>empleadoinsert works!</p>
+<h1>Insertar Empleado</h1>
+
+
+<button (click)="nuevo()" class="btn btn-warning"> Agregar</button>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>id_empleado</th>
+      <th>Nombre</th>
+      <th>Ape Paterno</th>
+      <th>Ape Materno</th>
+      <th>Telefono</th>
+      <th>Correo</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let empleado of empleados">
+    <td>{{empleado.id}}</td>
+    <td>{{empleado.nombre}}</td>
+    <td>{{empleado.apellidoPat}}</td>
+    <td>{{empleado.apellidoMat}}</td>
+    <td>{{empleado.telefono}}</td>
+    <td>{{empleado.correo}}</td>
+    <td>
+      <button (click)="editar(empleado)" class="btn btn-warning"> Editar</button>
+      <button (click)="eliminar(empleado)" class="btn btn-danger"> Eliminar</button>
+    </td>
+    </tr>
+  </tbody>
+
+</table>

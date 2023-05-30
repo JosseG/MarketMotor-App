@@ -17,4 +17,6 @@ public class ProductoCommandUpdate {
 
     private String descripcion;
 
+    private double precio;
+
 }

@@ -13,6 +13,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -35,6 +36,11 @@ public class UsuarioEntity {
     @NotBlank
     private String contrasena;
 
+    @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
+    private List<TokenEntity> tokens;
+
+
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     @Column(name = "actualizado_en")
     @UpdateTimestamp
@@ -54,7 +60,7 @@ public class UsuarioEntity {
     @Column(name = "estado")
     private boolean estado;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_rol",updatable = false,nullable = false)
     private RolEntity rol;
 

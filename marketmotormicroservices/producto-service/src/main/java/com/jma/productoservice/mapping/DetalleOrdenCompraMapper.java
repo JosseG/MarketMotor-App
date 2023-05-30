@@ -2,7 +2,9 @@ package com.jma.productoservice.mapping;
 
 import com.jma.productoservice.api.ordencompra.DetalleOrdenCompraCommandInsert;
 import com.jma.productoservice.api.ordencompra.DetalleOrdenCompraCommandUpdate;
-import com.jma.productoservice.dto.*;
+import com.jma.productoservice.dto.DetalleOrdenCompraDto;
+import com.jma.productoservice.dto.OrdenCompraDto;
+import com.jma.productoservice.dto.ProductoDto;
 import com.jma.productoservice.entity.DetalleOrdenCompraEntity;
 import com.jma.productoservice.utils.EstadoD;
 

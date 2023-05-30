@@ -15,6 +15,8 @@ import { EmpleadolistComponent } from './empleado/empleadolist/empleadolist.comp
 import { LoginComponent } from './login/login.component';
 import { InicioComponent } from './inicio/inicio.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -32,10 +34,12 @@ import { InicioComponent } from './inicio/inicio.component';
     EmpleadoinsertComponent,
     EmpleadolistComponent,
     LoginComponent,
-    InicioComponent
+    InicioComponent,
+
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ]
 })
 export class PagesModule { }

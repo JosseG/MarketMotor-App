@@ -3,7 +3,7 @@ package com.jma.productoservice.service.impl;
 import com.jma.productoservice.api.ProductoResponse;
 import com.jma.productoservice.dto.ProductoDto;
 import com.jma.productoservice.entity.ProductoEntity;
-import com.jma.productoservice.mapping.*;
+import com.jma.productoservice.mapping.ProductoMapper;
 import com.jma.productoservice.repository.ProductoRepository;
 import com.jma.productoservice.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,32 +1,46 @@
 package com.jma.productoservice.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jma.productoservice.api.UserAuthenticateResponse;
+import com.jma.productoservice.api.usuario.UsuarioCommandLogin;
 import com.jma.productoservice.dto.UsuarioDto;
 import com.jma.productoservice.entity.RolEntity;
+import com.jma.productoservice.entity.TokenEntity;
 import com.jma.productoservice.entity.UsuarioEntity;
 import com.jma.productoservice.mapping.RolMapper;
 import com.jma.productoservice.mapping.UsuarioMapper;
 import com.jma.productoservice.repository.RolRepository;
+import com.jma.productoservice.repository.TokenRepository;
 import com.jma.productoservice.repository.UsuarioRepository;
+import com.jma.productoservice.security.jwt.JwtService;
 import com.jma.productoservice.service.UsuarioService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.jma.productoservice.utils.TokenType;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService<UsuarioDto> {
 
+
+    private final TokenRepository tokenRepository;
+    private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
     private final UsuarioRepository usuarioRepository;
     private final RolRepository rolRepository;
-
-    @Autowired
-    public UsuarioServiceImpl(UsuarioRepository usuarioRepository,RolRepository rolRepository) {
-        this.usuarioRepository = usuarioRepository;
-        this.rolRepository = rolRepository;
-    }
-
 
     @Override
     public List<UsuarioDto> guardarTodos(List<UsuarioDto> list) {
@@ -41,6 +55,15 @@ public class UsuarioServiceImpl implements UsuarioService<UsuarioDto> {
             usuarioEntities.get(i).setRol(rolesEntities.get(i));
         }
         List<UsuarioEntity> usuariossGuardados = usuarioRepository.saveAll(usuarioEntities);
+
+        for (UsuarioEntity usuario:usuariossGuardados){
+            User usuarioParsed =  mapToUser(usuario);
+
+            var jwtToken = jwtService.generateToken(usuarioParsed);
+            saveUserToken(usuario, jwtToken);
+        }
+
+
         return usuariosMapeados(usuariossGuardados);
     }
 
@@ -55,16 +78,23 @@ public class UsuarioServiceImpl implements UsuarioService<UsuarioDto> {
     @Override
     public UsuarioDto guardar(UsuarioDto object) {
 
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
         RolEntity rolEntity = rolRepository.findById(object.getRol().getId()).orElse(null);
 
         UsuarioEntity usuarioEntityObt = UsuarioMapper.mapToEntity(object);
-        if(object.getId()!= null){
+        if (object.getId() != null) {
             usuarioEntityObt.setId(object.getId());
         }
 
         usuarioEntityObt.setRol(rolEntity);
+        usuarioEntityObt.setContrasena(bCryptPasswordEncoder.encode(usuarioEntityObt.getContrasena()));
 
         UsuarioEntity usuarioEntitySaved = usuarioRepository.save(usuarioEntityObt);
+
+        User usuarioParsed =  mapToUser(usuarioEntitySaved);
+
+        var jwtToken = jwtService.generateToken(usuarioParsed);
+        saveUserToken(usuarioEntitySaved, jwtToken);
 
         return UsuarioMapper.mapToDto(usuarioEntitySaved);
     }
@@ -119,4 +149,103 @@ public class UsuarioServiceImpl implements UsuarioService<UsuarioDto> {
         }
         return content;
     }
+
+    @Override
+    public UserAuthenticateResponse authenticate(UsuarioCommandLogin request) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getAlias(),
+                        request.getContrasena()
+                )
+        );
+        var usuarioEntity = usuarioRepository.findUsuarioEntityByAlias(request.getAlias())
+                .orElseThrow();
+
+
+        User user =  mapToUser(usuarioEntity);
+        var jwtToken = jwtService.generateToken(user);
+        var refreshToken = jwtService.generateRefreshToken(user);
+        revokeAllUserTokens(usuarioEntity);
+        saveUserToken(usuarioEntity, jwtToken);
+        return UserAuthenticateResponse.builder()
+                .accessToken(jwtToken)
+                .refreshToken(refreshToken)
+                .build();
+    }
+
+    private void saveUserToken(UsuarioEntity usuario, String jwtToken) {
+        TokenEntity tokenEntity = new TokenEntity();
+        tokenEntity.setUsuario(usuario);
+        tokenEntity.setToken(jwtToken);
+        tokenEntity.setTokenType(TokenType.BEARER);
+        tokenEntity.setExpired(false);
+        tokenEntity.setRevoked(false);
+
+        tokenRepository.save(tokenEntity);
+    }
+
+
+
+    private void revokeAllUserTokens(UsuarioEntity usuario) {
+        var validUserTokens = tokenRepository.findAllValidTokenByUser(usuario.getId());
+        if (validUserTokens.isEmpty())
+            return;
+        validUserTokens.forEach(token -> {
+            token.setExpired(true);
+            token.setRevoked(true);
+        });
+        tokenRepository.saveAll(validUserTokens);
+    }
+
+    @Override
+    public void refreshToken(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws IOException {
+        final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        final String refreshToken;
+        final String userEmail;
+        if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
+            return;
+        }
+        refreshToken = authHeader.substring(7);
+        userEmail = jwtService.extractUsername(refreshToken);
+        if (userEmail != null) {
+            UsuarioEntity usuario= usuarioRepository.findUsuarioEntityByAlias(userEmail).orElseThrow();
+
+            GrantedAuthority rol = new SimpleGrantedAuthority(usuario.getRol().getNombre());
+            List<GrantedAuthority> listaRoles = List.of(rol);
+
+            User user2 =  new User(usuario.getAlias(), usuario.getContrasena(), listaRoles);
+            if (jwtService.isTokenValid(refreshToken, user2)) {
+                var accessToken = jwtService.generateToken(user2);
+                revokeAllUserTokens(usuario);
+                saveUserToken(usuario, accessToken);
+                var authResponse = UserAuthenticateResponse.builder()
+                        .accessToken(accessToken)
+                        .refreshToken(refreshToken)
+                        .build();
+                new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
+            }
+        }
+    }
+
+    public User mapToUser(UsuarioEntity usuarioEntity){
+        GrantedAuthority rol = new SimpleGrantedAuthority(usuarioEntity.getRol().getNombre());
+        List<GrantedAuthority> listaRoles = List.of(rol);
+
+        return new User(usuarioEntity.getAlias(), usuarioEntity.getContrasena(), listaRoles);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }

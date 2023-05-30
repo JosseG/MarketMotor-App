@@ -1,71 +1,47 @@
 package com.jma.productoservice.controller;
 
+import com.jma.productoservice.api.UserAuthenticateResponse;
 import com.jma.productoservice.api.usuario.UsuarioCommandLogin;
-import com.jma.productoservice.security.jwt.JwtUtils;
+import com.jma.productoservice.dto.UsuarioDto;
+import com.jma.productoservice.service.UsuarioService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/auth")
 @Validated
 public class AuthController {
 
-
-    private final AuthenticationManager authenticationManager;
-    private final JwtUtils jwtUtils;
+    private final UsuarioService<UsuarioDto> usuarioService;
 
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, JwtUtils jwtUtils){
-        this.authenticationManager = authenticationManager;
-        this.jwtUtils = jwtUtils;
+    public AuthController(UsuarioService<UsuarioDto> usuarioService){
+        this.usuarioService = usuarioService;
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<String> authenticateUser(@RequestBody @Valid UsuarioCommandLogin loginCommand) {
-
-        Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(loginCommand.getAlias(), loginCommand.getContrasena()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        User userDetails = (User) authentication.getPrincipal();
-
-
-        System.out.println("llego con las credenciales -> " + userDetails);
-
-        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
-
-
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .toList();
-
-        System.out.println(jwtCookie.toString());
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .body("Inicio sesión exitoso, bienvenido -> " +userDetails.getAuthorities());
+    public ResponseEntity<UserAuthenticateResponse> signin(
+            @RequestBody @Valid UsuarioCommandLogin loginCommand
+    ) {
+        return ResponseEntity.ok(usuarioService.authenticate(loginCommand));
     }
 
-    @PostMapping("/signout")
-    public ResponseEntity<String> logoutUser() {
-        ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
-                .body("Cerró sesión");
+    @PostMapping("/refresh-token")
+    public void refreshToken(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws IOException {
+        usuarioService.refreshToken(request, response);
     }
 
 }
