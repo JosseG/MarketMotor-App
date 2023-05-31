@@ -13,14 +13,15 @@ public class ProductoServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ProductoServiceApplication.class, args);
 	}
-	@Bean
+	/*@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(@NotNull CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://localhost:4200");
+				registry.addMapping("/login").allowedOrigins("http://localhost:4200").allowedMethods("*").exposedHeaders("*");
+				registry.addMapping("/**").allowedOrigins("http://localhost:4200").allowedMethods("*").exposedHeaders("*");
 			}
 		};
-	}
+	}*/
 
 }

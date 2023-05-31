@@ -1,8 +1,8 @@
-<div class="contenedor-login contenedor">
+<div class="contenedor-login contenedor mt-5" >
     <div class="imagen-login">
   
     </div>
-    <form class="login">
+    <form class="login" [formGroup]="formulario" (ngSubmit)="login()"> 
   
         <br>
         <br>
@@ -15,31 +15,19 @@
   
         <div class="input">
             <label for="email">Usuario</label>
-            <input class="form-control" type="email" id="alias" required="" placeholder="Ingresa tu Usuario">
+            <input class="form-control" type="email" id="alias" required="" placeholder="Ingresa tu Usuario" formControlName="alias">
         </div>
         <div class="input">
             <a href="" class="text-muted float-end"><small>Olvidaste tu contraseña?</small></a>
             <label for="password">Contraseña</label>
-            <input class="form-control" type="password" required="" id="contrasena" placeholder="Ingresa tu Contraseña">
+            <input class="form-control" type="password" required="" id="contrasena" placeholder="Ingresa tu Contraseña" formControlName="contrasena">
         </div>
-  
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="checkbox-signin">
-            <label class="form-check-label" for="checkbox-signin">No cerrar sesion</label>
-        </div>
+
   
         <div class="input">
             <input type="submit" value="Iniciar Sesion">
         </div>
-  
-        <div class="login-with">
-            <p>Iniciar Sesion con</p>
-        </div>
-  
-        <div class="login-google text-center">
-            <button class="btn btn-primary" type="submit"><i class="mdi mdi-login"></i><img src="./assets/imagen_google.png" width="32" alt=""> Google </button>
-        </div>
-  
+
   
     </form>
   </div>

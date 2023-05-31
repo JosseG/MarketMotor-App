@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { StorageService } from 'src/app/services/storage/storage.service';
 
 
 
@@ -9,5 +12,14 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
+  constructor(private authService: AuthService,private sesionService:StorageService,private router:Router){
+    
+  }
+
+  logout():void{
+    this.authService.logout()
+    sessionStorage.clear()
+    this.router.navigate(['login'])
+  }
 
 }

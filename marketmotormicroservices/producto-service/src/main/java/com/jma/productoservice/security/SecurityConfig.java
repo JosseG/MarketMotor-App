@@ -32,12 +32,12 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+        http.cors().and()
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers(
-                        "/**"
+                        "/auth/**"
                 )
                 .permitAll()
                 .anyRequest()
@@ -57,18 +57,19 @@ public class SecurityConfig {
         return http.build();
     }
 
-    /*@Bean
+   @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200/**"));
+        configuration.setAllowedOrigins(List.of("http://localhost:4200/**","http://localhost:4200"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PATCH", "PUT", "DELETE", "OPTIONS", "HEAD"));
         configuration.setAllowCredentials(true);
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Requestor-Type"));
+       configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-type", "x-auth-token"));
         configuration.setExposedHeaders(List.of("X-Get-Header"));
+
         configuration.setMaxAge(3600L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
-    }*/
+    }
 
 }

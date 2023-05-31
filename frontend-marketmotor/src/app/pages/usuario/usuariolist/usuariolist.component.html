@@ -1,1 +1,53 @@
-<p>usuariolist works!</p>
+<div class="container">
+    <table class="table mt-5 accordion">
+        <thead>
+            <tr>
+                <th scope="col">Código</th>
+                <th scope="col">Alias</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Estado</th>
+            </tr>
+        </thead>
+        <tbody class="accordion-item accordion-flush user-select-none" id="accordionFlushExample">
+            <ng-container  *ngFor="let usuario of usuarios">
+                <tr style="cursor:pointer;" class=" accordion-header collapsed" data-bs-toggle="collapse"
+                    attr.data-bs-target="#flush-collapse{{usuario.id}}" aria-expanded="false"
+                    attr.aria-controls="flush-collapse{{usuario.id}}">
+                    <th scope="row">{{usuario.id}}</th>
+                    <td>{{usuario.alias}}</td>
+                    <td>{{usuario.creadoEn}}</td>
+                    <td>{{usuario.estado}}</td>
+                    <td *ngIf="usuario.estado != true;else elseBlock"><button type="button"
+                            class="bg-danger text-white border-0 px-3 py-1">Inactivo</button></td>
+                    <ng-template #elseBlock>
+                        <td><button type="button" class="bg-success text-white border-0 px-3 py-1">Activo</button></td>
+                    </ng-template>
+                </tr>
+                <tr>
+                    <td colspan="100%" style="padding:0">
+                        <div attr.id="flush-collapse{{usuario.id}}" class="accordion-collapse collapse"
+                            attr.aria-labelledby="flush-heading{{usuario.id}}" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">Placeholder content for this accordion, which is intended to
+                                demonstrate
+                                the class. This is the first item's accordion body. Placeholder content for this accordion, which is intended to
+                                demonstrate
+                                the class. This is the first item's accordion body. Placeholder content for this accordion, which is intended to
+                                demonstrate
+                                the  class. This is the first item's accordion body. </div>
+                        </div>
+                    </td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
+</div>

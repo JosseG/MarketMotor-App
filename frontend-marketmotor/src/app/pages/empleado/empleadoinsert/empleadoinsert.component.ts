@@ -18,7 +18,6 @@ export class EmpleadoinsertComponent implements OnInit {
     telefono:[],
     correo:[],
     idUsuario:[],
-
   })
 
   empleados?: Empleado[];

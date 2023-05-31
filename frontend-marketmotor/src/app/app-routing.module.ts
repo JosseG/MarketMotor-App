@@ -8,16 +8,18 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 import { ProductoinsertComponent } from './pages/producto/productoinsert/productoinsert.component';
 import { EmpleadoinsertComponent } from './pages/empleado/empleadoinsert/empleadoinsert.component';
 import { LoginComponent } from './pages/login/login.component';
+import { AuthGuard } from './_shared/auth.guard';
 
 const routes: Routes = [
-  { path: 'inicio', component: InicioComponent },
-  { path: 'productos', component: ProductolistComponent },
-  { path: 'productos/insertar', component: ProductoinsertComponent },
-  { path: 'empleados', component: EmpleadolistComponent },
-  { path: 'empleados/insertar', component: EmpleadoinsertComponent },
-  { path: 'usuarios', component: UsuariolistComponent },
-  { path: 'proveedores', component: ProveedorlistComponent },
-  { path: 'login', component: LoginComponent }
+  { path: 'inicio', component: InicioComponent,canActivate:[AuthGuard] },
+  { path: 'productos', component: ProductolistComponent,canActivate:[AuthGuard] },
+  { path: 'productos/insertar', component: ProductoinsertComponent,canActivate:[AuthGuard] },
+  { path: 'empleados', component: EmpleadolistComponent,canActivate:[AuthGuard] },
+  { path: 'empleados/insertar', component: EmpleadoinsertComponent,canActivate:[AuthGuard] },
+  { path: 'usuarios', component: UsuariolistComponent,canActivate:[AuthGuard] },
+  { path: 'proveedores', component: ProveedorlistComponent,canActivate:[AuthGuard] },
+  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' }
 ];
 
 @NgModule({

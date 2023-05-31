@@ -15,18 +15,14 @@ export class EmpleadolistComponent {
 
   empleados: Empleado[] = [];
   ngOnInit():void{
-    this.empleadoService.getEmpleado().subscribe( {
-      next: (empleados : any) => this.empleados = empleados,
-      error: (e) => console.log(e),
-      complete: () => console.log("Completado")
-  });
+    this.getAll();
   }
 
   getAll(){
     this.empleadoService.getAll()
-    .subscribe((usuarios : any) => {
-      console.log(usuarios)
-      this.empleados = usuarios
+    .subscribe((empleados : any) => {
+      console.log(empleados)
+      this.empleados = empleados
     })
   }
 

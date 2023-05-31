@@ -1,19 +1,37 @@
 package com.jma.productoservice.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jma.productoservice.api.ClienteResponse;
+import com.jma.productoservice.api.ClienteResponse;
+import com.jma.productoservice.api.UserAuthenticateResponse;
+import com.jma.productoservice.dto.ClienteDto;
 import com.jma.productoservice.dto.ClienteDto;
 import com.jma.productoservice.entity.ClienteEntity;
+import com.jma.productoservice.entity.ClienteEntity;
+import com.jma.productoservice.entity.UsuarioEntity;
 import com.jma.productoservice.mapping.ClienteMapper;
+import com.jma.productoservice.mapping.ClienteMapper;
+import com.jma.productoservice.mapping.UsuarioMapper;
 import com.jma.productoservice.repository.ClienteRepository;
+import com.jma.productoservice.repository.TokenRepository;
+import com.jma.productoservice.repository.UsuarioRepository;
 import com.jma.productoservice.service.ClienteService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -89,4 +107,12 @@ public class ClienteServiceImpl implements ClienteService<ClienteDto> {
         clienteResponse.setLast(clientesPageable.isLast());
         return clienteResponse;
     }
+
+
+
+
+
+
+
+
 }

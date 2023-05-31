@@ -8,6 +8,7 @@ import { PagesModule } from './pages/pages.module';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ComponentsModule } from './components/components.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { authInterceptorProviders } from './_helpers/auth/interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
