@@ -16,6 +16,7 @@ import { LoginComponent } from './login/login.component';
 import { InicioComponent } from './inicio/inicio.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -35,10 +36,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     EmpleadolistComponent,
     LoginComponent,
     InicioComponent,
-
   ],
   imports: [
     CommonModule,
+    RouterModule,
     ReactiveFormsModule,
     FormsModule
   ]

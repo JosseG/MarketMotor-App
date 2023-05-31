@@ -9,13 +9,15 @@ import { ProductoinsertComponent } from './pages/producto/productoinsert/product
 import { EmpleadoinsertComponent } from './pages/empleado/empleadoinsert/empleadoinsert.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './_shared/auth.guard';
+import { AdministradorGuard } from './_shared/administrador.guard';
 
 const routes: Routes = [
   { path: 'inicio', component: InicioComponent,canActivate:[AuthGuard] },
-  { path: 'productos', component: ProductolistComponent,canActivate:[AuthGuard] },
+  { path: 'productos', component: ProductolistComponent,canActivate:[AuthGuard,AdministradorGuard] },
   { path: 'productos/insertar', component: ProductoinsertComponent,canActivate:[AuthGuard] },
   { path: 'empleados', component: EmpleadolistComponent,canActivate:[AuthGuard] },
   { path: 'empleados/insertar', component: EmpleadoinsertComponent,canActivate:[AuthGuard] },
+  { path: 'empleados/actualizar/:id', component: EmpleadoinsertComponent,canActivate:[AuthGuard] },
   { path: 'usuarios', component: UsuariolistComponent,canActivate:[AuthGuard] },
   { path: 'proveedores', component: ProveedorlistComponent,canActivate:[AuthGuard] },
   { path: 'login', component: LoginComponent },

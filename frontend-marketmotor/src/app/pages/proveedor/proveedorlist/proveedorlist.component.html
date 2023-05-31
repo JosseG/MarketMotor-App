@@ -1,11 +1,11 @@
-<div class="container mt-5">
+<div class="container mt-3">
 
   <div class="row">
     <div class="col-md-12">
       <div class="table-responsive-lg">
 
         <h1 class = "titulo">Proveedores</h1>
-        <table class="table tablas">
+        <table class="table tablas accordion">
           <thead class="tableCabe3">
             <tr>
               <th>Codigo</th>
@@ -17,30 +17,31 @@
             </tr>
           </thead>
           <tbody class="accordion-item accordion-flush user-select-none" id="accordionFlushExample">
-            <tr style="cursor:pointer;" class="alert accordion-header collapsed" data-bs-toggle="collapse"
-            attr.data-bs-target="#flush-collapse{{1}}" aria-expanded="false"
-            attr.aria-controls="flush-collapse{{1}}" role="alert">
-              <td>001</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>markotto@email.com</td>           
-              <td class="icons">
-            
-                <a href=""><i class="bi bi-trash-fill"></i></a>
-                <a href=""><i class="bi bi-pencil-square"></i></a>
-                <a class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true"><i class="bi bi-chevron-down"></i></span>
-                </a>
-              </td>
+            <ng-container *ngFor="let proveedor of proveedores">
+              <tr style="cursor:pointer;" class=" accordion-header collapsed" data-bs-toggle="collapse"
+              attr.data-bs-target="#flush-collapse{{1}}" aria-expanded="false"
+              attr.aria-controls="flush-collapse{{1}}" >
+                <td>{{proveedor.id}}</td>
+                <td>{{proveedor.nombreComercial}}</td>
+                <td>{{proveedor.numeroRuc}}</td>
+                <td>{{proveedor.correo}}</td>           
+                <td class="icons">
+              
+                  <a routerLink="/empleados"><i class="bi bi-trash-fill"></i></a>
+                  <a routerLink="/inicio"><i class="bi bi-pencil-square"></i></a>
+                  
+                </td>
+              </tr>
+              <tr >
+                <td colspan="100%" style="padding:0">
+                    <div attr.id="flush-collapse{{1}}" class="accordion-collapse collapse cont"
+                        attr.aria-labelledby="flush-heading{{1}}" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis est sed, nesciunt suscipit, maiores itaque enim adipisci asperiores inventore corporis, laborum voluptates eos quibusdam laudantium quas ipsam! In, qui distinctio. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores necessitatibus alias at reprehenderit nemo assumenda tenetur, in suscipit nulla harum nobis perferendis architecto voluptatum facere neque, eum atque explicabo vitae! Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, officia unde. Doloribus inventore eaque quasi culpa ratione qui debitis? Repellat, asperiores nobis? Quos asperiores porro aperiam blanditiis veniam! Laudantium, quos?</div>
+                    </div>
+                </td>
             </tr>
-            <tr class="alert ">
-              <td colspan="100%" style="padding:0">
-                  <div attr.id="flush-collapse{{1}}" class="accordion-collapse collapse cont"
-                      attr.aria-labelledby="flush-heading{{1}}" data-bs-parent="#accordionFlushExample">
-                      <div class="accordion-body ">Placeholder 111111</div>
-                  </div>
-              </td>
-          </tr>
+            </ng-container>
+            
      
   
           

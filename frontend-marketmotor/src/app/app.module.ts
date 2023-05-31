@@ -5,7 +5,6 @@ import { HttpClientModule} from '@angular/common/http'
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PagesModule } from './pages/pages.module';
-import { NavbarComponent } from './components/navbar/navbar.component';
 import { ComponentsModule } from './components/components.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { authInterceptorProviders } from './_helpers/auth/interceptor.interceptor';

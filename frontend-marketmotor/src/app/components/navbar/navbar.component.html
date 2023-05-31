@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark">
+<nav class="navbar navbar-expand navbar-dark bg-dark py-4 px-2">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">MarketMotor</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -21,8 +21,12 @@
             <li><a class="dropdown-item" routerLink="/productos">Productos</a></li>
           </ul>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/empleados/insertar">Empleado Inserción</a>
+        </li>
       </ul>
     </div>
-    <button (click)="logout()">Logout</button>
+    <button class="btn btn-info" (click)="logout()">Logout</button>
   </div>
 </nav>

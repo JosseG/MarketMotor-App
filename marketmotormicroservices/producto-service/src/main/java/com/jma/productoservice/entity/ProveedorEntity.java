@@ -37,11 +37,9 @@ public class ProveedorEntity {
     private String nombreComercial;
 
     @Column(name = "numero_ruc_proveedor")
-    @Pattern( regexp = "\\d{11}")
     private String numeroRuc;
 
     @Column(name = "correo_proveedor")
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
     private String correo;
 
     @Column(name = "direccion_proveedor")
@@ -53,7 +51,7 @@ public class ProveedorEntity {
     private String departamento;
 
     @Column(name = "telefono_proveedor")
-    @Pattern(regexp = "\\d")
+
     private String telefonoProveedor;
 
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")

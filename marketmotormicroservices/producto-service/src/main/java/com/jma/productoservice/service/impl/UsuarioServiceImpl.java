@@ -59,6 +59,8 @@ public class UsuarioServiceImpl implements UsuarioService<UsuarioDto> {
         for (UsuarioEntity usuario:usuariossGuardados){
             User usuarioParsed =  mapToUser(usuario);
 
+
+
             var jwtToken = jwtService.generateToken(usuarioParsed);
             saveUserToken(usuario, jwtToken);
         }
@@ -232,7 +234,12 @@ public class UsuarioServiceImpl implements UsuarioService<UsuarioDto> {
 
     public User mapToUser(UsuarioEntity usuarioEntity){
         GrantedAuthority rol = new SimpleGrantedAuthority(usuarioEntity.getRol().getNombre());
+
         List<GrantedAuthority> listaRoles = List.of(rol);
+
+        for(GrantedAuthority g: listaRoles){
+            System.out.println("Es es la autoridad " + g.getAuthority());
+        }
 
         return new User(usuarioEntity.getAlias(), usuarioEntity.getContrasena(), listaRoles);
     }

@@ -10,25 +10,24 @@ import { ProveedorService } from 'src/app/services/proveedor/proveedor.service';
 })
 export class ProveedorlistComponent {
 
-  proveedor?: Proveedor[];
+  proveedores?: Proveedor[];
 
-  constructor(private proveedorService: ProveedorService, private router:Router) { }
+  constructor(private proveedorService: ProveedorService, private router: Router) { }
 
   ngOnInit(): void {
     this.proveedorService.getProveedor().subscribe({
-      next: (data:any)=>{
-        this.proveedor=data;
+      next: (data: any) => {
+        this.proveedores = data;
         console.log(data);
       },
-      error: (e)=>
+      error: (e) =>
         console.log("Error " + e)
-      
-  });
+    });
   }
 
-  eliminar(proveedor: Proveedor):void {
-    this.proveedorService.deleteProveedor(proveedor).subscribe(data=>{
-      this.proveedor=this.proveedor!.filter(e=>e!==proveedor);
+  eliminar(proveedor: Proveedor): void {
+    this.proveedorService.deleteProveedor(proveedor).subscribe(data => {
+      this.proveedores = this.proveedores!.filter(e => e !== proveedor);
     });
   }
 
