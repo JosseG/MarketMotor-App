@@ -4,7 +4,9 @@
         <div class="col-md-12">
             <div class="table-responsive-lg">
 
-                <h1 class="titulo">Empleados</h1>
+                <div class="d-flex justify-content-between">
+                    <h1 class="titulo">Empleados</h1> <span class="d-flex align-items-center"><a routerLink="insertar" class="btn btn-primary">Agregar</a></span>
+                </div>
                 <table class="table tablas accordion">
                     <thead class="thead-dark tableCabe3">
                         <tr>
@@ -45,23 +47,20 @@
                                         class="accordion-collapse collapse cont"
                                         attr.aria-labelledby="flush-heading{{empleado.id}}"
                                         data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body ">Lorem ipsum dolor sit amet consectetur adipisicing
-                                            elit. Veritatis est sed, nesciunt suscipit, maiores itaque enim adipisci
-                                            asperiores inventore corporis, laborum voluptates eos quibusdam laudantium
-                                            quas ipsam! In, qui distinctio. Lorem ipsum dolor sit amet consectetur
-                                            adipisicing elit. Dolores necessitatibus alias at reprehenderit nemo
-                                            assumenda tenetur, in suscipit nulla harum nobis perferendis architecto
-                                            voluptatum facere neque, eum atque explicabo vitae! Lorem ipsum dolor sit
-                                            amet consectetur adipisicing elit. Odit, officia unde. Doloribus inventore
-                                            eaque quasi culpa ratione qui debitis? Repellat, asperiores nobis? Quos
-                                            asperiores porro aperiam blanditiis veniam! Laudantium, quos?</div>
+                                        <div class="accordion-body ">
+                                            <span>Id de Usuario : </span><b><i>{{empleado.usuarioDto.alias}}</i></b>
+                                            <br>
+                                            <span>Contraseña de Usuario :
+                                            </span><b>{{empleado.usuarioDto.contrasena}}</b> <br>
+                                            <span>Fecha de creación del Usuario : </span><b>{{
+                                                empleado.usuarioDto.actualizadoEn | date:'fullDate' }}</b>
+
+
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
                         </ng-container>
-
-
-
 
                     </tbody>
                 </table>

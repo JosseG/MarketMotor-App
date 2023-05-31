@@ -12,7 +12,7 @@ export class Empleado{
     estado: boolean;
     actualizadoEn: Date;
     creadoEn: Date;
-    usuario: Usuario;
+    usuarioDto: Usuario;
 
  constructor(){
     this.id=0;
@@ -24,6 +24,6 @@ export class Empleado{
     this.estado=true;
     this.actualizadoEn = new Date();
     this.creadoEn = new Date();
-    this.usuario = new Usuario();
+    this.usuarioDto = new Usuario();
  }
 }

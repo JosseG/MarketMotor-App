@@ -10,8 +10,8 @@ export class OrdenCompra{
     actualizadoEn: Date ;
     creadoEn: Date ;
     estado: boolean;
-    empleado: Empleado;
-    proveedor: Proveedor;
+    empleadoDto: Empleado;
+    proveedorDto: Proveedor;
 
     constructor(){
         this.id=0;
@@ -22,7 +22,7 @@ export class OrdenCompra{
         this.actualizadoEn= new Date();
         this.creadoEn=new Date();
         this.estado=true;
-        this.empleado=new Empleado();
-        this.proveedor = new Proveedor();
+        this.empleadoDto=new Empleado();
+        this.proveedorDto = new Proveedor();
      }
 }

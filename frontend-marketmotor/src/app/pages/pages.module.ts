@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsuarioupdateComponent } from './usuario/usuarioupdate/usuarioupdate.component';
-import { UsuarioinsertComponent } from './usuario/usuarioinsert/usuarioinsert.component';
 import { UsuariolistComponent } from './usuario/usuariolist/usuariolist.component';
 import { ProveedorlistComponent } from './proveedor/proveedorlist/proveedorlist.component';
 import { ProveedorinsertComponent } from './proveedor/proveedorinsert/proveedorinsert.component';
@@ -17,13 +15,15 @@ import { InicioComponent } from './inicio/inicio.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { GenerarventaComponent } from './venta/generarventa/generarventa.component';
+import { ReporteordencompraComponent } from './ordencompra/reporteordencompra/reporteordencompra.component';
+import { GenerarordencompraComponent } from './ordencompra/generarordencompra/generarordencompra.component';
+import { ReporteventaComponent } from './venta/reporteventa/reporteventa.component';
 
 
 
 @NgModule({
   declarations: [
-    UsuarioupdateComponent,
-    UsuarioinsertComponent,
     UsuariolistComponent,
     ProveedorlistComponent,
     ProveedorinsertComponent,
@@ -36,6 +36,10 @@ import { RouterModule } from '@angular/router';
     EmpleadolistComponent,
     LoginComponent,
     InicioComponent,
+    GenerarventaComponent,
+    ReporteordencompraComponent,
+    GenerarordencompraComponent,
+    ReporteventaComponent
   ],
   imports: [
     CommonModule,

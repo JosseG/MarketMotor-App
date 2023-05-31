@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Empleado } from 'src/app/models/dtos/Empleado';
+import { EmpleadoFull } from 'src/app/models/dtos/EmpleadoFull';
 import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
 
 
@@ -15,15 +16,16 @@ export class EmpleadolistComponent {
 
   empleados: Empleado[] = [];
   ngOnInit():void{
-    this.getAll();
+    this.getAllEmpleados();
   }
 
-  getAll(){
+  getAllEmpleados(){
     this.empleadoService.getAll()
     .subscribe((empleados : any) => {
       console.log(empleados)
       this.empleados = empleados
     })
+
   }
 
   eliminar(empleado: Empleado):void {

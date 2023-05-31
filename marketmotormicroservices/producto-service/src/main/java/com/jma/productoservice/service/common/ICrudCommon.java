@@ -13,6 +13,4 @@ public interface ICrudCommon<T> {
 
     T actualizar(T object);
 
-
-
 }

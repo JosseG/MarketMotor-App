@@ -5,41 +5,29 @@ import jwt_decode from "jwt-decode";
 @Injectable({
   providedIn: 'root'
 })
-export class AccessService {
+export class ShortinfouserService {
 
   constructor(private storageService: StorageService) { }
 
 
-  accessAdmin(){
+
+  getNombreCargo() : string{
     var decodedData = this.getDecodedTokenData();
-    if(decodedData.cargo=='ROLE_ADMINISTRADOR'){
-      return true
+    console.log(decodedData)
+    if(decodedData!=null){
+      return decodedData.cargo.substring(5)
     }else{
-      return false
+      return "Sin Cargo - Error"
     }
   }
 
 
-
-  accessAsist(){
-
+  getAlias() : string{
     var decodedData = this.getDecodedTokenData();
-    if(decodedData.cargo=='ROLE_ASISTENTE'){
-      return true
+    if(decodedData!=null){
+      return decodedData.sub
     }else{
-      return false
-    }
-  }
-
-
-  accessProv(){
-
-    var decodedData = this.getDecodedTokenData();
-
-    if(decodedData.cargo=='ROLE_PROVEEDOR'){
-      return true
-    }else{
-      return false
+      return "Sin Cargo - Error"
     }
   }
 
@@ -51,16 +39,5 @@ export class AccessService {
       var decodedToJson= JSON.stringify(decodedata)
       return JSON.parse(decodedToJson);
     }
-    return "";
   }
-
-
-
-
-
-
-
-
-
 }
-

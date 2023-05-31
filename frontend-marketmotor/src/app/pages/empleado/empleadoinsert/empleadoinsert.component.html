@@ -1,9 +1,45 @@
-<h1>Insertar Empleado</h1>
+<div class="d-flex">
 
-
-<div class="container col-md-6">
+  <div class="container col-md-5">
+    <h1 class="text-center mt-4">Insertar Usuario</h1>
   <div class="card-body">
-    <form class="form" [formGroup]="formulario" (ngSubmit)="guardar()" autocomplete="off">
+    <form class="form" [formGroup]="formularioUsuario" (ngSubmit)="guardarUsuario()" autocomplete="off">
+  
+  
+      <div class="form-group">
+            
+        <label for="">Alias:</label>
+        <input class="form-control" type="text" id="alias" formControlName="alias">
+      </div>
+    
+      <div class="form-group">
+    
+        <label for="">Contraseña:</label>
+        <input class="form-control" type="text" id="contrasena" formControlName="contrasena">
+      </div>
+    
+    
+      <div class="form-group">
+            
+        <label for="">Rol:</label>
+        <input class="form-control" type="number" id="idRol" formControlName="idRol">
+      </div>
+    
+      
+    
+      <div class="text-center"><button class="btn btn-dark mt-3" type="submit">Enviar</button></div>
+    </form>
+  </div>
+  </div>
+
+
+
+
+
+<div class="container col-md-5">
+  <h1 class="text-center mt-4">Insertar Empleado</h1>
+  <div class="card-body">
+    <form class="form" [formGroup]="formularioEmpleado" (ngSubmit)="guardarEmpleado()" autocomplete="off">
   
   
       <div class="form-group">
@@ -43,7 +79,8 @@
         <input class="form-control" type="number" id="idUsuario" formControlName="idUsuario">
       </div>
     
-      <button class="btn btn-danger mt-3" type="submit">Enviar</button>
+      <div class="text-center"><button class="btn btn-danger mt-3" type="submit">Enviar</button></div>
     </form>
   </div>
+</div>
 </div>

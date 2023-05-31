@@ -37,6 +37,7 @@ public class EmpleadoController {
         this.usuarioService = usuarioService;
     }
 
+
     @GetMapping
     public ResponseEntity<List<EmpleadoDto>> obtenerTodos(){
         return ResponseEntity.ok(empleadoService.obtenerTodos());

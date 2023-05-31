@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { ShortinfouserService } from 'src/app/services/shortinfouser/shortinfouser.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 
 
@@ -12,7 +13,15 @@ import { StorageService } from 'src/app/services/storage/storage.service';
 })
 export class NavbarComponent {
 
-  constructor(private authService: AuthService,private sesionService:StorageService,private router:Router){
+  cargo = "";
+  usuario = "";
+
+  ngOnInit():void{
+    this.showCargo();
+    this.showUsuario();
+  }
+
+  constructor(private authService: AuthService,private sesionService:StorageService,private shortInfo:ShortinfouserService,private router:Router){
     
   }
 
@@ -20,6 +29,14 @@ export class NavbarComponent {
     this.authService.logout()
     sessionStorage.clear()
     this.router.navigate(['login'])
+  }
+
+  showCargo(){
+    this.cargo = this.shortInfo.getNombreCargo()
+  }
+
+  showUsuario(){
+    this.usuario = this.shortInfo.getAlias()
   }
 
 }

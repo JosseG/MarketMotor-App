@@ -20,11 +20,12 @@ export class StorageService {
     window.sessionStorage.setItem(TOKEN_KEY, token);
   }
 
-  public getToken(): string | "" {
-    return window.sessionStorage.getItem(TOKEN_KEY)??"";
+  public getToken(): string | null {
+    return window.sessionStorage.getItem(TOKEN_KEY);
   }
 
   public existToken(){
+
     return this.getToken()!=null;
   }
 
@@ -36,9 +37,6 @@ export class StorageService {
   public getRefreshToken(): string | null {
     return window.sessionStorage.getItem(REFRESHTOKEN_KEY);
   }
-
-
-
 
   }
   

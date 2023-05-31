@@ -10,6 +10,10 @@ import { EmpleadoinsertComponent } from './pages/empleado/empleadoinsert/emplead
 import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './_shared/auth.guard';
 import { AdministradorGuard } from './_shared/administrador.guard';
+import { GenerarventaComponent } from './pages/venta/generarventa/generarventa.component';
+import { GenerarordencompraComponent } from './pages/ordencompra/generarordencompra/generarordencompra.component';
+import { ReporteordencompraComponent } from './pages/ordencompra/reporteordencompra/reporteordencompra.component';
+import { ReporteventaComponent } from './pages/venta/reporteventa/reporteventa.component';
 
 const routes: Routes = [
   { path: 'inicio', component: InicioComponent,canActivate:[AuthGuard] },
@@ -20,6 +24,11 @@ const routes: Routes = [
   { path: 'empleados/actualizar/:id', component: EmpleadoinsertComponent,canActivate:[AuthGuard] },
   { path: 'usuarios', component: UsuariolistComponent,canActivate:[AuthGuard] },
   { path: 'proveedores', component: ProveedorlistComponent,canActivate:[AuthGuard] },
+
+  { path: 'venta/reporte', component: ReporteventaComponent,canActivate:[AuthGuard] },
+  { path: 'ordencompra/reporte', component: ReporteordencompraComponent,canActivate:[AuthGuard] },
+  { path: 'ordencompra', component: GenerarordencompraComponent,canActivate:[AuthGuard] },
+  { path: 'venta', component: GenerarventaComponent,canActivate:[AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'inicio', pathMatch: 'full' }
 ];

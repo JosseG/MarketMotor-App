@@ -19,8 +19,8 @@
           <tbody class="accordion-item accordion-flush user-select-none" id="accordionFlushExample">
             <ng-container *ngFor="let proveedor of proveedores">
               <tr style="cursor:pointer;" class=" accordion-header collapsed" data-bs-toggle="collapse"
-              attr.data-bs-target="#flush-collapse{{1}}" aria-expanded="false"
-              attr.aria-controls="flush-collapse{{1}}" >
+              attr.data-bs-target="#flush-collapse{{proveedor.id}}" aria-expanded="false"
+              attr.aria-controls="flush-collapse{{proveedor.id}}" >
                 <td>{{proveedor.id}}</td>
                 <td>{{proveedor.nombreComercial}}</td>
                 <td>{{proveedor.numeroRuc}}</td>
@@ -34,9 +34,9 @@
               </tr>
               <tr >
                 <td colspan="100%" style="padding:0">
-                    <div attr.id="flush-collapse{{1}}" class="accordion-collapse collapse cont"
-                        attr.aria-labelledby="flush-heading{{1}}" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis est sed, nesciunt suscipit, maiores itaque enim adipisci asperiores inventore corporis, laborum voluptates eos quibusdam laudantium quas ipsam! In, qui distinctio. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores necessitatibus alias at reprehenderit nemo assumenda tenetur, in suscipit nulla harum nobis perferendis architecto voluptatum facere neque, eum atque explicabo vitae! Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, officia unde. Doloribus inventore eaque quasi culpa ratione qui debitis? Repellat, asperiores nobis? Quos asperiores porro aperiam blanditiis veniam! Laudantium, quos?</div>
+                    <div attr.id="flush-collapse{{proveedor.id}}" class="accordion-collapse collapse cont"
+                        attr.aria-labelledby="flush-heading{{proveedor.id}}" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis est sed, nesciunt suscipit, maiores itaque enim adipisci asperiores inventore corporis, </div>
                     </div>
                 </td>
             </tr>

@@ -16,16 +16,33 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item" routerLink="/empleados">Empleados</a></li>
-            <li><a class="dropdown-item" routerLink="/usuarios">Usuarios</a></li>
             <li><a class="dropdown-item" routerLink="/proveedores">Proveedores</a></li>
             <li><a class="dropdown-item" routerLink="/productos">Productos</a></li>
           </ul>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/empleados/insertar">Empleado Inserción</a>
+        <li class="nav-item dropdown">
+          <button class="nav-link dropdown-toggle border-0 bg-transparent" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Transacción
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" routerLink="/venta">Venta</a></li>
+            <li><a class="dropdown-item" routerLink="/ordencompra">Orden de compra</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <button class="nav-link dropdown-toggle border-0 bg-transparent" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Reporte
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" routerLink="/venta/reporte">Ventas</a></li>
+            <li><a class="dropdown-item" routerLink="/ordencompra/reporte">Ordenes de compra</a></li>
+          </ul>
         </li>
       </ul>
+    </div>
+    <div class="text-white">
+      <span class="" style="margin-right:10px;">{{cargo}}  </span>
     </div>
     <button class="btn btn-info" (click)="logout()">Logout</button>
   </div>
