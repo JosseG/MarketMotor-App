@@ -30,7 +30,7 @@ public class ProveedorEntity {
     @Column(name = "id_proveedor")
     private Long id;
 
-    @Column(name = "razon_social_proveedor")
+    @Column(name = "razon_social_proveedor" , unique = true)
     @NotBlank
     private String razonSocial;
 
@@ -38,11 +38,11 @@ public class ProveedorEntity {
     @NotBlank
     private String nombreComercial;
 
-    @Column(name = "numero_ruc_proveedor")
+    @Column(name = "numero_ruc_proveedor", unique = true)
     @PositiveOrZero
     private String numeroRuc;
 
-    @Column(name = "correo_proveedor")
+    @Column(name = "correo_proveedor", unique = true)
     @Email
     private String correo;
 

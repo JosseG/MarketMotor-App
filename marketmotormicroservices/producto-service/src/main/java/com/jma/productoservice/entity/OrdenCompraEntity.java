@@ -31,7 +31,7 @@ public class OrdenCompraEntity {
     @Column(name = "confirmado_orden_compra")
     private boolean confirmado;
 
-    @Column(name = "numero_orden_compra")
+    @Column(name = "numero_orden_compra", unique = true)
     @NotNull
     private int numero;
 

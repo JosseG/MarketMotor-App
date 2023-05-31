@@ -28,7 +28,7 @@ public class UsuarioEntity {
     @Column(name = "id_usuario")
     private Long id;
 
-    @Column(name = "alias_usuario")
+    @Column(name = "alias_usuario", unique = true)
     @NotBlank
     private String alias;
 

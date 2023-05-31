@@ -27,7 +27,7 @@ public class ClienteEntity {
     @Column(name = "id_cliente")
     private Long id;
 
-    @Column(name = "dni_cliente")
+    @Column(name = "dni_cliente", unique = true)
     @NotBlank
     private String dni;
 

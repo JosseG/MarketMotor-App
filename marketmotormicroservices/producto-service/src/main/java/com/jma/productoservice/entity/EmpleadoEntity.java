@@ -48,7 +48,7 @@ public class EmpleadoEntity {
     @NotBlank
     private String telefono;
 
-    @Column(name = "correo_empleado")
+    @Column(name = "correo_empleado", unique = true)
     @Email
     private String correo;
 
