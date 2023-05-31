@@ -3,8 +3,10 @@ package com.jma.productoservice.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,9 +39,11 @@ public class ProveedorEntity {
     private String nombreComercial;
 
     @Column(name = "numero_ruc_proveedor")
+    @PositiveOrZero
     private String numeroRuc;
 
     @Column(name = "correo_proveedor")
+    @Email
     private String correo;
 
     @Column(name = "direccion_proveedor")
@@ -51,6 +55,7 @@ public class ProveedorEntity {
     private String departamento;
 
     @Column(name = "telefono_proveedor")
+    @NotBlank
 
     private String telefonoProveedor;
 

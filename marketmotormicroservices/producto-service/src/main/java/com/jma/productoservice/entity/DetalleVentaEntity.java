@@ -3,6 +3,7 @@ package com.jma.productoservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class DetalleVentaEntity {
     private Long id;
 
     @Column(name = "unidades_detalle_venta")
+    @PositiveOrZero
     private int unidades;
 
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")

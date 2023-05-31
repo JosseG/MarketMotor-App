@@ -32,9 +32,11 @@ public class ClienteEntity {
     private String dni;
 
     @Column(name = "nombre_cliente")
+    @NotBlank
     private String nombre;
 
     @Column(name = "apellido_cliente")
+    @NotBlank
     private String apellido;
 
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
