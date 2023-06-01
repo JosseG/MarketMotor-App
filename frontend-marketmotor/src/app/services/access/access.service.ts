@@ -15,6 +15,7 @@ export class AccessService {
     if(decodedData.cargo=='ROLE_ADMINISTRADOR'){
       return true
     }else{
+      alert("NO TIENE ACCESO")
       return false
     }
   }
@@ -53,13 +54,6 @@ export class AccessService {
     }
     return "";
   }
-
-
-
-
-
-
-
 
 
 }

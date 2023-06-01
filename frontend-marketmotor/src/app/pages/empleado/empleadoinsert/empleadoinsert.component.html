@@ -15,7 +15,7 @@
       <div class="form-group">
     
         <label for="">Contraseña:</label>
-        <input class="form-control" type="text" id="contrasena" formControlName="contrasena">
+        <input class="form-control" type="password" id="contrasena" formControlName="contrasena">
       </div>
     
     
@@ -76,7 +76,7 @@
       <div class="form-group">
             
         <label for="">Usuario:</label>
-        <input class="form-control" type="number" id="idUsuario" formControlName="idUsuario">
+        <input class="form-control"  type="number" id="idUsuario" [readonly]="true" formControlName="idUsuario">
       </div>
     
       <div class="text-center"><button class="btn btn-danger mt-3" type="submit">Enviar</button></div>

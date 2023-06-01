@@ -28,12 +28,12 @@ export class EmpleadoinsertComponent implements OnInit {
     idRol:[],
   })
 
+  idUsuario = 0;
   empleados?: Empleado[];
 
   constructor(private empleadoService: EmpleadoService, private usuarioService:UsuarioService,private router:Router, private formbuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    
   }
 
 
@@ -50,14 +50,17 @@ export class EmpleadoinsertComponent implements OnInit {
     this.empleadoService.createEmpleado(values)
     .subscribe({
       next: () => {
+
         this.formularioEmpleado.get("nombre")?.reset()
         this.formularioEmpleado.get("apellidoPat")?.reset()
         this.formularioEmpleado.get("apellidoMat")?.reset()
         this.formularioEmpleado.get("telefono")?.reset()
         this.formularioEmpleado.get("correo")?.reset()
         this.formularioEmpleado.get("idUsuario")?.reset()
+        alert("Agregado con exito")
+        this.router.navigate(['empleados'])
       },
-      error: (e) => console.log(e)
+      error: (e) => alert("Campos incompletos")
       
     })
   }
@@ -67,10 +70,12 @@ export class EmpleadoinsertComponent implements OnInit {
     const values = this.formularioUsuario.value
     this.usuarioService.createUsuario(values)
     .subscribe({
-      next: () => {
+      next: (data) => {
+        this.idUsuario = data.id 
         this.formularioUsuario.get("alias")?.reset()
         this.formularioUsuario.get("contrasena")?.reset()
         this.formularioUsuario.get("idRol")?.reset()
+        this.formularioEmpleado.controls['idUsuario'].setValue(this.idUsuario);
       },
       error: (e) => console.log(e)
     })
