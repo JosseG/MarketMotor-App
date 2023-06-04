@@ -1,1 +1,96 @@
-<p>generarordencompra works!</p>
+<div class="mt-5">
+    <div class="orden-compra-container px-5">
+
+        <div class="orden-compra-header col-md-12 d-flex justify-content-between">
+            <h2>ORDEN DE COMPRA</h2>
+            <div><button class="btn btn-info">Nuevo <i class="ps-3 bi bi-plus-lg"></i></button></div>
+        </div>
+
+            <div class="orden-compra-body-to-grid mt-5">
+                <div class="orden-body-1 col-md-12">
+                    <div class="body-header-1 d-flex justify-content-between">
+                        <h3>Proveedor</h3>
+                        <div>
+                            <button class="btn btn-dark">Buscar<i class="ps-2 bi bi-search"></i></button>
+                        </div>
+                    </div>
+                    <div class="body-main-1 mt-3">
+
+                        <div class="item-2-1  py-2">
+                            <label for="" class="me-3">RUC</label>
+                            <input type="text" placeholder="proveedor nombre">
+                        </div>
+                        <div class="item-2-2 py-2">
+                            <label for="" class="me-3">Nombres</label>
+                            <input type="text" placeholder="proveedor nombre">
+                        </div>
+
+
+                        <div class="item-2-3 py-2">
+                            <label for="" class="me-3">Apellidos</label>
+                            <input type="text" placeholder="proveedor nombre">
+                        </div>
+
+                </div>
+    
+                </div>
+                <div class="orden-body-2 ">
+                    <div class="body-header-2 d-flex justify-content-between">
+                        <h3>Empleado</h3>
+                    </div>
+                    <div class="body-main-2 mt-3">
+
+                            <div class="item-2-1  py-2">
+                                <label for="" class="me-3">Id</label>
+                                <input type="text" placeholder="id">
+                            </div>
+                            <div class="item-2-2 py-2">
+                                <label for="" class="me-3">Nombres</label>
+                                <input type="text" placeholder="proveedor nombre">
+                            </div>
+
+  
+                            <div class="item-2-3 py-2">
+                                <label for="" class="me-3">Apellidos</label>
+                                <input type="text" placeholder="proveedor nombre">
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+    </div>
+    <div class="detalle-container px-5 mt-5">
+        <div class="detalle-header col-md-12 d-flex justify-content-between">
+            <h4>Detalle</h4>
+            <div><button class="btn btn-dark">Agregar <i class="ps-2 bi bi-plus-lg"></i></button></div>
+        </div>
+        <div class="detalle-body mt-3">
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                  <tr>
+                    <th scope="col" class="text-center">Código</th>
+                    <th scope="col" class="text-center">Descripción</th>
+                    <th scope="col" class="text-center">Precio</th>
+                    <th scope="col" class="text-center">Cantidad</th>
+                    <th scope="col" class="text-center">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="overflow: hidden; display: none;"><input type="text" style="overflow:hidden"></td>
+                    <td class="text-center">1</td>
+                    <td class="text-center">Piston</td>
+                    <td class="text-center">25.5</td>
+                    <td class="text-center"><input type="number" placeholder="cantidad"></td>
+                    <td class="text-center"><button class="btn btn-danger text-center">Quitar <i class="ps-3 bi bi-x-lg"></i></button></td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+    <div class="button-actions-end">
+
+    </div>
+</div>
