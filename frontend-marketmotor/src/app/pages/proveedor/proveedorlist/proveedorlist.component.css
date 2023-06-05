@@ -44,10 +44,14 @@
 }*/
 /*TITULO*/
 .titulo{
-    color: gray;
+    color:gray;
     margin-top: 30px;
-
+    font-size: 28px;
 }
 .tablas{
     margin-top: 50px;
+}
+.tableCabe3 th{
+
+    padding-bottom: 20px;
 }

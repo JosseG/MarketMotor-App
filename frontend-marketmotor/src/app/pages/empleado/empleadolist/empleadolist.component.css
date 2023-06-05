@@ -45,10 +45,10 @@
      height: 150px;
  }*/
 /*TITULO*/
-.titulo {
-    color: gray;
-    margin: 20px 0;
-
+.titulo{
+    color:gray;
+    margin-top: 30px;
+    font-size: 28px;
 }
 
 .tablas {

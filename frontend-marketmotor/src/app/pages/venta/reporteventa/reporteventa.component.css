@@ -1,0 +1,60 @@
+.reportes{
+    margin-top: 30px;
+   
+}
+.tabla_reportes{
+    margin-top: 40px;
+}
+
+.selec_produc{
+    margin-left: 16px;
+    width: 90%;
+}
+
+.buscar_todo{
+    margin-right:20px;
+}
+
+.btn_imprimir{
+    margin-right: 3px;
+}
+.selec_empleado{
+    width: 90%;
+}
+/*TABLA*/
+.body_reporte{
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    
+}
+.body_reporte td {
+    height: 60px;
+}
+
+
+.table{
+   
+    text-align: center;
+}
+
+.table th{
+    color: gray;
+}
+
+.table td{
+    padding-top: 15px;
+}
+.tableCabe3 th{
+
+    padding-bottom: 20px;
+}
+
+.titulo{
+    color:gray;
+    margin-top: 30px;
+    font-size: 28px;
+}
+
+.inp_buscar{
+    border-color: aqua;
+}

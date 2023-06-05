@@ -44,9 +44,9 @@
 }*/
 /*TITULO*/
 .titulo{
-   color: gray;
+   color:gray;
    margin-top: 30px;
-
+   font-size: 28px;
 }
 .tablas{
    margin-top: 50px;
