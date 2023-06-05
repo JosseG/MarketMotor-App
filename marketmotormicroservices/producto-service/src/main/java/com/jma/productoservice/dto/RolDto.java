@@ -16,9 +16,6 @@ public class RolDto implements Serializable {
     private Long id;
     private String nombre;
     private boolean estado;
-    private Set<PermisoDto> permisos = new HashSet<>();
-
-
     public void declararDisponibilidad(EstadoD estadoD){
         setEstado(Objects.requireNonNull(estadoD) == EstadoD.ACTIVO);
     }
