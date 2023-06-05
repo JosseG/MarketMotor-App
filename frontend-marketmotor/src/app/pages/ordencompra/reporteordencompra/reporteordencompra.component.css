@@ -1,0 +1,29 @@
+.input-group  {
+  width: 350px;
+}
+
+.px-3 {
+  width: 50px;
+
+}
+
+.dropdown-toggle {
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px black solid;
+  border-radius: 0.5em;
+  padding: 1em;
+  color: black;
+  width: 140px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.badge {
+  width: 120px;
+  align-items: center;
+  border-radius: 0.5em;
+  padding: 1em;
+}
