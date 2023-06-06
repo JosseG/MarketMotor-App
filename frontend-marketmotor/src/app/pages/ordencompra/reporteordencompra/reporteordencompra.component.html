@@ -1,13 +1,16 @@
-<div class="mt-5">
-    <div class="orden-compra-container px-5">
+<div class="container mt-3">
+
+  <div class="row">
+      <div class="col-md-12">
+          <div class="table-responsive-lg">
   
-      <div class="orden-compra-header col-md-12 d-flex justify-content-between">
-      <h2>REPORTE ORDEN DE COMPRAS</h2>
-      </div>
+  
+      <div class="orden-compra-header col-md-12">
+        <h1 class="titulo">REPORTE ORDEN DE COMPRAS</h1> 
     </div>
+
   
-  
-    <nav class="navbar navbar-expand px-5 mt-5">
+    <!-- <nav class="navbar navbar-expand px-5 mt-5">
       <div class="container-fluid">
     <div class="collapse navbar-collapse" id="navbarreporteordencompra">
       <ul class="navbar-nav">
@@ -62,14 +65,56 @@
           </svg>
         </div>
   
-  </nav>
+  </nav>-->
+  <div class="d-flex justify-content-between reportes">
+    <div class="d-flex flex-row  buscadores">
+        <div class="input-group mb-3 col-3 selec_fecha">
+            <select class="form-select " id="inputGroupSelect04" >
+              <option selected>Fecha</option>
+              <option value="1">1 Trimestre</option>
+              <option value="2">2 Trimestre</option>
+              <option value="3">3 Trimestre</option>
+            </select>
+        </div>
+        <div class="input-group mb-3 col-3 selec_empleado">
+            <select class="form-select" id="inputGroupSelect04" >
+              <option selected>Empleado</option>
+              <option value="1">Shaughn</option>
+              <option value="2">Cello</option>
+              <option value="3">Viviane</option>
+            </select>
+        </div>
+        <div class="input-group mb-3 col-3 selec_proveedor">
+          <select class="form-select" id="inputGroupSelect04" >
+            <option selected>Proveedor</option>
+            <option value="1">Wong & Metro</option>
+            <option value="2">Renault</option>
+            <option value="3">Changan</option>
+          </select>
+      </div>
+
+     </div>
+     <div class="d-flex flex-row p_derecha">
+           
+            <div class="input-group mb-3 buscar_todo">
+                <span class="input-group-text inp_buscar" id="basic-addon1"><i class="bi bi-search"></i></span>
+                <input type="text" class="form-control inp_buscar" placeholder="Busca aquí"  aria-describedby="basic-addon1">
+            </div>
+   
+        <div class="btn_imprimir">
+            <button class="btn btn-info"><i class="bi bi-printer-fill"></i></button>
+            
+        </div>
+
+     </div>
+</div>
   
   
-    <div class="detalle-container px-5 mt-5">
+<!--<div class="detalle-container px-5 mt-5">
   
-        <div class="detalle-body mt-3">
-            <table class="table table-bordered">
-                <thead class="table-dark">
+        <div class="detalle-body mt-3">-->
+            <table class="table tabla_reportes">
+                <thead class="tableCabe3">
                   <tr>
                     <th scope="col" class="text-center">Numero de Orden</th>
                     <th scope="col" class="text-center">Tipo de Orden</th>
@@ -79,7 +124,7 @@
                     <th scope="col" class="text-center">Estado</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody class="body_reporte">
                   <tr>
                     <td style="overflow: hidden; display: none;"><input type="text" style="overflow:hidden"></td>
                     <td class="text-center ">1</td>
@@ -122,9 +167,13 @@
   
                 </tbody>
               </table>
-        </div>
-    </div>
+              <!--  </div>
+    </div>-->
     <div class="button-actions-end">
   
     </div>
     </div>
+  </div>
+</div>
+</div>
+
