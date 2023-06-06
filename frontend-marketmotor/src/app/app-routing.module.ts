@@ -17,17 +17,17 @@ import { ReporteventaComponent } from './pages/venta/reporteventa/reporteventa.c
 
 const routes: Routes = [
   { path: 'inicio', component: InicioComponent,canActivate:[AuthGuard] },
-  { path: 'productos', component: ProductolistComponent,canActivate:[AuthGuard,AdministradorGuard] },
-  { path: 'productos/insertar', component: ProductoinsertComponent,canActivate:[AuthGuard] },
-  { path: 'empleados', component: EmpleadolistComponent,canActivate:[AuthGuard] },
-  { path: 'empleados/insertar', component: EmpleadoinsertComponent,canActivate:[AuthGuard] },
-  { path: 'empleados/actualizar/:id', component: EmpleadoinsertComponent,canActivate:[AuthGuard] },
-  { path: 'usuarios', component: UsuariolistComponent,canActivate:[AuthGuard] },
-  { path: 'proveedores', component: ProveedorlistComponent,canActivate:[AuthGuard] },
+  { path: 'productos', component: ProductolistComponent,canActivate:[AuthGuard] },
+  { path: 'productos/insertar', component: ProductoinsertComponent,canActivate:[AuthGuard,AdministradorGuard] },
+  { path: 'empleados', component: EmpleadolistComponent,canActivate:[AuthGuard,AdministradorGuard] },
+  { path: 'empleados/insertar', component: EmpleadoinsertComponent,canActivate:[AuthGuard,AdministradorGuard] },
+  { path: 'empleados/actualizar/:id', component: EmpleadoinsertComponent,canActivate:[AuthGuard,AdministradorGuard] },
+  { path: 'usuarios', component: UsuariolistComponent,canActivate:[AuthGuard,AdministradorGuard] },
+  { path: 'proveedores', component: ProveedorlistComponent,canActivate:[AuthGuard,AdministradorGuard] },
 
   { path: 'venta/reporte', component: ReporteventaComponent,canActivate:[AuthGuard] },
   { path: 'ordencompra/reporte', component: ReporteordencompraComponent,canActivate:[AuthGuard] },
-  { path: 'ordencompra', component: GenerarordencompraComponent,canActivate:[AuthGuard] },
+  { path: 'ordencompra', component: GenerarordencompraComponent,canActivate:[AuthGuard,AdministradorGuard] },
   { path: 'venta', component: GenerarventaComponent,canActivate:[AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'inicio', pathMatch: 'full' }

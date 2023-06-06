@@ -15,9 +15,9 @@
             Mantenimiento
           </button>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" routerLink="/empleados">Empleados</a></li>
-            <li><a class="dropdown-item" routerLink="/proveedores">Proveedores</a></li>
-            <li><a class="dropdown-item" routerLink="/productos">Productos</a></li>
+            <li *ngIf="isAdmin()"><a class="dropdown-item" routerLink="/empleados">Empleados</a></li>
+            <li *ngIf="isAdmin()"><a class="dropdown-item" routerLink="/proveedores">Proveedores</a></li>
+            <li><a  class="dropdown-item" routerLink="/productos">Productos</a></li>
           </ul>
         </li>
 
@@ -27,7 +27,7 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item" routerLink="/venta">Venta</a></li>
-            <li><a class="dropdown-item" routerLink="/ordencompra">Orden de compra</a></li>
+            <li *ngIf="isAdmin()"><a class="dropdown-item" routerLink="/ordencompra">Orden de compra</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">

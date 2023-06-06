@@ -1,5 +1,5 @@
 import { Empleado } from './../../models/dtos/Empleado';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EmpleadoInsert } from 'src/app/models/commands/empleado/EmpleadoInsert';
 import { EmpleadoUpdate } from 'src/app/models/commands/empleado/EmpleadoUpdate';
@@ -40,5 +40,11 @@ export class EmpleadoService {
 
   deleteEmpleado(empleado: Empleado){
     return this.http.delete<Empleado>(this.apiUrl+"/"+empleado.id);
+  }
+
+  getAllByPaginable(pageNo: number = 0,pageSize: number = 10, sortBy: string= "id",sortDir: string="asc"){
+    return this.http.get(`${this.apiUrl}/pagination`,{
+      params: new HttpParams().set('pageNo', pageNo).set('pageSize',pageSize)
+    })
   }
 }

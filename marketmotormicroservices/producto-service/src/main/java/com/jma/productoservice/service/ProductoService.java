@@ -10,4 +10,7 @@ public interface ProductoService<T> extends ICrudCommon<T> {
     List<T> guardarTodos(List<T> list);
 
     ProductoResponse obtenerTodosPaginados(int pageNo, int pageSize, String sortBy, String sortDir);
+
+
+    ProductoResponse obtenerPFiltradosPorDescripción(String descripcion,int pageNo, int pageSize, String sortBy, String sortDir);
 }

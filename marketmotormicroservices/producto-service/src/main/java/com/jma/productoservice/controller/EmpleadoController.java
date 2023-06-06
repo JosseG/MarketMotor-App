@@ -129,7 +129,7 @@ public class EmpleadoController {
             @RequestParam(value = "sortBy", defaultValue = ConstantsService.DEFAULT_SORT_BY, required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = ConstantsService.DEFAULT_SORT_DIRECTION, required = false) String sortDir
     ){
-        return ResponseEntity.ok(empleadoService.obtenerTodosPaginados(pageNo, pageSize, sortBy, sortDir));
+        return ResponseEntity.ok(empleadoService.obtenerTodosPaginados(pageNo-1, pageSize, sortBy, sortDir));
     }
 
     @PutMapping

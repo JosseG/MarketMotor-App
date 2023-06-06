@@ -19,4 +19,5 @@ public class EmpleadoResponse {
     private int totalPages;
     private boolean last;
 
+
 }

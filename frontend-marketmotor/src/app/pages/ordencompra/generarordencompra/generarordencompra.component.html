@@ -1,96 +1,175 @@
 <div class="mt-5">
-    <div class="orden-compra-container px-5">
+  <div class="orden-compra-container px-5">
 
-        <div class="orden-compra-header col-md-12 d-flex justify-content-between">
-            <h2 class="titulo">ORDEN DE COMPRA</h2>
-            <div><button class="btn btn-info">Nuevo <i class="ps-3 bi bi-plus-lg"></i></button></div>
+    <div class="orden-compra-header col-md-12 d-flex justify-content-between">
+      <h2>ORDEN DE COMPRA</h2>
+      <div><button class="btn btn-info">Nuevo <i class="ps-3 bi bi-plus-lg"></i></button></div>
+    </div>
+
+    <div class="orden-compra-body-to-grid mt-5">
+      <div class="orden-body-1 col-md-12">
+        <div class="body-header-1 d-flex justify-content-between">
+          <h3>Proveedor</h3>
+          <div>
+            <button class="btn btn-dark">Buscar<i class="ps-2 bi bi-search"></i></button>
+          </div>
+        </div>
+        <div class="body-main-1 mt-3">
+
+          <div class="item-2-1  py-2">
+            <label for="" class="me-3">RUC</label>
+            <input type="text" placeholder="proveedor nombre">
+          </div>
+          <div class="item-2-2 py-2">
+            <label for="" class="me-3">Nombres</label>
+            <input type="text" placeholder="proveedor nombre">
+          </div>
+
+
+          <div class="item-2-3 py-2">
+            <label for="" class="me-3">Apellidos</label>
+            <input type="text" placeholder="proveedor nombre">
+          </div>
+
         </div>
 
-            <div class="orden-compra-body-to-grid mt-5">
-                <div class="orden-body-1 col-md-12">
-                    <div class="body-header-1 d-flex justify-content-between">
-                        <h3>Proveedor</h3>
-                        <div>
-                            <button class="btn btn-dark">Buscar<i class="ps-2 bi bi-search"></i></button>
-                        </div>
-                    </div>
-                    <div class="body-main-1 mt-3">
+      </div>
+      <div class="orden-body-2 ">
+        <div class="body-header-2 d-flex justify-content-between">
+          <h3>Empleado</h3>
+        </div>
+        <div class="body-main-2 mt-3">
 
-                        <div class="item-2-1  py-2">
-                            <label for="" class="me-3">RUC</label>
-                            <input type="text" placeholder="proveedor nombre">
-                        </div>
-                        <div class="item-2-2 py-2">
-                            <label for="" class="me-3">Nombres</label>
-                            <input type="text" placeholder="proveedor nombre">
-                        </div>
+          <div class="item-2-1  py-2">
+            <label for="" class="me-3">Id</label>
+            <input type="text" placeholder="id">
+          </div>
+          <div class="item-2-2 py-2">
+            <label for="" class="me-3">Nombres</label>
+            <input type="text" placeholder="proveedor nombre">
+          </div>
 
 
-                        <div class="item-2-3 py-2">
-                            <label for="" class="me-3">Apellidos</label>
-                            <input type="text" placeholder="proveedor nombre">
-                        </div>
+          <div class="item-2-3 py-2">
+            <label for="" class="me-3">Apellidos</label>
+            <input type="text" placeholder="proveedor nombre">
+          </div>
 
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="detalle-container px-5 mt-5">
+    <div class="detalle-header col-md-12 d-flex justify-content-between">
+      <h4>Detalle</h4>
+      <div><button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar <i
+            class="ps-2 bi bi-plus-lg"></i></button></div>
+    </div>
+    <div class="detalle-body mt-3">
+      <table class="table table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col" class="text-center">Código</th>
+            <th scope="col" class="text-center">Descripción</th>
+            <th scope="col" class="text-center">Precio</th>
+            <th scope="col" class="text-center">Cantidad</th>
+            <th scope="col" class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let productoitem of productosFromCartWith">
+            <td>{{productoitem.producto.id}}</td>
+            <td>{{productoitem.producto.descripcion}}</td>
+            <td>{{productoitem.producto.precio}}</td>
+            <td>{{productoitem.cantidad}}</td>
+            <td class="text-center"><button class="btn btn-danger text-center" (click)="deleteItemProducto(productoitem.producto.id)">Quitar <i
+                  class="ps-3 bi bi-x-lg"></i></button></td>
+          </tr>
+
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="button-actions-end">
+
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade modal-lg " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form" [formGroup]="formSearchProduct" (ngSubmit)="getPaginableProductosFiltred()"
+            autocomplete="off">
+            <div class="container">
+
+              <div class="row height d-flex justify-content-center align-items-center">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                  <div class="search col-8">
+                    <i class="fa fa-search"></i>
+                    <input type="text" class="form-control" placeholder="Coloque la descripción del producto"
+                      formControlName="descripcion">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                  </div>
+                  <div *ngIf="isSearching"><button (click)="clear()"><i class="bi bi-x-lg"></i></button></div>
                 </div>
-    
-                </div>
-                <div class="orden-body-2 ">
-                    <div class="body-header-2 d-flex justify-content-between">
-                        <h3>Empleado</h3>
-                    </div>
-                    <div class="body-main-2 mt-3">
-
-                            <div class="item-2-1  py-2">
-                                <label for="" class="me-3">Id</label>
-                                <input type="text" placeholder="id">
-                            </div>
-                            <div class="item-2-2 py-2">
-                                <label for="" class="me-3">Nombres</label>
-                                <input type="text" placeholder="proveedor nombre">
-                            </div>
-
-  
-                            <div class="item-2-3 py-2">
-                                <label for="" class="me-3">Apellidos</label>
-                                <input type="text" placeholder="proveedor nombre">
-                            </div>
-
-                    </div>
-                </div>
+              </div>
             </div>
 
+          </form>
 
-    </div>
-    <div class="detalle-container px-5 mt-5">
-        <div class="detalle-header col-md-12 d-flex justify-content-between">
-            <h4>Detalle</h4>
-            <div><button class="btn btn-dark">Agregar <i class="ps-2 bi bi-plus-lg"></i></button></div>
+          <table class="table table-bordered mt-4">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col" class="text-center">Código</th>
+                <th scope="col" class="text-center">Descripción</th>
+                <th scope="col" class="text-center">Precio</th>
+                <th scope="col" class="text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let producto of productos | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: total }">
+                <td>{{producto.id}}</td>
+                <td>{{producto.descripcion}}</td>
+                <td>{{producto.precio}}</td>
+                <td><button type="button" class="bg-success text-white border-0 px-3 py-1"
+                    (click)="productoToSetQuantity(producto)">Agregar</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
+          <form class="form" [formGroup]="formAddingCartProduct" (ngSubmit)="addToCart(productoToQuantity.id)"
+            autocomplete="off">
+            <div class="form-group">
+              <label for="formGroupExampleInput">Producto</label>
+              <input readonly type="text" value="{{productoToQuantity.descripcion}}" class="form-control"
+                id="formGroupExampleInput">
+            </div>
+            <div class="form-group">
+              <label for="formGroupExampleInput2">Cantidad</label>
+              <input formControlName="cantidad" type="number" class="form-control" id="formGroupExampleInput2"
+                placeholder="Ingrese la cantidad">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+            </div>
+          </form>
         </div>
-        <div class="detalle-body mt-3">
-            <table class="table table-bordered">
-                <thead class="table-dark">
-                  <tr>
-                    <th scope="col" class="text-center">Código</th>
-                    <th scope="col" class="text-center">Descripción</th>
-                    <th scope="col" class="text-center">Precio</th>
-                    <th scope="col" class="text-center">Cantidad</th>
-                    <th scope="col" class="text-center">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td style="overflow: hidden; display: none;"><input type="text" style="overflow:hidden"></td>
-                    <td class="text-center">1</td>
-                    <td class="text-center">Piston</td>
-                    <td class="text-center">25.5</td>
-                    <td class="text-center"><input type="number" placeholder="cantidad"></td>
-                    <td class="text-center"><button class="btn btn-danger text-center">Quitar <i class="ps-3 bi bi-x-lg"></i></button></td>
-                  </tr>
-                </tbody>
-              </table>
-        </div>
-    </div>
-    <div class="button-actions-end">
 
+      </div>
     </div>
+  </div>
 </div>

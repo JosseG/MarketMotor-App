@@ -59,6 +59,30 @@ public class ProductoServiceImpl implements ProductoService<ProductoDto> {
     }
 
     @Override
+    public ProductoResponse obtenerPFiltradosPorDescripción(String descripcion, int pageNo, int pageSize, String sortBy, String sortDir) {
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+
+        Page<ProductoEntity> productospageable = productoRepository.findProductoEntitiesByDescripcionContaining(descripcion,pageable);
+
+        List<ProductoEntity> productos = productospageable.getContent();
+
+        List<ProductoDto> content = productos.stream().map(ProductoMapper::mapToDto).toList();
+
+        ProductoResponse productoResponse = new ProductoResponse();
+
+        productoResponse.setContent(content);
+        productoResponse.setPageNo(productospageable.getNumber());
+        productoResponse.setPageSize(productospageable.getSize());
+        productoResponse.setTotalElements(productospageable.getTotalElements());
+        productoResponse.setTotalPages(productospageable.getTotalPages());
+        productoResponse.setLast(productospageable.isLast());
+        return productoResponse;
+    }
+
+    @Override
     public ProductoDto guardar(ProductoDto object) {
         ProductoEntity productoEntity = productoRepository.save(ProductoMapper.mapToEntity(object));
 

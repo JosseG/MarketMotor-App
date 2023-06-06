@@ -3,19 +3,22 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { RouterModule } from '@angular/router';
+import { PaginationComponent } from './pagination/pagination.component';
 
 
 
 @NgModule({
   declarations: [
-    NavbarComponent
+    NavbarComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule,
     RouterModule
   ],
   exports: [
-    NavbarComponent
+    NavbarComponent,
+    PaginationComponent
   ]
 })
 export class ComponentsModule { }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AccessService } from 'src/app/services/access/access.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ShortinfouserService } from 'src/app/services/shortinfouser/shortinfouser.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
@@ -21,7 +22,7 @@ export class NavbarComponent {
     this.showUsuario();
   }
 
-  constructor(private authService: AuthService,private sesionService:StorageService,private shortInfo:ShortinfouserService,private router:Router){
+  constructor(private authService: AuthService,private sesionService:StorageService,private shortInfo:ShortinfouserService,private accessServices: AccessService,private router:Router){
     
   }
 
@@ -37,6 +38,11 @@ export class NavbarComponent {
 
   showUsuario(){
     this.usuario = this.shortInfo.getAlias()
+  }
+
+  isAdmin(): boolean{
+
+    return this.accessServices.accessAdmin()
   }
 
 }

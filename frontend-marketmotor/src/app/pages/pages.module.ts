@@ -19,6 +19,9 @@ import { GenerarventaComponent } from './venta/generarventa/generarventa.compone
 import { ReporteordencompraComponent } from './ordencompra/reporteordencompra/reporteordencompra.component';
 import { GenerarordencompraComponent } from './ordencompra/generarordencompra/generarordencompra.component';
 import { ReporteventaComponent } from './venta/reporteventa/reporteventa.component';
+import { PaginationComponent } from '../components/pagination/pagination.component';
+import { ComponentsModule } from '../components/components.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -45,7 +48,9 @@ import { ReporteventaComponent } from './venta/reporteventa/reporteventa.compone
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    ComponentsModule,
+    NgxPaginationModule
   ]
 })
 export class PagesModule { }

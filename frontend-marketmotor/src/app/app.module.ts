@@ -11,6 +11,7 @@ import { authInterceptorProviders } from './_helpers/auth/interceptor.intercepto
 
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
+import { NgxPaginationModule } from 'ngx-pagination';
 registerLocaleData(localeEs, 'es')
 
 @NgModule({
@@ -24,7 +25,8 @@ registerLocaleData(localeEs, 'es')
     HttpClientModule,
     ComponentsModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule,
   ],
   providers: [authInterceptorProviders,{provide: LOCALE_ID, useValue:'es'}],
   bootstrap: [AppComponent]

@@ -93,7 +93,18 @@ public class ProductoController {
             @RequestParam(value = "sortBy", defaultValue = ConstantsService.DEFAULT_SORT_BY, required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = ConstantsService.DEFAULT_SORT_DIRECTION, required = false) String sortDir
     ){
-        return ResponseEntity.ok(productoService.obtenerTodosPaginados(pageNo, pageSize, sortBy, sortDir));
+        return ResponseEntity.ok(productoService.obtenerTodosPaginados(pageNo-1, pageSize, sortBy, sortDir));
+    }
+
+
+    @GetMapping("/pagination/{descripcion}")
+    public ResponseEntity<ProductoResponse> obtenerProductosFiltradosPaginados(@PathVariable String descripcion,
+            @RequestParam(value = "pageNo", defaultValue = ConstantsService.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = ConstantsService.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = ConstantsService.DEFAULT_SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = ConstantsService.DEFAULT_SORT_DIRECTION, required = false) String sortDir
+    ){
+        return ResponseEntity.ok(productoService.obtenerPFiltradosPorDescripción(descripcion,pageNo-1, pageSize, sortBy, sortDir));
     }
 
 }

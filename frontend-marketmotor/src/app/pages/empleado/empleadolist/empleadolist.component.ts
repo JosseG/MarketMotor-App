@@ -1,9 +1,10 @@
+import { PaginationComponent } from './../../../components/pagination/pagination.component';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Empleado } from 'src/app/models/dtos/Empleado';
 import { EmpleadoFull } from 'src/app/models/dtos/EmpleadoFull';
+import { EmpleadoResponse } from 'src/app/models/responseapi/EmpleadoResponse';
 import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
-
 
 @Component({
   selector: 'app-empleadolist',
@@ -12,26 +13,52 @@ import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
 })
 export class EmpleadolistComponent {
 
-  constructor(private empleadoService: EmpleadoService,private router:Router){}
+  currentPage = 1;
+  total = 0;
+  itemsPerPage = 8;
+  constructor(private empleadoService: EmpleadoService, private router: Router) { }
 
   empleados: Empleado[] = [];
-  ngOnInit():void{
-    this.getAllEmpleados();
+
+  empleadosPaginable: EmpleadoResponse= new EmpleadoResponse();
+  ngOnInit(): void {
+    //this.getAllEmpleados();
+    this.getPaginableEmpleados();
   }
 
-  getAllEmpleados(){
+  getAllEmpleados() {
     this.empleadoService.getAll()
-    .subscribe((empleados : any) => {
-      console.log(empleados)
-      this.empleados = empleados
-    })
+      .subscribe((empleados: any) => {
+        console.log(empleados)
+        //this.empleados = empleados
+      })
 
   }
 
-  eliminar(empleado: Empleado):void {
-    this.empleadoService.deleteEmpleado(empleado).subscribe(data=>{
-      this.empleados=this.empleados!.filter(e=>e!==empleado);
+  eliminar(empleado: Empleado): void {
+    this.empleadoService.deleteEmpleado(empleado).subscribe(data => {
+      this.empleados = this.empleados!.filter(e => e !== empleado);
     });
   }
+
+  getPaginableEmpleados() {
+
+    this.empleadoService.getAllByPaginable(this.currentPage,this.itemsPerPage).subscribe({
+      next: (data: any) => {
+        this.empleadosPaginable = data;
+        this.total = this.empleadosPaginable.totalElements
+        this.empleados = this.empleadosPaginable.content
+        console.log(data);
+      },
+      error: (e) =>
+        console.log("Error " + e)
+
+    });
+  }
+
+  pageChangeEvent(event: number){
+    this.currentPage = event;
+    this.getPaginableEmpleados();
+}
 
 }
