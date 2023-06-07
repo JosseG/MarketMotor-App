@@ -1,0 +1,86 @@
+.orden-compra-body-to-grid{
+    display: grid;
+    gap: 100px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.orden-body-1{
+    grid-column: 1/2;
+    padding: 0 !important;
+}
+
+.orden-body-2{
+    grid-column: 2/3
+}
+
+
+.body-main-2,.body-main-1{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.item-2-1{
+    grid-column: 1/2;
+}
+
+.item-2-2{
+    grid-column: 2/3;
+}
+
+.item-2-3{
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+
+
+
+
+
+   .height{
+    height: 10vh;
+   }
+   
+
+   .search{
+   position: relative;
+   box-shadow: 0 0 40px rgba(51, 51, 51, .1);
+     
+   }
+
+   .search input{
+
+    height: 60px;
+    text-indent: 25px;
+    border: 2px solid #d6d4d4;
+
+
+   }
+
+
+   .search input:focus{
+
+    box-shadow: none;
+    border: 2px solid blue;
+
+
+   }
+
+   .search .fa-search{
+
+    position: absolute;
+    top: 20px;
+    left: 16px;
+
+   }
+
+   .search button{
+
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    height: 50px;
+    width: 110px;
+    background: blue;
+
+   }

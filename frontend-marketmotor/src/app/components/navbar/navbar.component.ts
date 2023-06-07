@@ -6,7 +6,6 @@ import { ShortinfouserService } from 'src/app/services/shortinfouser/shortinfous
 import { StorageService } from 'src/app/services/storage/storage.service';
 
 
-
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',

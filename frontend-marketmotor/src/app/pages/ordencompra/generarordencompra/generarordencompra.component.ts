@@ -33,12 +33,13 @@ export class GenerarordencompraComponent implements OnInit {
     cantidad: [],
   })
 
-  constructor(private router:Router,private carritoService: CarritoService, private ordenCompra: OrdencompraService, private productoService: ProductoService, private formbuilder: FormBuilder) {
+  constructor(private router:Router,private carritoService: CarritoService, private ordenCompraService: OrdencompraService, private productoService: ProductoService, private formbuilder: FormBuilder) {
 
   }
   ngOnInit(): void {
-
-    this.getCartProducts();
+    if(this.isActiveOrden()){
+      this.getCartProducts();
+    }
     this.getPaginableProductos();
 
   }
@@ -66,7 +67,7 @@ export class GenerarordencompraComponent implements OnInit {
         this.getCartProducts()
       }
     })*/
-    this.carritoService.addToCarItems(String(id),parseInt(values))
+    this.carritoService.addToCarItemsOrden(String(id),parseInt(values))
     this.getCartProducts()
     
     this.router.navigate(["productos"])
@@ -135,7 +136,7 @@ export class GenerarordencompraComponent implements OnInit {
   }
 
   deleteItemProducto(id: number){
-    this.carritoService.borraritem(id)
+    this.carritoService.borraritemOrden(id)
     this.getCartProducts()
   }
 
@@ -149,6 +150,21 @@ export class GenerarordencompraComponent implements OnInit {
   productoToSetQuantity(producto: Producto) {
     console.log(producto.id)
     this.productoToQuantity = producto
+  }
+
+
+  isActiveOrden() : boolean{
+    return this.ordenCompraService.isActiveOrden();
+  }
+
+  setActiveOrden(): void{
+    this.getCartProducts();
+    return this.ordenCompraService.setActiveOrden();
+  }
+
+  setInactiveOrden(): void{
+    this.carritoService.cleanCarritoOrden();
+    return this.ordenCompraService.setInactiveOrden()
   }
 
 }

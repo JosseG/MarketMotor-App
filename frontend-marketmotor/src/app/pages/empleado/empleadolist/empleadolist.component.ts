@@ -15,7 +15,7 @@ export class EmpleadolistComponent {
 
   currentPage = 1;
   total = 0;
-  itemsPerPage = 8;
+  itemsPerPage = 6;
   constructor(private empleadoService: EmpleadoService, private router: Router) { }
 
   empleados: Empleado[] = [];

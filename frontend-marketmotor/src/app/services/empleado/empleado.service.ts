@@ -8,9 +8,7 @@ import { EmpleadoUpdate } from 'src/app/models/commands/empleado/EmpleadoUpdate'
   providedIn: 'root'
 })
 export class EmpleadoService {
-  save(values: any) {
-    throw new Error('Method not implemented.');
-  }
+
 
   private readonly apiUrl = 'http://localhost:8080/empleados';
 
