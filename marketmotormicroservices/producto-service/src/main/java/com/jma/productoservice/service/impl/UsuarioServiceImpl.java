@@ -17,6 +17,7 @@ import com.jma.productoservice.service.UsuarioService;
 import com.jma.productoservice.utils.TokenType;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,6 +29,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.rmi.UnexpectedException;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,27 +80,33 @@ public class UsuarioServiceImpl implements UsuarioService<UsuarioDto> {
     }
 
     @Override
+    @Transactional(rollbackOn = {Exception.class, UnexpectedException.class})
     public UsuarioDto guardar(UsuarioDto object) {
 
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
-        RolEntity rolEntity = rolRepository.findById(object.getRol().getId()).orElse(null);
+        try {
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
+            RolEntity rolEntity = rolRepository.findById(object.getRol().getId()).orElse(null);
 
-        UsuarioEntity usuarioEntityObt = UsuarioMapper.mapToEntity(object);
-        if (object.getId() != null) {
-            usuarioEntityObt.setId(object.getId());
+            UsuarioEntity usuarioEntityObt = UsuarioMapper.mapToEntity(object);
+            if (object.getId() != null) {
+                usuarioEntityObt.setId(object.getId());
+            }
+
+            usuarioEntityObt.setRol(rolEntity);
+            usuarioEntityObt.setContrasena(bCryptPasswordEncoder.encode(usuarioEntityObt.getContrasena()));
+
+            UsuarioEntity usuarioEntitySaved = usuarioRepository.save(usuarioEntityObt);
+
+            User usuarioParsed =  mapToUser(usuarioEntitySaved);
+
+            var jwtToken = jwtService.generateToken(usuarioParsed);
+            saveUserToken(usuarioEntitySaved, jwtToken);
+
+            return UsuarioMapper.mapToDto(usuarioEntitySaved);
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+            return null;
         }
-
-        usuarioEntityObt.setRol(rolEntity);
-        usuarioEntityObt.setContrasena(bCryptPasswordEncoder.encode(usuarioEntityObt.getContrasena()));
-
-        UsuarioEntity usuarioEntitySaved = usuarioRepository.save(usuarioEntityObt);
-
-        User usuarioParsed =  mapToUser(usuarioEntitySaved);
-
-        var jwtToken = jwtService.generateToken(usuarioParsed);
-        saveUserToken(usuarioEntitySaved, jwtToken);
-
-        return UsuarioMapper.mapToDto(usuarioEntitySaved);
     }
 
     @Override
@@ -179,9 +187,9 @@ public class UsuarioServiceImpl implements UsuarioService<UsuarioDto> {
         TokenEntity tokenEntity = new TokenEntity();
         tokenEntity.setUsuario(usuario);
         tokenEntity.setToken(jwtToken);
-        tokenEntity.setTokenType(TokenType.BEARER);
-        tokenEntity.setExpired(false);
-        tokenEntity.setRevoked(false);
+        tokenEntity.setTipoToken(TokenType.BEARER);
+        tokenEntity.setExpirado(false);
+        tokenEntity.setRevocado(false);
 
         tokenRepository.save(tokenEntity);
     }
@@ -193,8 +201,8 @@ public class UsuarioServiceImpl implements UsuarioService<UsuarioDto> {
         if (validUserTokens.isEmpty())
             return;
         validUserTokens.forEach(token -> {
-            token.setExpired(true);
-            token.setRevoked(true);
+            token.setExpirado(true);
+            token.setRevocado(true);
         });
         tokenRepository.saveAll(validUserTokens);
     }

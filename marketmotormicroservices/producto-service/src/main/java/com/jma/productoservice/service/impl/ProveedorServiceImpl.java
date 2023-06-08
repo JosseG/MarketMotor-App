@@ -9,6 +9,7 @@ import com.jma.productoservice.mapping.UsuarioMapper;
 import com.jma.productoservice.repository.ProveedorRepository;
 import com.jma.productoservice.repository.UsuarioRepository;
 import com.jma.productoservice.service.ProveedorService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -44,6 +45,7 @@ public class ProveedorServiceImpl implements ProveedorService<ProveedorDto> {
     }
 
     @Override
+    @Transactional
     public ProveedorDto guardar(ProveedorDto object) {
         UsuarioEntity usuarioEntity = usuarioRepository.findById(object.getUsuarioDto().getId()).orElse(null);
         ProveedorEntity proveedorEntity = ProveedorMapper.mapToEntity(object);

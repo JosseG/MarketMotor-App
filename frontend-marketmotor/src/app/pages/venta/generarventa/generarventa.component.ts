@@ -64,15 +64,10 @@ export class GenerarventaComponent {
   productosFromCartWith: [CarritoItem] = [new CarritoItem()];
   clienteForSearch: Cliente = new Cliente();
 
-  //productosFromCart$ = new EventEmitter<[CarritoItem]>()
 
   productosPaginable: productoResponse = new productoResponse();
   
 
-  /*onLoad(): void {
-    this.carritoService.addToCarItems("1", 5)
-    console.log("llego")
-  }*/
 
   addToCart(id: number) {
 
@@ -152,14 +147,8 @@ export class GenerarventaComponent {
     }
 
   }
-  /*pushingProductos() {
-    this.productosFromCart$.emit(this.carritoService.getCarItems())
-    console.log("Obtiene del carro en genero")
-    console.log(this.carritoService.getCarItems())
-  }*/
 
   getCartProductsVenta() {
-    //this.productosFromCart$ = of(this.carritoService.getCarItems())
     this.carritoService.getCarItemsVenta().subscribe({
       next: (data : any) => {
         this.productosFromCartWith = data
@@ -167,7 +156,6 @@ export class GenerarventaComponent {
         console.log(data)
       }
     });
-    //this.productosFromCartWith = this.carritoService.getCarItems()
   }
 
   deleteItemProducto(id: number){
@@ -211,9 +199,6 @@ export class GenerarventaComponent {
   }
 
 
-
-
-
   ///////
 
 
@@ -229,16 +214,8 @@ export class GenerarventaComponent {
 
     const values = this.formAddingCliente.value.descripcion
     console.log(id)
-    ;/*(await this.carritoService.addToCarItems(String(id), parseInt(values))).subscribe({
-      next: (data) => {
-        console.log(data)
-        this.getCartProducts()
-      }
-    })*/
     this.ventaService.setCliente(id)
     this.clienteForSearch = this.getClienteForSearch()
-
-   //this.pushingProductos()
   }
 
 

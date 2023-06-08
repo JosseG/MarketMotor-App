@@ -23,11 +23,11 @@ public class TokenEntity {
     public String token;
 
     @Enumerated(EnumType.STRING)
-    public TokenType tokenType = TokenType.BEARER;
+    public TokenType tipoToken = TokenType.BEARER;
 
-    public boolean revoked;
+    public boolean revocado;
 
-    public boolean expired;
+    public boolean expirado;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario")

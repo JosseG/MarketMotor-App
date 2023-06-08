@@ -79,7 +79,10 @@ public class VentaServiceImpl implements VentaService<VentaDto> {
 
     @Override
     public VentaDto obtenerPorId(Object id) {
-        VentaEntity ventaEntity = ventaRepository.findById((Long)id).orElse(new VentaEntity());
+        VentaEntity ventaEntity = ventaRepository.findById((Long)id).orElse(null);
+        if(ventaEntity==null){
+            return null;
+        }
         VentaDto ventaDto = VentaMapper.mapToDto(ventaEntity);
         ventaDto.setEmpleado(EmpleadoMapper.mapToDto(ventaEntity.getEmpleado()));
         ventaDto.setCliente(ClienteMapper.mapToDto(ventaEntity.getCliente()));

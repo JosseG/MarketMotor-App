@@ -9,6 +9,7 @@ import com.jma.productoservice.mapping.UsuarioMapper;
 import com.jma.productoservice.repository.EmpleadoRepository;
 import com.jma.productoservice.repository.UsuarioRepository;
 import com.jma.productoservice.service.EmpleadoService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -81,6 +82,7 @@ public class EmpleadoServiceImpl implements EmpleadoService<EmpleadoDto> {
     }
 
     @Override
+    @Transactional
     public EmpleadoDto guardar(EmpleadoDto object) {
 
         UsuarioEntity usuarioEntity = usuarioRepository.findById(object.getUsuarioDto().getId()).orElse(null);

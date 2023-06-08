@@ -82,7 +82,6 @@ public class ProductoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar (@PathVariable Long id) {
         String respuesta = productoService.eliminar(id);
-
         return ResponseEntity.ok(respuesta);
     }
 

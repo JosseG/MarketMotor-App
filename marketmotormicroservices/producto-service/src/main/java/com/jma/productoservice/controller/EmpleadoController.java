@@ -43,8 +43,8 @@ public class EmpleadoController {
         return ResponseEntity.ok(empleadoService.obtenerTodos());
     }
 
-        @GetMapping("/{id}")
-        public ResponseEntity<EmpleadoDto> obtenerPorId(@PathVariable("id") Long id){
+    @GetMapping("/{id}")
+    public ResponseEntity<EmpleadoDto> obtenerPorId(@PathVariable("id") Long id){
             EmpleadoDto empleado = empleadoService.obtenerPorId(id);
             if(empleado == null)
                 return ResponseEntity.notFound().build();
