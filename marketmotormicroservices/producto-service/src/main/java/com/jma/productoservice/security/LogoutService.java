@@ -1,6 +1,6 @@
 package com.jma.productoservice.security;
 
-import com.jma.productoservice.repository.TokenRepository;
+import com.jma.productoservice.token.infrastructure.out.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

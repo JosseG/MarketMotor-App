@@ -1,7 +1,7 @@
 package com.jma.productoservice.security;
 
-import com.jma.productoservice.repository.TokenRepository;
 import com.jma.productoservice.security.jwt.JwtService;
+import com.jma.productoservice.token.infrastructure.out.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

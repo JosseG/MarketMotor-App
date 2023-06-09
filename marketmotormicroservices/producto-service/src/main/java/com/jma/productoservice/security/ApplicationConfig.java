@@ -1,7 +1,7 @@
 package com.jma.productoservice.security;
 
-import com.jma.productoservice.entity.UsuarioEntity;
-import com.jma.productoservice.repository.UsuarioRepository;
+import com.jma.productoservice.usuario.domain.entity.UsuarioEntity;
+import com.jma.productoservice.usuario.infrastructure.out.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
