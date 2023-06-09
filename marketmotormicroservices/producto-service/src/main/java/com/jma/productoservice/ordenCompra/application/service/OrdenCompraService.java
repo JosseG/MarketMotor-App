@@ -1,7 +1,7 @@
 package com.jma.productoservice.ordenCompra.application.service;
 
 import com.jma.productoservice.ordenCompra.domain.response.OrdenCompraResponse;
-import com.jma.productoservice.service.common.ICrudCommon;
+import com.jma.productoservice.utils.ICrudCommon;
 
 public interface OrdenCompraService<T> extends ICrudCommon<T> {
 

@@ -1,7 +1,7 @@
 package com.jma.productoservice.empleado.application.service;
 
 import com.jma.productoservice.empleado.domain.response.EmpleadoResponse;
-import com.jma.productoservice.service.common.ICrudCommon;
+import com.jma.productoservice.utils.ICrudCommon;
 
 import java.util.List;
 

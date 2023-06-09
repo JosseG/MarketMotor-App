@@ -1,7 +1,7 @@
 package com.jma.productoservice.cliente.application.service;
 
 import com.jma.productoservice.cliente.domain.response.ClienteResponse;
-import com.jma.productoservice.service.common.ICrudCommon;
+import com.jma.productoservice.utils.ICrudCommon;
 
 public interface ClienteService<T> extends ICrudCommon<T> {
 

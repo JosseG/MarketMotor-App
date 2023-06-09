@@ -1,9 +1,9 @@
 package com.jma.productoservice.usuario.application.service;
 
 
-import com.jma.productoservice.service.common.ICrudCommon;
 import com.jma.productoservice.usuario.domain.command.UsuarioCommandLogin;
 import com.jma.productoservice.usuario.domain.response.UserAuthenticateResponse;
+import com.jma.productoservice.utils.ICrudCommon;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 

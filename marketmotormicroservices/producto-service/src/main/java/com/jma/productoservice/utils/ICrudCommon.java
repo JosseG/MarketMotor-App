@@ -1,4 +1,4 @@
-package com.jma.productoservice.service.common;
+package com.jma.productoservice.utils;
 
 import java.util.List;
 
