@@ -39,37 +39,13 @@ export class VentaService {
   }
 
 
-  setCliente(id: number): void {
+  setCliente(cliente: Cliente): void {
 
-
-    var clienteSession = sessionStorage.getItem("clienteTemporal")
-    if (clienteSession == null) {
-      var cliente: Cliente = new Cliente();
-
-
-      this.clienteService.getClienteId(id).subscribe({
-        next: (data: any) => {
-          cliente = data
-
-          var toJsonCliente = JSON.stringify(cliente)
-          sessionStorage.setItem("clienteTemporal", toJsonCliente)
-        },
-        error: (e) => console.log(e)
-      });
-
-    } else {
-      //var clienteObtained: Cliente = JSON.parse(clienteSession)
-      var clienteForChangedata= new Cliente()
-      this.clienteService.getClienteId(id).subscribe({
-        next: (data: any) => {
-          clienteForChangedata = data
-
-          var toJsonCliente = JSON.stringify(clienteForChangedata)
-          sessionStorage.setItem("clienteTemporal", toJsonCliente)
-        },
-        error: (e) => console.log(e)
-      });
-    }
-
+    var newCliente: Cliente = new Cliente();
+    newCliente = cliente
+    var toJsonCliente = JSON.stringify(newCliente)
+    sessionStorage.setItem("clienteTemporal", toJsonCliente)
   }
+
+
 }

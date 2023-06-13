@@ -143,8 +143,6 @@ export class CarritoService {
       carritoFinal = JSON.parse(elementos!)
 
     }
-    console.log("Es obtajdfksfdljskajf")
-    console.log(carritoFinal)
     return of(carritoFinal);
 
   }

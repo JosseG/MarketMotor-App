@@ -23,12 +23,14 @@ export class GenerarventaComponent {
   isSearching = false;
   isSearchingCliente = false;
 
+
   productoToQuantity = new Producto()
 
   clienteToForm = new Cliente()
 
 
 
+  //producto form
   formSearchProduct: FormGroup = this.formbuilder.group({
     descripcion: [],
   })
@@ -38,14 +40,17 @@ export class GenerarventaComponent {
   })
 
 
-
+  //Cliente Form
   formSearchCliente: FormGroup = this.formbuilder.group({
     id:[],
   })
 
-
   formAddingCliente: FormGroup = this.formbuilder.group({
     dni: [],
+  })
+
+  formCliente: FormGroup = this.formbuilder.group({
+    
   })
 
   constructor(private router:Router,private carritoService: CarritoService, private clienteService: ClienteService,private ventaService: VentaService, private productoService: ProductoService, private formbuilder: FormBuilder) {
@@ -53,6 +58,7 @@ export class GenerarventaComponent {
   }
   ngOnInit(): void {
 
+    this.getClienteForSearch();
     this.getCartProductsVenta();
     this.getPaginableProductos();
 
@@ -62,7 +68,7 @@ export class GenerarventaComponent {
   clientes: Cliente[] = [];
   mycliente: Cliente = new Cliente();
   productosFromCartWith: [CarritoItem] = [new CarritoItem()];
-  clienteForSearch: Cliente = new Cliente();
+  clienteSearched: Cliente = new Cliente();
 
 
   productosPaginable: productoResponse = new productoResponse();
@@ -158,6 +164,8 @@ export class GenerarventaComponent {
     });
   }
 
+
+
   deleteItemProducto(id: number){
     this.carritoService.borraritemVenta(id)
     this.getCartProductsVenta()
@@ -188,14 +196,16 @@ export class GenerarventaComponent {
   }
 
   setActiveVenta(): void{
-    
     this.getCartProductsVenta();
+    this.getClienteForSearch();
     return this.ventaService.setActiveVenta();
   }
 
   setInactiveVenta(): void{
     this.carritoService.cleanCarritoVenta();
-    return this.ventaService.setInactiveVenta()
+    this.clienteService.cleanClienteVenta();
+    this.formAddingCliente.reset()
+    this.ventaService.setInactiveVenta();
   }
 
 
@@ -210,12 +220,12 @@ export class GenerarventaComponent {
   }
 
 
-  addToForm(id: number) {
+  addClienteToForm(cliente: Cliente) {
 
     const values = this.formAddingCliente.value.descripcion
-    console.log(id)
-    this.ventaService.setCliente(id)
-    this.clienteForSearch = this.getClienteForSearch()
+    console.log(cliente.id)
+    this.ventaService.setCliente(cliente)
+    this.clienteSearched = this.getClienteForSearch()
   }
 
 
@@ -226,7 +236,7 @@ export class GenerarventaComponent {
     var clientestorage = sessionStorage.getItem("clienteTemporal");
     if(clientestorage!=null){
       clienteFinal = JSON.parse(clientestorage!)
-
+      this.mycliente = clienteFinal
     }
     return clienteFinal
 

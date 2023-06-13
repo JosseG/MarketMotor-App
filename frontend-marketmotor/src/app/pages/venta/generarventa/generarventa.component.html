@@ -19,17 +19,17 @@
 
                     <div class="item-2-1  py-2">
                         <label for="" class="me-3">DNI</label>
-                        <input type="text" placeholder="DNI del cliente" value="{{clienteForSearch.dni}}"> 
+                        <input type="text" placeholder="DNI del cliente" value="{{mycliente.dni}}"> 
                     </div>
                     <div class="item-2-2 py-2">
                         <label for="" class="me-3">Nombres</label>
-                        <input type="text" placeholder="Nombre del cliente" value="{{clienteForSearch.nombre}}">
+                        <input type="text" placeholder="Nombre del cliente" value="{{mycliente.nombre}}">
                     </div>
 
 
                     <div class="item-2-3 py-2">
                         <label for="" class="me-3">Apellidos</label>
-                        <input type="text" placeholder="Apellidos del cliente" value="{{clienteForSearch.apellido}}">
+                        <input type="text" placeholder="Apellidos del cliente" value="{{mycliente.apellido}}">
                     </div>
 
                 </div>
@@ -249,7 +249,7 @@
             </tbody>
           </table>
           <!--<pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>-->
-          <form class="form" [formGroup]="formAddingCliente" (ngSubmit)="addToForm(clienteToForm.id)"
+          <form class="form" [formGroup]="formAddingCliente" (ngSubmit)="addClienteToForm(clienteToForm)"
             autocomplete="off">
             <div class="form-group">
               <label for="formGroupExampleInput">Cliente</label>
