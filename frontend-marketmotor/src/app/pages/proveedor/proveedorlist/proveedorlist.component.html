@@ -4,7 +4,11 @@
     <div class="col-md-12">
       <div class="table-responsive-lg">
 
-        <h1 class = "titulo">PROVEEDORES</h1>
+      
+        <div class="d-flex justify-content-between">
+          <h1 class = "titulo">PROVEEDORES</h1> <span class="d-flex align-items-center"><a routerLink="insertar" class="btn btn-info">Agregar<i
+            class="ps-3 bi bi-plus-lg"></i></a></span>
+      </div>
         <table class="table tablas accordion">
           <thead class="tableCabe3">
             <tr>
@@ -13,6 +17,7 @@
            
               <th>RUC</th>
               <th>Email</th>
+              <th>Estado</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -24,7 +29,13 @@
                 <td>{{proveedor.id}}</td>
                 <td>{{proveedor.nombreComercial}}</td>
                 <td>{{proveedor.numeroRuc}}</td>
-                <td>{{proveedor.correo}}</td>           
+                <td>{{proveedor.correo}}</td>  
+                <td *ngIf="proveedor.estado != true;else elseBlock"><button type="button"
+                  class="bg-inactivo text-white border-0 px-3 py-1">Inactivo</button></td>   
+                  <ng-template #elseBlock>
+                    <td><button type="button"
+                            class="bg-activo text-white border-0 px-3 py-1">Activo</button></td>
+                          </ng-template>       
                 <td class="icons">
               
                   <a routerLink="/empleados"><i class="bi bi-trash-fill"></i></a>
@@ -34,11 +45,49 @@
               </tr>
               <tr >
                 <td colspan="100%" style="padding:0">
-                    <div attr.id="flush-collapse{{proveedor.id}}" class="accordion-collapse collapse cont"
-                        attr.aria-labelledby="flush-heading{{proveedor.id}}" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis est sed, nesciunt suscipit, maiores itaque enim adipisci asperiores inventore corporis, </div>
-                    </div>
-                </td>
+                  <div attr.id="flush-collapse{{proveedor.id}}"
+                      class="accordion-collapse collapse cont"
+                      attr.aria-labelledby="flush-heading{{proveedor.id}}"
+                      data-bs-parent="#accordionFlushExample">
+                      <div class="accordion-body ">
+                        <div class="d-flex flex-wrap">
+                          <div class="">
+                            <p>Razon Social</p>
+                            
+                            <p>{{proveedor.razonSocial}}</p>
+                          </div>
+                          <div class="">
+                            <p>Direccion</p>
+                            <p>{{proveedor.direccion}}</p>
+                            
+                          </div>
+                          <div class="">
+                            <p>Departamento</p>
+                            <p>{{proveedor.departamento}}</p>
+                            
+                          </div>
+                          <div class="">
+                            <p>Telefono</p>
+                            <p>{{proveedor.telefonoProveedor}}</p>
+                            
+                          </div>
+                          <div class="">
+                            <p>Creado en</p>
+                            <p>{{proveedor.creadoEn}}</p>
+                            
+                          </div>
+                          <div class="">
+                            <p>Actualizado en</p>
+                            <p>{{proveedor.actualizadoEn}}</p>
+                            
+                          </div>
+                          
+                        </div>
+
+
+                      </div>
+                  </div>
+              </td>
             </tr>
             </ng-container>
             
@@ -47,6 +96,7 @@
           
           </tbody>
         </table>
+       
       </div>
     </div>
   </div>

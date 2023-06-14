@@ -5,7 +5,8 @@
             <div class="table-responsive-lg">
 
                 <div class="d-flex justify-content-between">
-                    <h1 class="titulo">EMPLEADOS</h1> <span class="d-flex align-items-center"><a routerLink="insertar" class="btn btn-primary">Agregar</a></span>
+                    <h1 class="titulo">EMPLEADOS</h1> <span class="d-flex align-items-center"><a routerLink="insertar" class="btn btn-info">Agregar<i
+                        class="ps-3 bi bi-plus-lg"></i></a></span>
                 </div>
                 <table class="table tablas accordion">
                     <thead class="tableCabe3">
@@ -30,10 +31,10 @@
                                 <td>{{empleado.telefono}}</td>
                                 <td>{{empleado.correo}}</td>
                                 <td *ngIf="empleado.estado != true;else elseBlock"><button type="button"
-                                        class="bg-danger text-white border-0 px-3 py-1">Inactivo</button></td>
+                                        class="bg-inactivo text-white border-0 px-3 py-1">Inactivo</button></td>
                                 <ng-template #elseBlock>
                                     <td><button type="button"
-                                            class="bg-success text-white border-0 px-3 py-1">Activo</button></td>
+                                            class="bg-activo text-white border-0 px-3 py-1">Activo</button></td>
                                 </ng-template>
                                 <td class="icons">
                                     <a routerLink="/productos"><i class="bi bi-trash-fill"></i></a>

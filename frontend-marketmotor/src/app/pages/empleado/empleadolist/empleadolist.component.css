@@ -69,6 +69,14 @@ thead th {
 
 
 
-
+/* color botones*/
+.bg-activo{
+    background-color: #87C366;
+    border-radius: 4px;
+}
+.bg-inactivo{
+    background-color: #EA4F5D;
+    border-radius: 4px;
+}
 
 

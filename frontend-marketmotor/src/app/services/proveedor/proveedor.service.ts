@@ -1,34 +1,45 @@
-import { HttpClient } from '@angular/common/http';
+import { Proveedor } from './../../models/dtos/Proveedor'
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Proveedor } from 'src/app/models/dtos/Proveedor';
+import { ProveedorInsert } from 'src/app/models/commands/proveedor/ProveedorInsert'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProveedorService {
 
-  constructor(private http:HttpClient) { }
-  url = 'http://localhost:8080/proveedores';
+  private readonly apiUrl = 'http://localhost:8080/proveedores';
 
-  getProveedor(){
-    return this.http.get<Proveedor[]>(this.url);
+  constructor(private http:HttpClient) { }
+ 
+
+  getAll() {
+    return this.http.get(`${this.apiUrl}`)
   }
 
-  createProveedor(){
-    return this.http.post<Proveedor>(this.url,Proveedor);
+  getProveedor(){
+    return this.http.get<Proveedor[]>(this.apiUrl);
+  }
+
+  createProveedor(proveedor: ProveedorInsert){
+    return this.http.post<ProveedorInsert>(this.apiUrl,proveedor);
   }
 
   getProveedorId(id: number){
-    return this.http.get<Proveedor>(this.url+'/'+id);
+    return this.http.get<Proveedor>(this.apiUrl+'/'+id);
   }
-
+// actualizar este metodo
   updateProveedor(id: number, proveedor: Proveedor){
-    return this.http.put<Proveedor>(this.url,proveedor);
+    return this.http.put<Proveedor>(this.apiUrl,proveedor);
   }
 
   deleteProveedor(proveedor: Proveedor){
-    return this.http.delete<Proveedor>(this.url+"/"+proveedor.id);
+    return this.http.delete<Proveedor>(this.apiUrl+"/"+proveedor.id);
   }
 
-
+  getAllByPaginable(pageNo: number = 0,pageSize: number = 10, sortBy: string= "id",sortDir: string="asc"){
+    return this.http.get(`${this.apiUrl}/pagination`,{
+      params: new HttpParams().set('pageNo', pageNo).set('pageSize',pageSize)
+    })
+  }
 }

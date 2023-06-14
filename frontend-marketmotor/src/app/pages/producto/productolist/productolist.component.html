@@ -30,10 +30,10 @@
                 <td>{{producto.marca}}</td> 
                 <td>{{producto.precio}}</td>           
                 <td *ngIf="producto.estado != true;else elseBlock"><button type="button"
-                  class="bg-danger text-white border-0 px-3 py-1">Inactivo</button></td>
+                  class="bg-inactivo text-white border-0 px-3 py-1">Inactivo</button></td>
           <ng-template #elseBlock>
               <td><button type="button"
-                      class="bg-success text-white border-0 px-3 py-1">Activo</button></td>
+                      class="bg-activo text-white border-0 px-3 py-1">Activo</button></td>
           </ng-template> 
                 <td class="icons">
               
