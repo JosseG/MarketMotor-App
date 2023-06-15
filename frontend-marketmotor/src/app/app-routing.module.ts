@@ -7,6 +7,8 @@ import { ProveedorlistComponent } from './pages/proveedor/proveedorlist/proveedo
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { ProductoinsertComponent } from './pages/producto/productoinsert/productoinsert.component';
 import { EmpleadoinsertComponent } from './pages/empleado/empleadoinsert/empleadoinsert.component';
+import { ProveedorinsertComponent } from './pages/proveedor/proveedorinsert/proveedorinsert.component';
+import { ProveedorupdateComponent } from './pages/proveedor/proveedorupdate/proveedorupdate.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './_shared/auth.guard';
 import { AdministradorGuard } from './_shared/administrador.guard';
@@ -24,7 +26,8 @@ const routes: Routes = [
   { path: 'empleados/actualizar/:id', component: EmpleadoinsertComponent,canActivate:[AuthGuard,AdministradorGuard] },
   { path: 'usuarios', component: UsuariolistComponent,canActivate:[AuthGuard,AdministradorGuard] },
   { path: 'proveedores', component: ProveedorlistComponent,canActivate:[AuthGuard,AdministradorGuard] },
-
+  { path: 'proveedores/insertar', component: ProveedorinsertComponent,canActivate:[AuthGuard,AdministradorGuard] },
+  { path: 'proveedores/update', component: ProveedorupdateComponent,canActivate:[AuthGuard,AdministradorGuard] },
   { path: 'venta/reporte', component: ReporteventaComponent,canActivate:[AuthGuard] },
   { path: 'ordencompra/reporte', component: ReporteordencompraComponent,canActivate:[AuthGuard] },
   { path: 'ordencompra', component: GenerarordencompraComponent,canActivate:[AuthGuard,AdministradorGuard] },

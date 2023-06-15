@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Router } from '@angular/router';
 import { Proveedor } from 'src/app/models/dtos/Proveedor';
-
+import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { ProveedorService } from 'src/app/services/proveedor/proveedor.service';
 
 @Component({
@@ -24,12 +24,36 @@ implements OnInit {
     telefonoProveedor:[],
     idUsuario:[],
   })
+
+  formularioUsuario: FormGroup = this.formbuilder.group({
+
+    alias:[],
+    contrasena:[],
+    idRol:[],
+  })
+
+
   idUsuario = 0;
   proveedores?: Proveedor[];
 
-  constructor(private proveedorService: ProveedorService,private router:Router, private formbuilder:FormBuilder) { }
+  constructor(private proveedorService: ProveedorService,private router:Router, private usuarioService:UsuarioService,private formbuilder:FormBuilder) { }
 
   ngOnInit(): void {
+  }
+
+  guardarUsuario(){
+    const values = this.formularioUsuario.value
+    this.usuarioService.createUsuario(values)
+    .subscribe({
+      next: (data) => {
+        this.idUsuario = data.id 
+        this.formularioUsuario.get("alias")?.reset()
+        this.formularioUsuario.get("contrasena")?.reset()
+        this.formularioUsuario.get("idRol")?.reset()
+        this.formularioProveedor.controls['idUsuario'].setValue(this.idUsuario);
+      },
+      error: (e) => console.log(e)
+    })
   }
 
   guardarProveedor():void {

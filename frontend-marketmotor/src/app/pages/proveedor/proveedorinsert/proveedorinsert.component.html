@@ -1,56 +1,126 @@
-<div class="container col-md-5">
-    <h1 class="text-center mt-4">Insertar Proveedor</h1>
+
+<div class="d-flex">
+ 
+  <div class="card text-center card-usuario" style="width: 15rem;">
+    <div class="card-header">
+      Usuario
+    </div>
     <div class="card-body">
-      <form class="form" [formGroup]="formularioProveedor" (ngSubmit)="guardarProveedor()" autocomplete="off">
-    
-    
-        <div class="form-group">
-              
-          <label for="">Razon Social:</label>
-          <input class="form-control" type="text" id="razonSocial" formControlName="razonSocial">
-        </div>
-      
-        <div class="form-group">
-      
-          <label for="">Nombre Comercial:</label>
-          <input class="form-control" type="text" id="nombreComercial" formControlName="nombreComercial">
-        </div>
-      
-      
-        <div class="form-group">
-              
-          <label for="">RUC:</label>
-          <input class="form-control" type="text" id="numeroRuc" formControlName="numeroRuc">
-        </div>
-      
-        <div class="form-group">
-              
-          <label for="">Correo:</label>
-          <input class="form-control" type="text" id="correo" formControlName="correo">
-        </div>
-      
-        <div class="form-group">
-              
-          <label for="">Direccion:</label>
-          <input class="form-control" type="text" id="direccion" formControlName="direccion">
-        </div>
-        <div class="form-group">
-              
-            <label for="">Departamento:</label>
-            <input class="form-control" type="text" id="departamento" formControlName="departamento">
+      <form class="form" [formGroup]="formularioUsuario" (ngSubmit)="guardarUsuario()" autocomplete="off">
+        <div class=" row g-1" >
+          <div class="col-auto">
+            <div class="form-floating">
+             
+             
+              <input class="form-control" type="text" id="alias floatingInputGrid" formControlName="alias">
+              <label  for="floatingInputGrid">Alias</label>
+            </div>
           </div>
-          <div class="form-group">
-              
-            <label for="">Telefono:</label>
-            <input class="form-control" type="text" id="telefonoProveedor" formControlName="telefonoProveedor">
-          </div>
-        <div class="form-group">
-              
-          <label for="">Usuario:</label>
-          <input class="form-control"  type="number" id="idUsuario" [readonly]="true" formControlName="idUsuario">
+          <div class="col-auto">
+            <div class="form-floating">
+          
+          <input class="form-control" type="password" id="contrasena floatingInputGrid" formControlName="contrasena">
+          <label  for="floatingInputGrid">Contraseña</label>
         </div>
+      </div>
       
-        <div class="text-center"><button class="btn btn-danger mt-3" type="submit">Enviar</button></div>
+        <div class="col-auto">
+          <div class="form-floating">
+          
+          <input class="form-control" type="number" id="idRol floatingInputGrid" formControlName="idRol">
+          <label  for="floatingInputGrid">Rol</label>
+        </div>
+      </div>
+        
+      </div>
+        <div class="text-center btnUsua"><button class="btn btn-info mt-3" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Crear</button></div>
+        
       </form>
     </div>
+    <div class="card-footer text-muted">
+      
+    </div>
   </div>
+
+<div class="card text-center card-proveedor" style="width: 40rem;">
+  <div class="card-header">
+    Nuevo Proveedor
+  </div>
+  <div class="card-body">
+    <form class="form row g-2" [formGroup]="formularioProveedor" (ngSubmit)="guardarProveedor()" autocomplete="off">
+      <div class=" row g-2 contenedorForm" >
+        <div class="col-auto">
+          <div class="form-floating">
+            
+     
+            <input class="form-control" type="text" id="razonSocial floatingInputGrid" formControlName="razonSocial">
+            <label  for="floatingInputGrid">Razon Social</label>
+          </div>
+       </div>
+      <div class="col-auto">
+        <div class="form-floating">   
+          <input class="form-control" type="text" id="nombreComercial floatingInputGrid" formControlName="nombreComercial">
+          <label  for="floatingInputGrid">Nombre</label>
+        </div>
+      </div>
+    
+      <div class="col-auto">
+        <div class="form-floating">
+        <input class="form-control" type="text" id="numeroRuc floatingInputGrid"  formControlName="numeroRuc">
+          <label  for="floatingInputGrid">RUC</label>
+        </div>
+      </div>
+      <div class="col-auto">
+          <div class="form-floating">
+          <input class="form-control" type="email" id="correo floatingInputGrid" formControlName="correo">
+          <label  for="floatingInputGrid">Correo</label>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="form-floating">
+          <input class="form-control" type="text" id="direccion floatingInputGrid" formControlName="direccion">
+          <label  for="floatingInputGrid">Direccion</label>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="form-floating">
+          <input type="text" class="form-control" id="departamento floatingInputGrid"   formControlName="departamento">
+          <label for="floatingInputGrid">Departamento</label>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="form-floating">  
+          <input class="form-control" type="text"  id="telefonoProveedor floatingInputGrid" formControlName="telefonoProveedor">
+          <label  for="floatingInputGrid">Telefono</label>
+        </div>
+      </div>
+        <div class="col-auto">
+          <div class="form-floating">  
+            <input class="form-control"   type="number" id="idUsuario floatingInputGrid" formControlName="idUsuario" [readonly]="true">
+            <label for="floatingInputGrid">Usuario</label>
+          </div>
+        </div>
+      </div>
+      <div class="text-center"><button class="btn btn-info mt-3" type="submit">Agregar</button></div>
+    
+    </form>
+  </div>
+  <div class="card-footer text-muted">
+   
+  </div>
+</div>
+<!-- Modal para usuario -->
+<div class="modal fade modal-sm" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+       ¡Se creó un nuevo usuario!
+       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+</div>
