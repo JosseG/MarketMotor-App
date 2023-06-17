@@ -66,3 +66,12 @@
     background-color: #EA4F5D;
     border-radius: 4px;
 }
+.detalle{
+    width: 160px;
+    text-align: left;
+    
+}
+.detalleLargo{
+    width: 200px;
+    text-align: left;
+}

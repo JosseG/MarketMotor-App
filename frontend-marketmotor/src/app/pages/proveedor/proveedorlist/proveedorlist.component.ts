@@ -33,7 +33,7 @@ export class ProveedorlistComponent {
   eliminar(proveedor:Proveedor):void{
     this.proveedorService.deleteProveedor(proveedor).subscribe(data=>{
           this.proveedores=this.proveedores!.filter(p=>p!=proveedor);
-          this.router.navigate(['proveedores']);
+        
     });
   }
 

@@ -37,7 +37,7 @@
                             class="bg-activo text-white border-0 px-3 py-1">Activo</button></td>
                           </ng-template>       
                 <td class="icons">
-                  <a routerLink="proveedores" (click)="eliminar(proveedor)"><i class="bi bi-trash-fill"></i></a>
+                  <a (click)="eliminar(proveedor)"><i class="bi bi-trash-fill"></i></a>
         
   
                   <a routerLink="update"  (click)="editar(proveedor)"><i class="bi bi-pencil-square"></i></a>
@@ -52,33 +52,59 @@
                       data-bs-parent="#accordionFlushExample">
                       <div class="accordion-body ">
                         <div class="d-flex flex-wrap">
-                          <div class="">
-                            <p>Razon Social</p>
+                          <div class="detalle">
+                            <p style="color:#23C4D9; font-weight: bold;">Codigo</p>
                             
-                            <p>{{proveedor.razonSocial}}</p>
+                            <p>{{proveedor.id}}</p>
                           </div>
-                          <div class="">
-                            <p>Direccion</p>
+                          <div class="detalle">
+                            <p style="color:#23C4D9; font-weight: bold;">Nombre</p>
+                            
+                            <p>{{proveedor.nombreComercial}}</p>
+                          </div>
+                          <div class="detalle">
+                            <p style="color:#23C4D9; font-weight: bold;">RUC</p>
+                            
+                            <p>{{proveedor.numeroRuc}}</p>
+                          </div>
+                          <div class="detalleLargo">
+                            <p style="color:#23C4D9; font-weight: bold;">Email</p>
+                            
+                            <p>{{proveedor.correo}}</p>
+                          </div>
+                          <div class="detalle">
+                            <p style="color:#23C4D9; font-weight: bold;">Estado</p>
+                            
+                            <p>{{proveedor.estado}}</p>
+                          </div>
+                     
+                          <div class="detalle">
+                            <p style="color:#23C4D9; font-weight: bold;">Razon Social</p>
+                            
+                            <p >{{proveedor.razonSocial}}</p>
+                          </div>
+                          <div class="detalle">
+                            <p style="color:#23C4D9; font-weight: bold;">Direccion</p>
                             <p>{{proveedor.direccion}}</p>
                             
                           </div>
-                          <div class="">
-                            <p>Departamento</p>
+                          <div class="detalle">
+                            <p style="color:#23C4D9; font-weight: bold;">Departamento</p>
                             <p>{{proveedor.departamento}}</p>
                             
                           </div>
-                          <div class="">
-                            <p>Telefono</p>
+                          <div class="detalle">
+                            <p style="color:#23C4D9; font-weight: bold;">Telefono</p>
                             <p>{{proveedor.telefonoProveedor}}</p>
                             
                           </div>
-                          <div class="">
-                            <p>Creado en</p>
+                          <div class="detalleLargo">
+                            <p style="color:#23C4D9; font-weight: bold;">Creado en</p>
                             <p>{{proveedor.creadoEn}}</p>
                             
                           </div>
-                          <div class="">
-                            <p>Actualizado en</p>
+                          <div class="detalleLargo">
+                            <p style="color:#23C4D9; font-weight: bold;">Actualizado en</p>
                             <p>{{proveedor.actualizadoEn}}</p>
                             
                           </div>
