@@ -19,4 +19,13 @@ export class ClienteService {
     sessionStorage.removeItem("clienteTemporal")
   }
 
+  setClienteToStorage(cliente: Cliente): void {
+
+    var newCliente: Cliente = new Cliente();
+    newCliente = cliente
+    var toJsonCliente = JSON.stringify(newCliente)
+    sessionStorage.setItem("clienteTemporal", toJsonCliente)
+  }
+
+
 }

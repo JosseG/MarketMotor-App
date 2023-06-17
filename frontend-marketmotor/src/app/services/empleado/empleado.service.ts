@@ -36,6 +36,10 @@ export class EmpleadoService {
     return this.http.get<Empleado>(this.apiUrl+"/"+id);
   }
 
+  getEmpleadoByUserAlias(alias: string){
+    return this.http.get<Empleado>(this.apiUrl+"/usuario/"+alias);
+  }
+
   deleteEmpleado(empleado: Empleado){
     return this.http.delete<Empleado>(this.apiUrl+"/"+empleado.id);
   }
@@ -45,4 +49,17 @@ export class EmpleadoService {
       params: new HttpParams().set('pageNo', pageNo).set('pageSize',pageSize)
     })
   }
+
+  setEmpleadoToSession(empleado: Empleado){
+    sessionStorage.setItem("Empleado",JSON.stringify(empleado))
+  }
+
+  getEmpleadoFromSession():Empleado{
+    var sessionItem = sessionStorage.getItem("Empleado")
+    var empleado:Empleado = JSON.parse(sessionItem ?? "")
+    return empleado
+  }
+
+
+
 }

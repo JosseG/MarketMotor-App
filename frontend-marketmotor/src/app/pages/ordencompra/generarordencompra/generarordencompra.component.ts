@@ -2,12 +2,16 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { Empleado } from 'src/app/models/dtos/Empleado';
 import { Producto } from 'src/app/models/dtos/Producto';
+import { Proveedor } from 'src/app/models/dtos/Proveedor';
 import { productoResponse } from 'src/app/models/responseapi/ProductoResponse';
 import { CarritoItem } from 'src/app/models/temporal/CarritoItem';
 import { CarritoService } from 'src/app/services/carrito/carrito.service';
+import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
 import { OrdencompraService } from 'src/app/services/ordencompra/ordencompra.service';
 import { ProductoService } from 'src/app/services/producto/producto.service';
+import { ProveedorService } from '../../../services/proveedor/proveedor.service';
 
 @Component({
   selector: 'app-generarordencompra',
@@ -20,10 +24,12 @@ export class GenerarordencompraComponent implements OnInit {
   itemsPerPage = 4;
 
   isSearching = false;
+  isSearchingProveedor = false;
 
   productoToQuantity = new Producto()
 
-
+  formOrdenCompra: FormGroup = this.formbuilder.group({
+  })
 
   formSearchProduct: FormGroup = this.formbuilder.group({
     descripcion: [],
@@ -33,12 +39,30 @@ export class GenerarordencompraComponent implements OnInit {
     cantidad: [],
   })
 
-  constructor(private router:Router,private carritoService: CarritoService, private ordenCompraService: OrdencompraService, private productoService: ProductoService, private formbuilder: FormBuilder) {
+
+  formSearchProveedor: FormGroup = this.formbuilder.group({
+    id:[],
+  })
+
+  formAddingProveedor: FormGroup = this.formbuilder.group({
+    nombreRuc: [],
+  })
+
+  proveedores: Proveedor[] = [];
+  proveedor: Proveedor = new Proveedor();
+  empleado: Empleado = new Empleado();
+
+  proveedorSearched: Proveedor = new Proveedor();
+
+
+
+  constructor(private router:Router,private proveedorService:ProveedorService,private empleadoService:EmpleadoService, private carritoService: CarritoService, private ordenCompraService: OrdencompraService, private productoService: ProductoService, private formbuilder: FormBuilder) {
 
   }
   ngOnInit(): void {
     if(this.isActiveOrden()){
       this.getCartProducts();
+      this.getEmpleadoFromSess();
     }
     this.getPaginableProductos();
 
@@ -123,6 +147,14 @@ export class GenerarordencompraComponent implements OnInit {
     console.log(this.carritoService.getCarItems())
   }*/
 
+  addProveedorToForm(proveedor: Proveedor) {
+
+    const values = this.formAddingProveedor.value.descripcion;
+    console.log(proveedor.id);
+    this.proveedorService.setProveedorToStorage(proveedor);
+    this.proveedorSearched = this.getProveedorForSearch();
+  }
+
   getCartProducts() {
     //this.productosFromCart$ = of(this.carritoService.getCarItems())
     this.carritoService.getCarItems().subscribe({
@@ -159,12 +191,55 @@ export class GenerarordencompraComponent implements OnInit {
 
   setActiveOrden(): void{
     this.getCartProducts();
+    this.getEmpleadoFromSess();
     return this.ordenCompraService.setActiveOrden();
   }
 
   setInactiveOrden(): void{
     this.carritoService.cleanCarritoOrden();
     return this.ordenCompraService.setInactiveOrden()
+  }
+
+
+  getEmpleadoFromSess(){
+    this.empleado = this.empleadoService.getEmpleadoFromSession()
+  }
+
+  submit(){
+
+  }
+
+  getProveedor(){
+    const values = this.formSearchProveedor.value.id
+    console.log(typeof(values))
+
+    this.proveedorService.getProveedorId(values).subscribe({
+      next: (data: Proveedor) => {
+        if(data.id!=0){
+          this.proveedores = [data]
+        }
+
+        this.isSearchingProveedor = true;
+
+        console.log(typeof(data));
+      },
+      error: (e) =>
+        console.log("Error " + e)
+    });
+  }
+
+
+
+  getProveedorForSearch(): Proveedor {
+
+    var proveedorFinal = new Proveedor()
+    var proveedorstorage = sessionStorage.getItem("proveedorTemporal");
+    if(proveedorstorage!=null){
+      proveedorFinal = JSON.parse(proveedorstorage!)
+      this.proveedor = proveedorFinal
+    }
+    return proveedorFinal
+
   }
 
 }

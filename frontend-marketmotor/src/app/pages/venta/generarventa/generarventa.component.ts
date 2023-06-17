@@ -9,6 +9,8 @@ import { CarritoService } from 'src/app/services/carrito/carrito.service';
 import { ProductoService } from 'src/app/services/producto/producto.service';
 import { VentaService } from 'src/app/services/venta/venta.service';
 import { ClienteService } from '../../../services/cliente/cliente.service';
+import { Empleado } from 'src/app/models/dtos/Empleado';
+import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
 
 @Component({
   selector: 'app-generarventa',
@@ -22,6 +24,7 @@ export class GenerarventaComponent {
 
   isSearching = false;
   isSearchingCliente = false;
+  empleado: Empleado = new Empleado()
 
 
   productoToQuantity = new Producto()
@@ -53,13 +56,17 @@ export class GenerarventaComponent {
     
   })
 
-  constructor(private router:Router,private carritoService: CarritoService, private clienteService: ClienteService,private ventaService: VentaService, private productoService: ProductoService, private formbuilder: FormBuilder) {
+  constructor(private router:Router,private empleadoService: EmpleadoService,private carritoService: CarritoService, private clienteService: ClienteService,private ventaService: VentaService, private productoService: ProductoService, private formbuilder: FormBuilder) {
 
   }
   ngOnInit(): void {
 
+
     this.getClienteForSearch();
-    this.getCartProductsVenta();
+    if(this.isActiveVenta()){
+      this.getEmpleadoFromSess();
+      this.getCartProductsVenta();
+    }
     this.getPaginableProductos();
 
   }
@@ -135,7 +142,10 @@ export class GenerarventaComponent {
 
     this.clienteService.getClienteId(values).subscribe({
       next: (data: Cliente) => {
-        this.clientes.push(data)
+        if(data.id!=0){
+          this.clientes = [data]
+        }
+
         this.isSearchingCliente = true;
 
         console.log(typeof(data));
@@ -196,6 +206,7 @@ export class GenerarventaComponent {
   }
 
   setActiveVenta(): void{
+    this.getEmpleadoFromSess();
     this.getCartProductsVenta();
     this.getClienteForSearch();
     return this.ventaService.setActiveVenta();
@@ -224,7 +235,7 @@ export class GenerarventaComponent {
 
     const values = this.formAddingCliente.value.descripcion
     console.log(cliente.id)
-    this.ventaService.setCliente(cliente)
+    this.clienteService.setClienteToStorage(cliente)
     this.clienteSearched = this.getClienteForSearch()
   }
 
@@ -240,6 +251,11 @@ export class GenerarventaComponent {
     }
     return clienteFinal
 
+  }
+
+
+  getEmpleadoFromSess(){
+    this.empleado = this.empleadoService.getEmpleadoFromSession()
   }
 
 

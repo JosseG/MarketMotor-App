@@ -59,6 +59,11 @@ public class EmpleadoServiceImpl implements EmpleadoService<EmpleadoDto> {
     }
 
     @Override
+    public EmpleadoDto obtenerEmpleadoPorUsuarioAlias(String alias) {
+        return empleadoRepository.findEmpleadoEntityByUserAlias(alias).map(EmpleadoMapper::mapToDto).orElse(null);
+    }
+
+    @Override
     public List<EmpleadoDto> guardarTodos(List<EmpleadoDto> list) {
 
         List<UsuarioEntity> usuarioEntities = list.stream().map( e -> usuarioRepository.findById(e.getUsuarioDto().getId()).orElse(null)).toList();

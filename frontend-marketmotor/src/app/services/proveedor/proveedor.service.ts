@@ -42,4 +42,16 @@ export class ProveedorService {
       params: new HttpParams().set('pageNo', pageNo).set('pageSize',pageSize)
     })
   }
+
+  
+  setProveedorToStorage(proveedor: Proveedor): void {
+
+    var newProveedor: Proveedor = new Proveedor();
+    newProveedor = proveedor
+    var toJsonProveedor= JSON.stringify(newProveedor)
+    sessionStorage.setItem("proveedorTemporal", toJsonProveedor)
+  }
+
+
+
 }

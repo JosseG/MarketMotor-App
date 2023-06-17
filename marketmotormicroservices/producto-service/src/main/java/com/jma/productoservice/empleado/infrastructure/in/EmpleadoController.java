@@ -50,6 +50,15 @@ public class EmpleadoController {
 
             return ResponseEntity.ok(empleado);
     }
+    @GetMapping("/usuario/{alias}")
+    public ResponseEntity<EmpleadoDto> obtenerPorUsuarioAlias(@PathVariable("alias") String alias){
+        EmpleadoDto empleado = empleadoService.obtenerEmpleadoPorUsuarioAlias(alias);
+        if(empleado == null)
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(empleado);
+    }
+
 
     @PatchMapping("/{id}")
     public ResponseEntity<String> desactivar(@PathVariable("id") Long id){

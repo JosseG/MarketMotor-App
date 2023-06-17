@@ -27,7 +27,7 @@
                                 attr.aria-controls="flush-collapse{{empleado.id}}">
                                 <td>{{empleado.id}}</td>
                                 <td>{{empleado.nombre}}</td>
-                                <td>{{empleado.apellidoPat + " " + empleado.apellidoMat}}</td>
+                                <td>{{empleado.apellidoPaterno + " " + empleado.apellidoMaterno}}</td>
                                 <td>{{empleado.telefono}}</td>
                                 <td>{{empleado.correo}}</td>
                                 <td *ngIf="empleado.estado != true;else elseBlock"><button type="button"
