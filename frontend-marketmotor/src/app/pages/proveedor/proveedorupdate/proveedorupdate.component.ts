@@ -47,7 +47,7 @@ export class ProveedorupdateComponent implements OnInit {
   const values = this.formularioProveedor.value
     this.proveedorService.updateProveedor(values).subscribe(data=>{
       this.proveedor=data;
-      //this.router.navigate(['proveedores']);
+      this.router.navigate(['proveedores']);
     })
 
 
