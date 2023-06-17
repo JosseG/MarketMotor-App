@@ -52,8 +52,8 @@ export class EmpleadoinsertComponent implements OnInit {
       next: () => {
 
         this.formularioEmpleado.get("nombre")?.reset()
-        this.formularioEmpleado.get("apellidoPat")?.reset()
-        this.formularioEmpleado.get("apellidoMat")?.reset()
+        this.formularioEmpleado.get("apellidoPaterno")?.reset()
+        this.formularioEmpleado.get("apellidoMaterno")?.reset()
         this.formularioEmpleado.get("telefono")?.reset()
         this.formularioEmpleado.get("correo")?.reset()
         this.formularioEmpleado.get("idUsuario")?.reset()

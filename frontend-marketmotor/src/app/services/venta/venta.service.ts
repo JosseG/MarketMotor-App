@@ -39,13 +39,7 @@ export class VentaService {
   }
 
 
-  setCliente(cliente: Cliente): void {
 
-    var newCliente: Cliente = new Cliente();
-    newCliente = cliente
-    var toJsonCliente = JSON.stringify(newCliente)
-    sessionStorage.setItem("clienteTemporal", toJsonCliente)
-  }
 
 
 }
