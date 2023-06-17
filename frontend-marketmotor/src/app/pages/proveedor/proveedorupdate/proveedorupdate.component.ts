@@ -1,20 +1,59 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Proveedor } from 'src/app/models/dtos/Proveedor';
 
 import { ProveedorService } from 'src/app/services/proveedor/proveedor.service';
+import { ProveedorUpdate } from 'src/app/models/commands/proveedor/ProveedorUpdate';
 
 @Component({
   selector: 'app-proveedorupdate',
   templateUrl: './proveedorupdate.component.html',
   styleUrls: ['./proveedorupdate.component.css']
 })
-export class ProveedorupdateComponent {
+export class ProveedorupdateComponent implements OnInit {
 
-  constructor(private proveedorService: ProveedorService, private router:Router) { }
+  formularioProveedor: FormGroup = this.formbuilder.group({
+    id:[],
+    razonSocial:[],
+    nombreComercial:[],
+    numeroRuc:[],
+    correo:[],
+    direccion:[],
+    departamento:[],
+    telefonoProveedor:[],
+   
+  })
 
-  editar(proveedor: Proveedor): void{
-    localStorage.setItem("id",proveedor.id.toString());
-      this.router.navigate(['editarProveedor']);
+  proveedor: ProveedorUpdate = new ProveedorUpdate()
+  constructor(private proveedorService: ProveedorService, private router:Router,private formbuilder:FormBuilder) { }
+  editar(){
+    let id= JSON.parse(localStorage.getItem('id') as string);
+    this.proveedorService.getProveedorId(id).subscribe(data=>{
+      this.proveedor=data;
+     this.formularioProveedor.patchValue(data);
+    
+    });
   }
+
+
+  ngOnInit(): void {
+    this.editar();
+    
+  }
+ 
+  actualizarProveedor(proveedor: ProveedorUpdate) {
+  const values = this.formularioProveedor.value
+    this.proveedorService.updateProveedor(values).subscribe(data=>{
+      this.proveedor=data;
+      //this.router.navigate(['proveedores']);
+    })
+
+
+    
+  }
+  
 }
+
+

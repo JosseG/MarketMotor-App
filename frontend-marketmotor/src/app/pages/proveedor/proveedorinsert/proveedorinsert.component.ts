@@ -68,7 +68,7 @@ implements OnInit {
         this.formularioProveedor.get("departamento")?.reset()
         this.formularioProveedor.get("telefonoProveedor")?.reset()
         this.formularioProveedor.get("idUsuario")?.reset()
-        alert("Agregado con exito")
+        
         this.router.navigate(['proveedores']);
       },
       error: (e) => alert("Campos incompletos")

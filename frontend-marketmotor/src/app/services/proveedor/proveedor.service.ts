@@ -2,6 +2,7 @@ import { Proveedor } from './../../models/dtos/Proveedor'
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProveedorInsert } from 'src/app/models/commands/proveedor/ProveedorInsert'
+import { ProveedorUpdate } from 'src/app/models/commands/proveedor/ProveedorUpdate';
 
 @Injectable({
   providedIn: 'root'
@@ -28,9 +29,9 @@ export class ProveedorService {
   getProveedorId(id: number){
     return this.http.get<Proveedor>(this.apiUrl+'/'+id);
   }
-// actualizar este metodo
-  updateProveedor(id: number, proveedor: Proveedor){
-    return this.http.put<Proveedor>(this.apiUrl,proveedor);
+  updateProveedor(proveedor:ProveedorUpdate) {
+    //return this.http.put<ProveedorUpdate>(`${this.apiUrl}/update`,proveedor)
+    return this.http.put<ProveedorUpdate>(this.apiUrl,proveedor)
   }
 
   deleteProveedor(proveedor: Proveedor){

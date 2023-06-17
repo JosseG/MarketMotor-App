@@ -1,1 +1,93 @@
-<p>proveedorupdate works!</p>
+
+
+  <div class="card text-center card-proveedor" style="width: 40rem;">
+    <div class="card-header">
+      Actualizar Proveedor
+    </div>
+    <div class="card-body">
+      <form class="form row g-2" [formGroup]="formularioProveedor"  autocomplete="off">
+        <div class=" row g-2 contenedorForm" >
+             <div class="col-auto">
+            <div class="form-floating">
+              
+       
+              <input class="form-control" type="text" id="id floatingInputGrid" formControlName="id">
+              <label  for="floatingInputGrid">Código</label>
+            </div>
+         </div>
+          <div class="col-auto">
+            <div class="form-floating">
+              
+       
+              <input class="form-control" type="text" id="razonSocial floatingInputGrid" formControlName="razonSocial">
+              <label  for="floatingInputGrid">Razon Social</label>
+            </div>
+         </div>
+        <div class="col-auto">
+          <div class="form-floating">   
+            <input class="form-control" type="text" id="nombreComercial floatingInputGrid" formControlName="nombreComercial">
+            <label  for="floatingInputGrid">Nombre</label>
+          </div>
+        </div>
+      
+        <div class="col-auto">
+          <div class="form-floating">
+          <input class="form-control" type="text" id="numeroRuc floatingInputGrid"  formControlName="numeroRuc">
+            <label  for="floatingInputGrid">RUC</label>
+          </div>
+        </div>
+        <div class="col-auto">
+            <div class="form-floating">
+            <input class="form-control" type="email" id="correo floatingInputGrid" formControlName="correo">
+            <label  for="floatingInputGrid">Correo</label>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="form-floating">
+            <input class="form-control" type="text" id="direccion floatingInputGrid" formControlName="direccion">
+            <label  for="floatingInputGrid">Direccion</label>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="departamento floatingInputGrid"   formControlName="departamento">
+            <label for="floatingInputGrid">Departamento</label>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="form-floating">  
+            <input class="form-control" type="text"  id="telefonoProveedor floatingInputGrid" formControlName="telefonoProveedor">
+            <label  for="floatingInputGrid">Telefono</label>
+          </div>
+        </div>
+
+        </div>
+        <div class="text-center"><button class="btn btn-info mt-3"type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Actualizar</button></div>
+      
+      </form>
+    </div>
+    <div class="card-footer text-muted">
+     
+    </div>
+      <!-- Modal para actualizar -->
+      <div class="modal fade modal-sm" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body">
+              <br>
+              <br>
+             ¿Desea actualizar el provedor?
+             <br>
+             <br>
+             <button class="btn btn-info mt-3" type="submit" (click) = "actualizarProveedor(proveedor)" data-bs-dismiss="modal" >Sí</button>
+        
+             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+        
+          </div>
+        </div>
+        </div>
+  </div>
+
+
+

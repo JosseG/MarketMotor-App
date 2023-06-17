@@ -28,6 +28,7 @@ const routes: Routes = [
   { path: 'proveedores', component: ProveedorlistComponent,canActivate:[AuthGuard,AdministradorGuard] },
   { path: 'proveedores/insertar', component: ProveedorinsertComponent,canActivate:[AuthGuard,AdministradorGuard] },
   { path: 'proveedores/update', component: ProveedorupdateComponent,canActivate:[AuthGuard,AdministradorGuard] },
+  
   { path: 'venta/reporte', component: ReporteventaComponent,canActivate:[AuthGuard] },
   { path: 'ordencompra/reporte', component: ReporteordencompraComponent,canActivate:[AuthGuard] },
   { path: 'ordencompra', component: GenerarordencompraComponent,canActivate:[AuthGuard,AdministradorGuard] },

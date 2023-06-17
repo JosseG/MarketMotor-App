@@ -37,9 +37,10 @@
                             class="bg-activo text-white border-0 px-3 py-1">Activo</button></td>
                           </ng-template>       
                 <td class="icons">
-              
-                  <a routerLink="/empleados"><i class="bi bi-trash-fill"></i></a>
-                  <a routerLink="/proveedores/update"><i class="bi bi-pencil-square"></i></a>
+                  <a routerLink="proveedores" (click)="eliminar(proveedor)"><i class="bi bi-trash-fill"></i></a>
+        
+  
+                  <a routerLink="update"  (click)="editar(proveedor)"><i class="bi bi-pencil-square"></i></a>
                   
                 </td>
               </tr>
@@ -96,8 +97,9 @@
           
           </tbody>
         </table>
-       
+      
       </div>
     </div>
   </div>
+
 </div>
