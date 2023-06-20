@@ -8,6 +8,7 @@ import com.jma.productoservice.rol.application.mapper.RolMapper;
 import com.jma.productoservice.rol.application.service.RolService;
 import com.jma.productoservice.utils.EstadoD;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,16 +20,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/roles")
 @Validated
+@AllArgsConstructor
 public class RolController {
 
     private final RolService<RolDto> rolService;
 
+    /*
     @Autowired
     public RolController(RolService<RolDto> rolService
                          ){
         this.rolService = rolService;
     }
-
+*/
 
     @PostMapping
     public ResponseEntity<RolDto> guardar(@RequestBody @Valid RolCommandInsert rolCommandInsert){

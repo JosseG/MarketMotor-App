@@ -10,6 +10,7 @@ import com.jma.productoservice.proveedor.domain.response.ProveedorResponse;
 import com.jma.productoservice.utils.ConstantsService;
 import com.jma.productoservice.utils.EstadoD;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,15 +22,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/proveedores")
 @Validated
+@AllArgsConstructor
 public class ProveedorController {
 
     private final ProveedorService<ProveedorDto> proveedorService;
 
+    /*
     @Autowired
     public ProveedorController(ProveedorService<ProveedorDto> proveedorService){
         this.proveedorService = proveedorService;
     }
-
+*/
     @GetMapping
     public ResponseEntity<List<ProveedorDto>> obtenerTodos(){
         return ResponseEntity.ok(proveedorService.obtenerTodos());

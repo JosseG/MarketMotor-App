@@ -8,6 +8,7 @@ import com.jma.productoservice.producto.domain.response.ProductoResponse;
 import com.jma.productoservice.utils.ConstantsService;
 import com.jma.productoservice.utils.EstadoD;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,15 +20,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/productos")
 @Validated
+@AllArgsConstructor
 public class ProductoController {
 
     private final ProductoService<ProductoDto> productoService;
 
+    /*
     @Autowired
     public ProductoController(ProductoService<ProductoDto> productoService){
         this.productoService = productoService;
     }
-
+*/
 
 
     @PostMapping

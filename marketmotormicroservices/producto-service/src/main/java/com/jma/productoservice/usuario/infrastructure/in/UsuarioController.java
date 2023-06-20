@@ -7,6 +7,7 @@ import com.jma.productoservice.usuario.application.mapper.UsuarioMapper;
 import com.jma.productoservice.usuario.application.service.UsuarioService;
 import com.jma.productoservice.utils.EstadoD;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +19,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/usuarios")
 @Validated
+@AllArgsConstructor
 public class UsuarioController {
 
     private final UsuarioService<UsuarioDto> usuarioService;
 
+    /*
     @Autowired
     public UsuarioController(UsuarioService<UsuarioDto> usuarioService){
         this.usuarioService = usuarioService;
     }
-
+*/
     @GetMapping
     public ResponseEntity<List<UsuarioDto>> obtenerTodos(){
         return ResponseEntity.ok(usuarioService.obtenerTodos());

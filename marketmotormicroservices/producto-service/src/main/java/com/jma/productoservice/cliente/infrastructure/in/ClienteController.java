@@ -7,6 +7,7 @@ import com.jma.productoservice.cliente.application.mapper.ClienteMapper;
 import com.jma.productoservice.cliente.application.service.ClienteService;
 import com.jma.productoservice.utils.EstadoD;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +19,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/clientes")
 @Validated
+@AllArgsConstructor
 public class ClienteController {
 
     private final ClienteService<ClienteDto> clienteService;
 
-    @Autowired
+    /*@Autowired
     public ClienteController(ClienteService<ClienteDto> ventaService){
         this.clienteService = ventaService;
     }
-
+*/
 
     @PostMapping
     public ResponseEntity<ClienteDto> guardar(@RequestBody @Valid ClienteCommandInsert clienteCommandInsert){

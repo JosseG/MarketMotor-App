@@ -11,6 +11,7 @@ import com.jma.productoservice.ordenCompra.application.service.OrdenCompraServic
 import com.jma.productoservice.utils.ConstantsService;
 import com.jma.productoservice.utils.EstadoD;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,15 +23,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/ordencompra")
 @Validated
+@AllArgsConstructor
 public class OrdenCompraController {
 
     private final OrdenCompraService<OrdenCompraDto> ordenCompraService;
 
+    /*
     @Autowired
     public OrdenCompraController(OrdenCompraService<OrdenCompraDto> ordenCompraService){
         this.ordenCompraService = ordenCompraService;
     }
-
+*/
 
     @GetMapping
     public ResponseEntity<List<OrdenCompraDto>> obtenerTodos(){

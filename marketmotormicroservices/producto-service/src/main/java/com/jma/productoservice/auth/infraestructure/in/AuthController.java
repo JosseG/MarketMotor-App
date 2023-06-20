@@ -7,6 +7,7 @@ import com.jma.productoservice.usuario.domain.response.UserAuthenticateResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -20,15 +21,17 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/auth")
 @Validated
+@AllArgsConstructor
 public class AuthController {
 
     private final UsuarioService<UsuarioDto> usuarioService;
 
+    /*
     @Autowired
     public AuthController(UsuarioService<UsuarioDto> usuarioService){
         this.usuarioService = usuarioService;
     }
-
+*/
     @PostMapping("/signin")
     public ResponseEntity<UserAuthenticateResponse> signin(
             @RequestBody @Valid UsuarioCommandLogin loginCommand
