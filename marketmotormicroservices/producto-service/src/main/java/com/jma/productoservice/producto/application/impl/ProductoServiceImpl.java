@@ -59,7 +59,7 @@ public class ProductoServiceImpl implements ProductoService<ProductoDto> {
     }
 
     @Override
-    public ProductoResponse obtenerPFiltradosPorDescripción(String descripcion, int pageNo, int pageSize, String sortBy, String sortDir) {
+    public ProductoResponse obtenerPFiltradosPorDescripcion(String descripcion, int pageNo, int pageSize, String sortBy, String sortDir) {
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
 

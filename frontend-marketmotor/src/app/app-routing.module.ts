@@ -16,6 +16,7 @@ import { GenerarventaComponent } from './pages/venta/generarventa/generarventa.c
 import { GenerarordencompraComponent } from './pages/ordencompra/generarordencompra/generarordencompra.component';
 import { ReporteordencompraComponent } from './pages/ordencompra/reporteordencompra/reporteordencompra.component';
 import { ReporteventaComponent } from './pages/venta/reporteventa/reporteventa.component';
+import { ReportetemplateComponent } from './pages/reportetemplate/reportetemplate.component';
 
 const routes: Routes = [
   { path: 'inicio', component: InicioComponent,canActivate:[AuthGuard] },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'venta/reporte', component: ReporteventaComponent,canActivate:[AuthGuard] },
   { path: 'ordencompra/reporte', component: ReporteordencompraComponent,canActivate:[AuthGuard] },
   { path: 'ordencompra', component: GenerarordencompraComponent,canActivate:[AuthGuard,AdministradorGuard] },
+  { path: 'reportetemplate', component: ReportetemplateComponent,canActivate:[AuthGuard,AdministradorGuard] },
   { path: 'venta', component: GenerarventaComponent,canActivate:[AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'inicio', pathMatch: 'full' }

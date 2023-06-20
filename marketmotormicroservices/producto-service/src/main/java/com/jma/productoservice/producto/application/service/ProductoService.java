@@ -12,5 +12,5 @@ public interface ProductoService<T> extends ICrudCommon<T> {
     ProductoResponse obtenerTodosPaginados(int pageNo, int pageSize, String sortBy, String sortDir);
 
 
-    ProductoResponse obtenerPFiltradosPorDescripción(String descripcion,int pageNo, int pageSize, String sortBy, String sortDir);
+    ProductoResponse obtenerPFiltradosPorDescripcion(String descripcion,int pageNo, int pageSize, String sortBy, String sortDir);
 }

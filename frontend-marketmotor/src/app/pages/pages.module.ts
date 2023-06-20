@@ -22,6 +22,8 @@ import { ReporteventaComponent } from './venta/reporteventa/reporteventa.compone
 import { PaginationComponent } from '../components/pagination/pagination.component';
 import { ComponentsModule } from '../components/components.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ReportetemplateComponent } from './reportetemplate/reportetemplate.component';
+import { NgxPrintModule } from 'ngx-print';
 
 
 
@@ -42,7 +44,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     GenerarventaComponent,
     ReporteordencompraComponent,
     GenerarordencompraComponent,
-    ReporteventaComponent
+    ReporteventaComponent,
+    ReportetemplateComponent
   ],
   imports: [
     CommonModule,
@@ -50,7 +53,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ReactiveFormsModule,
     FormsModule,
     ComponentsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxPrintModule
   ]
 })
 export class PagesModule { }

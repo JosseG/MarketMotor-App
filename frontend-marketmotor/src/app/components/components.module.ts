@@ -4,13 +4,15 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { RouterModule } from '@angular/router';
 import { PaginationComponent } from './pagination/pagination.component';
+import { ReportetemplateComponent } from './reportetemplate/reportetemplate.component';
 
 
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    PaginationComponent
+    PaginationComponent,
+    ReportetemplateComponent
   ],
   imports: [
     CommonModule,

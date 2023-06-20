@@ -91,7 +91,7 @@ public class ProveedorController {
             @RequestParam(value = "sortBy", defaultValue = ConstantsService.DEFAULT_SORT_BY, required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = ConstantsService.DEFAULT_SORT_DIRECTION, required = false) String sortDir
     ){
-        return ResponseEntity.ok(proveedorService.obtenerTodosPaginados(pageNo, pageSize, sortBy, sortDir));
+        return ResponseEntity.ok(proveedorService.obtenerTodosPaginados(pageNo-1, pageSize, sortBy, sortDir));
     }
 
 }

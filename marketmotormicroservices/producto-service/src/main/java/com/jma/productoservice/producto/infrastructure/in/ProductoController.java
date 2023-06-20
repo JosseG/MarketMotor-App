@@ -102,7 +102,7 @@ public class ProductoController {
             @RequestParam(value = "sortBy", defaultValue = ConstantsService.DEFAULT_SORT_BY, required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = ConstantsService.DEFAULT_SORT_DIRECTION, required = false) String sortDir
     ){
-        return ResponseEntity.ok(productoService.obtenerPFiltradosPorDescripción(descripcion,pageNo-1, pageSize, sortBy, sortDir));
+        return ResponseEntity.ok(productoService.obtenerPFiltradosPorDescripcion(descripcion,pageNo-1, pageSize, sortBy, sortDir));
     }
 
 }

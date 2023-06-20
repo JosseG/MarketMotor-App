@@ -1,0 +1,72 @@
+/*ICONOS*/
+.bi-trash-fill{
+    font-size: 1.3em;
+    color:brown;
+    margin-left: 8px;
+  }
+  
+  .bi-pencil-square{
+    font-size: 1.3em;
+    margin-left: 20px;
+  }
+  
+  .bi-chevron-down{
+    color:black;
+    font-size: 1.3em;
+    margin-left: 20px;
+  }
+  
+  /*TABLA*/
+  .accordion-header {
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  }
+  
+  .table{
+    text-align: center;
+  }
+  
+  .table th{
+    color: gray;
+  }
+  
+  .table td{
+    padding-top: 15px;
+  }
+  
+  /*TITULO*/
+  .titulo{
+    color:gray;
+    margin-top: 30px;
+    font-size: 28px;
+  }
+  
+  .tablas{
+    margin-top: 50px;
+  }
+  
+  .tableCabe3 th{
+    padding-bottom: 20px;
+  }
+  
+  /* color botones*/
+  .bg-activo{
+    background-color: #87C366;
+    border-radius: 4px;
+  }
+  
+  .bg-inactivo{
+    background-color: #EA4F5D;
+    border-radius: 4px;
+  }
+  
+  .detalle{
+    width: 160px;
+    text-align: left;
+  }
+  
+  .detalleLargo{
+    width: 200px;
+    text-align: left;
+  }
+  

@@ -1,38 +1,54 @@
-<h1>Insertar Producto</h1>
+
 
 <div class="container col-md-6">
   <div class="card-header">
     <h3>Agregar Productos</h3>
   </div>
   <div class="card-body">
-    <form action="">
+    <form [formGroup]="formularioProducto" (ngSubmit)="guardarProducto()" autocomplete="off">
 
       <div class="form-group">
         <label for="">Descripción:</label>
-        <input type="text" [(ngModel)]="modelProducto.descripcion" name="descripcion" class="form-control">
+        <input type="text" formControlName="descripcion"  name="descripcion" class="form-control">
       </div>
 
       <div class="form-group">
         <label for="">Tipo:</label>
-        <input type="text" [(ngModel)]="modelProducto.tipo" name="tipo" class="form-control">
+        <input type="text" formControlName="tipo" name="tipo" class="form-control">
       </div>
 
       <div class="form-group">
         <label for="">Serial:</label>
-        <input type="text" [(ngModel)]="modelProducto.serial" name="serial" class="form-control">
+        <input type="text" formControlName="serial" name="serial" class="form-control">
       </div>
 
       <div class="form-group">
         <label for="">Marca:</label>
-        <input type="text" [(ngModel)]="modelProducto.marca" name="marca" class="form-control">
+        <input type="text" formControlName="marca" name="marca" class="form-control">
       </div>
 
       <div class="form-group">
         <label for="">Precio:</label>
-        <input type="number" [(ngModel)]="modelProducto.precio" name="precio" class="form-control">
+        <input type="number" formControlName="precio"  name="precio" class="form-control">
       </div>
-      <button (click)="guardar(modelProducto)" class="btn btn-danger">Guardar</button>
+      <button type="submit" class="btn btn-danger">Guardar</button>
     </form>
+  </div>
+
+  <div class="modal fade modal-sm" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <br>
+         ¡Se creó un nuevo usuario!
+
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         <br>
+         <br>
+        </div>
+
+      </div>
+    </div>
   </div>
 </div>
 

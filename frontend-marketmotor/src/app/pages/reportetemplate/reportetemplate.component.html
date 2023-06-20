@@ -1,0 +1,123 @@
+<div id="print-section">
+    <div class="mt-5">
+        <div class="reporte-container px-5">
+            <div class="reporte-header col-md-12 d-flex justify-content-between">
+                <h2>REPORTES</h2>
+            </div>
+
+            <div class="mt-3">
+                <div class="row align-items-start">
+                    <div class="col w-25 p-3">
+                        <h4>Numero de Orden</h4>
+                        <div class="col">
+                            <div class="col-9">-los cisnes 265</div>
+                        </div>
+                    </div>
+
+                    <div class="col w-25 p-3">
+                        <h4>Dirección de Envio</h4>
+                        <div class="col-9">-los cisnes 265</div>
+                    </div>
+
+                    <div class="col w-25 p-3">
+                        <h4>Contacto</h4>
+                        <div class="col-9">-los cisnes 265</div>
+                    </div>
+
+                    <div class="col w-25 p-3">
+                        <h4>Contacto</h4>
+                        <div class="col-9">-los cisnes 265</div>
+                    </div>
+
+                    <div class="col w-25 p-3">
+                        <h4>Contacto</h4>
+                        <div class="col-9">-los cisnes 265</div>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="mt-3">
+                <div class="row align-items-start">
+                    <div class="col w-25 p-3">
+                        <h4>Dirección de Envio</h4>
+                        <div class="col">
+                            <div class="col-9">-los cisnes 265</div>
+                            <div class="col-9">-pasaje ismael castillo 185 aaaaaaaaaa</div>
+                            <div class="col-9">-av salaverry 3630</div>
+                            <div class="col-9">-las aguilas 365</div>
+                            <div class="col-9">-pedemonte 151</div>
+                        </div>
+                    </div>
+                    <div class="col w-25 p-3">
+                        <h4>Dirección de Envio</h4>
+                        <div class="col">
+                            <div class="col-9">-los cisnes 265</div>
+                            <div class="col-9">-pasaje ismael castillo 185 aaaaaaaaaa</div>
+                            <div class="col-9">-av salaverry 3630</div>
+                            <div class="col-9">-las aguilas 365</div>
+                            <div class="col-9">-pedemonte 151</div>
+                        </div>
+                    </div>
+                    <div class="col w-25 p-3">
+                        <h4>Dirección de Envio</h4>
+                        <div class="col">
+                            <div class="col-9">-los cisnes 265</div>
+                            <div class="col-9">-pasaje ismael castillo 185 aaaaaaaaaa</div>
+                            <div class="col-9">-av salaverry 3630</div>
+                            <div class="col-9">-las aguilas 365</div>
+                            <div class="col-9">-pedemonte 151</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detalle-body mt-3">
+                <table class="table table-bordered border-dark">
+                    <thead class="table">
+                        <tr>
+                            <th scope="col" class="text-center">Numero de Orden</th>
+                            <th scope="col" class="text-center">Tipo de Orden</th>
+                            <th scope="col" class="text-center">Proveedor</th>
+                            <th scope="col" class="text-center">Encargado</th>
+                            <th scope="col" class="text-center">Monto</th>
+                            <th scope="col" class="text-center">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody class="body_reporte">
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td class="text-center">Compra de Embrague</td>
+                            <td class="text-center">Wong & Metro</td>
+                            <td class="text-center">Riane</td>
+                            <td class="text-center">600</td>
+                            <td class="text-center">
+                                <span class="badge bg-success border-2 px-4 py-2">Completado</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td class="text-center">Compra de Embrague</td>
+                            <td class="text-center">Wong & Metro</td>
+                            <td class="text-center">Riane</td>
+                            <td class="text-center">600</td>
+                            <td class="text-center">
+                                <span class="badge bg-success border-2 px-4 py-2">Completado</span>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td class="" colspan="5">TOTAL</td>
+                            <td class="text-center">1200</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button  [useExistingCss]="true" printSectionId="print-section" ngxPrint>print</button>
