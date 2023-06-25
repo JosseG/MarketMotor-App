@@ -30,6 +30,7 @@ export class ReporteventaComponent {
         this.detalleVentaPaginable = data;
         this.total = this.detalleVentaPaginable.totalElements
         this.detalleVentas = this.detalleVentaPaginable.content
+        
         console.log(data);
       },
       error: (e) =>

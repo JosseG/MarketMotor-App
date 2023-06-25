@@ -1,9 +1,11 @@
 package com.jma.productoservice.detalleVenta.application.impl;
 
+import com.jma.productoservice.cliente.application.mapper.ClienteMapper;
 import com.jma.productoservice.detalleVenta.domain.dto.DetalleVentaDto;
 import com.jma.productoservice.detalleVenta.domain.entity.DetalleVentaEntity;
 import com.jma.productoservice.detalleVenta.domain.response.DetalleVentaResponse;
 import com.jma.productoservice.detalleVenta.infrastructure.out.DetalleVentaRepository;
+import com.jma.productoservice.empleado.application.mapper.EmpleadoMapper;
 import com.jma.productoservice.producto.domain.entity.ProductoEntity;
 import com.jma.productoservice.producto.infrastructure.out.ProductoRepository;
 import com.jma.productoservice.venta.domain.entity.VentaEntity;
@@ -138,6 +140,8 @@ public class DetalleVentaServiceImpl implements DetalleVentaService<DetalleVenta
         for (int i = 0; i < content.size(); i++) {
             content.get(i).setProducto(ProductoMapper.mapToDto(detallesOrdenes.get(i).getProducto()));
             content.get(i).setVenta(VentaMapper.mapToDto(detallesOrdenes.get(i).getVenta()));
+            content.get(i).getVenta().setCliente(ClienteMapper.mapToDto(detallesOrdenes.get(i).getVenta().getCliente()));
+            content.get(i).getVenta().setEmpleado(EmpleadoMapper.mapToDto(detallesOrdenes.get(i).getVenta().getEmpleado()));
         }
         return content;
     }

@@ -298,8 +298,11 @@ export class GenerarventaComponent {
         total += productoFromCart.cantidad * productoFromCart.producto.precio
       }
 
+      var valores = this.formVenta.value
+      valores.preciototal=total
+
       if(total>0){
-        this.ventaService.guardarVenta(this.formVenta.value).subscribe({
+        this.ventaService.guardarVenta(valores).subscribe({
           next: (venta: any) => {
             console.log(venta);
             for(let productoFromCart of this.productosFromCartWith){
@@ -311,7 +314,7 @@ export class GenerarventaComponent {
 
               this.detalleVentaService.guardarDetalleVenta(newObject).subscribe({
                 next: (detalle) => {
-                  console.log(detalle)
+                  console.log(detalle) 
                 },
                 error: (e) => {
                   console.log(e)
