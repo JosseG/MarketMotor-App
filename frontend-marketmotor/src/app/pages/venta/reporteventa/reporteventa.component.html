@@ -63,7 +63,7 @@
                     </thead>
                     <tbody class="body_reporte">
                  
-                        <tr>
+                        <tr *ngFor="let venta of detalleVentas | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: total }">
                             <td>Ejemplo</td>
                             <td>Ejemplo</td>
                             <td>Ejemplo</td>

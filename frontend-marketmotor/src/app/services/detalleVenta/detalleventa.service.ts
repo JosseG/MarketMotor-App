@@ -16,4 +16,10 @@ export class DetalleventaService {
     })
   }
 
+
+  guardarDetalleVenta(detalleVenta: any){
+    return this.http.post(this.apiUrl, detalleVenta);
+  }
+
+  
 }

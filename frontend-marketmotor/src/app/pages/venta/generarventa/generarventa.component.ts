@@ -11,6 +11,8 @@ import { VentaService } from 'src/app/services/venta/venta.service';
 import { ClienteService } from '../../../services/cliente/cliente.service';
 import { Empleado } from 'src/app/models/dtos/Empleado';
 import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
+import { DetalleventaService } from 'src/app/services/detalleVenta/detalleventa.service';
+import { Venta } from 'src/app/models/dtos/Venta';
 
 @Component({
   selector: 'app-generarventa',
@@ -53,10 +55,27 @@ export class GenerarventaComponent {
   })
 
   formCliente: FormGroup = this.formbuilder.group({
-    
+
   })
 
-  constructor(private router:Router,private empleadoService: EmpleadoService,private carritoService: CarritoService, private clienteService: ClienteService,private ventaService: VentaService, private productoService: ProductoService, private formbuilder: FormBuilder) {
+
+  //GENERAR VENTA
+  formVenta: FormGroup = this.formbuilder.group({
+    preciototal: [0.0],
+    idCliente: [1],
+    idEmpleado: [1]
+  })
+
+
+    //GENERAR VENTA
+    formDetalleVenta: FormGroup = this.formbuilder.group({
+      unidades: [0],
+      idProducto: [1],
+      idVenta: [1]
+    })
+
+
+  constructor(private router:Router,private empleadoService: EmpleadoService,private carritoService: CarritoService, private clienteService: ClienteService,private ventaService: VentaService, private productoService: ProductoService, private formbuilder: FormBuilder, private detalleVentaService: DetalleventaService) {
 
   }
   ngOnInit(): void {
@@ -257,6 +276,64 @@ export class GenerarventaComponent {
   getEmpleadoFromSess(){
     this.empleado = this.empleadoService.getEmpleadoFromSession()
   }
+
+
+  
+
+
+
+  //GUARDAR O GENERAR VENTA
+  //VERIFICAR ANTES QUE EL PRECIO SEA MAYOR A 0
+  //VERIFICAR LISTA DE CARRITO QUE NO ESTÉ VACÍA
+  //LUEGO DE REALIZAR LA INSERCIÓN DE VENTA, GESTIONAR EL DETALLEVENTA
+
+
+  registrarVenta(){
+
+    if(this.productosFromCartWith.length>0){
+
+      var total = 0;
+
+      for(let productoFromCart of this.productosFromCartWith){
+        total += productoFromCart.cantidad * productoFromCart.producto.precio
+      }
+
+      if(total>0){
+        this.ventaService.guardarVenta(this.formVenta.value).subscribe({
+          next: (venta: any) => {
+            console.log(venta);
+            for(let productoFromCart of this.productosFromCartWith){
+
+              var newObject: any = new Object()
+              newObject.unidades = productoFromCart.cantidad;
+              newObject.idProducto = productoFromCart.producto.id;
+              newObject.idVenta = venta.id;
+
+              this.detalleVentaService.guardarDetalleVenta(newObject).subscribe({
+                next: (detalle) => {
+                  console.log(detalle)
+                },
+                error: (e) => {
+                  console.log(e)
+                }
+              })
+            }
+  
+          },
+          error: (e) => {
+            console.log(e);
+          }
+        })
+      }else{
+        alert("el total es 0")
+      }
+      
+    }else{
+      alert("No puedes realizar")
+    }
+    
+  }
+
 
 
 }

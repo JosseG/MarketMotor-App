@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Cliente } from 'src/app/models/dtos/Cliente';
 import { ClienteService } from '../cliente/cliente.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VentaService {
 
-  constructor(private clienteService: ClienteService) { }
+  private readonly url = 'http://localhost:8080/ventas';
+  constructor(private clienteService: ClienteService,private http:HttpClient) { }
 
 
 
@@ -38,7 +40,9 @@ export class VentaService {
     sessionStorage.setItem("activeVenta", "true")
   }
 
-
+  guardarVenta(venta: any){
+    return this.http.post(this.url, venta);
+  }
 
 
 
