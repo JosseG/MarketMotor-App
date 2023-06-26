@@ -19,30 +19,14 @@ import { genUniqueId } from 'src/app/_shared/serialid/GenerateSerial';
 @Component({
   selector: 'app-generarordencompra',
   templateUrl: './generarordencompra.component.html',
-  styleUrls: ['./generarordencompra.component.css']
+  styleUrls: ['./generarordencompra.component.css'],
 })
 export class GenerarordencompraComponent implements OnInit {
 
 
-  /*Pruebas*/
-
-
-
-
-
-
-
-
-
-
-
-  /*Pruebas*/
-
-
-
   @ViewChild('formDirective')
   private formDirective!: NgForm;
-  
+
   currentPage = 1;
   total = 0;
   itemsPerPage = 4;
@@ -50,42 +34,37 @@ export class GenerarordencompraComponent implements OnInit {
   isSearching = false;
   isSearchingProveedor = false;
 
-  productoToQuantity = new Producto()
-
-
+  productoToQuantity = new Producto();
 
   formSearchProduct: FormGroup = this.formbuilder.group({
     descripcion: [],
-  })
+  });
 
   formAddingCartProduct: FormGroup = this.formbuilder.group({
     cantidad: [],
-  })
-
+  });
 
   formSearchProveedor: FormGroup = this.formbuilder.group({
-    id:[],
-  })
+    id: [],
+  });
 
   formAddingProveedor: FormGroup = this.formbuilder.group({
     nombreRuc: [],
-  })
-
+  });
 
   formOrdenCompra: FormGroup = this.formbuilder.group({
     numero: [genUniqueId()],
     fecha: [new Date()],
     valorTotal: [0.0],
     idEmpleado: [1],
-    idProveedor: [1]
-  })
-
+    idProveedor: [1],
+  });
 
   formProveedor: FormGroup = this.formbuilder.group({
     numeroRuc: [],
     nombreComercial: [],
-    razonSocial: []
-  })
+    razonSocial: [],
+  });
 
   proveedores: Proveedor[] = [];
   myproveedor: Proveedor = new Proveedor();
@@ -93,25 +72,29 @@ export class GenerarordencompraComponent implements OnInit {
 
   proveedorSearched: Proveedor = new Proveedor();
 
+  proveedorToForm = new Proveedor();
 
-  proveedorToForm = new Proveedor()
+  constructor(
+    private router: Router,
+    private proveedorService: ProveedorService,
+    private empleadoService: EmpleadoService,
+    private carritoService: CarritoService,
+    private ordenCompraService: OrdencompraService,
+    private productoService: ProductoService,
+    private formbuilder: FormBuilder,
+    private detalleOrdenCompraService: DetalleordencompraService
+  ) { }
 
+  element$: Observable<[CarritoItem]> = new Observable();
 
-  constructor(private router:Router,private proveedorService:ProveedorService,private empleadoService:EmpleadoService, private carritoService: CarritoService, private ordenCompraService: OrdencompraService, private productoService: ProductoService, private formbuilder: FormBuilder, private detalleOrdenCompraService: DetalleordencompraService) {
-
-  }
-
-  element$ : Observable<[CarritoItem]> = new Observable()
-  
   ngOnInit(): void {
     //this.serial = genUniqueId
     this.getProveedorForSearch();
-    if(this.isActiveOrden()){
+    if (this.isActiveOrden()) {
       this.getCartProducts();
       this.getEmpleadoFromSess();
     }
     this.getPaginableProductos();
-
   }
 
   productos: Producto[] = [];
@@ -127,56 +110,43 @@ export class GenerarordencompraComponent implements OnInit {
   }*/
 
   async addToCart(id: number) {
-
-    const values = this.formAddingCartProduct.value.cantidad
-    console.log("captured")
-    console.log(id)
-    ;/*(await this.carritoService.addToCarItems(String(id), parseInt(values))).subscribe({
-      next: (data) => {
-        console.log(data)
-        this.getCartProducts()
-      }
-    })*/
-    await this.carritoService.addToCarItemsOrden(String(id),parseInt(values))
-    this.getCartProducts()
-    
-    //this.router.navigate(["productos"])
-
-   //this.pushingProductos()
+    const values = this.formAddingCartProduct.value.cantidad;
+    console.log('captured');
+    console.log(id);
+    await this.carritoService.addToCarItemsOrden(String(id), parseInt(values));
+    this.getCartProducts();
   }
 
-
   getPaginableProductos() {
-    this.productoService.getAllByPaginable(this.currentPage, this.itemsPerPage).subscribe({
-      next: (data: any) => {
-        this.productosPaginable = data;
-        this.total = this.productosPaginable.totalElements
-        this.productos = this.productosPaginable.content
-        //console.log(data);
-      },
-      error: (e) =>
-        console.log("Error " + e)
-
-    });
+    this.productoService
+      .getAllByPaginable(this.currentPage, this.itemsPerPage)
+      .subscribe({
+        next: (data: any) => {
+          this.productosPaginable = data;
+          this.total = this.productosPaginable.totalElements;
+          this.productos = this.productosPaginable.content;
+        },
+        error: (e) => console.log('Error ' + e),
+      });
   }
 
   getPaginableProductosFiltred() {
+    const values = this.formSearchProduct.value.descripcion;
+    console.log(values);
 
-    const values = this.formSearchProduct.value.descripcion
-    console.log(values)
-
-    this.productoService.getAllFiltredPaginable(values, this.currentPage, this.itemsPerPage).subscribe({
-      next: (data: any) => {
-        this.productosPaginable = data;
-        this.total = this.productosPaginable.totalElements
-        this.productos = this.productosPaginable.content
-        console.log("se llego a filtrar ")
-        this.isSearching = true;
-        console.log(data);
-      },
-      error: (e) =>
-        console.log("Error " + e)
-    });
+    this.productoService
+      .getAllFiltredPaginable(values, this.currentPage, this.itemsPerPage)
+      .subscribe({
+        next: (data: any) => {
+          this.productosPaginable = data;
+          this.total = this.productosPaginable.totalElements;
+          this.productos = this.productosPaginable.content;
+          console.log('se llego a filtrar ');
+          this.isSearching = true;
+          console.log(data);
+        },
+        error: (e) => console.log('Error ' + e),
+      });
   }
 
   pageChangeEvent(event: number) {
@@ -185,16 +155,9 @@ export class GenerarordencompraComponent implements OnInit {
     if (!this.isSearching) {
       this.getPaginableProductos();
     }
-
   }
-  /*pushingProductos() {
-    this.productosFromCart$.emit(this.carritoService.getCarItems())
-    console.log("Obtiene del carro en genero")
-    console.log(this.carritoService.getCarItems())
-  }*/
 
   addProveedorToForm(proveedor: Proveedor) {
-
     const values = this.formAddingProveedor.value.descripcion;
     console.log(proveedor.id);
     this.proveedorService.setProveedorToStorage(proveedor);
@@ -202,175 +165,137 @@ export class GenerarordencompraComponent implements OnInit {
   }
 
   getCartProducts() {
-    //this.productosFromCart$ = of(this.carritoService.getCarItems())
-    this.element$ =  this.carritoService.getCarItems()
-    /*this.carritoService.getCarItems().subscribe({
-      next: (data : any) => {
-        this.productosFromCartWith = data
-        console.log("implementando observables")
-        console.log(data)
-      }
-    });*/
-    //this.productosFromCartWith = this.carritoService.getCarItems()
+    this.element$ = this.carritoService.getCarItems();
   }
 
-  deleteItemProducto(id: number){
-    this.carritoService.borraritemOrden(id)
-    this.getCartProducts()
+  deleteItemProducto(id: number) {
+    this.carritoService.borraritemOrden(id);
+    this.getCartProducts();
   }
-
 
   clear() {
     this.isSearching = false;
-    this.formSearchProduct.get("descripcion")?.reset()
-    this.getPaginableProductos()
+    this.formSearchProduct.get('descripcion')?.reset();
+    this.getPaginableProductos();
   }
 
   productoToSetQuantity(producto: Producto) {
-    console.log(producto.id)
-    this.productoToQuantity = producto
+    console.log(producto.id);
+    this.productoToQuantity = producto;
   }
 
-
-
-  clearProveedorSearched(){
+  clearProveedorSearched() {
     this.isSearchingProveedor = false;
-    this.formSearchProveedor.get("id")?.reset()
+    this.formSearchProveedor.get('id')?.reset();
   }
 
-
-
-  isActiveOrden() : boolean{
+  isActiveOrden(): boolean {
     return this.ordenCompraService.isActiveOrden();
   }
 
-  setActiveOrden(): void{
+  setActiveOrden(): void {
     this.getCartProducts();
     this.getEmpleadoFromSess();
     this.getProveedorForSearch();
     return this.ordenCompraService.setActiveOrden();
   }
 
-  setInactiveOrden(): void{
+  setInactiveOrden(): void {
     this.cleanOrdenCompra();
-    this.ordenCompraService.setInactiveOrden()
+    this.ordenCompraService.setInactiveOrden();
+  }
+
+  getEmpleadoFromSess() {
+    this.empleado = this.empleadoService.getEmpleadoFromSession();
   }
 
 
-  getEmpleadoFromSess(){
-    this.empleado = this.empleadoService.getEmpleadoFromSession()
-  }
 
-  submit(){
-
-  }
-
-  getProveedor(){
-    const values = this.formSearchProveedor.value.id
-    console.log(typeof(values))
+  getProveedor() {
+    const values = this.formSearchProveedor.value.id;
+    console.log(typeof values);
 
     this.proveedorService.getProveedorId(values).subscribe({
       next: (data: Proveedor) => {
-        if(data.id!=0){
-          this.proveedores = [data]
+        if (data.id != 0) {
+          this.proveedores = [data];
         }
 
         this.isSearchingProveedor = true;
 
-        console.log(typeof(data));
+        console.log(typeof data);
       },
-      error: (e) =>
-        console.log("Error " + e)
+      error: (e) => console.log('Error ' + e),
     });
   }
 
-
-
   getProveedorForSearch(): Proveedor {
-
-    var proveedorFinal = new Proveedor()
-    var proveedorstorage = sessionStorage.getItem("proveedorTemporal");
-    if(proveedorstorage!=null){
-      proveedorFinal = JSON.parse(proveedorstorage!)
+    var proveedorFinal = new Proveedor();
+    var proveedorstorage = sessionStorage.getItem('proveedorTemporal');
+    if (proveedorstorage != null) {
+      proveedorFinal = JSON.parse(proveedorstorage!);
       this.formProveedor.patchValue(proveedorFinal);
-      //this.myproveedor = proveedorFinal
     }
-    return proveedorFinal
-
+    return proveedorFinal;
   }
-
 
   proveedorToGetId(proveedor: Proveedor) {
-    console.log(proveedor.id)
-    this.proveedorToForm = proveedor
+    console.log(proveedor.id);
+    this.proveedorToForm = proveedor;
   }
 
-
-
-
-
-
-
-
-  registrarOrdenCompra(){
-
+  registrarOrdenCompra() {
     this.element$.subscribe({
       next: (data: [CarritoItem]) => {
-        if(data.length>0){
-
+        if (data.length > 0) {
           var total = 0;
-    
-          for(let productoFromCart of data){
-            total += productoFromCart.cantidad * productoFromCart.producto.precio
+
+          for (let productoFromCart of data) {
+            total +=
+              productoFromCart.cantidad * productoFromCart.producto.precio;
           }
-    
-          var valores = this.formOrdenCompra.value
-          valores.valorTotal=total
-    
-          if(total>0){
+
+          var valores = this.formOrdenCompra.value;
+          valores.valorTotal = total;
+
+          if (total > 0) {
             this.ordenCompraService.guardarOrdenCompra(valores).subscribe({
               next: (ordenCompra: any) => {
-                for(let productoFromCart of data){
-    
-                  var newObject: any = new Object()
+                for (let productoFromCart of data) {
+                  var newObject: any = new Object();
                   newObject.cantidad = productoFromCart.cantidad;
                   newObject.precioUnitario = productoFromCart.producto.precio;
                   newObject.idProducto = productoFromCart.producto.id;
                   newObject.idOrdenCompra = ordenCompra.id;
-    
-                  this.detalleOrdenCompraService.guardarDetalleOrdenCompra(newObject).subscribe({
-                    next: (detalle) => {
-                      this.cleanOrdenCompra();
-                      console.log(detalle)
-                    },
-                    error: (e) => {
-                      console.log(e)
-                    }
-                  })
+
+                  this.detalleOrdenCompraService
+                    .guardarDetalleOrdenCompra(newObject)
+                    .subscribe({
+                      next: (detalle) => {
+                        this.cleanOrdenCompra();
+                        console.log(detalle);
+                      },
+                      error: (e) => {
+                        console.log(e);
+                      },
+                    });
                 }
-      
               },
               error: (e) => {
                 console.log(e);
-              }
-            })
-          }else{
-            alert("el total es 0")
+              },
+            });
+          } else {
+            alert('el total es 0');
           }
-          
-        }else{
-          alert("No puedes realizar")
+        } else {
+          alert('No puedes realizar');
         }
-      }
-    })
-
-    
-    
+      },
+    });
   }
 
-
-
-  cleanOrdenCompra(){
+  cleanOrdenCompra() {
     this.carritoService.cleanCarritoOrden();
     this.proveedorService.cleanProveedorService();
     this.formAddingProveedor.reset();
@@ -378,9 +303,4 @@ export class GenerarordencompraComponent implements OnInit {
     this.formProveedor.reset();
     this.getCartProducts();
   }
-
-
-
-
-
 }
