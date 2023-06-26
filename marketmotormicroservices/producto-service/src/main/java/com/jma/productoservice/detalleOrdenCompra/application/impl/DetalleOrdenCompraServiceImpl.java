@@ -4,6 +4,7 @@ import com.jma.productoservice.detalleOrdenCompra.domain.dto.DetalleOrdenCompraD
 import com.jma.productoservice.detalleOrdenCompra.domain.entity.DetalleOrdenCompraEntity;
 import com.jma.productoservice.detalleOrdenCompra.domain.response.DetalleOrdenCompraResponse;
 import com.jma.productoservice.detalleOrdenCompra.infrastructure.out.DetalleOrdenCompraRepository;
+import com.jma.productoservice.empleado.application.mapper.EmpleadoMapper;
 import com.jma.productoservice.ordenCompra.domain.entity.OrdenCompraEntity;
 import com.jma.productoservice.ordenCompra.infrastructure.out.OrdenCompraRepository;
 import com.jma.productoservice.producto.domain.entity.ProductoEntity;
@@ -12,6 +13,7 @@ import com.jma.productoservice.ordenCompra.application.mapper.OrdenCompraMapper;
 import com.jma.productoservice.producto.application.mapper.ProductoMapper;
 import com.jma.productoservice.detalleOrdenCompra.application.service.DetalleOrdenCompraService;
 import com.jma.productoservice.producto.infrastructure.out.ProductoRepository;
+import com.jma.productoservice.proveedor.application.mapper.ProveedorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -141,6 +143,8 @@ public class DetalleOrdenCompraServiceImpl implements DetalleOrdenCompraService<
         for (int i = 0; i < content.size(); i++) {
             content.get(i).setProducto(ProductoMapper.mapToDto(detallesOrdenes.get(i).getProducto()));
             content.get(i).setOrdenCompra(OrdenCompraMapper.mapToDto(detallesOrdenes.get(i).getOrdenCompra()));
+            content.get(i).getOrdenCompra().setProveedor(ProveedorMapper.mapToDto(detallesOrdenes.get(i).getOrdenCompra().getProveedor()));
+            content.get(i).getOrdenCompra().setEmpleado(EmpleadoMapper.mapToDto(detallesOrdenes.get(i).getOrdenCompra().getEmpleado()));
         }
         return content;
     }

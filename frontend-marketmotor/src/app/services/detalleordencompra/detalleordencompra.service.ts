@@ -16,4 +16,9 @@ export class DetalleordencompraService {
       params: new HttpParams().set('pageNo', pageNo).set('pageSize',pageSize)
     })
   }
+
+
+  guardarDetalleOrdenCompra(detalleOrdenCompra: any){
+    return this.http.post(this.apiUrl, detalleOrdenCompra);
+  }
 }

@@ -125,7 +125,7 @@
                   </tr>
                 </thead>
                 <tbody class="body_reporte">
-                  <tr>
+                  <!--<tr>
                     <td style="overflow: hidden; display: none;"><input type="text" style="overflow:hidden"></td>
                     <td class="text-center ">1</td>
                     <td class="text-center">Compra de Embrague</td>
@@ -163,6 +163,15 @@
                       <span class="badge bg-danger border-2 px-4 py-2">Error</span>
   
                     </td>
+                  </tr>-->
+                  <tr *ngFor="let detalleOrdenCompra of detalleOrdenCompras | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: total }">
+                    <td>{{detalleOrdenCompra.id}}</td>
+                    <td>Compra de {{detalleOrdenCompra.producto.tipo}}</td>
+                    <td>{{detalleOrdenCompra.ordenCompra.proveedor.nombreComercial}}</td>
+                    <td>{{detalleOrdenCompra.ordenCompra.empleado.nombre}}</td>
+                    <td>{{detalleOrdenCompra.cantidad * detalleOrdenCompra.producto.precio}}</td>
+                    <td><span class="badge bg-success border-2 px-4 py-2">Completado</span></td>
+                    
                   </tr>
   
                 </tbody>
