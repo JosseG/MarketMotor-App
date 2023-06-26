@@ -1,5 +1,5 @@
 <div class="mt-5">
-    <form>
+    
         <div class="orden-compra-container px-5">
             <div class="orden-compra-header col-md-12 d-flex justify-content-between">
                 <h2 class="titulo">VENTA</h2>
@@ -20,21 +20,25 @@
                             </button>
                         </div>
                     </div>
-                    <div class="body-main-1 mt-3">
-                        <div class="item-2-1 py-2">
-                            <label for="" class="me-3">DNI</label>
-                            <input type="text" placeholder="DNI del cliente" value="{{ mycliente.dni }}" />
-                        </div>
-                        <div class="item-2-2 py-2">
-                            <label for="" class="me-3">Nombres</label>
-                            <input type="text" placeholder="Nombre del cliente" value="{{ mycliente.nombre }}" />
-                        </div>
 
-                        <div class="item-2-3 py-2">
-                            <label for="" class="me-3">Apellidos</label>
-                            <input type="text" placeholder="Apellidos del cliente" value="{{ mycliente.apellido }}" />
+                        <form #formDirective="ngForm" [formGroup]="formCliente">
+                            <div class="body-main-1 mt-3">
+                            <div class="item-2-1 py-2">
+                                <label for="" class="me-3">DNI</label>
+                                <input type="text" placeholder="DNI del cliente" formControlName="dni" readonly value="{{ mycliente.dni }}" />
+                            </div>
+                            <div class="item-2-2 py-2">
+                                <label for="" class="me-3">Nombres</label>
+                                <input type="text" placeholder="Nombre del cliente" formControlName="nombre" readonly value="{{ mycliente.nombre }}" />
+                            </div>
+    
+                            <div class="item-2-3 py-2">
+                                <label for="" class="me-3">Apellidos</label>
+                                <input type="text" placeholder="Apellidos del cliente" formControlName="apellido" readonly value="{{ mycliente.apellido }}" />
+                            </div>
                         </div>
-                    </div>
+                        </form>
+
                 </div>
                 <div class="orden-body-2">
                     <div class="body-header-2 d-flex justify-content-between">
@@ -118,7 +122,7 @@
                 </div>
             </div>
         </div>
-    </form>
+    
 
     <!-- Modal -->
     <div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"

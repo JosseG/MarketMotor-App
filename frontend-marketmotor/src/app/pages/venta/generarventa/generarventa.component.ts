@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Cliente } from 'src/app/models/dtos/Cliente';
 import { Producto } from 'src/app/models/dtos/Producto';
@@ -20,6 +20,9 @@ import { Venta } from 'src/app/models/dtos/Venta';
   styleUrls: ['./generarventa.component.css']
 })
 export class GenerarventaComponent {
+  @ViewChild('formDirective')
+  private formDirective!: NgForm;
+  
   currentPage = 1;
   total = 0;
   itemsPerPage = 4;
@@ -55,8 +58,12 @@ export class GenerarventaComponent {
   })
 
   formCliente: FormGroup = this.formbuilder.group({
-
+    dni: [],
+    nombre: [],
+    apellido: []
   })
+
+
 
 
   //GENERAR VENTA
@@ -235,6 +242,8 @@ export class GenerarventaComponent {
     this.carritoService.cleanCarritoVenta();
     this.clienteService.cleanClienteVenta();
     this.formAddingCliente.reset()
+    this.formDirective.resetForm()
+    this.formCliente.reset()
     this.ventaService.setInactiveVenta();
   }
 

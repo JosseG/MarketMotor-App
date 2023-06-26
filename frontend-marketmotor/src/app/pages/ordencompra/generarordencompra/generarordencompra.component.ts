@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Empleado } from 'src/app/models/dtos/Empleado';
@@ -20,6 +20,11 @@ import { DetalleordencompraService } from 'src/app/services/detalleordencompra/d
   styleUrls: ['./generarordencompra.component.css']
 })
 export class GenerarordencompraComponent implements OnInit {
+
+
+  @ViewChild('formDirective')
+  private formDirective!: NgForm;
+  
   currentPage = 1;
   total = 0;
   itemsPerPage = 4;
@@ -57,8 +62,15 @@ export class GenerarordencompraComponent implements OnInit {
     idProveedor: [1]
   })
 
+
+  formProveedor: FormGroup = this.formbuilder.group({
+    numeroRuc: [],
+    nombreComercial: [],
+    razonSocial: []
+  })
+
   proveedores: Proveedor[] = [];
-  proveedor: Proveedor = new Proveedor();
+  myproveedor: Proveedor = new Proveedor();
   empleado: Empleado = new Empleado();
 
   proveedorSearched: Proveedor = new Proveedor();
@@ -213,11 +225,16 @@ export class GenerarordencompraComponent implements OnInit {
   setActiveOrden(): void{
     this.getCartProducts();
     this.getEmpleadoFromSess();
+    this.getProveedorForSearch();
     return this.ordenCompraService.setActiveOrden();
   }
 
   setInactiveOrden(): void{
     this.carritoService.cleanCarritoOrden();
+    this.proveedorService.cleanProveedorService();
+    this.formAddingProveedor.reset();
+    this.formDirective.resetForm();
+    this.formProveedor.reset();
     return this.ordenCompraService.setInactiveOrden()
   }
 
@@ -257,7 +274,7 @@ export class GenerarordencompraComponent implements OnInit {
     var proveedorstorage = sessionStorage.getItem("proveedorTemporal");
     if(proveedorstorage!=null){
       proveedorFinal = JSON.parse(proveedorstorage!)
-      this.proveedor = proveedorFinal
+      this.myproveedor = proveedorFinal
     }
     return proveedorFinal
 

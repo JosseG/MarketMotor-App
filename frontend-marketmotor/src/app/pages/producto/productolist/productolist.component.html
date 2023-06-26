@@ -17,7 +17,9 @@
               <th scope="col">Serial ID</th>
               <th scope="col">Marca</th>
               <th scope="col">Precio</th>
+              <th scope="col">Stock</th>
               <th scope="col">Estado</th>
+              
               <th scope="col">Acciones</th>
             </tr>
           </thead>
@@ -31,7 +33,8 @@
                 <td>{{producto.tipo}}</td>
                 <td>{{producto.serial}}</td>
                 <td>{{producto.marca}}</td> 
-                <td>{{producto.precio}}</td>           
+                <td>{{producto.precio}}</td>        
+                <td>{{producto.stock}}</td>    
                 <td *ngIf="producto.estado != true;else elseBlock"><button type="button"
                   class="bg-inactivo text-white border-0 px-3 py-1">Inactivo</button></td>
           <ng-template #elseBlock>

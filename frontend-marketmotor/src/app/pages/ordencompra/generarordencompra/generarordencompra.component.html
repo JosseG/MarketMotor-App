@@ -20,21 +20,23 @@
               </button>
             </div>
           </div>
+          <form #formDirective="ngForm" [formGroup]="formProveedor">
           <div class="body-main-1 mt-3">
             <div class="item-2-1 py-2">
               <label for="" class="me-3">RUC</label>
-              <input type="text" placeholder="Ruc del proveedor" readonly value="{{ proveedor.numeroRuc }}" />
+              <input type="text" placeholder="Ruc del proveedor" formControlName="numeroRuc" readonly value="{{ myproveedor.numeroRuc }}" />
             </div>
             <div class="item-2-2 py-2">
               <label for="" class="me-3">Nombre Comercial</label>
-              <input type="text" placeholder="Nombre Comercial" readonly value="{{ proveedor.nombreComercial }}" />
+              <input type="text" placeholder="Nombre Comercial" formControlName="nombreComercial" readonly value="{{ myproveedor.nombreComercial }}" />
             </div>
 
             <div class="item-2-3 py-2">
               <label for="" class="me-3">Razon Social</label>
-              <input type="text" placeholder="Razon Social" readonly value="{{ proveedor.razonSocial }}" />
+              <input type="text" placeholder="Razon Social" formControlName="razonSocial" readonly value="{{ myproveedor.razonSocial }}" />
             </div>
           </div>
+        </form>
         </div>
         <div class="orden-body-2">
           <div class="body-header-2 d-flex justify-content-between">

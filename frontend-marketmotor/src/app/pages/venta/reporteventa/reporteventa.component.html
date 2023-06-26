@@ -65,7 +65,7 @@
                  
                         <tr *ngFor="let venta of detalleVentas | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: total }">
                             <td>{{venta.venta.id}}</td>
-                            <td>{{venta.creadoEn}}</td>
+                            <td>{{venta.venta.cliente.dni}}</td>
                             <td>{{venta.venta.cliente.nombre}}</td>
                             <td>{{venta.venta.empleado.nombre}}</td>
                             <td>{{venta.producto.tipo}} - {{venta.producto.marca}}</td>

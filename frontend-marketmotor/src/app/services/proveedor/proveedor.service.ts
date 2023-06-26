@@ -53,6 +53,9 @@ export class ProveedorService {
     sessionStorage.setItem("proveedorTemporal", toJsonProveedor)
   }
 
+  cleanProveedorService(){
+    sessionStorage.removeItem("proveedorTemporal")
+  }
 
 
 }

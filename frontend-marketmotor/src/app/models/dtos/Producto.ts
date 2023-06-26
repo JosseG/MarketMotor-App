@@ -6,6 +6,7 @@ export class Producto{
     serial:string;
     marca:string;
     precio:number;
+    stock:number;
     actualizadoEn: Date ;
     creadoEn: Date ;
     estado: boolean;
@@ -17,6 +18,7 @@ export class Producto{
       this.serial="";
       this.marca="";
       this.precio=0.0;
+      this.stock=0;
       this.actualizadoEn= new Date();
       this.creadoEn=new Date();
       this.estado=true;
