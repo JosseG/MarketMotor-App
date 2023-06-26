@@ -5,6 +5,7 @@ import com.jma.productoservice.rol.domain.entity.RolEntity;
 import com.jma.productoservice.rol.application.mapper.RolMapper;
 import com.jma.productoservice.rol.application.service.RolService;
 import com.jma.productoservice.rol.infrastructure.out.RolRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +13,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class RolServiceImpl implements RolService<RolDto> {
 
 
     private final RolRepository rolRepository;
 
+    /*
     @Autowired
     public RolServiceImpl(RolRepository rolRepository) {
         this.rolRepository = rolRepository;
     }
+
+     */
 
 
     @Override

@@ -12,6 +12,7 @@ import com.jma.productoservice.venta.application.mapper.VentaMapper;
 import com.jma.productoservice.venta.application.service.VentaService;
 import com.jma.productoservice.venta.domain.response.VentaResponse;
 import com.jma.productoservice.venta.infrastructure.out.VentaRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,12 +24,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class VentaServiceImpl implements VentaService<VentaDto> {
 
     private final VentaRepository ventaRepository;
     private final ClienteRepository clienteRepository;
     private final EmpleadoRepository empleadoRepository;
 
+    /*
     @Autowired
     public VentaServiceImpl(VentaRepository ventaRepository,
                             ClienteRepository clienteRepository, EmpleadoRepository empleadoRepository){
@@ -36,6 +39,8 @@ public class VentaServiceImpl implements VentaService<VentaDto> {
         this.clienteRepository = clienteRepository;
         this.empleadoRepository = empleadoRepository;
     }
+
+     */
 
     @Override
     public VentaDto guardar(VentaDto object) {

@@ -6,6 +6,7 @@ import com.jma.productoservice.producto.application.mapper.ProductoMapper;
 import com.jma.productoservice.producto.application.service.ProductoService;
 import com.jma.productoservice.producto.domain.response.ProductoResponse;
 import com.jma.productoservice.producto.infrastructure.out.ProductoRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,13 +19,15 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class ProductoServiceImpl implements ProductoService<ProductoDto> {
 
     private final ProductoRepository productoRepository;
 
+    /*
     @Autowired
     public ProductoServiceImpl(ProductoRepository productoRepository) { this. productoRepository = productoRepository;}
-
+     */
     @Override
     public List<ProductoDto> guardarTodos(List<ProductoDto> list) {
         return productoRepository.saveAll(list.stream()

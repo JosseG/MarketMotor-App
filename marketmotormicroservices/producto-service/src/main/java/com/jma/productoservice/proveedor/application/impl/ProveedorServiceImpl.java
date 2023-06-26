@@ -10,6 +10,7 @@ import com.jma.productoservice.usuario.application.mapper.UsuarioMapper;
 import com.jma.productoservice.proveedor.application.service.ProveedorService;
 import com.jma.productoservice.usuario.infrastructure.out.UsuarioRepository;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,16 +22,20 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class ProveedorServiceImpl implements ProveedorService<ProveedorDto> {
 
     private final ProveedorRepository proveedorRepository;
     private final UsuarioRepository usuarioRepository;
 
+    /*
     @Autowired
     public ProveedorServiceImpl(ProveedorRepository proveedorRepository,
                                 UsuarioRepository usuarioRepository) { this. proveedorRepository = proveedorRepository;
         this.usuarioRepository = usuarioRepository;
     }
+
+     */
 
     @Override
     public List<ProveedorDto> guardarTodos(List<ProveedorDto> list) {

@@ -12,6 +12,7 @@ import com.jma.productoservice.ordenCompra.application.mapper.OrdenCompraMapper;
 import com.jma.productoservice.proveedor.application.mapper.ProveedorMapper;
 import com.jma.productoservice.ordenCompra.application.service.OrdenCompraService;
 import com.jma.productoservice.proveedor.infrastructure.out.ProveedorRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,12 +24,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class OrdenCompraServiceImpl implements OrdenCompraService<OrdenCompraDto> {
 
     private final OrdenCompraRepository ordenCompraRepository;
     private final ProveedorRepository proveedorRepository;
     private final EmpleadoRepository empleadoRepository;
 
+    /*
     @Autowired
     public OrdenCompraServiceImpl(OrdenCompraRepository ordenCompraRepository,
                                   ProveedorRepository proveedorRepository,
@@ -37,7 +40,7 @@ public class OrdenCompraServiceImpl implements OrdenCompraService<OrdenCompraDto
         this.proveedorRepository = proveedorRepository;
         this.empleadoRepository = empleadoRepository;
     }
-
+    */
     @Override
     public OrdenCompraDto guardar(OrdenCompraDto object) {
 

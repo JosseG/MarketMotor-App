@@ -6,6 +6,7 @@ import com.jma.productoservice.cliente.application.mapper.ClienteMapper;
 import com.jma.productoservice.cliente.application.service.ClienteService;
 import com.jma.productoservice.cliente.domain.response.ClienteResponse;
 import com.jma.productoservice.cliente.infrastructure.out.ClienteRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,16 +18,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class ClienteServiceImpl implements ClienteService<ClienteDto> {
 
 
     private final ClienteRepository clienteRepository;
 
+    /*
     @Autowired
     public ClienteServiceImpl(ClienteRepository clienteRepository){
         this.clienteRepository = clienteRepository;
     }
-
+    */
     @Override
     public ClienteDto guardar(ClienteDto object) {
         ClienteEntity clienteEntity = ClienteMapper.mapToEntity(object);
