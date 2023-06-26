@@ -1,291 +1,298 @@
 <div class="mt-5">
-  <form (ngSubmit)="submit()" [formGroup]="formOrdenCompra">
-    <div class="orden-compra-container px-5">
-      <div class="orden-compra-header col-md-12 d-flex justify-content-between">
-        <h2 class="titulo">ORDEN DE COMPRA</h2>
-        <div>
-          <button type="button" class="btn btn-info" (click)="setActiveOrden()" [disabled]="isActiveOrden()">
-            Nuevo <i class="ps-3 bi bi-plus-lg"></i>
-          </button>
-        </div>
+
+  <div class="orden-compra-container px-5">
+    <div class="orden-compra-header col-md-12 d-flex justify-content-between">
+      <h2 class="titulo">ORDEN DE COMPRA</h2>
+      <div>
+        <button type="button" class="btn btn-info" (click)="setActiveOrden()" [disabled]="isActiveOrden()">
+          Nuevo <i class="ps-3 bi bi-plus-lg"></i>
+        </button>
       </div>
+    </div>
 
-      <div *ngIf="isActiveOrden()" class="orden-compra-body-to-grid mt-5">
-        <div class="orden-body-1 col-md-12">
-          <div class="body-header-1 d-flex justify-content-between">
-            <h3>Proveedor</h3>
-            <div>
-              <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModalProveedor">
-                Buscar<i class="ps-2 bi bi-search"></i>
-              </button>
-            </div>
+    <div *ngIf="isActiveOrden()" class="orden-compra-body-to-grid mt-5">
+      <div class="orden-body-1 col-md-12">
+        <div class="body-header-1 d-flex justify-content-between">
+          <h3>Proveedor</h3>
+          <div>
+            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModalProveedor">
+              Buscar<i class="ps-2 bi bi-search"></i>
+            </button>
           </div>
-          <form #formDirective="ngForm" [formGroup]="formProveedor">
-          <div class="body-main-1 mt-3">
-            <div class="item-2-1 py-2">
-              <label for="" class="me-3">RUC</label>
-              <input type="text" placeholder="Ruc del proveedor" formControlName="numeroRuc" readonly value="{{ myproveedor.numeroRuc }}" />
-            </div>
-            <div class="item-2-2 py-2">
-              <label for="" class="me-3">Nombre Comercial</label>
-              <input type="text" placeholder="Nombre Comercial" formControlName="nombreComercial" readonly value="{{ myproveedor.nombreComercial }}" />
-            </div>
-
-            <div class="item-2-3 py-2">
-              <label for="" class="me-3">Razon Social</label>
-              <input type="text" placeholder="Razon Social" formControlName="razonSocial" readonly value="{{ myproveedor.razonSocial }}" />
-            </div>
-          </div>
-        </form>
         </div>
-        <div class="orden-body-2">
-          <div class="body-header-2 d-flex justify-content-between">
-            <h3>Empleado</h3>
+        <form #formDirective="ngForm" [formGroup]="formProveedor">
+        <div class="body-main-1 mt-3">
+          <div class="item-2-1 py-2">
+            <label for="" class="me-3">RUC</label>
+            <input type="text" placeholder="Ruc del proveedor" formControlName="numeroRuc" readonly value="{{ myproveedor.numeroRuc }}" />
           </div>
-          <div class="body-main-2 mt-3">
-            <div class="item-2-1 py-2">
-              <label for="" class="me-3">Id</label>
-              <input type="text" placeholder="id" readonly value="{{ empleado.id }}" />
-            </div>
-            <div class="item-2-2 py-2">
-              <label for="" class="me-3">Nombres</label>
-              <input type="text" placeholder="empleado nombre" readonly value="{{ empleado.nombre }}" />
-            </div>
+          <div class="item-2-2 py-2">
+            <label for="" class="me-3">Nombre Comercial</label>
+            <input type="text" placeholder="Nombre Comercial" formControlName="nombreComercial" readonly value="{{ myproveedor.nombreComercial }}" />
+          </div>
 
-            <div class="item-2-3 py-2">
-              <label for="" class="me-3">Apellidos</label>
-              <input type="text" placeholder="empleado apellidos" readonly value="{{ empleado.apellidoMaterno }}" />
-            </div>
+          <div class="item-2-3 py-2">
+            <label for="" class="me-3">Razon Social</label>
+            <input type="text" placeholder="Razon Social" formControlName="razonSocial" readonly value="{{ myproveedor.razonSocial }}" />
+          </div>
+        </div>
+      </form>
+      </div>
+      <div class="orden-body-2">
+        <div class="body-header-2 d-flex justify-content-between">
+          <h3>Empleado</h3>
+        </div>
+        <div class="body-main-2 mt-3">
+          <div class="item-2-1 py-2">
+            <label for="" class="me-3">Id</label>
+            <input type="text" placeholder="id" readonly value="{{ empleado.id }}" />
+          </div>
+          <div class="item-2-2 py-2">
+            <label for="" class="me-3">Nombres</label>
+            <input type="text" placeholder="empleado nombre" readonly value="{{ empleado.nombre }}" />
+          </div>
+
+          <div class="item-2-3 py-2">
+            <label for="" class="me-3">Apellidos</label>
+            <input type="text" placeholder="empleado apellidos" readonly value="{{ empleado.apellidoMaterno }}" />
           </div>
         </div>
       </div>
     </div>
-    <div *ngIf="isActiveOrden()" class="detalle-container px-5 mt-5">
-      <div class="detalle-header col-md-12 d-flex justify-content-between">
-        <h4>Detalle</h4>
+  </div>
+  <div *ngIf="isActiveOrden()" class="detalle-container px-5 mt-5">
+    <div class="detalle-header col-md-12 d-flex justify-content-between">
+      <h4>Detalle</h4>
+      <div>
+        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Agregar <i class="ps-2 bi bi-plus-lg"></i>
+        </button>
+      </div>
+    </div>
+    <div class="detalle-body mt-3">
+      <table class="table table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col" class="text-center">Código</th>
+            <th scope="col" class="text-center">Descripción</th>
+            <th scope="col" class="text-center">Precio</th>
+            <th scope="col" class="text-center">Cantidad</th>
+            <th scope="col" class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let productoitem of (element$ | async)">
+            <td>{{ productoitem.producto.id }}</td>
+            <td>{{ productoitem.producto.descripcion }}</td>
+            <td>{{ productoitem.producto.precio }}</td>
+            <td>{{ productoitem.cantidad }}</td>
+            <td class="text-center">
+              <button type="button" class="btn btn-danger text-center"
+                (click)="deleteItemProducto(productoitem.producto.id)">
+                Quitar <i class="ps-3 bi bi-x-lg"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="button-actions-end px-5 mt-5" *ngIf="isActiveOrden()">
+    <form (ngSubmit)="submit()" [formGroup]="formOrdenCompra">
+      <!--<input type="text" formControlName="numero">
+      <input type="datetime-local" formControlName="fecha">
+      <input type="text" formControlName="valorTotal">
+      <input type="text" formControlName="idEmpleado">
+      <input type="text" formControlName="idProveedor">-->
+    <div class="d-flex justify-content-between">
+      <div>
+        <button class="btn btn-warning" type="button">
+          Imprimir <i class="ps-3 bi bi-file-earmark-medical"></i>
+        </button>
+      </div>
+      <div class="d-flex">
         <div>
-          <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Agregar <i class="ps-2 bi bi-plus-lg"></i>
+          <button type="button" class="btn btn-danger" (click)="setInactiveOrden()">
+            Cancelar <i class="ps-3 bi bi-x-lg"></i>
+          </button>
+        </div>
+        <div class="ms-3">
+          <button type="submit" (click)="registrarOrdenCompra()" class="btn btn-success">
+            Generar <i class="ps-3 bi bi-save2-fill"></i>
           </button>
         </div>
       </div>
-      <div class="detalle-body mt-3">
-        <table class="table table-bordered">
+    </div>
+  </form>
+  </div>
+
+
+<!-- Modal Productos -->
+<div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Productos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="form" [formGroup]="formSearchProduct" (ngSubmit)="getPaginableProductosFiltred()"
+          autocomplete="off">
+          <div class="container">
+            <div class="row height d-flex justify-content-center align-items-center">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="search col-8">
+                  <i class="fa fa-search"></i>
+                  <input type="text" class="form-control" placeholder="Coloque la descripción del producto"
+                    formControlName="descripcion" />
+                  <button type="submit" class="btn btn-primary">
+                    Buscar
+                  </button>
+                </div>
+                <div *ngIf="isSearching">
+                  <button (click)="clear()">
+                    <i class="bi bi-x-lg"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <table class="table table-bordered mt-4">
           <thead class="table-dark">
             <tr>
               <th scope="col" class="text-center">Código</th>
               <th scope="col" class="text-center">Descripción</th>
               <th scope="col" class="text-center">Precio</th>
-              <th scope="col" class="text-center">Cantidad</th>
               <th scope="col" class="text-center">Acciones</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let productoitem of productosFromCartWith">
-              <td>{{ productoitem.producto.id }}</td>
-              <td>{{ productoitem.producto.descripcion }}</td>
-              <td>{{ productoitem.producto.precio }}</td>
-              <td>{{ productoitem.cantidad }}</td>
-              <td class="text-center">
-                <button type="button" class="btn btn-danger text-center"
-                  (click)="deleteItemProducto(productoitem.producto.id)">
-                  Quitar <i class="ps-3 bi bi-x-lg"></i>
+            <tr *ngFor="
+                let producto of productos
+                  | paginate
+                    : {
+                        itemsPerPage: itemsPerPage,
+                        currentPage: currentPage,
+                        totalItems: total
+                      }
+              ">
+              <td>{{ producto.id }}</td>
+              <td>{{ producto.descripcion }}</td>
+              <td>{{ producto.precio }}</td>
+              <td>
+                <button type="button" class="bg-success text-white border-0 px-3 py-1"
+                  (click)="productoToSetQuantity(producto)">
+                  Agregar
                 </button>
               </td>
             </tr>
           </tbody>
         </table>
-      </div>
-    </div>
-    <div class="button-actions-end px-5 mt-5" *ngIf="isActiveOrden()">
-      <div class="d-flex justify-content-between">
-        <div>
-          <button class="btn btn-warning" type="button">
-            Imprimir <i class="ps-3 bi bi-file-earmark-medical"></i>
-          </button>
-        </div>
-        <div class="d-flex">
-          <div>
-            <button type="button" class="btn btn-danger" (click)="setInactiveOrden()">
-              Cancelar <i class="ps-3 bi bi-x-lg"></i>
+        <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
+        <form class="form" [formGroup]="formAddingCartProduct" (ngSubmit)="addToCart(productoToQuantity.id)"
+          autocomplete="off">
+          <div class="form-group">
+            <label for="formGroupExampleInput">Producto</label>
+            <input readonly type="text" value="{{ productoToQuantity.descripcion }}" class="form-control"
+              id="formGroupExampleInput" />
+          </div>
+          <div class="form-group">
+            <label for="formGroupExampleInput2">Cantidad</label>
+            <input formControlName="cantidad" type="number" class="form-control" id="formGroupExampleInput2"
+              placeholder="Ingrese la cantidad" />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cerrar
+            </button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+              Guardar
             </button>
           </div>
-          <div class="ms-3">
-            <button type="submit" (click)="registrarOrdenCompra()" class="btn btn-success">
-              Generar <i class="ps-3 bi bi-save2-fill"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
-
-  <!-- Modal Productos -->
-  <div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Productos</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form class="form" [formGroup]="formSearchProduct" (ngSubmit)="getPaginableProductosFiltred()"
-            autocomplete="off">
-            <div class="container">
-              <div class="row height d-flex justify-content-center align-items-center">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="search col-8">
-                    <i class="fa fa-search"></i>
-                    <input type="text" class="form-control" placeholder="Coloque la descripción del producto"
-                      formControlName="descripcion" />
-                    <button type="submit" class="btn btn-primary">
-                      Buscar
-                    </button>
-                  </div>
-                  <div *ngIf="isSearching">
-                    <button (click)="clear()">
-                      <i class="bi bi-x-lg"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
-
-          <table class="table table-bordered mt-4">
-            <thead class="table-dark">
-              <tr>
-                <th scope="col" class="text-center">Código</th>
-                <th scope="col" class="text-center">Descripción</th>
-                <th scope="col" class="text-center">Precio</th>
-                <th scope="col" class="text-center">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="
-                  let producto of productos
-                    | paginate
-                      : {
-                          itemsPerPage: itemsPerPage,
-                          currentPage: currentPage,
-                          totalItems: total
-                        }
-                ">
-                <td>{{ producto.id }}</td>
-                <td>{{ producto.descripcion }}</td>
-                <td>{{ producto.precio }}</td>
-                <td>
-                  <button type="button" class="bg-success text-white border-0 px-3 py-1"
-                    (click)="productoToSetQuantity(producto)">
-                    Agregar
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
-          <form class="form" [formGroup]="formAddingCartProduct" (ngSubmit)="addToCart(productoToQuantity.id)"
-            autocomplete="off">
-            <div class="form-group">
-              <label for="formGroupExampleInput">Producto</label>
-              <input readonly type="text" value="{{ productoToQuantity.descripcion }}" class="form-control"
-                id="formGroupExampleInput" />
-            </div>
-            <div class="form-group">
-              <label for="formGroupExampleInput2">Cantidad</label>
-              <input formControlName="cantidad" type="number" class="form-control" id="formGroupExampleInput2"
-                placeholder="Ingrese la cantidad" />
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                Cerrar
-              </button>
-              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
-                Guardar
-              </button>
-            </div>
-          </form>
-        </div>
+        </form>
       </div>
     </div>
   </div>
-  <!-- Modal Productos-->
+</div>
+<!-- Modal Productos-->
 
-  <!-- Modal Proveedor -->
-  <div class="modal fade modal-lg" id="exampleModalProveedor" tabindex="-1" aria-labelledby="exampleModalLabelProveedor"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Proveedor</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form class="form" [formGroup]="formSearchProveedor" (ngSubmit)="getProveedor()" autocomplete="off">
-            <div class="container">
-              <div class="row height d-flex justify-content-center align-items-center">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="search col-8">
-                    <i class="fa fa-search"></i>
-                    <input type="number" class="form-control" placeholder="Coloque el id del Proveedor"
-                      formControlName="id" />
-                    <button type="submit" class="btn btn-primary">
-                      Buscar
-                    </button>
-                  </div>
-                  <div *ngIf="isSearchingProveedor">
-                    <button (click)="clearProveedorSearched()">
-                      <i class="bi bi-x-lg"></i>
-                    </button>
-                  </div>
+<!-- Modal Proveedor -->
+<div class="modal fade modal-lg" id="exampleModalProveedor" tabindex="-1" aria-labelledby="exampleModalLabelProveedor"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Proveedor</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="form" [formGroup]="formSearchProveedor" (ngSubmit)="getProveedor()" autocomplete="off">
+          <div class="container">
+            <div class="row height d-flex justify-content-center align-items-center">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="search col-8">
+                  <i class="fa fa-search"></i>
+                  <input type="number" class="form-control" placeholder="Coloque el id del Proveedor"
+                    formControlName="id" />
+                  <button type="submit" class="btn btn-primary">
+                    Buscar
+                  </button>
+                </div>
+                <div *ngIf="isSearchingProveedor">
+                  <button (click)="clearProveedorSearched()">
+                    <i class="bi bi-x-lg"></i>
+                  </button>
                 </div>
               </div>
             </div>
-          </form>
+          </div>
+        </form>
 
-          <table class="table table-bordered mt-4">
-            <thead class="table-dark">
-              <tr>
-                <th scope="col" class="text-center">DNI</th>
-                <th scope="col" class="text-center">Nombre</th>
-                <th scope="col" class="text-center">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let proveedor of proveedores">
-                <td>{{ proveedor.razonSocial }}</td>
-                <td>{{ proveedor.nombreComercial }}</td>
+        <table class="table table-bordered mt-4">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col" class="text-center">DNI</th>
+              <th scope="col" class="text-center">Nombre</th>
+              <th scope="col" class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let proveedor of proveedores">
+              <td>{{ proveedor.razonSocial }}</td>
+              <td>{{ proveedor.nombreComercial }}</td>
 
-                <td>
-                  <button type="button" class="bg-success text-white border-0 px-3 py-1"
-                    (click)="proveedorToGetId(proveedor)">
-                    Agregar
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <form class="form" [formGroup]="formAddingProveedor" (ngSubmit)="addProveedorToForm(proveedorToForm)"
-            autocomplete="off">
-            <div class="form-group">
-              <label for="formGroupExampleInput">Proveedor</label>
-              <input readonly type="text" value="{{ proveedorToForm.nombreComercial }}" class="form-control"
-                id="formGroupExampleInput" />
-            </div>
+              <td>
+                <button type="button" class="bg-success text-white border-0 px-3 py-1"
+                  (click)="proveedorToGetId(proveedor)">
+                  Agregar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <form class="form" [formGroup]="formAddingProveedor" (ngSubmit)="addProveedorToForm(proveedorToForm)"
+          autocomplete="off">
+          <div class="form-group">
+            <label for="formGroupExampleInput">Proveedor</label>
+            <input readonly type="text" value="{{ proveedorToForm.nombreComercial }}" class="form-control"
+              id="formGroupExampleInput" />
+          </div>
 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                Cerrar
-              </button>
-              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
-                Guardar
-              </button>
-            </div>
-          </form>
-        </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cerrar
+            </button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+              Guardar
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-  <!-- Modal Proveedor-->
+</div>
+<!-- Modal Proveedor-->
 </div>

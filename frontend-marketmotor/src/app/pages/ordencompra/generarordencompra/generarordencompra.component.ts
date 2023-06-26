@@ -13,6 +13,8 @@ import { OrdencompraService } from 'src/app/services/ordencompra/ordencompra.ser
 import { ProductoService } from 'src/app/services/producto/producto.service';
 import { ProveedorService } from '../../../services/proveedor/proveedor.service';
 import { DetalleordencompraService } from 'src/app/services/detalleordencompra/detalleordencompra.service';
+import { genUniqueId } from 'src/app/_shared/serialid/GenerateSerial';
+//import genUniqueId from 'src/app/_shared/serialid/GenerateSerial';
 
 @Component({
   selector: 'app-generarordencompra',
@@ -20,6 +22,22 @@ import { DetalleordencompraService } from 'src/app/services/detalleordencompra/d
   styleUrls: ['./generarordencompra.component.css']
 })
 export class GenerarordencompraComponent implements OnInit {
+
+
+  /*Pruebas*/
+
+
+
+
+
+
+
+
+
+
+
+  /*Pruebas*/
+
 
 
   @ViewChild('formDirective')
@@ -55,7 +73,7 @@ export class GenerarordencompraComponent implements OnInit {
 
 
   formOrdenCompra: FormGroup = this.formbuilder.group({
-    numero: [1],
+    numero: [genUniqueId()],
     fecha: [new Date()],
     valorTotal: [0.0],
     idEmpleado: [1],
@@ -79,11 +97,14 @@ export class GenerarordencompraComponent implements OnInit {
   proveedorToForm = new Proveedor()
 
 
-
   constructor(private router:Router,private proveedorService:ProveedorService,private empleadoService:EmpleadoService, private carritoService: CarritoService, private ordenCompraService: OrdencompraService, private productoService: ProductoService, private formbuilder: FormBuilder, private detalleOrdenCompraService: DetalleordencompraService) {
 
   }
+
+  element$ : Observable<[CarritoItem]> = new Observable()
+  
   ngOnInit(): void {
+    //this.serial = genUniqueId
     this.getProveedorForSearch();
     if(this.isActiveOrden()){
       this.getCartProducts();
@@ -105,7 +126,7 @@ export class GenerarordencompraComponent implements OnInit {
     console.log("llego")
   }*/
 
-  addToCart(id: number) {
+  async addToCart(id: number) {
 
     const values = this.formAddingCartProduct.value.cantidad
     console.log("captured")
@@ -116,10 +137,10 @@ export class GenerarordencompraComponent implements OnInit {
         this.getCartProducts()
       }
     })*/
-    this.carritoService.addToCarItemsOrden(String(id),parseInt(values))
+    await this.carritoService.addToCarItemsOrden(String(id),parseInt(values))
     this.getCartProducts()
     
-    this.router.navigate(["productos"])
+    //this.router.navigate(["productos"])
 
    //this.pushingProductos()
   }
@@ -182,13 +203,14 @@ export class GenerarordencompraComponent implements OnInit {
 
   getCartProducts() {
     //this.productosFromCart$ = of(this.carritoService.getCarItems())
-    this.carritoService.getCarItems().subscribe({
+    this.element$ =  this.carritoService.getCarItems()
+    /*this.carritoService.getCarItems().subscribe({
       next: (data : any) => {
         this.productosFromCartWith = data
         console.log("implementando observables")
         console.log(data)
       }
-    });
+    });*/
     //this.productosFromCartWith = this.carritoService.getCarItems()
   }
 
@@ -230,12 +252,8 @@ export class GenerarordencompraComponent implements OnInit {
   }
 
   setInactiveOrden(): void{
-    this.carritoService.cleanCarritoOrden();
-    this.proveedorService.cleanProveedorService();
-    this.formAddingProveedor.reset();
-    this.formDirective.resetForm();
-    this.formProveedor.reset();
-    return this.ordenCompraService.setInactiveOrden()
+    this.cleanOrdenCompra();
+    this.ordenCompraService.setInactiveOrden()
   }
 
 
@@ -274,7 +292,8 @@ export class GenerarordencompraComponent implements OnInit {
     var proveedorstorage = sessionStorage.getItem("proveedorTemporal");
     if(proveedorstorage!=null){
       proveedorFinal = JSON.parse(proveedorstorage!)
-      this.myproveedor = proveedorFinal
+      this.formProveedor.patchValue(proveedorFinal);
+      //this.myproveedor = proveedorFinal
     }
     return proveedorFinal
 
@@ -293,57 +312,71 @@ export class GenerarordencompraComponent implements OnInit {
 
 
 
-
-
-
-
   registrarOrdenCompra(){
 
-    if(this.productosFromCartWith.length>0){
+    this.element$.subscribe({
+      next: (data: [CarritoItem]) => {
+        if(data.length>0){
 
-      var total = 0;
-
-      for(let productoFromCart of this.productosFromCartWith){
-        total += productoFromCart.cantidad * productoFromCart.producto.precio
-      }
-
-      var valores = this.formOrdenCompra.value
-      valores.valorTotal=total
-
-      if(total>0){
-        this.ordenCompraService.guardarOrdenCompra(valores).subscribe({
-          next: (ordenCompra: any) => {
-            for(let productoFromCart of this.productosFromCartWith){
-
-              var newObject: any = new Object()
-              newObject.cantidad = productoFromCart.cantidad;
-              newObject.precioUnitario = productoFromCart.producto.precio;
-              newObject.idProducto = productoFromCart.producto.id;
-              newObject.idOrdenCompra = ordenCompra.id;
-
-              this.detalleOrdenCompraService.guardarDetalleOrdenCompra(newObject).subscribe({
-                next: (detalle) => {
-                  console.log(detalle)
-                },
-                error: (e) => {
-                  console.log(e)
-                }
-              })
-            }
-  
-          },
-          error: (e) => {
-            console.log(e);
-          }
-        })
-      }else{
-        alert("el total es 0")
-      }
-      
-    }else{
-      alert("No puedes realizar")
-    }
+          var total = 0;
     
+          for(let productoFromCart of data){
+            total += productoFromCart.cantidad * productoFromCart.producto.precio
+          }
+    
+          var valores = this.formOrdenCompra.value
+          valores.valorTotal=total
+    
+          if(total>0){
+            this.ordenCompraService.guardarOrdenCompra(valores).subscribe({
+              next: (ordenCompra: any) => {
+                for(let productoFromCart of data){
+    
+                  var newObject: any = new Object()
+                  newObject.cantidad = productoFromCart.cantidad;
+                  newObject.precioUnitario = productoFromCart.producto.precio;
+                  newObject.idProducto = productoFromCart.producto.id;
+                  newObject.idOrdenCompra = ordenCompra.id;
+    
+                  this.detalleOrdenCompraService.guardarDetalleOrdenCompra(newObject).subscribe({
+                    next: (detalle) => {
+                      this.cleanOrdenCompra();
+                      console.log(detalle)
+                    },
+                    error: (e) => {
+                      console.log(e)
+                    }
+                  })
+                }
+      
+              },
+              error: (e) => {
+                console.log(e);
+              }
+            })
+          }else{
+            alert("el total es 0")
+          }
+          
+        }else{
+          alert("No puedes realizar")
+        }
+      }
+    })
+
+    
+    
+  }
+
+
+
+  cleanOrdenCompra(){
+    this.carritoService.cleanCarritoOrden();
+    this.proveedorService.cleanProveedorService();
+    this.formAddingProveedor.reset();
+    this.formDirective.resetForm();
+    this.formProveedor.reset();
+    this.getCartProducts();
   }
 
 

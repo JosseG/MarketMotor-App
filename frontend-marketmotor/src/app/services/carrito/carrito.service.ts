@@ -4,37 +4,33 @@ import { ProductoService } from '../producto/producto.service';
 import { Observable, lastValueFrom, of } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CarritoService {
-
   constructor(private element: ProductoService) { }
 
   getCarItems(): Observable<[CarritoItem]> {
-
-    var carritoFinal = []
-    var elementos = sessionStorage.getItem("carrito");
-    if(elementos!=null){
-      carritoFinal = JSON.parse(elementos!)
-
+    var carritoFinal = [];
+    var elementos = sessionStorage.getItem('carrito');
+    if (elementos != null) {
+      console.log('NO CARGAAAA');
+      carritoFinal = JSON.parse(elementos!);
     }
-    console.log("Es obtajdfksfdljskajf")
-    console.log(carritoFinal)
+    console.log('Es obtajdfksfdljskajf');
+    console.log(carritoFinal);
     return of(carritoFinal);
-
   }
 
-
-  addToCarItemsOrden(id: string, cantidad: number) {
-
-    var elementos = sessionStorage.getItem("carrito")
+  async addToCarItemsOrden(id: string, cantidad: number) {
+    var elementos = sessionStorage.getItem('carrito');
     if (elementos == null) {
-      console.log("Es nulo elemnetos")
-      var listaEl: CarritoItem[] = []
+      console.log('Es nulo elemnetos');
+      var listaEl: CarritoItem[] = [];
 
-      var carritoItem = new CarritoItem()
+      var carritoItem = new CarritoItem();
 
-       this.element.getProductoId(parseInt(id)).subscribe({
+      var data = await lastValueFrom(this.element.getProductoId(parseInt(id)));
+      /*this.element.getProductoId(parseInt(id)).subscribe({
         next: (data: any) => {
           carritoItem.producto = data
           carritoItem.cantidad = cantidad
@@ -47,10 +43,15 @@ export class CarritoService {
         error: (e) => console.log(e)
 
 
-       });
+       });*/
+      carritoItem.producto = data;
+      carritoItem.cantidad = cantidad;
+      listaEl.push(carritoItem);
+      var toJsonCarrito = JSON.stringify(listaEl);
+      console.log('Hola ' + toJsonCarrito);
+      sessionStorage.setItem('carrito', toJsonCarrito);
 
-
-
+      console.log('ADIOS ');
 
       /*this.element.getProductoId(parseInt(id)).subscribe({
         next: (data: any) => {
@@ -67,16 +68,28 @@ export class CarritoService {
         error: (e) =>
           console.log("Error " + e)
       });*/
-
     } else {
-      var listaTodoElementos: CarritoItem[] = JSON.parse(elementos)
+      var listaTodoElementos: CarritoItem[] = JSON.parse(elementos);
 
-      var indice = this.obtenerIndiceOrden(parseInt(id))
+      var indice = this.obtenerIndiceOrden(parseInt(id));
 
       if (indice == -1) {
-        var carritoItem = new CarritoItem()
+        var carritoItem = new CarritoItem();
 
-         this.element.getProductoId(parseInt(id)).subscribe({
+        var data = await lastValueFrom(
+          this.element.getProductoId(parseInt(id))
+        );
+
+        console.log(data)
+
+        carritoItem.producto = data;
+        carritoItem.cantidad = cantidad;
+        listaTodoElementos.push(carritoItem);
+
+        var toJsonCarrito = JSON.stringify(listaTodoElementos);
+        sessionStorage.setItem('carrito', toJsonCarrito);
+
+        /*.subscribe({
           next: (data: any) => {
             carritoItem.producto = data;
             carritoItem.cantidad = cantidad;
@@ -88,92 +101,72 @@ export class CarritoService {
           },
           error: (e) =>
             console.log("Error " + e)
-        });
+        });*/
       } else {
         listaTodoElementos[indice].cantidad += cantidad;
-        var toJsonCarrito = JSON.stringify(listaTodoElementos)
-        sessionStorage.setItem("carrito", toJsonCarrito)
+        var toJsonCarrito = JSON.stringify(listaTodoElementos);
+        sessionStorage.setItem('carrito', toJsonCarrito);
       }
     }
 
-    console.log("Termino de insertar")
-
-
+    console.log('Termino de insertar');
   }
 
+  borraritemOrden(id: number) {
+    var carritoobt = sessionStorage.getItem('carrito');
 
-  borraritemOrden(id: number){
-    var carritoobt = sessionStorage.getItem("carrito")
+    var listaTodoElementos: CarritoItem[] = JSON.parse(carritoobt!);
+    listaTodoElementos.splice(this.obtenerIndiceOrden(id), 1);
 
-    var listaTodoElementos: CarritoItem[] = JSON.parse(carritoobt!)
-    listaTodoElementos.splice(this.obtenerIndiceOrden(id),1)
-
-    var toJsonCarrito = JSON.stringify(listaTodoElementos)
-    sessionStorage.setItem("carrito", toJsonCarrito)
-
+    var toJsonCarrito = JSON.stringify(listaTodoElementos);
+    sessionStorage.setItem('carrito', toJsonCarrito);
   }
-
 
   obtenerIndiceOrden(id: number): number {
-
-    var carritoobt = sessionStorage.getItem("carrito")
-    var listaTodoElementos: CarritoItem[] = JSON.parse(carritoobt!)
+    var carritoobt = sessionStorage.getItem('carrito');
+    var listaTodoElementos: CarritoItem[] = JSON.parse(carritoobt!);
 
     for (var index in listaTodoElementos) {
       if (listaTodoElementos[index].producto.id == id) {
-        console.log("Es es el indice que capturo " + index)
-        return parseInt(index)
+        console.log('Es es el indice que capturo ' + index);
+        return parseInt(index);
       }
     }
 
-
-
-    return -1
+    return -1;
   }
-
-
 
   ////////////////////////////
 
   getCarItemsVenta(): Observable<[CarritoItem]> {
-
-    var carritoFinal = []
-    var elementos = sessionStorage.getItem("carritoVenta");
-    if(elementos!=null){
-      carritoFinal = JSON.parse(elementos!)
-
+    var carritoFinal = [];
+    var elementos = sessionStorage.getItem('carritoVenta');
+    if (elementos != null) {
+      carritoFinal = JSON.parse(elementos!);
     }
     return of(carritoFinal);
-
   }
 
-
   addToCarItemsVenta(id: string, cantidad: number) {
-
-    var elementos = sessionStorage.getItem("carritoVenta")
+    var elementos = sessionStorage.getItem('carritoVenta');
     if (elementos == null) {
-      console.log("Es nulo elemnetos")
-      var listaEl: CarritoItem[] = []
+      console.log('Es nulo elemnetos');
+      var listaEl: CarritoItem[] = [];
 
-      var carritoItem = new CarritoItem()
+      var carritoItem = new CarritoItem();
 
-       this.element.getProductoId(parseInt(id)).subscribe({
+      this.element.getProductoId(parseInt(id)).subscribe({
         next: (data: any) => {
-          carritoItem.producto = data
-          carritoItem.cantidad = cantidad
-          listaEl.push(carritoItem)
-    
-          var toJsonCarrito = JSON.stringify(listaEl)
-          console.log("Hola " + toJsonCarrito)
-          sessionStorage.setItem("carritoVenta", toJsonCarrito)
+          carritoItem.producto = data;
+          carritoItem.cantidad = cantidad;
+          listaEl.push(carritoItem);
+
+          var toJsonCarrito = JSON.stringify(listaEl);
+          console.log('Hola ' + toJsonCarrito);
+          sessionStorage.setItem('carritoVenta', toJsonCarrito);
         },
-        error: (e) => console.log(e)
-
-
-       });
-
-
-
+        error: (e) => console.log(e),
+      });
 
       /*this.element.getProductoId(parseInt(id)).subscribe({
         next: (data: any) => {
@@ -190,76 +183,64 @@ export class CarritoService {
         error: (e) =>
           console.log("Error " + e)
       });*/
-
     } else {
-      var listaTodoElementos: CarritoItem[] = JSON.parse(elementos)
+      var listaTodoElementos: CarritoItem[] = JSON.parse(elementos);
 
-      var indice = this.obtenerIndiceVenta(parseInt(id))
+      var indice = this.obtenerIndiceVenta(parseInt(id));
 
       if (indice == -1) {
-        var carritoItem = new CarritoItem()
+        var carritoItem = new CarritoItem();
 
-         this.element.getProductoId(parseInt(id)).subscribe({
+        this.element.getProductoId(parseInt(id)).subscribe({
           next: (data: any) => {
             carritoItem.producto = data;
             carritoItem.cantidad = cantidad;
-            console.log("Lo que obtiene de la bd con el codigo " + id)
+            console.log('Lo que obtiene de la bd con el codigo ' + id);
             console.log(data);
             listaTodoElementos.push(carritoItem);
-            var toJsonCarrito = JSON.stringify(listaTodoElementos)
-            sessionStorage.setItem("carritoVenta", toJsonCarrito)
+            var toJsonCarrito = JSON.stringify(listaTodoElementos);
+            sessionStorage.setItem('carritoVenta', toJsonCarrito);
           },
-          error: (e) =>
-            console.log("Error " + e)
+          error: (e) => console.log('Error ' + e),
         });
       } else {
         listaTodoElementos[indice].cantidad += cantidad;
-        var toJsonCarrito = JSON.stringify(listaTodoElementos)
-        sessionStorage.setItem("carritoVenta", toJsonCarrito)
+        var toJsonCarrito = JSON.stringify(listaTodoElementos);
+        sessionStorage.setItem('carritoVenta', toJsonCarrito);
       }
     }
 
-    console.log("Termino de insertar")
-
-
+    console.log('Termino de insertar');
   }
 
+  borraritemVenta(id: number) {
+    var carritoobt = sessionStorage.getItem('carritoVenta');
 
-  borraritemVenta(id: number){
-    var carritoobt = sessionStorage.getItem("carritoVenta")
+    var listaTodoElementos: CarritoItem[] = JSON.parse(carritoobt!);
+    listaTodoElementos.splice(this.obtenerIndiceVenta(id), 1);
 
-    var listaTodoElementos: CarritoItem[] = JSON.parse(carritoobt!)
-    listaTodoElementos.splice(this.obtenerIndiceVenta(id),1)
-
-    var toJsonCarrito = JSON.stringify(listaTodoElementos)
-    sessionStorage.setItem("carritoVenta", toJsonCarrito)
-
+    var toJsonCarrito = JSON.stringify(listaTodoElementos);
+    sessionStorage.setItem('carritoVenta', toJsonCarrito);
   }
-
 
   obtenerIndiceVenta(id: number): number {
-
-    var carritoobt = sessionStorage.getItem("carritoVenta")
-    var listaTodoElementos: CarritoItem[] = JSON.parse(carritoobt!)
+    var carritoobt = sessionStorage.getItem('carritoVenta');
+    var listaTodoElementos: CarritoItem[] = JSON.parse(carritoobt!);
 
     for (var index in listaTodoElementos) {
       if (listaTodoElementos[index].producto.id == id) {
-        console.log("Es es el indice que capturo " + index)
-        return parseInt(index)
+        console.log('Es es el indice que capturo ' + index);
+        return parseInt(index);
       }
     }
 
-
-
-    return -1
+    return -1;
   }
 
-
-  cleanCarritoVenta(){
-    sessionStorage.removeItem("carritoVenta");
+  cleanCarritoVenta() {
+    sessionStorage.removeItem('carritoVenta');
   }
-  cleanCarritoOrden(){
-    sessionStorage.removeItem("carrito");
+  cleanCarritoOrden() {
+    sessionStorage.removeItem('carrito');
   }
-
 }

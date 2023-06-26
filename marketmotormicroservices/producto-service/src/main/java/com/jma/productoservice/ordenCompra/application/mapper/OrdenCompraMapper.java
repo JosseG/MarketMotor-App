@@ -19,6 +19,7 @@ public class OrdenCompraMapper {
         ordenCompraDto.setFecha(ordenCompraEntity.getFecha());
         ordenCompraDto.setValorTotal(ordenCompraEntity.getValorTotal());
         ordenCompraDto.setActualizadoEn(ordenCompraEntity.getActualizadoEn());
+        ordenCompraDto.setNumero(ordenCompraEntity.getNumero());
         ordenCompraDto.setCreadoEn(ordenCompraEntity.getCreadoEn());
         ordenCompraDto.setEstado(ordenCompraEntity.isEstado());
         return ordenCompraDto;
