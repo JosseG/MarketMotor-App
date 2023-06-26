@@ -304,7 +304,6 @@ export class GenerarventaComponent {
       if(total>0){
         this.ventaService.guardarVenta(valores).subscribe({
           next: (venta: any) => {
-            console.log(venta);
             for(let productoFromCart of this.productosFromCartWith){
 
               var newObject: any = new Object()
@@ -314,7 +313,7 @@ export class GenerarventaComponent {
 
               this.detalleVentaService.guardarDetalleVenta(newObject).subscribe({
                 next: (detalle) => {
-                  console.log(detalle) 
+                  console.log(detalle)
                 },
                 error: (e) => {
                   console.log(e)

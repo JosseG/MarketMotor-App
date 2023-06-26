@@ -12,6 +12,7 @@ import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
 import { OrdencompraService } from 'src/app/services/ordencompra/ordencompra.service';
 import { ProductoService } from 'src/app/services/producto/producto.service';
 import { ProveedorService } from '../../../services/proveedor/proveedor.service';
+import { DetalleordencompraService } from 'src/app/services/detalleordencompra/detalleordencompra.service';
 
 @Component({
   selector: 'app-generarordencompra',
@@ -28,8 +29,7 @@ export class GenerarordencompraComponent implements OnInit {
 
   productoToQuantity = new Producto()
 
-  formOrdenCompra: FormGroup = this.formbuilder.group({
-  })
+
 
   formSearchProduct: FormGroup = this.formbuilder.group({
     descripcion: [],
@@ -48,6 +48,15 @@ export class GenerarordencompraComponent implements OnInit {
     nombreRuc: [],
   })
 
+
+  formOrdenCompra: FormGroup = this.formbuilder.group({
+    numero: [1],
+    fecha: [new Date()],
+    valorTotal: [0.0],
+    idEmpleado: [1],
+    idProveedor: [1]
+  })
+
   proveedores: Proveedor[] = [];
   proveedor: Proveedor = new Proveedor();
   empleado: Empleado = new Empleado();
@@ -55,11 +64,15 @@ export class GenerarordencompraComponent implements OnInit {
   proveedorSearched: Proveedor = new Proveedor();
 
 
+  proveedorToForm = new Proveedor()
 
-  constructor(private router:Router,private proveedorService:ProveedorService,private empleadoService:EmpleadoService, private carritoService: CarritoService, private ordenCompraService: OrdencompraService, private productoService: ProductoService, private formbuilder: FormBuilder) {
+
+
+  constructor(private router:Router,private proveedorService:ProveedorService,private empleadoService:EmpleadoService, private carritoService: CarritoService, private ordenCompraService: OrdencompraService, private productoService: ProductoService, private formbuilder: FormBuilder, private detalleOrdenCompraService: DetalleordencompraService) {
 
   }
   ngOnInit(): void {
+    this.getProveedorForSearch();
     if(this.isActiveOrden()){
       this.getCartProducts();
       this.getEmpleadoFromSess();
@@ -185,6 +198,14 @@ export class GenerarordencompraComponent implements OnInit {
   }
 
 
+
+  clearProveedorSearched(){
+    this.isSearchingProveedor = false;
+    this.formSearchProveedor.get("id")?.reset()
+  }
+
+
+
   isActiveOrden() : boolean{
     return this.ordenCompraService.isActiveOrden();
   }
@@ -241,5 +262,75 @@ export class GenerarordencompraComponent implements OnInit {
     return proveedorFinal
 
   }
+
+
+  proveedorToGetId(proveedor: Proveedor) {
+    console.log(proveedor.id)
+    this.proveedorToForm = proveedor
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+  registrarOrdenCompra(){
+
+    if(this.productosFromCartWith.length>0){
+
+      var total = 0;
+
+      for(let productoFromCart of this.productosFromCartWith){
+        total += productoFromCart.cantidad * productoFromCart.producto.precio
+      }
+
+      var valores = this.formOrdenCompra.value
+      valores.valorTotal=total
+
+      if(total>0){
+        this.ordenCompraService.guardarOrdenCompra(valores).subscribe({
+          next: (ordenCompra: any) => {
+            for(let productoFromCart of this.productosFromCartWith){
+
+              var newObject: any = new Object()
+              newObject.cantidad = productoFromCart.cantidad;
+              newObject.precioUnitario = productoFromCart.producto.precio;
+              newObject.idProducto = productoFromCart.producto.id;
+              newObject.idOrdenCompra = ordenCompra.id;
+
+              this.detalleOrdenCompraService.guardarDetalleOrdenCompra(newObject).subscribe({
+                next: (detalle) => {
+                  console.log(detalle)
+                },
+                error: (e) => {
+                  console.log(e)
+                }
+              })
+            }
+  
+          },
+          error: (e) => {
+            console.log(e);
+          }
+        })
+      }else{
+        alert("el total es 0")
+      }
+      
+    }else{
+      alert("No puedes realizar")
+    }
+    
+  }
+
+
+
+
 
 }

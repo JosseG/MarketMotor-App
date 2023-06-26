@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,7 +6,9 @@ import { Injectable } from '@angular/core';
 })
 export class OrdencompraService {
 
-  constructor() { }
+  private readonly url = 'http://localhost:8080/ordencompra';
+
+  constructor(private http:HttpClient) { }
 
 
   setInactiveOrden(): void{
@@ -33,6 +36,15 @@ export class OrdencompraService {
 
   setActiveOrden(): void{
     sessionStorage.setItem("activeOrden","true")
+  }
+
+
+
+
+
+
+  guardarOrdenCompra(ordenCompra: any){
+    return this.http.post(this.url, ordenCompra);
   }
 
 }

@@ -47,6 +47,7 @@ public class OrdenCompraMapper {
         OrdenCompraDto ordenCompraDto = new OrdenCompraDto();
         ordenCompraDto.setNumero(ordenCompraCommandInsert.getNumero());
         ordenCompraDto.setValorTotal(ordenCompraCommandInsert.getValorTotal());
+        ordenCompraDto.setFecha(ordenCompraCommandInsert.getFecha());
         ordenCompraDto.declararDisponibilidad(EstadoD.ACTIVO);
         ordenCompraDto.establecerConfirmacion(EstadoC.NO);
         ordenCompraDto.setEmpleado(empleadoDto);

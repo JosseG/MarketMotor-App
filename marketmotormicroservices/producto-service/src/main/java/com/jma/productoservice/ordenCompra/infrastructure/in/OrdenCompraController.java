@@ -92,6 +92,7 @@ public class OrdenCompraController {
             OrdenCompraDto ordenGuardado = ordenCompraService.guardar(ordenToSave);
             return ResponseEntity.ok(ordenGuardado);
         } catch(Exception e){
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

@@ -17,6 +17,7 @@ public class ProductoMapper {
         productoEntity.setDescripcion(productoDto.getDescripcion());
         productoEntity.setPrecio(productoDto.getPrecio());
         productoEntity.setEstado(productoDto.isEstado());
+        productoEntity.setStock(productoDto.getStock());
         return productoEntity;
     }
 
@@ -32,6 +33,7 @@ public class ProductoMapper {
         productoDto.setActualizadoEn(productoEntity.getActualizadoEn());
         productoDto.setCreadoEn(productoEntity.getCreadoEn());
         productoDto.setEstado(productoEntity.isEstado());
+        productoDto.setStock(productoEntity.getStock());
         return productoDto;
     }
 
@@ -44,6 +46,7 @@ public class ProductoMapper {
         productoDto.setDescripcion(productoCommandInsert.getDescripcion());
         productoDto.setPrecio(productoCommandInsert.getPrecio());
         productoDto.declararDisponibilidad(EstadoD.ACTIVO);
+        productoDto.setStock((productoCommandInsert.getStock()));
         return productoDto;
     }
 
@@ -56,6 +59,7 @@ public class ProductoMapper {
         productoDto.setSerial(productoCommandUpdate.getSerial());
         productoDto.setDescripcion(productoCommandUpdate.getDescripcion());
         productoDto.setPrecio(productoCommandUpdate.getPrecio());
+        productoDto.setStock(productoCommandUpdate.getStock());
         return productoDto;
     }
 }
