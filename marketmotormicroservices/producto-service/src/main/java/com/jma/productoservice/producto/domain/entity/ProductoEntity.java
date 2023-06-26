@@ -63,6 +63,10 @@ public class ProductoEntity {
     @Column(name = "estado")
     private boolean estado;
 
+    @Column(name = "stock")
+    @PositiveOrZero
+    private int stock;
+
     @OneToMany(mappedBy = "producto")
     @JsonIgnore
     private Set<DetalleOrdenCompraEntity> detallesOrdenCompra;

@@ -29,6 +29,7 @@ public class ProductoDto implements Serializable{
     private LocalDateTime actualizadoEn;
 
     private LocalDateTime creadoEn;
+    private int stock;
 
     public void declararDisponibilidad(EstadoD estadoD){
         setEstado(Objects.requireNonNull(estadoD) == EstadoD.ACTIVO);

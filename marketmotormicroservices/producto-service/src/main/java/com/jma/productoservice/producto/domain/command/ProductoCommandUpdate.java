@@ -19,4 +19,5 @@ public class ProductoCommandUpdate {
 
     private double precio;
 
+    private int stock;
 }

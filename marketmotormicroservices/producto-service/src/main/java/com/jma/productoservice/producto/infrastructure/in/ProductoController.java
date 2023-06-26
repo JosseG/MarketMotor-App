@@ -5,6 +5,9 @@ import com.jma.productoservice.producto.domain.dto.ProductoDto;
 import com.jma.productoservice.producto.application.mapper.ProductoMapper;
 import com.jma.productoservice.producto.application.service.ProductoService;
 import com.jma.productoservice.producto.domain.response.ProductoResponse;
+import com.jma.productoservice.rol.application.mapper.RolMapper;
+import com.jma.productoservice.rol.domain.command.RolCommandInsert;
+import com.jma.productoservice.rol.domain.dto.RolDto;
 import com.jma.productoservice.utils.ConstantsService;
 import com.jma.productoservice.utils.EstadoD;
 import jakarta.validation.Valid;
@@ -86,7 +89,15 @@ public class ProductoController {
         String respuesta = productoService.eliminar(id);
         return ResponseEntity.ok(respuesta);
     }
+    @PostMapping("/guardarTodos")
+    public ResponseEntity<List<ProductoDto>> guardarTodos(@RequestBody @Valid List<ProductoCommandInsert> productoCommandInserts){
 
+        List<ProductoDto> productosMapeados = productoCommandInserts.stream().map(ProductoMapper::mapFromCommandInsertToDto).toList();
+        List<ProductoDto> productosGuardados = productoService.guardarTodos(productosMapeados);
+
+        return ResponseEntity.ok(productosGuardados);
+
+    }
     @GetMapping("/pagination")
     public ResponseEntity<ProductoResponse> obtenerTodosPaginados(
             @RequestParam(value = "pageNo", defaultValue = ConstantsService.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
