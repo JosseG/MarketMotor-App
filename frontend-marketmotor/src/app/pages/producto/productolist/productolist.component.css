@@ -3,7 +3,7 @@
   font-size: 1.3em;
    color:brown;
    margin-left: 8px;
-   
+
 
 }
 .bi-pencil-square{
@@ -20,12 +20,12 @@
 .accordion-header {
    background-color: white;
    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-   
+
 }
 
 
 .table{
-  
+
    text-align: center;
 }
 
@@ -60,4 +60,14 @@
 .bg-inactivo{
    background-color: #EA4F5D;
    border-radius: 4px;
+}
+
+.detalle{
+  width: 160px;
+  text-align: left;
+
+}
+.detalleLargo{
+  width: 200px;
+  text-align: left;
 }

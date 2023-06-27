@@ -3,16 +3,17 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProveedorInsert } from 'src/app/models/commands/proveedor/ProveedorInsert'
 import { ProveedorUpdate } from 'src/app/models/commands/proveedor/ProveedorUpdate';
+import baserUrl from '../globalurl/UrlApi';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProveedorService {
 
-  private readonly apiUrl = 'http://localhost:8080/proveedores';
+  private readonly apiUrl = baserUrl+"/proveedores";
 
   constructor(private http:HttpClient) { }
- 
+
 
   getAll() {
     return this.http.get(`${this.apiUrl}`)
@@ -44,7 +45,7 @@ export class ProveedorService {
     })
   }
 
-  
+
   setProveedorToStorage(proveedor: Proveedor): void {
 
     var newProveedor: Proveedor = new Proveedor();

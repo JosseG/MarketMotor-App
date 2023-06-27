@@ -19,7 +19,7 @@
               <th scope="col">Precio</th>
               <th scope="col">Stock</th>
               <th scope="col">Estado</th>
-              
+
               <th scope="col">Acciones</th>
             </tr>
           </thead>
@@ -32,31 +32,94 @@
                 <td>{{producto.descripcion}}</td>
                 <td>{{producto.tipo}}</td>
                 <td>{{producto.serial}}</td>
-                <td>{{producto.marca}}</td> 
-                <td>{{producto.precio}}</td>        
-                <td>{{producto.stock}}</td>    
+                <td>{{producto.marca}}</td>
+                <td>{{producto.precio}}</td>
+                <td>{{producto.stock}}</td>
                 <td *ngIf="producto.estado != true;else elseBlock"><button type="button"
                   class="bg-inactivo text-white border-0 px-3 py-1">Inactivo</button></td>
           <ng-template #elseBlock>
               <td><button type="button"
                       class="bg-activo text-white border-0 px-3 py-1">Activo</button></td>
-          </ng-template> 
+          </ng-template>
                 <td class="icons">
-              
+
                   <a routerLink="/empleados"><i class="bi bi-trash-fill"></i></a>
                   <a routerLink="/inicio"><i class="bi bi-pencil-square"></i></a>
-                  
+
                 </td>
               </tr>
               <tr >
                 <td colspan="100%" style="padding:0">
-                    <div attr.id="flush-collapse{{producto.id}}" class="accordion-collapse collapse cont"
-                        attr.aria-labelledby="flush-heading{{producto.id}}" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis est sed, nesciunt suscipit, maiores itaque enim adipisci asperiores inventore corporis, </div>
+                    <div attr.id="flush-collapse{{producto.id}}"
+                    class="accordion-collapse collapse cont"
+                        attr.aria-labelledby="flush-heading{{producto.id}}"
+                        data-bs-parent="#accordionFlushExample">
+
+                        <div class="accordion-body">
+                          <div class="d-flex flex-wrap">
+
+                            <div class="detalle">
+                              <p style="color: #23C4D9; font-weight: bold;">Codigo</p>
+                              <p>{{producto.id}}</p>
+                            </div>
+
+                            <div class="detalle">
+                              <p style="color: #23C4D9; font-weight: bold;">Descripcion</p>
+                              <p>{{producto.descripcion}}</p>
+                            </div>
+
+                            <div class="detalle">
+                              <p style="color: #23C4D9; font-weight: bold;">Tipo</p>
+                              <p>{{producto.tipo}}</p>
+                            </div>
+
+                            <div class="detalle">
+                              <p style="color: #23C4D9; font-weight: bold;">Serial</p>
+                              <p>{{producto.serial}}</p>
+                            </div>
+
+                            <div class="detalle">
+                              <p style="color: #23C4D9; font-weight: bold;">Marca</p>
+                              <p>{{producto.marca}}</p>
+                            </div>
+
+                            <div class="detalle">
+                              <p style="color: #23C4D9; font-weight: bold;">Precio</p>
+                              <p>{{producto.precio}}</p>
+                            </div>
+
+                            <div class="detalle">
+                              <p style="color: #23C4D9; font-weight: bold;">Stock</p>
+                              <p>{{producto.stock}}</p>
+                            </div>
+
+                            <div class="detalle">
+                              <p style="color: #23C4D9; font-weight: bold;">Estado/p>
+                              <p>{{producto.estado}}</p>
+                            </div>
+
+                            <div class="detalle">
+                              <p style="color: #23C4D9; font-weight: bold;">Creado en</p>
+                              <p>{{producto.creadoEn}}</p>
+                            </div>
+
+                            <div class="detalle">
+                              <p style="color: #23C4D9; font-weight: bold;">Actualizado en</p>
+                              <p>{{producto.actualizadoEn}}</p>
+                            </div>
+
+                            <div class="detalle">
+                              <p style="color: #23C4D9; font-weight: bold;">Codigo</p>
+                              <img src="../../../assets/productos/img001.jpeg" alt="">
+                            </div>
+
+                          </div>
+                        </div>
+
                     </div>
                 </td>
             </tr>
-            </ng-container>   
+            </ng-container>
           </tbody>
         </table>
 

@@ -2,6 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Usuario } from 'src/app/models/dtos/Usuario';
+import baserUrl from '../globalurl/UrlApi';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Usuario } from 'src/app/models/dtos/Usuario';
 export class UsuarioService {
 
   constructor(private http:HttpClient) { }
-  url = 'http://localhost:8080/usuarios';
+  url = baserUrl+"/usuarios";
 
   getUsuario(){
     return this.http.get<Usuario[]>(this.url);

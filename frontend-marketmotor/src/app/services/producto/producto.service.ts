@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProductoInsert } from 'src/app/models/commands/producto/ProductoInsert';
 import { Producto } from 'src/app/models/dtos/Producto';
+import baserUrl from '../globalurl/UrlApi';
 
 
 @Injectable({
@@ -10,7 +11,7 @@ import { Producto } from 'src/app/models/dtos/Producto';
 export class ProductoService {
 
   constructor(private http:HttpClient) { }
-  url = 'http://localhost:8080/productos';
+  url = baserUrl+"/productos";
 
   getProductos(){
     return this.http.get<Producto[]>(this.url);
