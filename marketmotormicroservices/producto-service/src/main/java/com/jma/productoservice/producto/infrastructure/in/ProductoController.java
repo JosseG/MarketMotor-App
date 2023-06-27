@@ -76,6 +76,7 @@ public class ProductoController {
             if (producto == null)
                 return ResponseEntity.notFound().build();
 
+            producto.setId(id);
             producto.declararDisponibilidad(EstadoD.INACTIVO);
             productoService.guardar(producto);
             return ResponseEntity.ok("Se desactivó correctamente");

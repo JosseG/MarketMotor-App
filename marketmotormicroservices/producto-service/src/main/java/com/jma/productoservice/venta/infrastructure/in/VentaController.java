@@ -65,6 +65,7 @@ public class VentaController {
             if(ventaDto == null)
                 return ResponseEntity.notFound().build();
 
+            ventaDto.setId(id);
             ventaDto.declararDisponibilidad(EstadoD.INACTIVO);
             ventaService.guardar(ventaDto);
             return ResponseEntity.ok("Se desactivó correctamente");

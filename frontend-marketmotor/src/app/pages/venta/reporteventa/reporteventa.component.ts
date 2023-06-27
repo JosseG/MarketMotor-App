@@ -17,6 +17,7 @@ export class ReporteventaComponent {
   constructor(private detalleVentaService: DetalleventaService, private router: Router) { }
 
   detalleVentas: DetalleVenta[] = [];
+  detalleVentasConFiltro: DetalleVenta[] = [];
 
   detalleVentaPaginable: DetalleVentaResponse = new DetalleVentaResponse();
   ngOnInit(): void {
@@ -25,7 +26,7 @@ export class ReporteventaComponent {
   }
 
 
-  mySet = new Map<number,Venta>();  
+  mySet = new Map<number,DetalleVenta>();  
 
   ventaReporteFiltred: Venta[] = []
 
@@ -47,9 +48,7 @@ export class ReporteventaComponent {
   getAllDetalleVentas(){
     this.detalleVentaService.getAll().subscribe({
       next: (data : DetalleVenta[]) => {
-        for(let element of data){
-          this.mySet.set(element.venta.id,element.venta)
-        }
+        this.detalleVentasConFiltro = data
       }
     })
   }
@@ -60,6 +59,10 @@ export class ReporteventaComponent {
 
   getTemplateReporteVenta() {
 
+    console.log(this.detalleVentas)
+    for(let element of this.detalleVentasConFiltro){
+      this.mySet.set(element.venta.id,element)
+    }
 
     console.log(this.mySet)
 

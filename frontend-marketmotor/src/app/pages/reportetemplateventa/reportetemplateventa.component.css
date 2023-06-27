@@ -1,3 +1,21 @@
 html{
     overflow: scroll !important;
 }
+
+table thead{
+    background: rgb(23, 133, 161);
+}
+
+table thead th{
+    color: white;
+}
+
+table tfoot {
+    background-color: rgb(212, 211, 211);
+}
+
+table tfoot td {
+    text-align: right;
+    font-weight: bold;
+    color: black;
+}
