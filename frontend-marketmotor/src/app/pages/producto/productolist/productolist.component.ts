@@ -15,9 +15,8 @@ export class ProductolistComponent {
 
   currentPage = 1;
   total = 0;
-  itemsPerPage = 5;
+  itemsPerPage = 2;
 
-  /* productos?: Producto[]; */
 
   productos: Producto[] = [];
 
@@ -26,23 +25,6 @@ export class ProductolistComponent {
 
   productoPaginable: productoResponse= new productoResponse();
 
-/*   ngOnInit(): void {
-    this.productoService.getProductos().subscribe(
-      data=>{
-        this.productos=data;
-        console.log(data);
-      },
-      error=>{
-        console.log(error);
-      }
-    );
-  }
-
-  eliminar(producto: Producto):void {
-    this.productoService.deleteProducto(producto).subscribe(data=>{
-      this.productos=this.productos!.filter(e=>e!==producto);
-    });
-  } */
 
   ngOnInit(): void {
     this.getPaginableProducto();

@@ -306,6 +306,7 @@ export class GenerarventaComponent {
   cleanVenta() {
     this.carritoService.cleanCarritoVenta();
     this.clienteService.cleanClienteVenta();
+    this.mycliente = new Cliente();
     this.formAddingCliente.reset();
     this.formDirective.resetForm();
     this.formCliente.reset();

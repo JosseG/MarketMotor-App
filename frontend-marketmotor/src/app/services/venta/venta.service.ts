@@ -9,7 +9,7 @@ import baserUrl from '../globalurl/UrlApi';
 })
 export class VentaService {
 
-  private readonly url = +baserUrl+"/ventas";
+  private readonly url = baserUrl+"/ventas";
   constructor(private clienteService: ClienteService,private http:HttpClient) { }
 
 

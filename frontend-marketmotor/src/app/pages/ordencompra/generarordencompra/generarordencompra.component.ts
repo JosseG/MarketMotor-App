@@ -296,6 +296,7 @@ export class GenerarordencompraComponent implements OnInit {
     this.carritoService.cleanCarritoOrden();
     this.proveedorService.cleanProveedorService();
     this.formAddingProveedor.reset();
+    this.myproveedor = new Proveedor();
     this.formDirective.resetForm();
     this.formProveedor.reset();
     this.getCartProducts();
