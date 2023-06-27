@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EmpleadoInsert } from 'src/app/models/commands/empleado/EmpleadoInsert';
 import { EmpleadoUpdate } from 'src/app/models/commands/empleado/EmpleadoUpdate';
+import baserUrl from '../globalurl/UrlApi';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { EmpleadoUpdate } from 'src/app/models/commands/empleado/EmpleadoUpdate'
 export class EmpleadoService {
 
 
-  private readonly apiUrl = 'http://localhost:8080/empleados';
+  private readonly apiUrl = baserUrl+"/empleados";
 
   constructor(private http: HttpClient) {  }
 
@@ -25,7 +26,7 @@ export class EmpleadoService {
   }
 
   actualizar(empleado:EmpleadoUpdate) {
-    return this.http.put(`${this.apiUrl}/empleados`,empleado)
+    return this.http.put(this.apiUrl,empleado)
   }
 
   createEmpleado(empleado: EmpleadoInsert){
