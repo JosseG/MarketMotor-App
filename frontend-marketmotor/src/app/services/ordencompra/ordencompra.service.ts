@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import baserUrl from '../globalurl/UrlApi';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdencompraService {
 
-  private readonly url = 'http://localhost:8080/ordencompra';
+  private readonly url = baserUrl+"/ordencompra"
 
   constructor(private http:HttpClient) { }
 

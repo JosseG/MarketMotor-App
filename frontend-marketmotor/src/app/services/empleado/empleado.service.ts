@@ -60,6 +60,10 @@ export class EmpleadoService {
     return empleado
   }
 
+  borrarLogicEmpleado(id: number){
+    return this.http.patch(this.apiUrl +"/" + id,null)
+  }
+
 
 
 }
