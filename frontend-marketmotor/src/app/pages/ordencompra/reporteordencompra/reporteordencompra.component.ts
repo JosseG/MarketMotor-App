@@ -43,4 +43,8 @@ export class ReporteordencompraComponent {
     this.getPaginableDetalleOrdenCompra();
   }
 
+
+  getTemplateReporteCompra(){
+    this.router.navigate(["/reportetemplatecompra"])
+  }
 }

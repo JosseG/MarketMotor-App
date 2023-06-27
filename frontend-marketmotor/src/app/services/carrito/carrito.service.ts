@@ -22,7 +22,6 @@ export class CarritoService {
   async addToCarItemsOrden(id: string, cantidad: number) {
     var elementos = sessionStorage.getItem('carrito');
     if (elementos == null) {
-      console.log('Es nulo elemnetos');
       var listaEl: CarritoItem[] = [];
 
       var carritoItem = new CarritoItem();
@@ -103,7 +102,6 @@ export class CarritoService {
   async addToCarItemsVenta(id: string, cantidad: number) {
     var elementos = sessionStorage.getItem('carritoVenta');
     if (elementos == null) {
-      console.log('Es nulo elemnetos');
       var listaEl: CarritoItem[] = [];
 
       var carritoItem = new CarritoItem();
@@ -114,7 +112,6 @@ export class CarritoService {
       listaEl.push(carritoItem);
 
       var toJsonCarrito = JSON.stringify(listaEl);
-      console.log('Hola ' + toJsonCarrito);
       sessionStorage.setItem('carritoVenta', toJsonCarrito);
 
     } else {
@@ -141,7 +138,6 @@ export class CarritoService {
       }
     }
 
-    console.log('Termino de insertar');
   }
 
   borraritemVenta(id: number) {

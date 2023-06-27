@@ -110,9 +110,7 @@ export class ValidarordenComponent {
 
 
   confirmado = false;
-
-
-
+  
   confirmarOrden(orden: OrdenCompra){
 
     this.ordencompraService.confirmarOrden(orden.id).subscribe({
