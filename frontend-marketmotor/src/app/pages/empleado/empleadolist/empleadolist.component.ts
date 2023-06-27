@@ -1,6 +1,7 @@
 import { PaginationComponent } from './../../../components/pagination/pagination.component';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { EmpleadoUpdate } from 'src/app/models/commands/empleado/EmpleadoUpdate';
 import { Empleado } from 'src/app/models/dtos/Empleado';
 import { EmpleadoFull } from 'src/app/models/dtos/EmpleadoFull';
 import { EmpleadoResponse } from 'src/app/models/responseapi/EmpleadoResponse';
@@ -32,9 +33,14 @@ export class EmpleadolistComponent {
       })
   }
 
+  editar(empleado:EmpleadoUpdate): void{
+    localStorage.setItem("id",empleado.id.toString());
+      this.router.navigate(['empleados/actualizar']);
+  }
+
   eliminar(empleado: Empleado): void {
-    this.empleadoService.deleteEmpleado(empleado).subscribe(data => {
-      this.empleados = this.empleados!.filter(e => e !== empleado);
+    this.empleadoService.borrarLogicEmpleado(empleado.id).subscribe(data => {
+      empleado.estado = false; // Actualizar el estado a "inactivo"
     });
   }
 

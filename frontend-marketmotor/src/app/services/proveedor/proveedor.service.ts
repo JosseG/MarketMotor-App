@@ -29,9 +29,9 @@ export class ProveedorService {
   getProveedorId(id: number){
     return this.http.get<Proveedor>(this.apiUrl+'/'+id);
   }
-  updateProveedor(proveedor:ProveedorUpdate) {
+  updateProveedor(proveedor:any) {
     //return this.http.put<ProveedorUpdate>(`${this.apiUrl}/update`,proveedor)
-    return this.http.put<ProveedorUpdate>(this.apiUrl,proveedor)
+    return this.http.put<Proveedor>(this.apiUrl,proveedor)
   }
 
   deleteProveedor(proveedor: Proveedor){

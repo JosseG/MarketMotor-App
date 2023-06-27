@@ -14,8 +14,8 @@ export class EmpleadoinsertComponent implements OnInit {
 
   formularioEmpleado: FormGroup = this.formbuilder.group({
     nombre:[],
-    apellidoPat:[],
-    apellidoMat:[],
+    apellidoPaterno:[],
+    apellidoMaterno:[],
     telefono:[],
     correo:[],
     idUsuario:[],
@@ -37,14 +37,6 @@ export class EmpleadoinsertComponent implements OnInit {
   }
 
 
-
-
-
-  editar(id: number): void{
-    localStorage.setItem("id",id.toString());
-      this.router.navigate(['editarEmpleado']);
-  }
-
   guardarEmpleado(){
     const values = this.formularioEmpleado.value
     this.empleadoService.createEmpleado(values)
@@ -57,7 +49,6 @@ export class EmpleadoinsertComponent implements OnInit {
         this.formularioEmpleado.get("telefono")?.reset()
         this.formularioEmpleado.get("correo")?.reset()
         this.formularioEmpleado.get("idUsuario")?.reset()
-        alert("Agregado con exito")
         this.router.navigate(['empleados'])
       },
       error: (e) => alert("Campos incompletos")
@@ -82,11 +73,4 @@ export class EmpleadoinsertComponent implements OnInit {
   }
 
 
-
-
-  eliminar(empleado: Empleado):void {
-    this.empleadoService.deleteEmpleado(empleado).subscribe(data=>{
-      this.empleados=this.empleados!.filter(e=>e!==empleado);
-    });
-  }
 }

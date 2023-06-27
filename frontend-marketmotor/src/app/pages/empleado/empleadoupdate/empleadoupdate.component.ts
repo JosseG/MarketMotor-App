@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Empleado } from 'src/app/models/dtos/Empleado';
+import { EmpleadoUpdate } from 'src/app/models/commands/empleado/EmpleadoUpdate';
 import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
 
 @Component({
@@ -8,14 +9,40 @@ import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
   templateUrl: './empleadoupdate.component.html',
   styleUrls: ['./empleadoupdate.component.css']
 })
-export class EmpleadoupdateComponent {
+export class EmpleadoupdateComponent implements OnInit {
+  formularioEmpleado: FormGroup = this.formbuilder.group({
+    id:[],
+    nombre:[],
+    apellidoPaterno:[],
+    apellidoMaterno:[],
+    telefono:[],
+    correo:[],
+    estado:[],
+  })
 
-  empleados?: Empleado[];
+  empleado: EmpleadoUpdate = new EmpleadoUpdate()
+  constructor(private empleadoService: EmpleadoService, private router:Router,private formbuilder:FormBuilder) { }
 
-  constructor(private empleadoService: EmpleadoService, private router:Router) { }
-
-  editar(empleado: Empleado): void{
-    localStorage.setItem("id",empleado.id.toString());
-      this.router.navigate(['editarEmpleado']);
+  editar(){
+    let id= JSON.parse(localStorage.getItem('id') as string);
+    this.empleadoService.getEmpleadoId(id).subscribe(data=>{
+    //  this.empleado=data;
+     this.formularioEmpleado.patchValue(data);
+    
+    });
   }
+
+
+  ngOnInit(): void {
+    this.editar();
+    
+  }
+ 
+  actualizarEmpleado() {
+  const values = this.formularioEmpleado.value
+    this.empleadoService.actualizar(values).subscribe(data=>{
+    //  this.empleado=data;
+      this.router.navigate(['/empleados']);
+    })
+}
 }

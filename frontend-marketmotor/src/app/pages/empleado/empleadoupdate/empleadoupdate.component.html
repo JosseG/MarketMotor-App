@@ -1,32 +1,85 @@
-<h1>Actualizar Empleado</h1>
+<div class="card text-center card-proveedor" style="width: 40rem;">
+  <div class="card-header">
+   Actualizar Empleado
+  </div>
+        <div class="card-body">
+          <form class="form" [formGroup]="formularioEmpleado" (ngSubmit)="actualizarEmpleado()" autocomplete="off">
+        <div class=" row g-2 contenedorForm" >
+          <div class="col-auto">
+            <div class="form-floating">      
+              <input class="form-control" type="text" id="id floatingInputGrid" formControlName="id">
+              <label  for="floatingInputGrid">Código</label>
+            </div>
+         </div>
+          <div class="col-auto">
+            <div class="form-floating">      
+              <input class="form-control" type="text" id="nombre floatingInputGrid" formControlName="nombre">
+              <label  for="floatingInputGrid">Nombre</label>
+            </div>
+         </div>
 
+   
+      <div class="col-auto">
+        <div class="form-floating">      
+          <input class="form-control" type="text" id="apellidoPaterno floatingInputGrid" formControlName="apellidoPaterno">
+          <label  for="floatingInputGrid">Apellido Paterno</label>
+        </div>
+     </div>
+    
+      <div class="col-auto">
+        <div class="form-floating">      
+          <input class="form-control" type="text" id="apellidoMaterno floatingInputGrid" formControlName="apellidoMaterno">
+          <label  for="floatingInputGrid">Apellido Materno</label>
+        </div>
+     </div>
 
-<!--<button (click)="nuevo()" class="btn btn-warning"> Agregar</button>-->
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>id_empleado</th>
-      <th>Nombre</th>
-      <th>Ape Paterno</th>
-      <th>Ape Materno</th>
-      <th>Telefono</th>
-      <th>Correo</th>
-    </tr>
-  </thead>
+      <div class="col-auto">
+        <div class="form-floating">      
+          <input class="form-control" type="text" id="telefono floatingInputGrid" formControlName="telefono">
+          <label  for="floatingInputGrid">Telefono</label>
+        </div>
+     </div>
+    
 
-  <tbody>
-    <tr *ngFor="let empleado of empleados">
-    <td>{{empleado.id}}</td>
-    <td>{{empleado.nombre}}</td>
-    <td>{{empleado.apellidoPaterno}}</td>
-    <td>{{empleado.apellidoMaterno}}</td>
-    <td>{{empleado.telefono}}</td>
-    <td>{{empleado.correo}}</td>
-    <td>
-      <button (click)="editar(empleado)" class="btn btn-warning"> Editar</button>
-      <!--<button (click)="eliminar(empleado)" class="btn btn-danger"> Eliminar</button>-->
-    </td>
-    </tr>
-  </tbody>
-
-</table>
+      <div class="col-auto">
+        <div class="form-floating">      
+          <input class="form-control" type="text" id="correo floatingInputGrid" formControlName="correo">
+          <label  for="floatingInputGrid">Correo</label>
+        </div>
+     </div>
+     
+      
+      <div class="col-auto">
+        <div class="form-floating">      
+          <input class="form-control" type="text" id="estado floatingInputGrid" formControlName="estado" [readonly]="true">
+          <label  for="floatingInputGrid">Estado</label>
+        </div>
+     </div>
+    
+    </div>
+    <div class="text-center"><button class="btn btn-info mt-3" type="submit">Actualizar</button></div>
+  
+  </form>
+</div>
+<div class="card-footer text-muted">
+ 
+</div>
+    <!-- Modal para actualizar -->
+    <div class="modal fade modal-sm" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <br>
+            <br>
+           ¿Desea actualizar el empleado?
+           <br>
+           <br>
+           <button class="btn btn-info mt-3" type="submit" (click)="actualizarEmpleado()" data-bs-dismiss="modal" >Sí</button>
+      
+           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          </div>
+      
+        </div>
+      </div>
+      </div>
+</div>
