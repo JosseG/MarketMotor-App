@@ -66,7 +66,7 @@ public class ProveedorController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<String> desactivar(@PathVariable Long id){
+    public ResponseEntity<Boolean> desactivar(@PathVariable Long id){
         try {
             ProveedorDto proveedor = proveedorService.obtenerPorId(id);
             if (proveedor == null)
@@ -75,7 +75,7 @@ public class ProveedorController {
             proveedor.setId(id);
             proveedor.declararDisponibilidad(EstadoD.INACTIVO);
             proveedorService.guardar(proveedor);
-            return ResponseEntity.ok("Se desactivó correctamente");
+            return ResponseEntity.ok(true);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

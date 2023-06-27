@@ -87,12 +87,16 @@ public class ProductoServiceImpl implements ProductoService<ProductoDto> {
 
     @Override
     public ProductoDto guardar(ProductoDto object) {
-        ProductoEntity productoEntity = productoRepository.save(ProductoMapper.mapToEntity(object));
+
+        ProductoEntity productoTemp = ProductoMapper.mapToEntity(object);
 
         if(object.getId()!= null){
-            productoEntity.setId(object.getId());
+            productoTemp.setId(object.getId());
+            productoTemp = productoRepository.save(productoTemp);
+        }else{
+            productoTemp = productoRepository.save(ProductoMapper.mapToEntity(object));
         }
-        return ProductoMapper.mapToDto(productoEntity);
+        return ProductoMapper.mapToDto(productoTemp);
     }
 
     @Override

@@ -65,7 +65,7 @@ public class EmpleadoController {
 
 
     @PatchMapping("/{id}")
-    public ResponseEntity<String> desactivar(@PathVariable("id") Long id){
+    public ResponseEntity<Boolean> desactivar(@PathVariable("id") Long id){
 
         try{
             EmpleadoDto empleado = empleadoService.obtenerPorId(id);
@@ -75,7 +75,7 @@ public class EmpleadoController {
             empleado.setId(id);
             empleado.declararDisponibilidad(EstadoD.INACTIVO);
             empleadoService.guardar(empleado);
-            return ResponseEntity.ok("Se desactivó correctamente");
+            return ResponseEntity.ok(true);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
