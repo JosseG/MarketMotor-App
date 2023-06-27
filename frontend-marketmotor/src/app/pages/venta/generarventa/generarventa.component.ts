@@ -270,6 +270,7 @@ export class GenerarventaComponent {
                     .guardarDetalleVenta(newObject)
                     .subscribe({
                       next: (detalle) => {
+                        this.productoService.updateProducto()
                         this.cleanVenta();
                         console.log(detalle);
                       },
