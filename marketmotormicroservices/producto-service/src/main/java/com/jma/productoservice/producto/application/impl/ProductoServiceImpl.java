@@ -130,6 +130,7 @@ public class ProductoServiceImpl implements ProductoService<ProductoDto> {
             producto.setMarca(object.getMarca());
             producto.setSerial(object.getSerial());
             producto.setDescripcion(object.getDescripcion());
+            producto.setPrecio(object.getPrecio());
             producto.setStock(object.getStock());
             return ProductoMapper.mapToDto(productoRepository.save(producto));
         }

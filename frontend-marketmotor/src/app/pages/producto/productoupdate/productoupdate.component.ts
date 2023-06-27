@@ -16,7 +16,7 @@ export class ProductoupdateComponent implements OnInit{
     tipo:[],
     serial:[],
     marca:[],
-    precio:[],
+    precio:[0.0],
     stock:[],
   })
   productos?: Producto[];
@@ -37,6 +37,7 @@ export class ProductoupdateComponent implements OnInit{
  
   actualizarProducto() {
   const values = this.formularioProducto.value
+  console.log(values)
     this.productoService.updateProducto(values).subscribe(data=>{
       this.router.navigate(['/productos']);
     })
