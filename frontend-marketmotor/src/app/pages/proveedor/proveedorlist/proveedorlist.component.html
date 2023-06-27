@@ -22,7 +22,7 @@
             </tr>
           </thead>
           <tbody class="accordion-item accordion-flush user-select-none" id="accordionFlushExample">
-            <ng-container *ngFor="let proveedor of proveedores">
+            <ng-container *ngFor="let proveedor of proveedores | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: total }">
               <tr style="cursor:pointer;" class=" accordion-header collapsed" data-bs-toggle="collapse"
               attr.data-bs-target="#flush-collapse{{proveedor.id}}" aria-expanded="false"
               attr.aria-controls="flush-collapse{{proveedor.id}}" >
@@ -123,7 +123,7 @@
           
           </tbody>
         </table>
-      
+        <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
       </div>
     </div>
   </div>

@@ -15,14 +15,13 @@ export class EmpleadolistComponent {
 
   currentPage = 1;
   total = 0;
-  itemsPerPage = 6;
+  itemsPerPage = 5;
   constructor(private empleadoService: EmpleadoService, private router: Router) { }
 
   empleados: Empleado[] = [];
 
   empleadosPaginable: EmpleadoResponse= new EmpleadoResponse();
   ngOnInit(): void {
-    //this.getAllEmpleados();
     this.getPaginableEmpleados();
   }
 
@@ -30,9 +29,7 @@ export class EmpleadolistComponent {
     this.empleadoService.getAll()
       .subscribe((empleados: any) => {
         console.log(empleados)
-        //this.empleados = empleados
       })
-
   }
 
   eliminar(empleado: Empleado): void {

@@ -169,7 +169,7 @@
                     <td>Compra de {{detalleOrdenCompra.producto.tipo}}</td>
                     <td>{{detalleOrdenCompra.ordenCompra.proveedor.nombreComercial}}</td>
                     <td>{{detalleOrdenCompra.ordenCompra.empleado.nombre}}</td>
-                    <td>{{detalleOrdenCompra.cantidad * detalleOrdenCompra.producto.precio}}</td>
+                    <td>{{(detalleOrdenCompra.cantidad * detalleOrdenCompra.producto.precio) | number : '1.2-2' }}</td>
                     <td><span class="badge bg-success border-2 px-4 py-2">Completado</span></td>
                     
                   </tr>

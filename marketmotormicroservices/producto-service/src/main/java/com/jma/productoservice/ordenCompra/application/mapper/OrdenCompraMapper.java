@@ -34,7 +34,6 @@ public class OrdenCompraMapper {
         ordenCompraEntity.setValorTotal(ordenCompraDto.getValorTotal());
         ordenCompraEntity.setEstado(ordenCompraDto.isEstado());
         return ordenCompraEntity;
-
     }
 
     public static OrdenCompraDto mapFromCommandInsertToDto(OrdenCompraCommandInsert ordenCompraCommandInsert){

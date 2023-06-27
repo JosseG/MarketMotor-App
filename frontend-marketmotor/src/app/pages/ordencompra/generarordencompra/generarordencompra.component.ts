@@ -88,7 +88,6 @@ export class GenerarordencompraComponent implements OnInit {
   element$: Observable<[CarritoItem]> = new Observable();
 
   ngOnInit(): void {
-    //this.serial = genUniqueId
     this.getProveedorForSearch();
     if (this.isActiveOrden()) {
       this.getCartProducts();
@@ -98,16 +97,11 @@ export class GenerarordencompraComponent implements OnInit {
   }
 
   productos: Producto[] = [];
-  productosFromCartWith: [CarritoItem] = [new CarritoItem()];
 
-  //productosFromCart$ = new EventEmitter<[CarritoItem]>()
+  productosFromCartWith: [CarritoItem] = [new CarritoItem()];
 
   productosPaginable: productoResponse = new productoResponse();
 
-  /*onLoad(): void {
-    this.carritoService.addToCarItems("1", 5)
-    console.log("llego")
-  }*/
 
   async addToCart(id: number) {
     const values = this.formAddingCartProduct.value.cantidad;

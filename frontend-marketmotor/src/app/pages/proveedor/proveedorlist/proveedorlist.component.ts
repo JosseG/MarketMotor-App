@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProveedorUpdate } from 'src/app/models/commands/proveedor/ProveedorUpdate';
 import { Proveedor } from 'src/app/models/dtos/Proveedor';
+import { ProveedorResponse } from 'src/app/models/responseapi/ProveedorResponse';
 import { ProveedorService } from 'src/app/services/proveedor/proveedor.service';
 
 @Component({
@@ -11,19 +12,39 @@ import { ProveedorService } from 'src/app/services/proveedor/proveedor.service';
 })
 export class ProveedorlistComponent {
 
-  proveedores?: Proveedor[];
+  currentPage = 1;
+  total = 0;
+  itemsPerPage = 6;
+
+  proveedores: Proveedor[] = [];
+  proveedorPaginable: ProveedorResponse = new ProveedorResponse();
+
 
   constructor(private proveedorService: ProveedorService, private router: Router) { }
 
   ngOnInit(): void {
-    this.proveedorService.getProveedor().subscribe({
-      next: (data: any) => {
-        this.proveedores = data;
-        console.log(data);
-      },
-      error: (e) =>
-        console.log("Error " + e)
-    });
+    this.getPaginableProveedor();
+  }
+
+  getPaginableProveedor() {
+    this.proveedorService
+      .getAllByPaginable(this.currentPage, this.itemsPerPage)
+      .subscribe({
+        next: (data: any) => {
+          this.proveedorPaginable = data;
+          this.total = this.proveedorPaginable.totalElements;
+          this.proveedores = this.proveedorPaginable.content;
+          console.log(data);
+        },
+        error: (e: string) => {
+          console.log('Error ' + e);
+        },
+      });
+  }
+
+  pageChangeEvent(event: number) {
+    this.currentPage = event;
+    this.getPaginableProveedor();
   }
 
   editar(proveedor:ProveedorUpdate): void{

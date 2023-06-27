@@ -69,7 +69,7 @@
                             <td>{{venta.venta.cliente.nombre}}</td>
                             <td>{{venta.venta.empleado.nombre}}</td>
                             <td>{{venta.producto.tipo}} - {{venta.producto.marca}}</td>
-                            <td>{{venta.unidades * venta.producto.precio}}</td>
+                            <td>{{venta.unidades * venta.producto.precio | number : '1.2-2'}}</td>
                             <td><span class="badge bg-success border-2 px-4 py-2">Completado</span></td>
                             
                           </tr>
