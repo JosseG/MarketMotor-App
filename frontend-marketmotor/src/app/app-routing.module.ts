@@ -20,11 +20,13 @@ import { ReportetemplateComponent } from './pages/reportetemplate/reportetemplat
 import { EmpleadoupdateComponent } from './pages/empleado/empleadoupdate/empleadoupdate.component';
 import { ValidarordenComponent } from './pages/proveedor/validar/validarorden/validarorden.component';
 import { ProveedorGuard } from './_shared/proveedor.guard';
+import { ProductoupdateComponent } from './pages/producto/productoupdate/productoupdate.component';
 
 const routes: Routes = [
   { path: 'inicio', component: InicioComponent,canActivate:[AuthGuard] },
   { path: 'productos', component: ProductolistComponent,canActivate:[AuthGuard] },
   { path: 'productos/insertar', component: ProductoinsertComponent,canActivate:[AuthGuard,AdministradorGuard] },
+  { path: 'productos/actualizar', component: ProductoupdateComponent,canActivate:[AuthGuard,AdministradorGuard] },
 
   { path: 'empleados', component: EmpleadolistComponent,canActivate:[AuthGuard,AdministradorGuard] },
   { path: 'empleados/insertar', component: EmpleadoinsertComponent,canActivate:[AuthGuard,AdministradorGuard] },

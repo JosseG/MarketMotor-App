@@ -15,7 +15,7 @@ export class ProductolistComponent {
 
   currentPage = 1;
   total = 0;
-  itemsPerPage = 2;
+  itemsPerPage = 4;
 
 
   productos: Producto[] = [];
@@ -28,6 +28,12 @@ export class ProductolistComponent {
 
   ngOnInit(): void {
     this.getPaginableProducto();
+  }
+  getAllProductos() {
+    this.productoService.getProductos()
+      .subscribe((productos: any) => {
+        console.log(productos)
+      })
   }
 
   getPaginableProducto(){
@@ -42,7 +48,18 @@ export class ProductolistComponent {
       console.log("Error "+e)
     });
   }
+  editar(producto:Producto): void{
+    localStorage.setItem("id",producto.id.toString());
+      this.router.navigate(['productos/actualizar']);
+  }
 
+  eliminar(producto:Producto): void {
+    console.log(producto.id)
+    this.productoService.borrarLogicProducto(producto.id).subscribe(data => {
+     this.getPaginableProducto()
+      producto.estado = false; // Actualizar el estado a "inactivo"
+    });
+  }
   pageChangeEvent(event: number){
     this.currentPage = event;
     this.getPaginableProducto();

@@ -12,8 +12,7 @@
             <tr>
               <th scope="col">Código</th>
               <th scope="col">Descripción</th>
-              <th scope="col">Tipo</th>
-              <th scope="col">Serial ID</th>
+ 
               <th scope="col">Marca</th>
               <th scope="col">Precio</th>
               <th scope="col">Stock</th>
@@ -23,22 +22,13 @@
             </tr>
           </thead>
           <tbody class="accordion-item accordion-flush user-select-none" id="accordionFlushExample">
-            <ng-container *ngFor="
-                let producto of productos
-                  | paginate
-                    : {
-                        itemsPerPage: itemsPerPage,
-                        currentPage: currentPage,
-                        totalItems: total
-                      }
-              ">
+            <ng-container *ngFor="let producto of productos | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: total }">
               <tr style="cursor: pointer" class="accordion-header collapsed" data-bs-toggle="collapse"
                 attr.data-bs-target="#flush-collapse{{ producto.id }}" aria-expanded="false"
                 attr.aria-controls="flush-collapse{{ producto.id }}">
                 <td>{{ producto.id }}</td>
                 <td>{{ producto.descripcion }}</td>
-                <td>{{ producto.tipo }}</td>
-                <td>{{ producto.serial }}</td>
+        
                 <td>{{ producto.marca }}</td>
                 <td>{{ producto.precio }}</td>
                 <td>{{ producto.stock }}</td>
@@ -55,65 +45,19 @@
                   </td>
                 </ng-template>
                 <td class="icons">
-                  <a routerLink="/empleados"><i class="bi bi-trash-fill"></i></a>
-                  <a routerLink="/inicio"><i class="bi bi-pencil-square"></i></a>
-                </td>
+                  <a (click)="eliminar(producto)"><i class="bi bi-trash-fill"></i></a>
+
+
+                  <a routerLink="/actualizar"  (click)="editar(producto)"><i class="bi bi-pencil-square"></i></a>
+              </td>
               </tr>
               <tr>
                 <td colspan="100%" style="padding: 0">
                   <div attr.id="flush-collapse{{ producto.id }}" class="accordion-collapse collapse cont"
                     attr.aria-labelledby="flush-heading{{ producto.id }}" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body">
-                      <div class="d-flex flex-wrap">
-                        <div class="detalle">
-                          <p style="color: #23c4d9; font-weight: bold">
-                            Codigo
-                          </p>
-                          <p>{{ producto.id }}</p>
-                        </div>
-
-                        <div class="detalle">
-                          <p style="color: #23c4d9; font-weight: bold">
-                            Descripcion
-                          </p>
-                          <p>{{ producto.descripcion }}</p>
-                        </div>
-
-                        <div class="detalle">
-                          <p style="color: #23c4d9; font-weight: bold">Tipo</p>
-                          <p>{{ producto.tipo }}</p>
-                        </div>
-
-                        <div class="detalle">
-                          <p style="color: #23c4d9; font-weight: bold">
-                            Serial
-                          </p>
-                          <p>{{ producto.serial }}</p>
-                        </div>
-
-                        <div class="detalle">
-                          <p style="color: #23c4d9; font-weight: bold">Marca</p>
-                          <p>{{ producto.marca }}</p>
-                        </div>
-
-                        <div class="detalle">
-                          <p style="color: #23c4d9; font-weight: bold">
-                            Precio
-                          </p>
-                          <p>{{ producto.precio }}</p>
-                        </div>
-
-                        <div class="detalle">
-                          <p style="color: #23c4d9; font-weight: bold">Stock</p>
-                          <p>{{ producto.stock }}</p>
-                        </div>
-
-                        <div class="detalle">
-                          <p style="color: #23c4d9; font-weight: bold">
-                            Estado
-                          </p>
-                          <p>{{ producto.estado }}</p>
-                        </div>
+                      <div class="d-flex flex-wrap centrardetalle">
+                      
 
                         <div class="detalle">
                           <p style="color: #23c4d9; font-weight: bold">
@@ -128,7 +72,18 @@
                           </p>
                           <p>{{ producto.actualizadoEn }}</p>
                         </div>
-
+                        <div class="detalle">
+                          <p style="color: #23c4d9; font-weight: bold">
+                           Tipo
+                          </p>
+                          <p>{{ producto.tipo }}</p>
+                        </div>
+                        <div class="detalle">
+                          <p style="color: #23c4d9; font-weight: bold">
+                           Serial ID
+                          </p>
+                          <p>{{ producto.serial }}</p>
+                        </div>
                         <div class="detalle">
                           <p style="color: #23c4d9; font-weight: bold">
                             Producto

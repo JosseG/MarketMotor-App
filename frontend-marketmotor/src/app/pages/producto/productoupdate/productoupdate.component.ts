@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Producto } from 'src/app/models/dtos/Producto';
 import { ProductoService } from 'src/app/services/producto/producto.service';
@@ -8,13 +9,36 @@ import { ProductoService } from 'src/app/services/producto/producto.service';
   templateUrl: './productoupdate.component.html',
   styleUrls: ['./productoupdate.component.css']
 })
-export class ProductoupdateComponent {
+export class ProductoupdateComponent implements OnInit{
+  formularioProducto: FormGroup = this.formbuilder.group({
+    id:[],
+    descripcion:[],
+    tipo:[],
+    serial:[],
+    marca:[],
+    precio:[],
+    stock:[],
+  })
+  productos?: Producto[];
+  constructor(private productoService: ProductoService, private router:Router,private formbuilder:FormBuilder) { }
 
-
-  constructor(private productoService: ProductoService, private router:Router) { }
-
-  editar(producto: Producto): void{
-    localStorage.setItem("id",producto.id.toString());
-      this.router.navigate(['editarProducto']);
+  editar(){
+    let id= JSON.parse(localStorage.getItem('id') as string);
+    this.productoService.getProductoId(id).subscribe(data=>{
+     this.formularioProducto.patchValue(data);
+    
+    });
   }
+
+  ngOnInit(): void {
+    this.editar();
+    
+  }
+ 
+  actualizarProducto() {
+  const values = this.formularioProducto.value
+    this.productoService.updateProducto(values).subscribe(data=>{
+      this.router.navigate(['/productos']);
+    })
+}
 }

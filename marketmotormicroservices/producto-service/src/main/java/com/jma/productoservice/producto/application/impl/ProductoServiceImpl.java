@@ -112,7 +112,7 @@ public class ProductoServiceImpl implements ProductoService<ProductoDto> {
 
     @Override
     public ProductoDto obtenerPorId(Object id) {
-        return productoRepository.findById((Long)id).map(ProductoMapper::mapToDto).orElse(new ProductoDto());
+        return productoRepository.findById((Long)id).map(ProductoMapper::mapToDto).orElse(null);
     }
 
     @Override

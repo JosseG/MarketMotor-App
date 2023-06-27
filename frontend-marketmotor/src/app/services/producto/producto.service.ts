@@ -17,8 +17,8 @@ export class ProductoService {
     return this.http.get<Producto[]>(this.url);
   }
 
-  createProducto(producto: ProductoInsert){
-    return this.http.post<ProductoInsert>(this.url,producto);
+  createProducto(producto: any){
+    return this.http.post<Producto>(this.url,producto);
   }
 
   getProductoId(id: number){
@@ -39,10 +39,13 @@ export class ProductoService {
     })
   }
 
-  getAllFiltredPaginable(descripcion: string,pageNo: number = 0,pageSize: number = 10, sortBy: string= "id",sortDir: string="asc"){
+ getAllFiltredPaginable(descripcion: string,pageNo: number = 0,pageSize: number = 10, sortBy: string= "id",sortDir: string="asc"){
     return this.http.get(`${this.url}/pagination/`+descripcion,{
       params: new HttpParams().set('pageNo', pageNo).set('pageSize',pageSize)
     })
+  }
+  borrarLogicProducto(id: number){
+    return this.http.patch(this.url +"/" + id,null)
   }
 
 

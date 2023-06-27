@@ -18,6 +18,7 @@ export class ProductoinsertComponent implements OnInit{
     serial:[],
     marca:[],
     precio:[],
+    stock:[],
   })
 
   producto?: Producto[];
@@ -28,12 +29,7 @@ export class ProductoinsertComponent implements OnInit{
   ngOnInit(): void{
   }
 
-  /* guardar(producto: ProductoInsert) {
-    this.productoService.createProducto(producto).subscribe(data=>{
-      this.router.navigate(['productos']);
-    });
-  } */
-
+  
   guardarProducto():void {
     const values = this.formularioProducto.value
     this.productoService.createProducto(values).subscribe({
@@ -43,8 +39,8 @@ export class ProductoinsertComponent implements OnInit{
         this.formularioProducto.get("serial")?.reset()
         this.formularioProducto.get("marca")?.reset()
         this.formularioProducto.get("precio")?.reset()
-
-        this.router.navigate(['producto']);
+        this.formularioProducto.get("stock")?.reset()
+        this.router.navigate(['/productos']);
       },
       error: (e) => alert("Campos incompletos")
     })

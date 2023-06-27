@@ -1,1 +1,60 @@
-<p>productoupdate works!</p>
+
+<div class="card text-center card-proveedor" style="width: 40rem;">
+    <div class="card-header">
+      Nuevo Producto
+    </div>
+    <div class="card-body">
+      <form [formGroup]="formularioProducto" (ngSubmit)="actualizarProducto()" autocomplete="off">
+        <div class=" row g-2 contenedorForm" >
+     
+        <div class="col-auto">
+          <div class="form-floating">      
+            <input class="form-control" type="text" id="descripcion floatingInputGrid" formControlName="descripcion">
+            <label  for="floatingInputGrid">Descripcion</label>
+          </div>
+       </div>
+        <div class="col-auto">
+          <div class="form-floating">      
+            <input class="form-control" type="text" id="tipo floatingInputGrid" formControlName="tipo">
+            <label  for="floatingInputGrid">Tipo</label>
+          </div>
+       </div>
+  
+        <div class="col-auto">
+          <div class="form-floating">      
+            <input class="form-control" type="text" id="serial floatingInputGrid" formControlName="serial">
+            <label  for="floatingInputGrid">Serial</label>
+          </div>
+       </div>
+    
+        <div class="col-auto">
+          <div class="form-floating">      
+            <input class="form-control" type="text" id="marca floatingInputGrid" formControlName="marca">
+            <label  for="floatingInputGrid">Marca</label>
+          </div>
+       </div>
+  
+       <div class="col-auto">
+        <div class="form-floating">      
+          <input class="form-control" type="number" id="precio floatingInputGrid" formControlName="precio">
+          <label  for="floatingInputGrid">Precio</label>
+        </div>
+     </div>
+     <div class="col-auto">
+      <div class="form-floating">      
+        <input class="form-control" type="number" id="stock floatingInputGrid" formControlName="stock">
+        <label  for="floatingInputGrid">Stock</label>
+      </div>
+   </div>
+    </div>
+    <div class="text-center"><button class="btn btn-info mt-3" type="submit">Actualizar</button></div>
+  
+  </form>
+  </div>
+  <div class="card-footer text-muted">
+  
+  </div>
+  </div>
+  
+
+  

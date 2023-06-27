@@ -70,7 +70,7 @@ public class ProductoController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<String> desactivar(@PathVariable Long id){
+    public ResponseEntity<Boolean> desactivar(@PathVariable Long id){
         try {
             ProductoDto producto = productoService.obtenerPorId(id);
             if (producto == null)
@@ -78,7 +78,7 @@ public class ProductoController {
 
             producto.declararDisponibilidad(EstadoD.INACTIVO);
             productoService.guardar(producto);
-            return ResponseEntity.ok("Se desactivó correctamente");
+            return ResponseEntity.ok(true);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
