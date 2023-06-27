@@ -56,8 +56,8 @@ export class GenerarordencompraComponent implements OnInit {
     numero: [genUniqueId()],
     fecha: [new Date()],
     valorTotal: [0.0],
-    idEmpleado: [1],
-    idProveedor: [1],
+    idEmpleado: [0],
+    idProveedor: [0],
   });
 
   formProveedor: FormGroup = this.formbuilder.group({
@@ -228,6 +228,7 @@ export class GenerarordencompraComponent implements OnInit {
     var proveedorstorage = sessionStorage.getItem('proveedorTemporal');
     if (proveedorstorage != null) {
       proveedorFinal = JSON.parse(proveedorstorage!);
+      this.myproveedor = proveedorFinal;
       this.formProveedor.patchValue(proveedorFinal);
     }
     return proveedorFinal;
@@ -251,6 +252,8 @@ export class GenerarordencompraComponent implements OnInit {
 
           var valores = this.formOrdenCompra.value;
           valores.valorTotal = total;
+          valores.idEmpleado = this.empleado.id
+          valores.idProveedor = this.myproveedor.id
 
           if (total > 0) {
             this.ordenCompraService.guardarOrdenCompra(valores).subscribe({
@@ -293,6 +296,7 @@ export class GenerarordencompraComponent implements OnInit {
     this.carritoService.cleanCarritoOrden();
     this.proveedorService.cleanProveedorService();
     this.formAddingProveedor.reset();
+    this.myproveedor = new Proveedor();
     this.formDirective.resetForm();
     this.formProveedor.reset();
     this.getCartProducts();

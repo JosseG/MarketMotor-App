@@ -6,6 +6,10 @@ import com.jma.productoservice.empleado.domain.entity.EmpleadoEntity;
 import com.jma.productoservice.ordenCompra.domain.entity.OrdenCompraEntity;
 import com.jma.productoservice.ordenCompra.domain.response.OrdenCompraResponse;
 import com.jma.productoservice.ordenCompra.infrastructure.out.OrdenCompraRepository;
+import com.jma.productoservice.producto.application.mapper.ProductoMapper;
+import com.jma.productoservice.producto.domain.dto.ProductoDto;
+import com.jma.productoservice.producto.domain.entity.ProductoEntity;
+import com.jma.productoservice.producto.domain.response.ProductoResponse;
 import com.jma.productoservice.proveedor.domain.entity.ProveedorEntity;
 import com.jma.productoservice.empleado.application.mapper.EmpleadoMapper;
 import com.jma.productoservice.ordenCompra.application.mapper.OrdenCompraMapper;
@@ -128,6 +132,30 @@ public class OrdenCompraServiceImpl implements OrdenCompraService<OrdenCompraDto
         ordenCompraResponse.setTotalElements(ordenPageable.getTotalElements());
         ordenCompraResponse.setTotalPages(ordenPageable.getTotalPages());
         ordenCompraResponse.setLast(ordenPageable.isLast());
+        return ordenCompraResponse;
+    }
+
+    @Override
+    public OrdenCompraResponse obtenerPendientesPaginados(boolean esPendiente, int pageNo, int pageSize, String sortBy, String sortDir) {
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+
+        Page<OrdenCompraEntity> ordenCompraEntitiespageable = ordenCompraRepository.findOrdenCompraEntitiesByConfirmado(esPendiente,pageable);
+
+        List<OrdenCompraEntity> ordenescompra = ordenCompraEntitiespageable.getContent();
+
+        List<OrdenCompraDto> content = ordenescompra.stream().map(OrdenCompraMapper::mapToDto).toList();
+
+        OrdenCompraResponse ordenCompraResponse = new OrdenCompraResponse();
+
+        ordenCompraResponse.setContent(content);
+        ordenCompraResponse.setPageNo(ordenCompraEntitiespageable.getNumber());
+        ordenCompraResponse.setPageSize(ordenCompraEntitiespageable.getSize());
+        ordenCompraResponse.setTotalElements(ordenCompraEntitiespageable.getTotalElements());
+        ordenCompraResponse.setTotalPages(ordenCompraEntitiespageable.getTotalPages());
+        ordenCompraResponse.setLast(ordenCompraEntitiespageable.isLast());
         return ordenCompraResponse;
     }
 

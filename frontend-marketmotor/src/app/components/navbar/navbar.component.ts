@@ -44,4 +44,13 @@ export class NavbarComponent {
     return this.accessServices.accessAdmin()
   }
 
+
+  isEmployee(): boolean{
+    return this.accessServices.accessAsist()|| this.accessServices.accessAdmin();
+  }
+
+  isProveedor(): boolean{
+    return this.accessServices.accessProv();
+  }
+
 }

@@ -3,19 +3,20 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProveedorInsert } from 'src/app/models/commands/proveedor/ProveedorInsert'
 import { ProveedorUpdate } from 'src/app/models/commands/proveedor/ProveedorUpdate';
+import baserUrl from '../globalurl/UrlApi';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProveedorService {
 
-  private readonly apiUrl = 'http://localhost:8080/proveedores';
+  private readonly apiUrl = baserUrl+"/proveedores";
 
   constructor(private http:HttpClient) { }
- 
+
 
   getAll() {
-    return this.http.get(`${this.apiUrl}`)
+    return this.http.get<Proveedor[]>(`${this.apiUrl}`)
   }
 
   getProveedor(){
@@ -23,7 +24,7 @@ export class ProveedorService {
   }
 
   createProveedor(proveedor: ProveedorInsert){
-    return this.http.post<ProveedorInsert>(this.apiUrl,proveedor);
+    return this.http.post<Proveedor>(this.apiUrl,proveedor);
   }
 
   getProveedorId(id: number){
@@ -43,8 +44,12 @@ export class ProveedorService {
       params: new HttpParams().set('pageNo', pageNo).set('pageSize',pageSize)
     })
   }
+  borrarLogicProveedor(id: number){
+    return this.http.patch(this.apiUrl +"/" + id,null)
+  }
 
-  
+
+
   setProveedorToStorage(proveedor: Proveedor): void {
 
     var newProveedor: Proveedor = new Proveedor();

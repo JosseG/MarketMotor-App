@@ -10,8 +10,6 @@ export class OrdenCompra{
     actualizadoEn: Date ;
     creadoEn: Date ;
     estado: boolean;
-    //empleadoDto: Empleado;
-    //proveedorDto: Proveedor;
     empleado: Empleado;
     proveedor: Proveedor;
 

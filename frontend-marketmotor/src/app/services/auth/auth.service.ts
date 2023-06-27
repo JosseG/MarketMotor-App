@@ -1,8 +1,9 @@
 import { HttpClient,HttpHeaders  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import baserUrl from '../globalurl/UrlApi';
 
-const AUTH_API = 'http://localhost:8080/auth/';
+const AUTH_API = baserUrl+"/auth";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,7 +18,7 @@ export class AuthService {
 
   login(alias: string, contrasena: string):Observable<any> {
     return this.http.post(
-      AUTH_API + 'signin',
+      AUTH_API + '/signin',
       {
         alias,
         contrasena,

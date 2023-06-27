@@ -1,12 +1,11 @@
 <div class="container mt-3">
-
   <div class="row">
     <div class="col-md-12">
       <div class="table-responsive-lg">
-
         <div class="d-flex justify-content-between">
-          <h1 class = "titulo">PRODUCTOS</h1> <span class="d-flex align-items-center"><a routerLink="insertar" class="btn btn-info">Agregar<i
-            class="ps-3 bi bi-plus-lg"></i></a></span>
+          <h1 class="titulo">PRODUCTOS</h1>
+          <span class="d-flex align-items-center"><a routerLink="insertar" class="btn btn-info">Agregar<i
+                class="ps-3 bi bi-plus-lg"></i></a></span>
         </div>
         <table class="table tablas accordion">
           <thead class="tableCabe3">
@@ -19,49 +18,135 @@
               <th scope="col">Precio</th>
               <th scope="col">Stock</th>
               <th scope="col">Estado</th>
-              
+
               <th scope="col">Acciones</th>
             </tr>
           </thead>
           <tbody class="accordion-item accordion-flush user-select-none" id="accordionFlushExample">
-            <ng-container *ngFor="let producto of productos | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: total }">
-              <tr style="cursor:pointer;" class=" accordion-header collapsed" data-bs-toggle="collapse"
-              attr.data-bs-target="#flush-collapse{{producto.id}}" aria-expanded="false"
-              attr.aria-controls="flush-collapse{{producto.id}}" >
-                <td>{{producto.id}}</td>
-                <td>{{producto.descripcion}}</td>
-                <td>{{producto.tipo}}</td>
-                <td>{{producto.serial}}</td>
-                <td>{{producto.marca}}</td> 
-                <td>{{producto.precio}}</td>        
-                <td>{{producto.stock}}</td>    
-                <td *ngIf="producto.estado != true;else elseBlock"><button type="button"
-                  class="bg-inactivo text-white border-0 px-3 py-1">Inactivo</button></td>
-          <ng-template #elseBlock>
-              <td><button type="button"
-                      class="bg-activo text-white border-0 px-3 py-1">Activo</button></td>
-          </ng-template> 
+            <ng-container *ngFor="
+                let producto of productos
+                  | paginate
+                    : {
+                        itemsPerPage: itemsPerPage,
+                        currentPage: currentPage,
+                        totalItems: total
+                      }
+              ">
+              <tr style="cursor: pointer" class="accordion-header collapsed" data-bs-toggle="collapse"
+                attr.data-bs-target="#flush-collapse{{ producto.id }}" aria-expanded="false"
+                attr.aria-controls="flush-collapse{{ producto.id }}">
+                <td>{{ producto.id }}</td>
+                <td>{{ producto.descripcion }}</td>
+                <td>{{ producto.tipo }}</td>
+                <td>{{ producto.serial }}</td>
+                <td>{{ producto.marca }}</td>
+                <td>{{ producto.precio }}</td>
+                <td>{{ producto.stock }}</td>
+                <td *ngIf="producto.estado != true; else elseBlock">
+                  <button type="button" class="bg-inactivo text-white border-0 px-3 py-1">
+                    Inactivo
+                  </button>
+                </td>
+                <ng-template #elseBlock>
+                  <td>
+                    <button type="button" class="bg-activo text-white border-0 px-3 py-1">
+                      Activo
+                    </button>
+                  </td>
+                </ng-template>
                 <td class="icons">
-              
                   <a routerLink="/empleados"><i class="bi bi-trash-fill"></i></a>
                   <a routerLink="/inicio"><i class="bi bi-pencil-square"></i></a>
-                  
                 </td>
               </tr>
-              <tr >
-                <td colspan="100%" style="padding:0">
-                    <div attr.id="flush-collapse{{producto.id}}" class="accordion-collapse collapse cont"
-                        attr.aria-labelledby="flush-heading{{producto.id}}" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis est sed, nesciunt suscipit, maiores itaque enim adipisci asperiores inventore corporis, </div>
+              <tr>
+                <td colspan="100%" style="padding: 0">
+                  <div attr.id="flush-collapse{{ producto.id }}" class="accordion-collapse collapse cont"
+                    attr.aria-labelledby="flush-heading{{ producto.id }}" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                      <div class="d-flex flex-wrap">
+                        <div class="detalle">
+                          <p style="color: #23c4d9; font-weight: bold">
+                            Codigo
+                          </p>
+                          <p>{{ producto.id }}</p>
+                        </div>
+
+                        <div class="detalle">
+                          <p style="color: #23c4d9; font-weight: bold">
+                            Descripcion
+                          </p>
+                          <p>{{ producto.descripcion }}</p>
+                        </div>
+
+                        <div class="detalle">
+                          <p style="color: #23c4d9; font-weight: bold">Tipo</p>
+                          <p>{{ producto.tipo }}</p>
+                        </div>
+
+                        <div class="detalle">
+                          <p style="color: #23c4d9; font-weight: bold">
+                            Serial
+                          </p>
+                          <p>{{ producto.serial }}</p>
+                        </div>
+
+                        <div class="detalle">
+                          <p style="color: #23c4d9; font-weight: bold">Marca</p>
+                          <p>{{ producto.marca }}</p>
+                        </div>
+
+                        <div class="detalle">
+                          <p style="color: #23c4d9; font-weight: bold">
+                            Precio
+                          </p>
+                          <p>{{ producto.precio }}</p>
+                        </div>
+
+                        <div class="detalle">
+                          <p style="color: #23c4d9; font-weight: bold">Stock</p>
+                          <p>{{ producto.stock }}</p>
+                        </div>
+
+                        <div class="detalle">
+                          <p style="color: #23c4d9; font-weight: bold">
+                            Estado
+                          </p>
+                          <p>{{ producto.estado }}</p>
+                        </div>
+
+                        <div class="detalle">
+                          <p style="color: #23c4d9; font-weight: bold">
+                            Creado en
+                          </p>
+                          <p>{{ producto.creadoEn }}</p>
+                        </div>
+
+                        <div class="detalle">
+                          <p style="color: #23c4d9; font-weight: bold">
+                            Actualizado en
+                          </p>
+                          <p>{{ producto.actualizadoEn }}</p>
+                        </div>
+
+                        <div class="detalle">
+                          <p style="color: #23c4d9; font-weight: bold">
+                            Producto
+                          </p>
+                          <img src="../../../assets/productos/img{{
+                              producto.id
+                            }}.jpeg" width="100px" height="100px" alt="" />
+                        </div>
+                      </div>
                     </div>
+                  </div>
                 </td>
-            </tr>
-            </ng-container>   
+              </tr>
+            </ng-container>
           </tbody>
         </table>
 
         <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
-
       </div>
     </div>
   </div>

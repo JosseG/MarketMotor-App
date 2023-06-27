@@ -66,6 +66,29 @@ public class OrdenCompraController {
     }
 
 
+
+    @PatchMapping("/confirmar")
+    public ResponseEntity<Boolean> confirmar(@RequestParam(value = "id", defaultValue = "0", required = false) Long id){
+
+        try{
+            OrdenCompraDto ordenCompraDto = ordenCompraService.obtenerPorId(id);
+
+            if(ordenCompraDto == null)
+                return ResponseEntity.notFound().build();
+
+            ordenCompraDto.setConfirmado(true);
+            ordenCompraService.guardar(ordenCompraDto);
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(@PathVariable("id") Long id){
         try{
@@ -97,7 +120,6 @@ public class OrdenCompraController {
         }
     }
 
-
     @GetMapping("/pagination")
     public ResponseEntity<OrdenCompraResponse> obtenerTodosPaginados(
             @RequestParam(value = "pageNo", defaultValue = ConstantsService.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
@@ -107,6 +129,18 @@ public class OrdenCompraController {
     ){
         return ResponseEntity.ok(ordenCompraService.obtenerTodosPaginados(pageNo, pageSize, sortBy, sortDir));
     }
+
+
+    @GetMapping("/pendientes/pagination")
+    public ResponseEntity<OrdenCompraResponse> obtenerPendientesPaginados(
+            @RequestParam(value = "pageNo", defaultValue = ConstantsService.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = ConstantsService.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = ConstantsService.DEFAULT_SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = ConstantsService.DEFAULT_SORT_DIRECTION, required = false) String sortDir
+    ){
+        return ResponseEntity.ok(ordenCompraService.obtenerPendientesPaginados(false,pageNo-1, pageSize, sortBy, sortDir));
+    }
+
 
     @PutMapping
     public ResponseEntity<OrdenCompraDto> actualizar(@RequestBody @Valid OrdenCompraCommandUpdate ordenCompraCommandUpdate){

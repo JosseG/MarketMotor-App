@@ -80,3 +80,12 @@ thead th {
 }
 
 
+.detalle{
+    width: 160px;
+    text-align: left;
+    
+}
+.detalleLargo{
+    width: 200px;
+    text-align: left;
+}

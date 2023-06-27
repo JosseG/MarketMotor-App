@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Cliente } from 'src/app/models/dtos/Cliente';
+import baserUrl from '../globalurl/UrlApi';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClienteService {
 
-  private readonly apiUrl = 'http://localhost:8080/clientes';
+  private readonly apiUrl = baserUrl+"/clientes";
 
   constructor(private http: HttpClient) {  }
 

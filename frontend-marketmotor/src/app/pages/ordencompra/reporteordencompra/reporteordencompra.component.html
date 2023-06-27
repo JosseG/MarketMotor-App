@@ -170,8 +170,20 @@
                     <td>{{detalleOrdenCompra.ordenCompra.proveedor.nombreComercial}}</td>
                     <td>{{detalleOrdenCompra.ordenCompra.empleado.nombre}}</td>
                     <td>{{(detalleOrdenCompra.cantidad * detalleOrdenCompra.producto.precio) | number : '1.2-2' }}</td>
-                    <td><span class="badge bg-success border-2 px-4 py-2">Completado</span></td>
+                    <!--<td><span class="badge bg-success border-2 px-4 py-2">Completado</span></td>-->
                     
+                    <td *ngIf="detalleOrdenCompra.ordenCompra.confirmado != true; else elseBlock">
+                      <button type="button" class="badge bg-danger border-2 py-2">
+                        No confirmado
+                      </button>
+                    </td>
+                    <ng-template #elseBlock>
+                      <td>
+                        <button type="button" class="badge bg-success border-2 py-2">
+                          Confirmado
+                        </button>
+                      </td>
+                    </ng-template>
                   </tr>
   
                 </tbody>

@@ -64,8 +64,8 @@ export class GenerarventaComponent {
   //GENERAR VENTA
   formVenta: FormGroup = this.formbuilder.group({
     preciototal: [0.0],
-    idCliente: [1],
-    idEmpleado: [1],
+    idCliente: [0],
+    idEmpleado: [0],
   });
 
   //GENERAR VENTA
@@ -225,6 +225,7 @@ export class GenerarventaComponent {
     var clientestorage = sessionStorage.getItem('clienteTemporal');
     if (clientestorage != null) {
       clienteFinal = JSON.parse(clientestorage!);
+      this.mycliente = clienteFinal;
       this.formCliente.patchValue(clienteFinal);
     }
     return clienteFinal;
@@ -244,16 +245,18 @@ export class GenerarventaComponent {
       next: (data: [CarritoItem]) => {
         if (data.length > 0) {
           var total = 0;
-    
+
           for (let productoFromCart of data) {
             total += productoFromCart.cantidad * productoFromCart.producto.precio;
           }
-    
+
           var valores = this.formVenta.value;
           valores.preciototal = total;
           valores.idEmpleado = this.empleado.id
           valores.idCliente = this.mycliente.id
-    
+
+          console.log(this.empleado.id + " " + this.mycliente.id)
+
           if (total > 0) {
             this.ventaService.guardarVenta(valores).subscribe({
               next: (venta: any) => {
@@ -262,13 +265,24 @@ export class GenerarventaComponent {
                   newObject.unidades = productoFromCart.cantidad;
                   newObject.idProducto = productoFromCart.producto.id;
                   newObject.idVenta = venta.id;
-    
+
                   this.detalleVentaService
                     .guardarDetalleVenta(newObject)
                     .subscribe({
-                      next: (detalle) => {
+                      next: (detalle: any) => {
+                        this.productoService.getProductoId(detalle.producto.id).subscribe({
+                          next: (producto: any) => {
+                            var productoCommandUpdate = producto
+                            productoCommandUpdate.stock = producto.stock - detalle.unidades
+                            this.productoService.updateProducto(productoCommandUpdate).subscribe({
+                              next: (productoCantidadUpdated: any) => {
+                                console.log("Disminuyo producto")
+                                console.log(productoCantidadUpdated)
+                              }
+                            })
+                          }
+                        })
                         this.cleanVenta();
-                        console.log("faksjdflaskdjflsañkjdfñalkjfd")
                         console.log(detalle);
                       },
                       error: (e) => {
@@ -289,7 +303,7 @@ export class GenerarventaComponent {
         }
       }
     })
-    
+
   }
 
 
@@ -304,6 +318,7 @@ export class GenerarventaComponent {
   cleanVenta() {
     this.carritoService.cleanCarritoVenta();
     this.clienteService.cleanClienteVenta();
+    this.mycliente = new Cliente();
     this.formAddingCliente.reset();
     this.formDirective.resetForm();
     this.formCliente.reset();

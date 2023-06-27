@@ -1,12 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import baserUrl from '../globalurl/UrlApi';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DetalleventaService {
 
-  private readonly apiUrl = 'http://localhost:8080/detalleventa';
+  private readonly apiUrl = baserUrl+"/detalleventa";
 
   constructor(private http: HttpClient) {  }
 
@@ -21,5 +22,5 @@ export class DetalleventaService {
     return this.http.post(this.apiUrl, detalleVenta);
   }
 
-  
+
 }
