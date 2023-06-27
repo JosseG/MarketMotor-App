@@ -141,6 +141,65 @@ public class DetalleVentaServiceImpl implements DetalleVentaService<DetalleVenta
         return detalleVentaResponse;
     }
 
+    @Override
+    public DetalleVentaResponse obtenerPaginadosPorFiltroEmpleadoId(Long id, int pageNo, int pageSize, String sortBy, String sortDir) {
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+
+        Page<DetalleVentaEntity> detalleOrdenPageable = detalleVentaRepository.findDetalleVentaEntitiesByVenta_Empleado_Id(id,pageable);
+
+        List<DetalleVentaEntity> detallesOrden = detalleOrdenPageable.getContent();
+
+        List<DetalleVentaDto> content = detallesMapeados(detallesOrden);
+
+        DetalleVentaResponse detalleVentaResponse = new DetalleVentaResponse();
+
+        detalleVentaResponse.setContent(content);
+        detalleVentaResponse.setPageNo(detalleOrdenPageable.getNumber());
+        detalleVentaResponse.setPageSize(detalleOrdenPageable.getSize());
+        detalleVentaResponse.setTotalElements(detalleOrdenPageable.getTotalElements());
+        detalleVentaResponse.setLast(detalleOrdenPageable.isLast());
+        detalleVentaResponse.setTotalPages(detalleOrdenPageable.getTotalPages());
+        return detalleVentaResponse;
+    }
+
+    @Override
+    public DetalleVentaResponse obtenerPaginadosPorFiltroProductoId(Long id, int pageNo, int pageSize, String sortBy, String sortDir) {
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+
+        Page<DetalleVentaEntity> detalleOrdenPageable = detalleVentaRepository.findDetalleVentaEntitiesByProducto_Id(id,pageable);
+
+        List<DetalleVentaEntity> detallesOrden = detalleOrdenPageable.getContent();
+
+        List<DetalleVentaDto> content = detallesMapeados(detallesOrden);
+
+        DetalleVentaResponse detalleVentaResponse = new DetalleVentaResponse();
+
+        detalleVentaResponse.setContent(content);
+        detalleVentaResponse.setPageNo(detalleOrdenPageable.getNumber());
+        detalleVentaResponse.setPageSize(detalleOrdenPageable.getSize());
+        detalleVentaResponse.setTotalElements(detalleOrdenPageable.getTotalElements());
+        detalleVentaResponse.setLast(detalleOrdenPageable.isLast());
+        detalleVentaResponse.setTotalPages(detalleOrdenPageable.getTotalPages());
+        return detalleVentaResponse;
+    }
+
+    @Override
+    public List<DetalleVentaDto> obtenerPorFiltroProductoId(Long id) {
+        List<DetalleVentaEntity> detalleOrdenesFiltred = detalleVentaRepository.findDetalleVentaEntitiesByProducto_Id(id);
+
+
+        List<DetalleVentaDto> content = detallesMapeados(detalleOrdenesFiltred);
+
+
+        return content;
+    }
+
     private List<DetalleVentaDto> detallesMapeados(List<DetalleVentaEntity> detallesOrdenes) {
         List<DetalleVentaDto> content = detallesOrdenes.stream().map(DetalleVentaMapper::mapToDto).toList();
 

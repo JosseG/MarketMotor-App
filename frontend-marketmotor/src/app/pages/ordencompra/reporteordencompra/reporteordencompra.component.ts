@@ -33,16 +33,17 @@ export class ReporteordencompraComponent {
         console.log(data);
       },
       error: (e) =>
-        console.log("Error " + e)
-
+        console.log(e)
     });
   }
 
 
   getPaginableDetalleOrdenCompraByProductoId(id: number){
-    this.detalleOrdenCompraService.getAllByProductoIdPaginable(id).subscribe({
+    this.detalleOrdenCompraService.getAllByProductoIdPaginable(id,this.currentPage,this.itemsPerPage).subscribe({
       next: (data: any) => {
-        console.log(data)
+        this.detalleOrdenCompraPaginable = data;
+        this.total = this.detalleOrdenCompraPaginable.totalElements
+        this.detalleOrdenCompras = this.detalleOrdenCompraPaginable.content
       }
     })
   }
@@ -52,7 +53,10 @@ export class ReporteordencompraComponent {
 
 
 
+  onChange(object:any){
 
+    this.getPaginableDetalleOrdenCompraByProductoId(object)
+  }
 
 
   pageChangeEvent(event: number){

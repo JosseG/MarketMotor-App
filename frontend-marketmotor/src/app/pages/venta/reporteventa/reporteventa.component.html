@@ -12,8 +12,12 @@
                 <div class="d-flex justify-content-between reportes">
                     <div class="d-flex flex-row  buscadores">
                         <div class="input-group mb-3 col-3 selec_empleado">
-                            <select class="form-select " id="inputGroupSelect04" >
-                              <option selected>Empleado</option>
+
+                            <!--<select >
+                                <option *ngFor="let i of devices">{{i}}</option>
+                            </select>-->
+                            <select (change)="onChange(val.value)"  class="form-select " id="inputGroupSelect04" #val>
+                              <option selected value="0">Empleado</option>
                               <option value="1">One</option>
                               <option value="2">Two</option>
                               <option value="3">Three</option>

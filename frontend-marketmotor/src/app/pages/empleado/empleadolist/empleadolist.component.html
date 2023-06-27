@@ -1,12 +1,11 @@
 <div class="container mt-3">
-
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive-lg">
-
                 <div class="d-flex justify-content-between">
-                    <h1 class="titulo">EMPLEADOS</h1> <span class="d-flex align-items-center"><a routerLink="insertar" class="btn btn-info">Agregar<i
-                        class="ps-3 bi bi-plus-lg"></i></a></span>
+                    <h1 class="titulo">EMPLEADOS</h1>
+                    <span class="d-flex align-items-center"><a routerLink="insertar" class="btn btn-info">Agregar<i
+                                class="ps-3 bi bi-plus-lg"></i></a></span>
                 </div>
                 <table class="table tablas accordion">
                     <thead class="tableCabe3">
@@ -21,64 +20,85 @@
                         </tr>
                     </thead>
                     <tbody class="accordion-item accordion-flush user-select-none" id="accordionFlushExample">
-                        <ng-container *ngFor="let empleado of empleados | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: total }">
-                            <tr style="cursor:pointer;" class=" accordion-header collapsed" data-bs-toggle="collapse"
-                                attr.data-bs-target="#flush-collapse{{empleado.id}}" aria-expanded="false"
-                                attr.aria-controls="flush-collapse{{empleado.id}}">
-                                <td>{{empleado.id}}</td>
-                                <td>{{empleado.nombre}}</td>
-                                <td>{{empleado.apellidoPaterno + " " + empleado.apellidoMaterno}}</td>
-                                <td>{{empleado.telefono}}</td>
-                                <td>{{empleado.correo}}</td>
-                                <td *ngIf="empleado.estado != true;else elseBlock"><button type="button"
-                                        class="bg-inactivo text-white border-0 px-3 py-1">Inactivo</button></td>
+                        <ng-container *ngFor="
+                let empleado of empleados
+                  | paginate
+                    : {
+                        itemsPerPage: itemsPerPage,
+                        currentPage: currentPage,
+                        totalItems: total
+                      }
+              ">
+                            <tr style="cursor: pointer" class="accordion-header collapsed" data-bs-toggle="collapse"
+                                attr.data-bs-target="#flush-collapse{{ empleado.id }}" aria-expanded="false"
+                                attr.aria-controls="flush-collapse{{ empleado.id }}">
+                                <td>{{ empleado.id }}</td>
+                                <td>{{ empleado.nombre }}</td>
+                                <td>
+                                    {{
+                                    empleado.apellidoPaterno + " " + empleado.apellidoMaterno
+                                    }}
+                                </td>
+                                <td>{{ empleado.telefono }}</td>
+                                <td>{{ empleado.correo }}</td>
+                                <td *ngIf="empleado.estado != true; else elseBlock">
+                                    <button type="button" class="bg-inactivo text-white border-0 px-3 py-1">
+                                        Inactivo
+                                    </button>
+                                </td>
                                 <ng-template #elseBlock>
-                                    <td><button type="button"
-                                            class="bg-activo text-white border-0 px-3 py-1">Activo</button></td>
+                                    <td>
+                                        <button type="button" class="bg-activo text-white border-0 px-3 py-1">
+                                            Activo
+                                        </button>
+                                    </td>
                                 </ng-template>
                                 <td class="icons">
                                     <a (click)="eliminar(empleado)"><i class="bi bi-trash-fill"></i></a>
-        
-  
-                                    <a routerLink="/actualizar"  (click)="editar(empleado)"><i class="bi bi-pencil-square"></i></a>
+
+                                    <a routerLink="/actualizar" (click)="editar(empleado)"><i
+                                            class="bi bi-pencil-square"></i></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="100%" style="padding:0">
-                                    <div attr.id="flush-collapse{{empleado.id}}"
+                                <td colspan="100%" style="padding: 0">
+                                    <div attr.id="flush-collapse{{ empleado.id }}"
                                         class="accordion-collapse collapse cont"
-                                        attr.aria-labelledby="flush-heading{{empleado.id}}"
+                                        attr.aria-labelledby="flush-heading{{ empleado.id }}"
                                         data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body ">
+                                        <div class="accordion-body">
                                             <div class="d-flex flex-wrap">
-                                               
-                                                  
-                                                
-                                                    
-                                                  <div class="detalle">
-                                                    <p style="color:#23C4D9; font-weight: bold;">Actualizado en:</p>
-                        
-                                                    <p >{{empleado.usuarioDto.actualizadoEn | date:'long'}}</p>
-                                                  </div>
-                                                  <div class="detalle">
-                                                    <p style="color:#23C4D9; font-weight: bold;">Usuario</p>
-                        
-                                                    <p >{{empleado.usuarioDto.alias}}</p>
-                                                  </div> 
-                                                  <div class="detalleLargo">
-                                                    <p style="color:#23C4D9; font-weight: bold;">Contraseña</p>
-                        
-                                                    <p >{{empleado.usuarioDto.contrasena}}</p>
-                                                  </div>
-                                            </div>
-                                          
+                                                <div class="detalle">
+                                                    <p style="color: #23c4d9; font-weight: bold">
+                                                        Actualizado en:
+                                                    </p>
 
+                                                    <p>
+                                                        {{
+                                                        empleado.usuarioDto.actualizadoEn | date : "long"
+                                                        }}
+                                                    </p>
+                                                </div>
+                                                <div class="detalle">
+                                                    <p style="color: #23c4d9; font-weight: bold">
+                                                        Usuario
+                                                    </p>
+
+                                                    <p>{{ empleado.usuarioDto.alias }}</p>
+                                                </div>
+                                                <div class="detalleLargo">
+                                                    <p style="color: #23c4d9; font-weight: bold">
+                                                        Contraseña
+                                                    </p>
+
+                                                    <p>{{ empleado.usuarioDto.contrasena }}</p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                         </ng-container>
-
                     </tbody>
                 </table>
                 <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>

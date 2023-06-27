@@ -98,6 +98,48 @@ public class DetalleVentaController {
         return ResponseEntity.ok(detalleVentaService.obtenerTodosPaginados(pageNo-1, pageSize, sortBy, sortDir));
     }
 
+
+
+
+
+
+
+    @GetMapping("/empleado/pagination/{id}")
+    public ResponseEntity<DetalleVentaResponse> obtenerPaginadosPorFiltroEmpleadoId(
+            @RequestParam(value = "pageNo", defaultValue = ConstantsService.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = ConstantsService.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = ConstantsService.DEFAULT_SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = ConstantsService.DEFAULT_SORT_DIRECTION, required = false) String sortDir,
+            @PathVariable Long id
+    ){
+        return ResponseEntity.ok(detalleVentaService.obtenerPaginadosPorFiltroEmpleadoId(id,pageNo-1, pageSize, sortBy, sortDir));
+    }
+
+
+    @GetMapping("/producto/pagination/{id}")
+    public ResponseEntity<DetalleVentaResponse> obtenerPaginadosPorFiltroProductoId(
+            @RequestParam(value = "pageNo", defaultValue = ConstantsService.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = ConstantsService.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = ConstantsService.DEFAULT_SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = ConstantsService.DEFAULT_SORT_DIRECTION, required = false) String sortDir,
+            @PathVariable Long id
+    ){
+        return ResponseEntity.ok(detalleVentaService.obtenerPaginadosPorFiltroProductoId(id,pageNo-1, pageSize, sortBy, sortDir));
+    }
+
+
+
+    @GetMapping("/producto/{id}")
+    public ResponseEntity<List<DetalleVentaDto>> obtenePorFiltroProductoId(
+            @PathVariable Long id
+    ){
+        return ResponseEntity.ok(detalleVentaService.obtenerPorFiltroProductoId(id));
+    }
+    
+    
+    
+
+    
     @PutMapping
     public ResponseEntity<DetalleVentaDto> actualizar(@RequestBody @Valid DetalleVentaCommandUpdate detalleVentaCommandUpdate){
 

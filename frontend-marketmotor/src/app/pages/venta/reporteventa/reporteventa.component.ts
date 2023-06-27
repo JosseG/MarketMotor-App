@@ -48,7 +48,7 @@ export class ReporteventaComponent {
   getAllDetalleVentas(){
     this.detalleVentaService.getAll().subscribe({
       next: (data : DetalleVenta[]) => {
-        this.detalleVentasConFiltro = data
+        
       }
     })
   }
@@ -71,5 +71,30 @@ export class ReporteventaComponent {
 
     this.router.navigate(["/reportetemplateventa"])
   }
+
+
+  getPaginableDetalleVentaByProductoId(id: number){
+    this.detalleVentaService.getAllByProductoIdPaginable(id,this.currentPage,this.itemsPerPage).subscribe({
+      next: (data: any) => {
+        this.detalleVentaPaginable = data;
+        this.total = this.detalleVentaPaginable.totalElements
+        this.detalleVentas = this.detalleVentaPaginable.content
+      }
+    })
+
+    this.detalleVentaService.getAllByProductoId(id).subscribe({
+      next: (data: any) => {
+        this.detalleVentasConFiltro = data;
+      }
+    })
+  }
+
+
+
+  onChange(object:any){
+    this.getPaginableDetalleVentaByProductoId(object)
+  }
+
+
 
 }
