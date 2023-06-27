@@ -269,8 +269,19 @@ export class GenerarventaComponent {
                   this.detalleVentaService
                     .guardarDetalleVenta(newObject)
                     .subscribe({
-                      next: (detalle) => {
-                        this.productoService.updateProducto()
+                      next: (detalle: any) => {
+                        this.productoService.getProductoId(detalle.producto.id).subscribe({
+                          next: (producto: any) => {
+                            var productoCommandUpdate = producto
+                            productoCommandUpdate.stock = producto.stock - detalle.unidades
+                            this.productoService.updateProducto(productoCommandUpdate).subscribe({
+                              next: (productoCantidadUpdated: any) => {
+                                console.log("Disminuyo producto")
+                                console.log(productoCantidadUpdated)
+                              }
+                            })
+                          }
+                        })
                         this.cleanVenta();
                         console.log(detalle);
                       },

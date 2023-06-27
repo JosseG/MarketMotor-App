@@ -25,7 +25,7 @@ export class ProductoService {
     return this.http.get<Producto>(this.url+'/'+id);
   }
 
-  updateProducto(producto: Producto){
+  updateProducto(producto: any){
     return this.http.put<Producto>(this.url,producto);
   }
 
