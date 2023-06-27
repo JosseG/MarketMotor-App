@@ -1,0 +1,94 @@
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive-lg">
+                <div class="orden-compra-header col-md-12 mb-5">
+                    <h1 class="titulo text-center">Ordenes de Compra</h1>
+                </div>
+                <table class="table tabla_reportes">
+                    <thead class="tableCabe3">
+                        <tr>
+                            <th scope="col" class="text-center">Código</th>
+                            <th scope="col" class="text-center">Serial</th>
+                            <th scope="col" class="text-center">Valor</th>
+                            <th scope="col" class="text-center">Fecha</th>
+                            <th scope="col" class="text-center">Gestión</th>
+                        </tr>
+                    </thead>
+                    <tbody class="body_reporte">
+                        <tr *ngFor="
+                let ordencompra of ordenCompras
+                  | paginate
+                    : {
+                        itemsPerPage: itemsPerPage,
+                        currentPage: currentPage,
+                        totalItems: total
+                      }
+              ">
+                            <td class="text-center">{{ ordencompra.id }}</td>
+                            <td class="text-center">{{ ordencompra.numero }}</td>
+                            <td class="text-center">{{ ordencompra.valorTotal }}</td>
+                            <td class="text-center">{{ ordencompra.fecha }}</td>
+                            <td class="icons text-center">
+                                <button class="btn" data-bs-toggle="modal" (click)="cargarDatos(ordencompra.id)" data-bs-target="#exampleModal"><i class="bi bi-eye"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
+                <div class="button-actions-end"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL -->
+
+<div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detalle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered mt-4">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col" class="text-center">Producto</th>
+                            <th scope="col" class="text-center">Cantidad</th>
+                            <th scope="col" class="text-center">Precio Unitario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="
+                let detalle of detalleOrdenCompras
+                  | paginate
+                    : {
+                        itemsPerPage: itemsPerPageDetalle,
+                        currentPage: currentPageDetalle,
+                        totalItems: totalDetalle
+                      }
+              ">
+                            <td>{{ detalle.producto.descripcion }}</td>
+                            <td>{{ detalle.cantidad }}</td>
+                            <td>{{ detalle.precioUnitario }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="pageChangeEventDetalle($event)"></pagination-controls>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Salir
+                    </button>
+                    <!--<button (click)="confirmarOrden()" class="btn btn-primary" [attr.data-bs-dismiss]="confirmado ? 'modal' : ''">
+                        Aprobar
+                    </button>-->
+                    <button (click)="confirmarOrden(ordenFocus)" class="btn btn-primary" data-bs-dismiss ="modal">
+                        Aprobar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

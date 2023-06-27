@@ -12,18 +12,18 @@ export class ReporteordencompraComponent {
   currentPage = 1;
   total = 0;
   itemsPerPage = 6;
-
-  constructor(private detalleOrdenCompraService: DetalleordencompraService, private router: Router) { }
-
   detalleOrdenCompras: DetalleOrdenCompra[] = [];
 
   detalleOrdenCompraPaginable: DetalleOrdenCompraResponse= new DetalleOrdenCompraResponse();
+  constructor(private detalleOrdenCompraService: DetalleordencompraService, private router: Router) { }
+
+
   ngOnInit(): void {
     
-    this.getPaginableDetalleVenta();
+    this.getPaginableDetalleOrdenCompra();
   }
 
-  getPaginableDetalleVenta() {
+  getPaginableDetalleOrdenCompra() {
 
     this.detalleOrdenCompraService.getAllByPaginable(this.currentPage,this.itemsPerPage).subscribe({
       next: (data: any) => {
@@ -40,7 +40,7 @@ export class ReporteordencompraComponent {
 
   pageChangeEvent(event: number){
     this.currentPage = event;
-    this.getPaginableDetalleVenta();
-}
+    this.getPaginableDetalleOrdenCompra();
+  }
 
 }

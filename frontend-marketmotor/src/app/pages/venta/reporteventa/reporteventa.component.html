@@ -70,7 +70,20 @@
                             <td>{{venta.venta.empleado.nombre}}</td>
                             <td>{{venta.producto.tipo}} - {{venta.producto.marca}}</td>
                             <td>{{venta.unidades * venta.producto.precio | number : '1.2-2'}}</td>
-                            <td><span class="badge bg-success border-2 px-4 py-2">Completado</span></td>
+                            <!--<td><span class="badge bg-success border-2 px-4 py-2">Completado</span></td>-->
+
+                            <td *ngIf="venta.estado != true; else elseBlock">
+                                <button type="button" class="bg-inactivo text-white border-0 px-3 py-1">
+                                  No Completado
+                                </button>
+                              </td>
+                              <ng-template #elseBlock>
+                                <td>
+                                  <button type="button" class="badge bg-success border-2 px-4 py-2">
+                                    Completado
+                                  </button>
+                                </td>
+                              </ng-template>
                             
                           </tr>
                     </tbody>

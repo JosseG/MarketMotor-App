@@ -24,6 +24,7 @@ import { ComponentsModule } from '../components/components.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ReportetemplateComponent } from './reportetemplate/reportetemplate.component';
 import { NgxPrintModule } from 'ngx-print';
+import { ValidarordenComponent } from './proveedor/validar/validarorden/validarorden.component';
 
 
 
@@ -45,7 +46,8 @@ import { NgxPrintModule } from 'ngx-print';
     ReporteordencompraComponent,
     GenerarordencompraComponent,
     ReporteventaComponent,
-    ReportetemplateComponent
+    ReportetemplateComponent,
+    ValidarordenComponent
   ],
   imports: [
     CommonModule,

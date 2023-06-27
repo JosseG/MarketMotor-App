@@ -20,6 +20,7 @@ public class OrdenCompraMapper {
         ordenCompraDto.setValorTotal(ordenCompraEntity.getValorTotal());
         ordenCompraDto.setActualizadoEn(ordenCompraEntity.getActualizadoEn());
         ordenCompraDto.setNumero(ordenCompraEntity.getNumero());
+        ordenCompraDto.setConfirmado(ordenCompraEntity.isConfirmado());
         ordenCompraDto.setCreadoEn(ordenCompraEntity.getCreadoEn());
         ordenCompraDto.setEstado(ordenCompraEntity.isEstado());
         return ordenCompraDto;
@@ -32,6 +33,7 @@ public class OrdenCompraMapper {
         ordenCompraEntity.setFecha(ordenCompraDto.getFecha());
         ordenCompraEntity.setNumero(ordenCompraDto.getNumero());
         ordenCompraEntity.setValorTotal(ordenCompraDto.getValorTotal());
+        ordenCompraEntity.setConfirmado(ordenCompraDto.isConfirmado());
         ordenCompraEntity.setEstado(ordenCompraDto.isEstado());
         return ordenCompraEntity;
     }

@@ -16,7 +16,7 @@ export class ProveedorService {
 
 
   getAll() {
-    return this.http.get(`${this.apiUrl}`)
+    return this.http.get<Proveedor[]>(`${this.apiUrl}`)
   }
 
   getProveedor(){
@@ -24,7 +24,7 @@ export class ProveedorService {
   }
 
   createProveedor(proveedor: ProveedorInsert){
-    return this.http.post<ProveedorInsert>(this.apiUrl,proveedor);
+    return this.http.post<Proveedor>(this.apiUrl,proveedor);
   }
 
   getProveedorId(id: number){
@@ -32,7 +32,7 @@ export class ProveedorService {
   }
   updateProveedor(proveedor:ProveedorUpdate) {
     //return this.http.put<ProveedorUpdate>(`${this.apiUrl}/update`,proveedor)
-    return this.http.put<ProveedorUpdate>(this.apiUrl,proveedor)
+    return this.http.put<Proveedor>(this.apiUrl,proveedor)
   }
 
   deleteProveedor(proveedor: Proveedor){

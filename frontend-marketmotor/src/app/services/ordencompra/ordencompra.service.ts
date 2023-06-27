@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import baserUrl from '../globalurl/UrlApi';
+import { __param } from 'tslib';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,30 @@ export class OrdencompraService {
   }
 
 
+
+
+
+
+  getAllByPaginable(pageNo: number = 0,pageSize: number = 10, sortBy: string= "id",sortDir: string="asc"){
+    return this.http.get(`${this.url}/pagination`,{
+      params: new HttpParams().set('pageNo', pageNo).set('pageSize',pageSize)
+    })
+  }
+
+
+  getAllPendientesByPaginable(pageNo: number = 0,pageSize: number = 10, sortBy: string= "id",sortDir: string="asc"){
+    return this.http.get(`${this.url}/pendientes/pagination`,{
+      params: new HttpParams().set('pageNo', pageNo).set('pageSize',pageSize)
+    })
+  }
+
+
+
+  confirmarOrden(id:number){
+    return this.http.patch(`${this.url}/confirmar`,null,  {
+      params: new HttpParams().set('id', id)
+    })
+  }
 
 
 

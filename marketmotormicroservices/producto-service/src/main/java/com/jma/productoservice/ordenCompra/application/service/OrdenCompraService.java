@@ -7,4 +7,6 @@ public interface OrdenCompraService<T> extends ICrudCommon<T> {
 
     OrdenCompraResponse obtenerTodosPaginados(int pageNo, int pageSize, String sortBy, String sortDir);
 
+    OrdenCompraResponse obtenerPendientesPaginados(boolean esPendiente, int pageNo, int pageSize, String sortBy, String sortDir);
+
 }
