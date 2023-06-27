@@ -11,7 +11,7 @@
     font-weight: bold;
 }
 .btnUsua{
-    margin-top: 5.5rem;
+    margin-top: 1rem;
     
 }
 .card-usuario{
@@ -21,8 +21,14 @@
 .btn-info{
     color: white;
     font-weight: bold;
+}
+.btnAgregar{
+    margin-top: 7.5rem;
 
 }
 .btn-close{
     margin-left: 25px;
+}
+.roles-text{
+    font-size: 15px;
 }

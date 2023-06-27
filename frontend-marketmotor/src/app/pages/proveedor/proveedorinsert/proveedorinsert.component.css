@@ -23,6 +23,13 @@
     font-weight: bold;
 
 }
+.btnAgregar{
+    margin-top: 7.5rem;
+
+}
 .btn-close{
     margin-left: 25px;
+}
+.roles-text{
+    font-size: 15px;
 }
