@@ -4,6 +4,8 @@ import { DetalleVentaResponse } from 'src/app/models/responseapi/DetalleVentaRes
 import { DetalleventaService } from 'src/app/services/detalleVenta/detalleventa.service';
 import { Router } from '@angular/router';
 import { Venta } from 'src/app/models/dtos/Venta';
+import { ProductoService } from 'src/app/services/producto/producto.service';
+import { Producto } from 'src/app/models/dtos/Producto';
 @Component({
   selector: 'app-reporteventa',
   templateUrl: './reporteventa.component.html',
@@ -14,7 +16,9 @@ export class ReporteventaComponent {
   total = 0;
   itemsPerPage = 6;
 
-  constructor(private detalleVentaService: DetalleventaService, private router: Router) { }
+  productos: Producto[] = []
+
+  constructor(private detalleVentaService: DetalleventaService, private productoService: ProductoService,private router: Router) { }
 
   detalleVentas: DetalleVenta[] = [];
   detalleVentasConFiltro: DetalleVenta[] = [];
@@ -23,6 +27,7 @@ export class ReporteventaComponent {
   ngOnInit(): void {
     this.getAllDetalleVentas();
     this.getPaginableDetalleVenta();
+    this.getProductos();
   }
 
 
@@ -59,6 +64,7 @@ export class ReporteventaComponent {
 
   getTemplateReporteVenta() {
 
+    this.mySet = new Map<number,DetalleVenta>();  
     console.log(this.detalleVentas)
     for(let element of this.detalleVentasConFiltro){
       this.mySet.set(element.venta.id,element)
@@ -84,11 +90,22 @@ export class ReporteventaComponent {
 
     this.detalleVentaService.getAllByProductoId(id).subscribe({
       next: (data: any) => {
+        console.log("LISTA VENTA REEE")
+        console.log(data)
         this.detalleVentasConFiltro = data;
       }
     })
   }
 
+
+  getProductos(){
+    this.productoService.getProductos().subscribe({
+      next: (data) => {
+        console.log(data)
+        this.productos = data
+      }
+    })
+  }
 
 
   onChange(object:any){

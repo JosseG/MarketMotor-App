@@ -53,7 +53,8 @@ export class ReportetemplateventaComponent implements OnInit {
 
     this.calcularMontoMinimo();
     this.calcularMontoMaximo();
-    this.clienteService.getClienteId(this.getIdClienteDestacado()).subscribe({
+    var idCliente = this.getIdClienteDestacado();
+    this.clienteService.getClienteId(idCliente).subscribe({
       next: (data) => {
         this.clienteDestacado = data;
       },
@@ -151,7 +152,8 @@ export class ReportetemplateventaComponent implements OnInit {
     for (let i = 1; i < this.ventas.length; i++) {
       res = Math.min(res, this.ventas[i].venta.preciototal);
     }
-
+    console.log(res)
+    console.log(this.montoMinimo)
     this.montoMinimo = res;
     return res;
   }
