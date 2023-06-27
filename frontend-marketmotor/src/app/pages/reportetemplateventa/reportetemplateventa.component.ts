@@ -6,20 +6,21 @@ import { Producto } from 'src/app/models/dtos/Producto';
 import { Venta } from 'src/app/models/dtos/Venta';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { EmpleadoService } from '../../services/empleado/empleado.service';
+import { ProductoService } from '../../services/producto/producto.service';
 
 @Component({
   selector: 'app-reportetemplateventa',
   templateUrl: './reportetemplateventa.component.html',
-  styleUrls: ['./reportetemplateventa.component.css']
+  styleUrls: ['./reportetemplateventa.component.css'],
 })
 export class ReportetemplateventaComponent implements OnInit {
+  constructor(
+    private clienteService: ClienteService,
+    private empleadoService: EmpleadoService,
+    private productoService: ProductoService
+  ) { }
 
-
-  constructor(private clienteService: ClienteService, private empleadoService: EmpleadoService){
-    
-  }
-
-  ventas: DetalleVenta[] = []
+  ventas: DetalleVenta[] = [];
 
   productoMasVendido = new Producto();
   clienteDestacado = new Cliente();
@@ -30,10 +31,6 @@ export class ReportetemplateventaComponent implements OnInit {
   montoMaximo = 0;
   fechaInicio = new Date();
   fechaFin = new Date();
-
-
-
-
 
   map = new Map<number, DetalleVenta>();
   ngOnInit() {
@@ -47,133 +44,154 @@ export class ReportetemplateventaComponent implements OnInit {
     if (elementos == null) {
     } else {
       this.map = new Map(JSON.parse(elementos));
-      this.ventas = Array.from(this.map.values())
+      this.ventas = Array.from(this.map.values());
 
       for (let i of this.ventas) {
-        this.total += i.venta.preciototal
+        this.total += i.venta.preciototal;
       }
     }
 
-    this.getIdEmpleadoDestacado();
     this.calcularMontoMinimo();
     this.calcularMontoMaximo();
+    this.clienteService.getClienteId(this.getIdClienteDestacado()).subscribe({
+      next: (data) => {
+        this.clienteDestacado = data;
+      },
+    });
+    this.empleadoService
+      .getEmpleadoId(this.getIdEmpleadoDestacado())
+      .subscribe({
+        next: (data) => {
+          this.empleadoDestacado = data;
+        },
+      });
+
+    this.productoService
+      .getProductoId(this.getIdProductoDestacado())
+      .subscribe({
+        next: (data) => {
+          this.productoMasVendido = data;
+        },
+      });
+    this.calcularFechaFin();
+    this.calcularFechaInicio();
   }
 
-
-  getIdEmpleadoDestacado():number {
+  getIdEmpleadoDestacado(): number {
     var hash = new Map();
     for (var i = 0; i < this.ventas.length; i++) {
       if (hash.has(this.ventas[i].venta.empleado.id))
-        hash.set(this.ventas[i].venta.empleado.id, hash.get(this.ventas[i].venta.empleado.id) + 1)
-      else
-        hash.set(this.ventas[i].venta.empleado.id, 1)
+        hash.set(
+          this.ventas[i].venta.empleado.id,
+          hash.get(this.ventas[i].venta.empleado.id) + 1
+        );
+      else hash.set(this.ventas[i].venta.empleado.id, 1);
     }
-
-    // find the max frequency
-    var max_count = 0, res = -1;
+    var max_count = 0,
+      res = -1;
     hash.forEach((value, key) => {
-
       if (max_count < value) {
         res = key;
         max_count = value;
       }
-
     });
-    console.log("Empleado destacado")
-    console.log(res)
     return res;
   }
 
-
-
-
-
-
-
-  getIdClienteDestacado():number {
+  getIdClienteDestacado(): number {
     var hash = new Map();
     for (var i = 0; i < this.ventas.length; i++) {
       if (hash.has(this.ventas[i].venta.cliente.id))
-        hash.set(this.ventas[i].venta.cliente.id, hash.get(this.ventas[i].venta.cliente.id) + 1)
-      else
-        hash.set(this.ventas[i].venta.cliente.id, 1)
+        hash.set(
+          this.ventas[i].venta.cliente.id,
+          hash.get(this.ventas[i].venta.cliente.id) + 1
+        );
+      else hash.set(this.ventas[i].venta.cliente.id, 1);
     }
 
     // find the max frequency
-    var max_count = 0, res = -1;
+    var max_count = 0,
+      res = -1;
     hash.forEach((value, key) => {
-
       if (max_count < value) {
         res = key;
         max_count = value;
       }
-
     });
-    console.log("Cliente destacado")
-    console.log(res)
+    console.log('Cliente destacado');
+    console.log(res);
     return res;
   }
 
-  calcularMontoMinimo():number {
+  getIdProductoDestacado(): number {
+    var hash = new Map();
+    for (var i = 0; i < this.ventas.length; i++) {
+      if (hash.has(this.ventas[i].producto.id))
+        hash.set(
+          this.ventas[i].producto.id,
+          hash.get(this.ventas[i].producto.id) + 1
+        );
+      else hash.set(this.ventas[i].producto.id, 1);
+    }
 
+    var max_count = 0,
+      res = -1;
+    hash.forEach((value, key) => {
+      if (max_count < value) {
+        res = key;
+        max_count = value;
+      }
+    });
+    return res;
+  }
 
+  calcularMontoMinimo(): number {
     let res = this.ventas[0].venta.preciototal;
-      
-    for(let i = 1; i < this.ventas.length; i++){
 
+    for (let i = 1; i < this.ventas.length; i++) {
       res = Math.min(res, this.ventas[i].venta.preciototal);
     }
-    
-    console.log("Monto mínimo")
-    this.montoMinimo = res
-    console.log(res)
+
+    this.montoMinimo = res;
     return res;
-
-    /*var hash = new Map();
-    for (var i = 0; i < this.ventas.length; i++) {
-      if (hash.has(this.ventas[i].venta.preciototal))
-        hash.set(this.ventas[i].venta.preciototal, hash.get(this.ventas[i].venta.preciototal) + 1)
-      else
-        hash.set(this.ventas[i].venta.preciototal, 1)
-    }
-
-    // find the max frequency
-    var max_count = 0, res = -1;
-    hash.forEach((value, key) => {
-
-      if (max_count < value) {
-        res = key;
-        max_count = value;
-      }
-
-    });
-    console.log("Monto destacado")
-    console.log(res)
-    return res;*/
   }
 
-  calcularMontoMaximo():number {
+  calcularMontoMaximo(): number {
     let res = this.ventas[0].venta.preciototal;
-      
-    for(let i = 1; i < this.ventas.length; i++){
 
+    for (let i = 1; i < this.ventas.length; i++) {
       res = Math.max(res, this.ventas[i].venta.preciototal);
     }
-    
-    console.log("Monto maximo")
-    console.log(res)
+
     this.montoMaximo = res;
     return res;
-
   }
 
-
-
   calcularFechaInicio() {
+    let res = this.ventas[0].venta.creadoEn;
 
+    for (let i = 1; i < this.ventas.length; i++) {
+      res =
+        res < this.ventas[i].venta.creadoEn
+          ? res
+          : this.ventas[i].venta.creadoEn;
+    }
+
+    this.fechaInicio = res;
+    return res;
   }
 
   calcularFechaFin() {
+    let res = this.ventas[0].venta.creadoEn;
 
+    for (let i = 1; i < this.ventas.length; i++) {
+      res =
+        res > this.ventas[i].venta.creadoEn
+          ? res
+          : this.ventas[i].venta.creadoEn;
+    }
+
+    this.fechaFin = res;
+    return res;
   }
 }

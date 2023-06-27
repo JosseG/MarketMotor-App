@@ -11,4 +11,8 @@ public interface DetalleOrdenCompraRepository extends JpaRepository<DetalleOrden
 
     Page<DetalleOrdenCompraEntity> findDetalleOrdenCompraEntitiesByOrdenCompra_Id(Long id, Pageable pageable);
 
+    Page<DetalleOrdenCompraEntity> findDetalleOrdenCompraEntitiesByOrdenCompra_Empleado_Id(Long id, Pageable pageable);
+
+    Page<DetalleOrdenCompraEntity> findDetalleOrdenCompraEntitiesByProducto_Id(Long id, Pageable pageable);
+
 }

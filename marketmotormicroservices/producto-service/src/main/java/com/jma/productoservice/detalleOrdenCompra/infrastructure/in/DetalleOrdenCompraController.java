@@ -116,6 +116,30 @@ public class DetalleOrdenCompraController {
         return ResponseEntity.ok(detalleOrdenCompraService.obtenerPaginadosPorOrdenCompra(id,pageNo-1, pageSize, sortBy, sortDir));
     }
 
+    @GetMapping("/empleado/pagination/{id}")
+    public ResponseEntity<DetalleOrdenCompraResponse> obtenerPaginadosPorFiltroEmpleadoId(
+            @RequestParam(value = "pageNo", defaultValue = ConstantsService.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = ConstantsService.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = ConstantsService.DEFAULT_SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = ConstantsService.DEFAULT_SORT_DIRECTION, required = false) String sortDir,
+            @PathVariable Long id
+    ){
+        return ResponseEntity.ok(detalleOrdenCompraService.obtenerPaginadosPorFiltroEmpleadoId(id,pageNo-1, pageSize, sortBy, sortDir));
+    }
+
+
+    @GetMapping("/producto/pagination/{id}")
+    public ResponseEntity<DetalleOrdenCompraResponse> obtenerPaginadosPorFiltroProductoId(
+            @RequestParam(value = "pageNo", defaultValue = ConstantsService.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = ConstantsService.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = ConstantsService.DEFAULT_SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = ConstantsService.DEFAULT_SORT_DIRECTION, required = false) String sortDir,
+            @PathVariable Long id
+    ){
+        return ResponseEntity.ok(detalleOrdenCompraService.obtenerPaginadosPorFiltroProductoId(id,pageNo-1, pageSize, sortBy, sortDir));
+    }
+
+
     @PutMapping
     public ResponseEntity<DetalleOrdenCompraDto> actualizar(@RequestBody @Valid DetalleOrdenCompraCommandUpdate detalleOrdenCompraCommandUpdate){
 

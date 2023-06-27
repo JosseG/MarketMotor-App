@@ -167,6 +167,54 @@ public class DetalleOrdenCompraServiceImpl implements DetalleOrdenCompraService<
         return detalleOrdenCompraResponse;
     }
 
+    @Override
+    public DetalleOrdenCompraResponse obtenerPaginadosPorFiltroEmpleadoId(Long id, int pageNo, int pageSize, String sortBy, String sortDir) {
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+
+        Page<DetalleOrdenCompraEntity> detalleOrdenPageable = detalleOrdenCompraRepository.findDetalleOrdenCompraEntitiesByOrdenCompra_Empleado_Id(id,pageable);
+
+        List<DetalleOrdenCompraEntity> detallesOrden = detalleOrdenPageable.getContent();
+
+        List<DetalleOrdenCompraDto> content = detallesMapeados(detallesOrden);
+
+        DetalleOrdenCompraResponse detalleOrdenCompraResponse = new DetalleOrdenCompraResponse();
+
+        detalleOrdenCompraResponse.setContent(content);
+        detalleOrdenCompraResponse.setPageNo(detalleOrdenPageable.getNumber());
+        detalleOrdenCompraResponse.setPageSize(detalleOrdenPageable.getSize());
+        detalleOrdenCompraResponse.setTotalElements(detalleOrdenPageable.getTotalElements());
+        detalleOrdenCompraResponse.setLast(detalleOrdenPageable.isLast());
+        detalleOrdenCompraResponse.setTotalPages(detalleOrdenPageable.getTotalPages());
+        return detalleOrdenCompraResponse;
+    }
+
+    @Override
+    public DetalleOrdenCompraResponse obtenerPaginadosPorFiltroProductoId(Long id, int pageNo, int pageSize, String sortBy, String sortDir) {
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+
+        Page<DetalleOrdenCompraEntity> detalleOrdenPageable = detalleOrdenCompraRepository.findDetalleOrdenCompraEntitiesByProducto_Id(id,pageable);
+
+        List<DetalleOrdenCompraEntity> detallesOrden = detalleOrdenPageable.getContent();
+
+        List<DetalleOrdenCompraDto> content = detallesMapeados(detallesOrden);
+
+        DetalleOrdenCompraResponse detalleOrdenCompraResponse = new DetalleOrdenCompraResponse();
+
+        detalleOrdenCompraResponse.setContent(content);
+        detalleOrdenCompraResponse.setPageNo(detalleOrdenPageable.getNumber());
+        detalleOrdenCompraResponse.setPageSize(detalleOrdenPageable.getSize());
+        detalleOrdenCompraResponse.setTotalElements(detalleOrdenPageable.getTotalElements());
+        detalleOrdenCompraResponse.setLast(detalleOrdenPageable.isLast());
+        detalleOrdenCompraResponse.setTotalPages(detalleOrdenPageable.getTotalPages());
+        return detalleOrdenCompraResponse;
+    }
+
     private List<DetalleOrdenCompraDto> detallesMapeados(List<DetalleOrdenCompraEntity> detallesOrdenes) {
         List<DetalleOrdenCompraDto> content = detallesOrdenes.stream().map(DetalleOrdenCompraMapper::mapToDto).toList();
 

@@ -38,6 +38,23 @@ export class ReporteordencompraComponent {
     });
   }
 
+
+  getPaginableDetalleOrdenCompraByProductoId(id: number){
+    this.detalleOrdenCompraService.getAllByProductoIdPaginable(id).subscribe({
+      next: (data: any) => {
+        console.log(data)
+      }
+    })
+  }
+
+
+
+
+
+
+
+
+
   pageChangeEvent(event: number){
     this.currentPage = event;
     this.getPaginableDetalleOrdenCompra();

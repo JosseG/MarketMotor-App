@@ -8,4 +8,11 @@ public interface DetalleOrdenCompraService<T> extends ICrudCommon<T> {
     DetalleOrdenCompraResponse obtenerTodosPaginados(int pageNo, int pageSize, String sortBy, String sortDir);
 
     DetalleOrdenCompraResponse obtenerPaginadosPorOrdenCompra(Long id,int pageNo, int pageSize, String sortBy, String sortDir);
+
+
+
+    DetalleOrdenCompraResponse obtenerPaginadosPorFiltroEmpleadoId(Long id,int pageNo, int pageSize, String sortBy, String sortDir);
+
+
+    DetalleOrdenCompraResponse obtenerPaginadosPorFiltroProductoId(Long id,int pageNo, int pageSize, String sortBy, String sortDir);
 }

@@ -1,8 +1,10 @@
+
+<div class="text-center mt-3"><button   [useExistingCss]="true" printSectionId="print-section" ngxPrint>print</button></div>
 <div id="print-section">
     <div class="mt-5">
         <div class="reporte-container px-5">
-            <div class="reporte-header col-md-12 d-flex justify-content-between">
-                <h2>REPORTE DE VENTAS</h2>
+            <div class="reporte-header col-md-12 d-flex justify-content-center">
+                <h2 >REPORTE DE VENTAS</h2>
             </div>
 
             <div class="mt-3">
@@ -10,12 +12,12 @@
 
                     <div class="col w-25 p-3">
                         <h4>Fecha desde</h4>
-                        <div class="col-12">-los cisnes 265</div>
+                        <div class="col-12">{{fechaInicio | date:'short'}}</div>
                     </div>
 
                     <div class="col w-25 p-3">
                         <h4>Fecha hasta</h4>
-                        <div class="col-12">-los cisnes 265</div>
+                        <div class="col-12">{{fechaFin | date:'short'}}</div>
                     </div>
 
                     <div class="col w-25 p-3">
@@ -37,31 +39,30 @@
                     <div class="col w-25 p-3">
                         <h4>Producto mas vendido</h4>
                         <div class="col">
-                            <div class="col-12">-los cisnes 265</div>
-                            <div class="col-12">-pasaje ismael castillo 185 aaaaaaaaaa</div>
-                            <div class="col-129">-av salaverry 3630</div>
-                            <div class="col-12">-las aguilas 365</div>
-                            <div class="col-12">-pedemonte 151</div>
+                            <div class="col-12">{{productoMasVendido.serial}}</div>
+                            <div class="col-12">{{productoMasVendido.tipo}}</div>
+                            <div class="col-12">{{productoMasVendido.marca}}</div>
+                            <div class="col-129">{{productoMasVendido.descripcion}}</div>
+                            <div class="col-12">{{productoMasVendido.precio}}</div>
                         </div>
                     </div>
                     <div class="col w-25 p-3">
                         <h4>Empleado destacado</h4>
                         <div class="col">
-                            <div class="col-12">-los cisnes 265</div>
-                            <div class="col-12">-pasaje ismael castillo 185 aaaaaaaaaa</div>
-                            <div class="col-12">-av salaverry 3630</div>
-                            <div class="col-12">-las aguilas 365</div>
-                            <div class="col-12">-pedemonte 151</div>
+                            <div class="col-12">{{empleadoDestacado.nombre}}</div>
+                            <div class="col-12">{{empleadoDestacado.apellidoPaterno}}</div>
+                            <div class="col-12">{{empleadoDestacado.apellidoMaterno}}</div>
+                            <div class="col-12">{{empleadoDestacado.telefono}}</div>
+                            <div class="col-12">{{empleadoDestacado.correo}}</div>
                         </div>
                     </div>
                     <div class="col w-25 p-3">
                         <h4>Cliente destacado</h4>
                         <div class="col">
-                            <div class="col-12">-los cisnes 265</div>
-                            <div class="col-12">-pasaje ismael castillo 185 aaaaaaaaaa</div>
-                            <div class="col-12">-av salaverry 3630</div>
-                            <div class="col-12">-las aguilas 365</div>
-                            <div class="col-12">-pedemonte 151</div>
+                            <div class="col-12">{{clienteDestacado.id}}</div>
+                            <div class="col-12">{{clienteDestacado.nombre}}</div>
+                            <div class="col-12">{{clienteDestacado.apellido}}</div>
+                            <div class="col-12">{{clienteDestacado.dni}}</div>
                         </div>
                     </div>
                 </div>
@@ -100,4 +101,3 @@
     </div>
 </div>
 
-<button  [useExistingCss]="true" printSectionId="print-section" ngxPrint>print</button>

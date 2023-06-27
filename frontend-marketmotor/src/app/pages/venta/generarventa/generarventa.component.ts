@@ -240,9 +240,9 @@ export class GenerarventaComponent {
   //VERIFICAR LISTA DE CARRITO QUE NO ESTÉ VACÍA
   //LUEGO DE REALIZAR LA INSERCIÓN DE VENTA, GESTIONAR EL DETALLEVENTA
 
-  registrarVenta() {
+  async registrarVenta() {
     this.element$.subscribe({
-      next: (data: [CarritoItem]) => {
+      next: async (data: [CarritoItem]) => {
         if (data.length > 0) {
           var total = 0;
 
@@ -258,23 +258,23 @@ export class GenerarventaComponent {
           console.log(this.empleado.id + " " + this.mycliente.id)
 
           if (total > 0) {
-            this.ventaService.guardarVenta(valores).subscribe({
-              next: (venta: any) => {
+            await this.ventaService.guardarVenta(valores).subscribe({
+              next: async (venta: any) => {
                 for (let productoFromCart of data) {
                   var newObject: any = new Object();
                   newObject.unidades = productoFromCart.cantidad;
                   newObject.idProducto = productoFromCart.producto.id;
                   newObject.idVenta = venta.id;
 
-                  this.detalleVentaService
+                  await this.detalleVentaService
                     .guardarDetalleVenta(newObject)
                     .subscribe({
-                      next: (detalle: any) => {
-                        this.productoService.getProductoId(detalle.producto.id).subscribe({
-                          next: (producto: any) => {
+                      next: async (detalle: any) => {
+                        await this.productoService.getProductoId(detalle.producto.id).subscribe({
+                          next: async (producto: any) => {
                             var productoCommandUpdate = producto
                             productoCommandUpdate.stock = producto.stock - detalle.unidades
-                            this.productoService.updateProducto(productoCommandUpdate).subscribe({
+                            await this.productoService.updateProducto(productoCommandUpdate).subscribe({
                               next: (productoCantidadUpdated: any) => {
                                 console.log("Disminuyo producto")
                                 console.log(productoCantidadUpdated)
@@ -289,6 +289,7 @@ export class GenerarventaComponent {
                         console.log(e);
                       },
                     });
+                    
                 }
               },
               error: (e) => {

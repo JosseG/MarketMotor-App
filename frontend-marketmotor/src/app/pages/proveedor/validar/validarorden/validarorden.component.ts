@@ -110,19 +110,21 @@ export class ValidarordenComponent {
 
 
   confirmado = false;
-  
-  confirmarOrden(orden: OrdenCompra){
+
+  async confirmarOrden(orden: OrdenCompra){
 
     this.ordencompraService.confirmarOrden(orden.id).subscribe({
-      next: () => {
+      next: async () => {
+        console.log(this.detalleOrdenCompras)
 
-        for(var detalle of this.detalleOrdenCompras){
+        for(const detalle of this.detalleOrdenCompras){
 
-          this.productoService.getProductoId(detalle.producto.id).subscribe({
-            next: (producto: any) => {
-              var productoCommandUpdate = producto
+          await this.productoService.getProductoId(detalle.producto.id).subscribe({
+            next: async (producto: any) => {
+              //interesante
+              let productoCommandUpdate = producto
               productoCommandUpdate.stock = producto.stock + detalle.cantidad
-              this.productoService.updateProducto(productoCommandUpdate).subscribe({
+              await this.productoService.updateProducto(productoCommandUpdate).subscribe({
                 next: (productoCantidadUpdated: any) => {
                   console.log("Aumentó producto")
                   console.log(productoCantidadUpdated)

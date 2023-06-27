@@ -241,7 +241,7 @@ export class GenerarordencompraComponent implements OnInit {
 
   registrarOrdenCompra() {
     this.element$.subscribe({
-      next: (data: [CarritoItem]) => {
+      next: (data: CarritoItem[]) => {
         if (data.length > 0) {
           var total = 0;
 
