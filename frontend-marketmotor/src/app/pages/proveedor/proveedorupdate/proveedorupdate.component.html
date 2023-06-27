@@ -5,7 +5,7 @@
       Actualizar Proveedor
     </div>
     <div class="card-body">
-      <form class="form row g-2" [formGroup]="formularioProveedor"  autocomplete="off">
+      <form class="form row g-2" [formGroup]="formularioProveedor" (ngSubmit)="actualizarProveedor()"autocomplete="off">
         <div class=" row g-2 contenedorForm" >
              <div class="col-auto">
             <div class="form-floating">
@@ -60,9 +60,10 @@
             <label  for="floatingInputGrid">Telefono</label>
           </div>
         </div>
-
+      
         </div>
-        <div class="text-center"><button class="btn btn-info mt-3"type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Actualizar</button></div>
+        <div class="text-center"><button class="btn btn-info mt-3"type="submit"  >Actualizar</button></div>
+        <!--  <div class="text-center"><button class="btn btn-info mt-3"type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Actualizar</button></div>-->
       
       </form>
     </div>
@@ -79,7 +80,7 @@
              ¿Desea actualizar el proveedor?
              <br>
              <br>
-             <button class="btn btn-info mt-3" type="submit" (click)="actualizarProveedor(proveedor)" data-bs-dismiss="modal" >Sí</button>
+             <button class="btn btn-info mt-3" type="submit" (click)="actualizarProveedor()" data-bs-dismiss="modal" >Sí</button>
         
              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
             </div>

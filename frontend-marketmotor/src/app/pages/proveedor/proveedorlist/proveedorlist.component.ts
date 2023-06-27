@@ -52,8 +52,8 @@ export class ProveedorlistComponent {
       this.router.navigate(['proveedores/update']);
   }
   eliminar(proveedor:Proveedor):void{
-    this.proveedorService.deleteProveedor(proveedor).subscribe(data=>{
-          this.proveedores=this.proveedores!.filter(p=>p!=proveedor);
+    this.proveedorService.borrarLogicProveedor(proveedor.id).subscribe(data=>{
+          proveedor.estado = false;
         
     });
   }

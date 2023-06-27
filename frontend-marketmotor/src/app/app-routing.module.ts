@@ -17,6 +17,7 @@ import { GenerarordencompraComponent } from './pages/ordencompra/generarordencom
 import { ReporteordencompraComponent } from './pages/ordencompra/reporteordencompra/reporteordencompra.component';
 import { ReporteventaComponent } from './pages/venta/reporteventa/reporteventa.component';
 import { ReportetemplateComponent } from './pages/reportetemplate/reportetemplate.component';
+import { EmpleadoupdateComponent } from './pages/empleado/empleadoupdate/empleadoupdate.component';
 import { ValidarordenComponent } from './pages/proveedor/validar/validarorden/validarorden.component';
 import { ProveedorGuard } from './_shared/proveedor.guard';
 import { ReportetemplateventaComponent } from './pages/reportetemplateventa/reportetemplateventa.component';
@@ -28,7 +29,8 @@ const routes: Routes = [
 
   { path: 'empleados', component: EmpleadolistComponent,canActivate:[AuthGuard,AdministradorGuard] },
   { path: 'empleados/insertar', component: EmpleadoinsertComponent,canActivate:[AuthGuard,AdministradorGuard] },
-  { path: 'empleados/actualizar/:id', component: EmpleadoinsertComponent,canActivate:[AuthGuard,AdministradorGuard] },
+  { path: 'empleados/actualizar', component: EmpleadoupdateComponent,canActivate:[AuthGuard,AdministradorGuard] },
+ 
   { path: 'usuarios', component: UsuariolistComponent,canActivate:[AuthGuard,AdministradorGuard] },
 
   { path: 'proveedores', component: ProveedorlistComponent,canActivate:[AuthGuard,AdministradorGuard] },

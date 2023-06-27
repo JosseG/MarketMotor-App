@@ -1,88 +1,128 @@
 
-
 <div class="d-flex">
-
-  <div class="container col-md-5">
-    <h1 class="text-center mt-4">Insertar Usuario</h1>
+<div class="card text-center card-usuario" style="width: 15rem;">
+  <div class="card-header">
+    Usuario
+  </div>
   <div class="card-body">
     <form class="form" [formGroup]="formularioUsuario" (ngSubmit)="guardarUsuario()" autocomplete="off">
-  
-  
-      <div class="form-group">
-            
-        <label for="">Alias:</label>
-        <input class="form-control" type="text" id="alias" formControlName="alias">
+      <div class=" row g-1" >
+
+      <div class="col-auto">
+        <div class="form-floating">
+         
+         
+          <input class="form-control" type="text" id="alias floatingInputGrid" formControlName="alias">
+          <label  for="floatingInputGrid">Alias</label>
+        </div>
       </div>
     
-      <div class="form-group">
-    
-        <label for="">Contraseña:</label>
-        <input class="form-control" type="password" id="contrasena" formControlName="contrasena">
-      </div>
-    
-    
-      <div class="form-group">
-            
-        <label for="">Rol:</label>
-        <input class="form-control" type="number" id="idRol" formControlName="idRol">
-      </div>
-    
+      <div class="col-auto">
+        <div class="form-floating">
       
-    
-      <div class="text-center"><button class="btn btn-dark mt-3" type="submit">Enviar</button></div>
-    </form>
+      <input class="form-control" type="password" id="contrasena floatingInputGrid" formControlName="contrasena">
+      <label  for="floatingInputGrid">Contraseña</label>
+    </div>
   </div>
+  
+    <div class="col-auto">
+      <div class="form-floating">
+      
+      <input class="form-control" type="number" id="idRol floatingInputGrid" formControlName="idRol">
+      <label  for="floatingInputGrid">Rol</label>
+    </div>
   </div>
+</div>
+<div class="text-center btnUsua"><button class="btn btn-info mt-3" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Crear</button></div>
+
+</form>
+</div>
+<div class="card-footer text-muted">
+
+</div>
+</div>
 
 
 
 
 
-<div class="container col-md-5">
-  <h1 class="text-center mt-4">Insertar Empleado</h1>
-  <div class="card-body">
-    <form class="form" [formGroup]="formularioEmpleado" (ngSubmit)="guardarEmpleado()" autocomplete="off">
+
+<div class="card text-center card-proveedor" style="width: 40rem;">
+  <div class="card-header">
+    Nuevo Empleado
+  </div>
+        <div class="card-body">
+          <form class="form" [formGroup]="formularioEmpleado" (ngSubmit)="guardarEmpleado()" autocomplete="off">
+        <div class=" row g-2 contenedorForm" >
+          <div class="col-auto">
+            <div class="form-floating">      
+              <input class="form-control" type="text" id="nombre floatingInputGrid" formControlName="nombre">
+              <label  for="floatingInputGrid">Nombre</label>
+            </div>
+         </div>
+
+   
+      <div class="col-auto">
+        <div class="form-floating">      
+          <input class="form-control" type="text" id="apellidoPaterno floatingInputGrid" formControlName="apellidoPaterno">
+          <label  for="floatingInputGrid">Apellido Paterno</label>
+        </div>
+     </div>
+    
+      <div class="col-auto">
+        <div class="form-floating">      
+          <input class="form-control" type="text" id="apellidoMaterno floatingInputGrid" formControlName="apellidoMaterno">
+          <label  for="floatingInputGrid">Apellido Materno</label>
+        </div>
+     </div>
+
+      <div class="col-auto">
+        <div class="form-floating">      
+          <input class="form-control" type="text" id="telefono floatingInputGrid" formControlName="telefono">
+          <label  for="floatingInputGrid">Telefono</label>
+        </div>
+     </div>
+    
+
+      <div class="col-auto">
+        <div class="form-floating">      
+          <input class="form-control" type="text" id="correo floatingInputGrid" formControlName="correo">
+          <label  for="floatingInputGrid">Correo</label>
+        </div>
+     </div>
+     
+      
+      <div class="col-auto">
+        <div class="form-floating">      
+          <input class="form-control" type="number" id="idUsuario floatingInputGrid" formControlName="idUsuario" [readonly]="true">
+          <label  for="floatingInputGrid">Usuario</label>
+        </div>
+     </div>
+    
+    </div>
+    <div class="text-center"><button class="btn btn-info mt-3" type="submit">Agregar</button></div>
   
-  
-      <div class="form-group">
-            
-        <label for="">Nombre:</label>
-        <input class="form-control" type="text" id="nombre" formControlName="nombre">
+  </form>
+</div>
+<div class="card-footer text-muted">
+ 
+</div>
+</div>
+
+<!-- Modal para usuario -->
+<div class="modal fade modal-sm" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <br>
+       ¡Se creó un nuevo usuario!
+      
+       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       <br>
+       <br>
       </div>
-    
-      <div class="form-group">
-    
-        <label for="">Apellido Paterno:</label>
-        <input class="form-control" type="text" id="apellidoPat" formControlName="apellidoPaterno">
-      </div>
-    
-    
-      <div class="form-group">
-            
-        <label for="">Apellido Materno:</label>
-        <input class="form-control" type="text" id="apellidoMat" formControlName="apellidoMaterno">
-      </div>
-    
-      <div class="form-group">
-            
-        <label for="">telefono:</label>
-        <input class="form-control" type="text" id="telefono" formControlName="telefono">
-      </div>
-    
-      <div class="form-group">
-            
-        <label for="">Correo:</label>
-        <input class="form-control" type="text" id="correo" formControlName="correo">
-      </div>
-    
-      <div class="form-group">
-            
-        <label for="">Usuario:</label>
-        <input class="form-control"  type="number" id="idUsuario" [readonly]="true" formControlName="idUsuario">
-      </div>
-    
-      <div class="text-center"><button class="btn btn-danger mt-3" type="submit">Enviar</button></div>
-    </form>
+
+    </div>
   </div>
 </div>
 </div>

@@ -31,7 +31,7 @@ export class ProveedorupdateComponent implements OnInit {
   editar(){
     let id= JSON.parse(localStorage.getItem('id') as string);
     this.proveedorService.getProveedorId(id).subscribe(data=>{
-      this.proveedor=data;
+   //   this.proveedor=data;
      this.formularioProveedor.patchValue(data);
     
     });
@@ -43,11 +43,11 @@ export class ProveedorupdateComponent implements OnInit {
     
   }
  
-  actualizarProveedor(proveedor: ProveedorUpdate) {
+  actualizarProveedor() {
   const values = this.formularioProveedor.value
     this.proveedorService.updateProveedor(values).subscribe(data=>{
-      this.proveedor=data;
-      this.router.navigate(['proveedores']);
+    //  this.proveedor=data;
+      this.router.navigate(['/proveedores']);
     })
 
 

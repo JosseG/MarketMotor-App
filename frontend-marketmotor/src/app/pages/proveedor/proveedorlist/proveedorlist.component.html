@@ -53,31 +53,8 @@
 
                       <div class="accordion-body ">
                         <div class="d-flex flex-wrap">
-                          <div class="detalle">
-                            <p style="color:#23C4D9; font-weight: bold;">Codigo</p>
-
-                            <p>{{proveedor.id}}</p>
-                          </div>
-                          <div class="detalle">
-                            <p style="color:#23C4D9; font-weight: bold;">Nombre</p>
-
-                            <p>{{proveedor.nombreComercial}}</p>
-                          </div>
-                          <div class="detalle">
-                            <p style="color:#23C4D9; font-weight: bold;">RUC</p>
-
-                            <p>{{proveedor.numeroRuc}}</p>
-                          </div>
-                          <div class="detalleLargo">
-                            <p style="color:#23C4D9; font-weight: bold;">Email</p>
-
-                            <p>{{proveedor.correo}}</p>
-                          </div>
-                          <div class="detalle">
-                            <p style="color:#23C4D9; font-weight: bold;">Estado</p>
-
-                            <p>{{proveedor.estado}}</p>
-                          </div>
+                          
+                      
 
                           <div class="detalle">
                             <p style="color:#23C4D9; font-weight: bold;">Razon Social</p>
@@ -101,12 +78,12 @@
                           </div>
                           <div class="detalleLargo">
                             <p style="color:#23C4D9; font-weight: bold;">Creado en</p>
-                            <p>{{proveedor.creadoEn}}</p>
+                            <p>{{proveedor.creadoEn | date:'long'}}</p>
 
                           </div>
                           <div class="detalleLargo">
                             <p style="color:#23C4D9; font-weight: bold;">Actualizado en</p>
-                            <p>{{proveedor.actualizadoEn}}</p>
+                            <p>{{proveedor.actualizadoEn | date:'long' }}</p>
 
                           </div>
 

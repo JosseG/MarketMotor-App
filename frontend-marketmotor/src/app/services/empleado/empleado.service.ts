@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { EmpleadoInsert } from 'src/app/models/commands/empleado/EmpleadoInsert';
 import { EmpleadoUpdate } from 'src/app/models/commands/empleado/EmpleadoUpdate';
 import baserUrl from '../globalurl/UrlApi';
+import { Proveedor } from 'src/app/models/dtos/Proveedor';
 
 @Injectable({
   providedIn: 'root'
@@ -25,12 +26,13 @@ export class EmpleadoService {
     return this.http.get<Empleado[]>(this.apiUrl);
   }
 
-  actualizar(empleado:EmpleadoUpdate) {
-    return this.http.put(this.apiUrl,empleado)
+  actualizar(empleado:any) {
+    return this.http.put<Empleado>(this.apiUrl,empleado)
+        //return this.http.put<ProveedorUpdate>(`${this.apiUrl}/update`,proveedor)
   }
 
-  createEmpleado(empleado: EmpleadoInsert){
-    return this.http.post<EmpleadoInsert>(this.apiUrl,empleado);
+  createEmpleado(empleado: any){
+    return this.http.post<Empleado>(this.apiUrl,empleado);
   }
 
   getEmpleadoId(id: number){

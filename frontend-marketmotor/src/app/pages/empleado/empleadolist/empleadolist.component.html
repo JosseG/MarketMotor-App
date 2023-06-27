@@ -37,8 +37,10 @@
                                             class="bg-activo text-white border-0 px-3 py-1">Activo</button></td>
                                 </ng-template>
                                 <td class="icons">
-                                    <a routerLink="/productos"><i class="bi bi-trash-fill"></i></a>
-                                    <a routerLink="/inicio"><i class="bi bi-pencil-square"></i></a>
+                                    <a (click)="eliminar(empleado)"><i class="bi bi-trash-fill"></i></a>
+        
+  
+                                    <a routerLink="/actualizar"  (click)="editar(empleado)"><i class="bi bi-pencil-square"></i></a>
                                 </td>
                             </tr>
                             <tr>
@@ -48,13 +50,28 @@
                                         attr.aria-labelledby="flush-heading{{empleado.id}}"
                                         data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body ">
-                                            <span>Id de Usuario : </span><b><i>{{empleado.usuarioDto.alias}}</i></b>
-                                            <br>
-                                            <span>Contraseña de Usuario :
-                                            </span><b>{{empleado.usuarioDto.contrasena}}</b> <br>
-                                            <span>Fecha de creación del Usuario : </span><b>{{
-                                                empleado.usuarioDto.actualizadoEn | date:'long' }}</b>
-
+                                            <div class="d-flex flex-wrap">
+                                               
+                                                  
+                                                
+                                                    
+                                                  <div class="detalle">
+                                                    <p style="color:#23C4D9; font-weight: bold;">Actualizado en:</p>
+                        
+                                                    <p >{{empleado.usuarioDto.actualizadoEn | date:'long'}}</p>
+                                                  </div>
+                                                  <div class="detalle">
+                                                    <p style="color:#23C4D9; font-weight: bold;">Usuario</p>
+                        
+                                                    <p >{{empleado.usuarioDto.alias}}</p>
+                                                  </div> 
+                                                  <div class="detalleLargo">
+                                                    <p style="color:#23C4D9; font-weight: bold;">Contraseña</p>
+                        
+                                                    <p >{{empleado.usuarioDto.contrasena}}</p>
+                                                  </div>
+                                            </div>
+                                          
 
                                         </div>
                                     </div>

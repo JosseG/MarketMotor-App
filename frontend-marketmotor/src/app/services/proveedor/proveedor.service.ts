@@ -30,7 +30,7 @@ export class ProveedorService {
   getProveedorId(id: number){
     return this.http.get<Proveedor>(this.apiUrl+'/'+id);
   }
-  updateProveedor(proveedor:ProveedorUpdate) {
+  updateProveedor(proveedor:any) {
     //return this.http.put<ProveedorUpdate>(`${this.apiUrl}/update`,proveedor)
     return this.http.put<Proveedor>(this.apiUrl,proveedor)
   }
@@ -44,6 +44,10 @@ export class ProveedorService {
       params: new HttpParams().set('pageNo', pageNo).set('pageSize',pageSize)
     })
   }
+  borrarLogicProveedor(id: number){
+    return this.http.patch(this.apiUrl +"/" + id,null)
+  }
+
 
 
   setProveedorToStorage(proveedor: Proveedor): void {
