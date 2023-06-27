@@ -82,6 +82,8 @@ public class ClienteController {
             if(cliente == null)
                 return ResponseEntity.notFound().build();
 
+
+            cliente.setId(id);
             cliente.declararDisponibilidad(EstadoD.INACTIVO);
             clienteService.guardar(cliente);
             return ResponseEntity.ok("Se desactivó correctamente");

@@ -1,0 +1,103 @@
+<div id="print-section">
+    <div class="mt-5">
+        <div class="reporte-container px-5">
+            <div class="reporte-header col-md-12 d-flex justify-content-between">
+                <h2>REPORTE DE VENTAS</h2>
+            </div>
+
+            <div class="mt-3">
+                <div class="row align-items-start text-center">
+
+                    <div class="col w-25 p-3">
+                        <h4>Fecha desde</h4>
+                        <div class="col-12">-los cisnes 265</div>
+                    </div>
+
+                    <div class="col w-25 p-3">
+                        <h4>Fecha hasta</h4>
+                        <div class="col-12">-los cisnes 265</div>
+                    </div>
+
+                    <div class="col w-25 p-3">
+                        <h4>Monto Mínimo</h4>
+                        <div class="col-12">S/. {{montoMinimo}}</div>
+                    </div>
+
+                    <div class="col w-25 p-3">
+                        <h4>Monto Máximo</h4>
+                        <div class="col-12">S/. {{montoMaximo}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="mt-3">
+                <div class="row align-items-start  text-center">
+                    <div class="col w-25 p-3">
+                        <h4>Producto mas vendido</h4>
+                        <div class="col">
+                            <div class="col-12">-los cisnes 265</div>
+                            <div class="col-12">-pasaje ismael castillo 185 aaaaaaaaaa</div>
+                            <div class="col-129">-av salaverry 3630</div>
+                            <div class="col-12">-las aguilas 365</div>
+                            <div class="col-12">-pedemonte 151</div>
+                        </div>
+                    </div>
+                    <div class="col w-25 p-3">
+                        <h4>Empleado destacado</h4>
+                        <div class="col">
+                            <div class="col-12">-los cisnes 265</div>
+                            <div class="col-12">-pasaje ismael castillo 185 aaaaaaaaaa</div>
+                            <div class="col-12">-av salaverry 3630</div>
+                            <div class="col-12">-las aguilas 365</div>
+                            <div class="col-12">-pedemonte 151</div>
+                        </div>
+                    </div>
+                    <div class="col w-25 p-3">
+                        <h4>Cliente destacado</h4>
+                        <div class="col">
+                            <div class="col-12">-los cisnes 265</div>
+                            <div class="col-12">-pasaje ismael castillo 185 aaaaaaaaaa</div>
+                            <div class="col-12">-av salaverry 3630</div>
+                            <div class="col-12">-las aguilas 365</div>
+                            <div class="col-12">-pedemonte 151</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detalle-body mt-3">
+                <table class="table table-bordered border-dark">
+                    <thead class="table">
+                        <tr>
+                            <th scope="col" class="text-center">Numero de Orden</th>
+                            <th scope="col" class="text-center">Fecha</th>
+                            <th scope="col" class="text-center">Cliente</th>
+                            <th scope="col" class="text-center">Encargado</th>
+                            <th scope="col" class="text-center">Monto</th>
+                        </tr>
+                    </thead>
+                    <tbody class="body_reporte">
+                        <tr *ngFor="let venta of ventas">
+                            <td class="text-center">{{venta.venta.id}}</td>
+                            <td class="text-center">{{venta.creadoEn | date: 'medium'}}</td>
+                            <td class="text-center">{{venta.venta.cliente.nombre}}</td>
+                            <td class="text-center">{{venta.venta.empleado.nombre}}</td>
+                            <td class="text-center">S/. {{venta.venta.preciototal | number : '1.2'}}</td>
+                        </tr>
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td class="" colspan="4">TOTAL</td>
+                            <td class="text-center text-danger fw-bold">S/. {{total | number : '1.2'}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button  [useExistingCss]="true" printSectionId="print-section" ngxPrint>print</button>

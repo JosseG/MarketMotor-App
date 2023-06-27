@@ -4,7 +4,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { RouterModule } from '@angular/router';
 import { PaginationComponent } from './pagination/pagination.component';
-import { ReportetemplateComponent } from './reportetemplate/reportetemplate.component';
 
 
 
@@ -12,7 +11,6 @@ import { ReportetemplateComponent } from './reportetemplate/reportetemplate.comp
   declarations: [
     NavbarComponent,
     PaginationComponent,
-    ReportetemplateComponent
   ],
   imports: [
     CommonModule,

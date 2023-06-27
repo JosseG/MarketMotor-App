@@ -72,6 +72,7 @@ public class ProveedorController {
             if (proveedor == null)
                 return ResponseEntity.notFound().build();
 
+            proveedor.setId(id);
             proveedor.declararDisponibilidad(EstadoD.INACTIVO);
             proveedorService.guardar(proveedor);
             return ResponseEntity.ok("Se desactivó correctamente");

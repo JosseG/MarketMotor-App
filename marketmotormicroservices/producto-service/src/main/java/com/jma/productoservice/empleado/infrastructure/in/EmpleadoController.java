@@ -72,6 +72,7 @@ public class EmpleadoController {
             if(empleado == null)
                 return ResponseEntity.notFound().build();
 
+            empleado.setId(id);
             empleado.declararDisponibilidad(EstadoD.INACTIVO);
             empleadoService.guardar(empleado);
             return ResponseEntity.ok("Se desactivó correctamente");

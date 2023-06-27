@@ -1,202 +1,103 @@
 <div class="container mt-3">
 
   <div class="row">
-      <div class="col-md-12">
-          <div class="table-responsive-lg">
-  
-  
-      <div class="orden-compra-header col-md-12">
-        <h1 class="titulo">REPORTE ORDEN DE COMPRAS</h1> 
-    </div>
+    <div class="col-md-12">
+      <div class="table-responsive-lg">
 
-  
-    <!-- <nav class="navbar navbar-expand px-5 mt-5">
-      <div class="container-fluid">
-    <div class="collapse navbar-collapse" id="navbarreporteordencompra">
-      <ul class="navbar-nav">
-  
-        <li class="nav-item dropdown col-md-10">
-          <button class="dropdown-toggle  " id="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Fecha
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" >1 Trimestre</a></li>
-            <li><a class="dropdown-item" >2 Trimestre</a></li>
-            <li><a class="dropdown-item" >3 Trimestre</a></li>
-          </ul>
-        </li>
-  
-        <li class="nav-item dropdown col-md-10">
-          <button class="dropdown-toggle  " id="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Empleado
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" >Shaughn</a></li>
-            <li><a class="dropdown-item" >Cello</a></li>
-            <li><a class="dropdown-item" >Vivienne</a></li>
-          </ul>
-        </li>
-  
-        <li class="nav-item dropdown col-md-10">
-          <button class="dropdown-toggle  " id="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Proveedor
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" >Wong & Metro</a></li>
-            <li><a class="dropdown-item" >Renault</a></li>
-            <li><a class="dropdown-item" >Changan</a></li>
-          </ul>
-        </li>
-  
-      </ul>
-    </div>
-  </div>
-  
-  
-        <div class=" input-group">
-          <button class="btn btn-outline-secondary ps-2 bi bi-search" type="button" id="button-search"></button>
-          <input type="text" class="form-control " placeholder="Buscar" aria-label="Example text with button addon" aria-describedby="button-search">
-        </div>
-  
-        <div class="px-3">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
-            <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
-            <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
-          </svg>
-        </div>
-  
-  </nav>-->
-  <div class="d-flex justify-content-between reportes">
-    <div class="d-flex flex-row  buscadores">
-        <div class="input-group mb-3 col-3 selec_fecha">
-            <select class="form-select " id="inputGroupSelect04" >
-              <option selected>Fecha</option>
-              <option value="1">1 Trimestre</option>
-              <option value="2">2 Trimestre</option>
-              <option value="3">3 Trimestre</option>
-            </select>
-        </div>
-        <div class="input-group mb-3 col-3 selec_empleado">
-            <select class="form-select" id="inputGroupSelect04" >
-              <option selected>Empleado</option>
-              <option value="1">Shaughn</option>
-              <option value="2">Cello</option>
-              <option value="3">Viviane</option>
-            </select>
-        </div>
-        <div class="input-group mb-3 col-3 selec_proveedor">
-          <select class="form-select" id="inputGroupSelect04" >
-            <option selected>Proveedor</option>
-            <option value="1">Wong & Metro</option>
-            <option value="2">Renault</option>
-            <option value="3">Changan</option>
-          </select>
-      </div>
 
-     </div>
-     <div class="d-flex flex-row p_derecha">
-           
-            <div class="input-group mb-3 buscar_todo">
-                <span class="input-group-text inp_buscar" id="basic-addon1"><i class="bi bi-search"></i></span>
-                <input type="text" class="form-control inp_buscar" placeholder="Busca aquí"  aria-describedby="basic-addon1">
+        <div class="orden-compra-header col-md-12">
+          <h1 class="titulo">REPORTE ORDEN DE COMPRAS</h1>
+        </div>
+
+
+        <div class="d-flex justify-content-between reportes">
+          <div class="d-flex flex-row  buscadores">
+            <div class="input-group mb-3 col-3 selec_fecha">
+              <select class="form-select " id="inputGroupSelect04">
+                <option selected>Fecha</option>
+                <option value="1">1 Trimestre</option>
+                <option value="2">2 Trimestre</option>
+                <option value="3">3 Trimestre</option>
+              </select>
             </div>
-   
-        <div class="btn_imprimir">
-          <a routerLink="/reportetemplate" class="btn btn-info"><i class="bi bi-printer-fill"></i></a>
-            
+            <div class="input-group mb-3 col-3 selec_empleado">
+              <select class="form-select" id="inputGroupSelect04">
+                <option selected>Empleado</option>
+                <option value="1">Shaughn</option>
+                <option value="2">Cello</option>
+                <option value="3">Viviane</option>
+              </select>
+            </div>
+            <div class="input-group mb-3 col-3 selec_proveedor">
+              <select class="form-select" id="inputGroupSelect04">
+                <option selected>Proveedor</option>
+                <option value="1">Wong & Metro</option>
+                <option value="2">Renault</option>
+                <option value="3">Changan</option>
+              </select>
+            </div>
+
+          </div>
+          <div class="d-flex flex-row p_derecha">
+
+            <div class="input-group mb-3 buscar_todo">
+              <span class="input-group-text inp_buscar" id="basic-addon1"><i class="bi bi-search"></i></span>
+              <input type="text" class="form-control inp_buscar" placeholder="Busca aquí"
+                aria-describedby="basic-addon1">
+            </div>
+
+            <div class="btn_imprimir">
+              <a (click)="getTemplateReporteCompra()" class="btn btn-info"><i class="bi bi-printer-fill"></i></a>
+
+            </div>
+
+          </div>
         </div>
 
-     </div>
-</div>
-  
-  
-<!--<div class="detalle-container px-5 mt-5">
-  
-        <div class="detalle-body mt-3">-->
-            <table class="table tabla_reportes">
-                <thead class="tableCabe3">
-                  <tr>
-                    <th scope="col" class="text-center">Numero de Orden</th>
-                    <th scope="col" class="text-center">Tipo de Orden</th>
-                    <th scope="col" class="text-center">Proveedor</th>
-                    <th scope="col" class="text-center">Encargado</th>
-                    <th scope="col" class="text-center">Monto</th>
-                    <th scope="col" class="text-center">Estado</th>
-                  </tr>
-                </thead>
-                <tbody class="body_reporte">
-                  <!--<tr>
-                    <td style="overflow: hidden; display: none;"><input type="text" style="overflow:hidden"></td>
-                    <td class="text-center ">1</td>
-                    <td class="text-center">Compra de Embrague</td>
-                    <td class="text-center">Wong & Metro</td>
-                    <td class="text-center">Riane</td>
-                    <td class="text-center">600</td>
-                    <td class="text-center">
-                      <span class="badge bg-success border-2 px-4 py-2">Completado</span>
-  
-                    </td>
-                  </tr>
-  
-                  <tr>
-                    <td style="overflow: hidden; display: none;"><input type="text" style="overflow:hidden"></td>
-                    <td class="text-center ">2</td>
-                    <td class="text-center">Compra de Transmicion</td>
-                    <td class="text-center">Wong & Metro</td>
-                    <td class="text-center">Ade</td>
-                    <td class="text-center">450</td>
-                    <td class="text-center">
-  
-                      <span class="badge bg-warning text-dark border-2 px-4 py-2">Pendiente</span>
-                    </td>
-                  </tr>
-  
-                  <tr>
-                    <td style="overflow: hidden; display: none;"><input type="text" style="overflow:hidden"></td>
-                    <td class="text-center ">3</td>
-                    <td class="text-center">Compra de Frenos</td>
-                    <td class="text-center">Wong & Metro</td>
-                    <td class="text-center">Rafaela</td>
-                    <td class="text-center">300</td>
-                    <td class="text-center">
-  
-                      <span class="badge bg-danger border-2 px-4 py-2">Error</span>
-  
-                    </td>
-                  </tr>-->
-                  <tr *ngFor="let detalleOrdenCompra of detalleOrdenCompras | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: total }">
-                    <td>{{detalleOrdenCompra.id}}</td>
-                    <td>Compra de {{detalleOrdenCompra.producto.tipo}}</td>
-                    <td>{{detalleOrdenCompra.ordenCompra.proveedor.nombreComercial}}</td>
-                    <td>{{detalleOrdenCompra.ordenCompra.empleado.nombre}}</td>
-                    <td>{{(detalleOrdenCompra.cantidad * detalleOrdenCompra.producto.precio) | number : '1.2-2' }}</td>
-                    <!--<td><span class="badge bg-success border-2 px-4 py-2">Completado</span></td>-->
-                    
-                    <td *ngIf="detalleOrdenCompra.ordenCompra.confirmado != true; else elseBlock">
-                      <button type="button" class="badge bg-danger border-2 py-2">
-                        No confirmado
-                      </button>
-                    </td>
-                    <ng-template #elseBlock>
-                      <td>
-                        <button type="button" class="badge bg-success border-2 py-2">
-                          Confirmado
-                        </button>
-                      </td>
-                    </ng-template>
-                  </tr>
-  
-                </tbody>
-              </table>
-              <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>   
 
-              <!--  </div>
-    </div>-->
-    <div class="button-actions-end">
-  
-    </div>
+        <table class="table tabla_reportes">
+          <thead class="tableCabe3">
+            <tr>
+              <th scope="col" class="text-center">Numero de Orden</th>
+              <th scope="col" class="text-center">Tipo de Orden</th>
+              <th scope="col" class="text-center">Proveedor</th>
+              <th scope="col" class="text-center">Encargado</th>
+              <th scope="col" class="text-center">Monto</th>
+              <th scope="col" class="text-center">Estado</th>
+            </tr>
+          </thead>
+          <tbody class="body_reporte">
+
+            <tr
+              *ngFor="let detalleOrdenCompra of detalleOrdenCompras | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: total }">
+              <td>{{detalleOrdenCompra.id}}</td>
+              <td>Compra de {{detalleOrdenCompra.producto.tipo}}</td>
+              <td>{{detalleOrdenCompra.ordenCompra.proveedor.nombreComercial}}</td>
+              <td>{{detalleOrdenCompra.ordenCompra.empleado.nombre}}</td>
+              <td>{{(detalleOrdenCompra.cantidad * detalleOrdenCompra.producto.precio) | number : '1.2-2' }}</td>
+
+              <td *ngIf="detalleOrdenCompra.ordenCompra.confirmado != true; else elseBlock">
+                <button type="button" class="badge bg-danger border-2 py-2">
+                  No confirmado
+                </button>
+              </td>
+              <ng-template #elseBlock>
+                <td>
+                  <button type="button" class="badge bg-success border-2 py-2">
+                    Confirmado
+                  </button>
+                </td>
+              </ng-template>
+            </tr>
+
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
+
+        <div class="button-actions-end">
+
+        </div>
+      </div>
     </div>
   </div>
 </div>
-</div>
-

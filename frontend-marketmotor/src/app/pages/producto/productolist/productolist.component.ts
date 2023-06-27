@@ -57,7 +57,7 @@ export class ProductolistComponent {
     console.log(producto.id)
     this.productoService.borrarLogicProducto(producto.id).subscribe(data => {
      this.getPaginableProducto()
-      producto.estado = false; // Actualizar el estado a "inactivo"
+      // Actualizar el estado a "inactivo"
     });
   }
   pageChangeEvent(event: number){

@@ -53,7 +53,8 @@ export class ProveedorlistComponent {
   }
   eliminar(proveedor:Proveedor):void{
     this.proveedorService.borrarLogicProveedor(proveedor.id).subscribe(data=>{
-          proveedor.estado = false;
+      this.getPaginableProveedor()
+  
         
     });
   }

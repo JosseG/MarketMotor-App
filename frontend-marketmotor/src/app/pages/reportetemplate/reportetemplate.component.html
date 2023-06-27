@@ -2,7 +2,7 @@
     <div class="mt-5">
         <div class="reporte-container px-5">
             <div class="reporte-header col-md-12 d-flex justify-content-between">
-                <h2>REPORTES</h2>
+                <h2>REPORTES DE COMPRA</h2>
             </div>
 
             <div class="mt-3">
@@ -86,18 +86,8 @@
                         </tr>
                     </thead>
                     <tbody class="body_reporte">
-                        <tr>
-                            <td class="text-center">1</td>
-                            <td class="text-center">Compra de Embrague</td>
-                            <td class="text-center">Wong & Metro</td>
-                            <td class="text-center">Riane</td>
-                            <td class="text-center">600</td>
-                            <td class="text-center">
-                                <span class="badge bg-success border-2 px-4 py-2">Completado</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">1</td>
+                        <tr *ngFor="let compra of compras">
+                            <td class="text-center"></td>
                             <td class="text-center">Compra de Embrague</td>
                             <td class="text-center">Wong & Metro</td>
                             <td class="text-center">Riane</td>

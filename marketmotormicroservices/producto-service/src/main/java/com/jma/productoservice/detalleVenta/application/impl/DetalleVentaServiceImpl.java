@@ -75,6 +75,9 @@ public class DetalleVentaServiceImpl implements DetalleVentaService<DetalleVenta
         for (int i = 0; i < detallesDtoMapped.size(); i++) {
             detallesDtoMapped.get(i).setVenta(VentaMapper.mapToDto(detallesOrdenEntity.get(i).getVenta()));
             detallesDtoMapped.get(i).setProducto(ProductoMapper.mapToDto(detallesOrdenEntity.get(i).getProducto()));
+
+            detallesDtoMapped.get(i).getVenta().setCliente(ClienteMapper.mapToDto(detallesOrdenEntity.get(i).getVenta().getCliente()));
+            detallesDtoMapped.get(i).getVenta().setEmpleado(EmpleadoMapper.mapToDto(detallesOrdenEntity.get(i).getVenta().getEmpleado()));
         }
 
         return detallesDtoMapped;

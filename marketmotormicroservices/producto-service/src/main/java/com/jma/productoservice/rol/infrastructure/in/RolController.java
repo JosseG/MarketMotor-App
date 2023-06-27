@@ -74,6 +74,7 @@ public class RolController {
             if(rol == null)
                 return ResponseEntity.notFound().build();
 
+            rol.setId(id);
             rol.declararDisponibilidad(EstadoD.INACTIVO);
             rolService.guardar(rol);
             return ResponseEntity.ok("Se desactivó correctamente");

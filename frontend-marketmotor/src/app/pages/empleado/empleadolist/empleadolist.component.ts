@@ -37,13 +37,6 @@ export class EmpleadolistComponent {
     localStorage.setItem("id",empleado.id.toString());
       this.router.navigate(['empleados/actualizar']);
   }
-
-  eliminar(empleado: Empleado): void {
-    this.empleadoService.borrarLogicEmpleado(empleado.id).subscribe(data => {
-      empleado.estado = false; // Actualizar el estado a "inactivo"
-    });
-  }
-
   getPaginableEmpleados() {
 
     this.empleadoService.getAllByPaginable(this.currentPage,this.itemsPerPage).subscribe({
@@ -58,6 +51,14 @@ export class EmpleadolistComponent {
 
     });
   }
+  eliminar(empleado: Empleado): void {
+    this.empleadoService.borrarLogicEmpleado(empleado.id).subscribe(data => {
+      this.getPaginableEmpleados()
+     // Actualizar el estado a "inactivo"
+    });
+  }
+
+
 
   pageChangeEvent(event: number){
     this.currentPage = event;

@@ -1,0 +1,34 @@
+.card-proveedor{
+    margin-left: 22rem;
+    margin-top: 3rem;
+}
+.contenedorForm{
+    margin-left: 5rem;
+}
+.card-header{
+    background: linear-gradient(90deg, rgba(22,109,186,1) 0%, rgba(49,154,203,1) 36%, rgba(65,179,213,1) 54%, rgba(76,193,219,1) 76%, rgba(86,213,225,1) 100%);
+    color: white;
+    font-weight: bold;
+}
+.btnUsua{
+    margin-top: 5.5rem;
+    
+}
+.card-usuario{
+    margin-top: 3rem;
+    margin-left: 10rem;
+}
+.btn-info{
+    color: white;
+    font-weight: bold;
+
+}
+.btn-close{
+    margin-left: 25px;
+}
+.btn-secondary{
+    color: white;
+    font-weight: bold;
+    margin-top: 17px;
+    margin-left: 7px;
+}
