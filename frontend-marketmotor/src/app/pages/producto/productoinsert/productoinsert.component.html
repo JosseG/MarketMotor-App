@@ -47,8 +47,24 @@
     </div>
  </div>
   </div>
-  <div class="text-center"><button class="btn btn-info mt-3" type="submit">Agregar</button></div>
-
+  <div class="text-center"><button class="btn btn-info mt-3" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2">Agregar</button></div>
+  <div class="modal fade modal-sm" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <br>
+          <br>
+         ¿Desea agregar el producto?
+         <br>
+         <br>
+         <button class="btn btn-info mt-3" type="submit" data-bs-dismiss="modal" >Sí</button>
+    
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        </div>
+    
+      </div>
+    </div>
+    </div>
 </form>
 </div>
 <div class="card-footer text-muted">
@@ -57,31 +73,3 @@
 </div>
 
   
-
-<!--<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Descripción</th>
-      <th>Tipo</th>
-      <th>Serial</th>
-      <th>Marca</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr *ngFor="let producto of producto">
-    <td>{{producto.id}}</td>
-    <td>{{producto.descripcion}}</td>
-    <td>{{producto.tipo}}</td>
-    <td>{{producto.serial}}</td>
-    <td>{{producto.marca}}</td>
-    <td>
-      <button (click)="guardar(producto)" class="btn btn-warning"> Guardar</button>
-      <button (click)="cancelar()" class="btn btn-danger"> Cancelar</button>
-    </td>
-    </tr>
-  </tbody>
-
-</table>-->

@@ -110,8 +110,24 @@
           </div>
         </div>
       </div>
-      <div class="text-center btnAgregar"><button class="btn btn-info mt-3" type="submit">Agregar</button></div>
-    
+      <div class="text-center btnAgregar"><button class="btn btn-info mt-3" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2">Agregar</button></div>
+      <div class="modal fade modal-sm" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body">
+              <br>
+              <br>
+             ¿Desea agregar el proveedor?
+             <br>
+             <br>
+             <button class="btn btn-info mt-3" type="submit" data-bs-dismiss="modal" >Sí</button>
+        
+             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+        
+          </div>
+        </div>
+        </div>
     </form>
   </div>
   <div class="card-footer text-muted">
