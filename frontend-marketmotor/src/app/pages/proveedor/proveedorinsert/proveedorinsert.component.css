@@ -33,3 +33,9 @@
 .roles-text{
     font-size: 15px;
 }
+.btn-secondary{
+    color: white;
+    font-weight: bold;
+    margin-top: 17px;
+    margin-left: 7px;
+}

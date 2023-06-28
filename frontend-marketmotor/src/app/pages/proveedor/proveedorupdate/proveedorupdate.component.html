@@ -62,15 +62,9 @@
         </div>
       
         </div>
-        <div class="text-center"><button class="btn btn-info mt-3"type="submit"  >Actualizar</button></div>
+        <div class="text-center"><button class="btn btn-info mt-3"type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" >Actualizar</button></div>
         <!--  <div class="text-center"><button class="btn btn-info mt-3"type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Actualizar</button></div>-->
-      
-      </form>
-    </div>
-    <div class="card-footer text-muted">
-     
-    </div>
-      <!-- Modal para actualizar -->
+            <!-- Modal para actualizar -->
       <div class="modal fade modal-sm" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -80,7 +74,7 @@
              ¿Desea actualizar el proveedor?
              <br>
              <br>
-             <button class="btn btn-info mt-3" type="submit" (click)="actualizarProveedor()" data-bs-dismiss="modal" >Sí</button>
+             <button class="btn btn-info mt-3" type="submit" data-bs-dismiss="modal" >Sí</button>
         
              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
             </div>
@@ -88,6 +82,13 @@
           </div>
         </div>
         </div>
+      
+      </form>
+    </div>
+    <div class="card-footer text-muted">
+     
+    </div>
+  
   </div>
 
 
