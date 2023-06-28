@@ -65,4 +65,12 @@ export class ProductolistComponent {
     this.getPaginableProducto();
   }
 
+  activar(id:number){
+    this.productoService.activarProducto(id).subscribe({
+      next: ()=> {
+        this.getPaginableProducto();
+      }
+    })
+  }
+
 }

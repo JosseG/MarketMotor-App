@@ -16,6 +16,10 @@
     font-size: 1.3em;
     margin-left: 20px;
 }
+
+.bi-check2{
+    color:green;
+}
 /*TABLA*/
 .accordion-header {
     background-color: white;

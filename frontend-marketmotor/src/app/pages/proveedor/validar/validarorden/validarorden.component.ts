@@ -114,9 +114,17 @@ export class ValidarordenComponent {
   async confirmarOrden(orden: OrdenCompra){
 
     this.ordencompraService.confirmarOrden(orden.id,this.detalleOrdenCompras).subscribe({
-      next: async () => {
-        alert("Se realizo la orden sin prob")
-        this.getPaginableOrdenCompra();
+      next: async (data) => {
+
+        if(data == true){
+          alert("Se realizo la orden sin prob")
+          this.getPaginableOrdenCompra();
+  
+        }else{
+          alert("Ocurrió un problema inesperado")
+          this.getPaginableOrdenCompra();
+        }
+
       }
     })
     this.confirmado = true

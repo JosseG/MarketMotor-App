@@ -194,15 +194,6 @@ public class OrdenCompraServiceImpl implements OrdenCompraService<OrdenCompraDto
             if(!detalleGuardado.getProducto().isEstado()){
                 throw new MyException("Producto inhabilitado");
             }
-            /*ProductoDto productoEncontrado = productoService.obtenerPorId(detalleGuardado.getProducto().getId());
-            productoEncontrado.setStock(productoEncontrado.getStock() + detalleGuardado.getCantidad());
-            if(!productoEncontrado.isEstado()){
-                throw new MyException("Producto inhabilitado");
-            }
-            if(productoEncontrado.getStock()<10){
-                throw new MyException("Error en stock");
-            }
-            productoService.actualizar(productoEncontrado);*/
         }
         return true;
     }
@@ -213,7 +204,8 @@ public class OrdenCompraServiceImpl implements OrdenCompraService<OrdenCompraDto
 
         OrdenCompraDto ordenCompraDto = obtenerPorId(id);
 
-        if(ordenCompraDto == null)
+
+        if(ordenCompraDto == null || a.size()<1)
             throw new MyException("Error en encontrar ordencompra");
 
         ordenCompraDto.setConfirmado(true);

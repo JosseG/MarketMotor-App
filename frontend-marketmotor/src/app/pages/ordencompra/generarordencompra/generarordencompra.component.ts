@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, NgForm, ValidationErrors, Validator, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Empleado } from 'src/app/models/dtos/Empleado';
@@ -40,8 +40,9 @@ export class GenerarordencompraComponent implements OnInit {
     descripcion: [],
   });
 
+  value = 0;
   formAddingCartProduct: FormGroup = this.formbuilder.group({
-    cantidad: [],
+    cantidad: [0,Validators.compose([Validators.required, Validators.min(1)])]
   });
 
   formSearchProveedor: FormGroup = this.formbuilder.group({
@@ -60,10 +61,12 @@ export class GenerarordencompraComponent implements OnInit {
     idProveedor: [0],
   });
 
+
+  
   formProveedor: FormGroup = this.formbuilder.group({
-    numeroRuc: [],
-    nombreComercial: [],
-    razonSocial: [],
+    numeroRuc: ['',Validators.required],
+    nombreComercial: ['',Validators.required],
+    razonSocial: ['',Validators.required],
   });
 
   proveedores: Proveedor[] = [];
@@ -104,11 +107,18 @@ export class GenerarordencompraComponent implements OnInit {
 
 
   async addToCart(id: number) {
-    const values = this.formAddingCartProduct.value.cantidad;
-    console.log('captured');
-    console.log(id);
-    await this.carritoService.addToCarItemsOrden(String(id), parseInt(values));
-    this.getCartProducts();
+    if(this.formAddingCartProduct.valid && this.productoToQuantity.id>0){
+      const values = this.formAddingCartProduct.value.cantidad;
+      console.log('captured');
+      console.log(id);
+      await this.carritoService.addToCarItemsOrden(String(id), parseInt(values));
+      this.getCartProducts();
+      this.formAddingCartProduct.reset();
+      this.productoToQuantity = new Producto()
+    }else{
+
+      this.getCartProducts();
+    }
   }
 
   getPaginableProductos() {
@@ -244,52 +254,57 @@ export class GenerarordencompraComponent implements OnInit {
   }
 
   async registrarOrdenCompra() {
-    await this.element$.subscribe({
-      next: async (data: CarritoItem[]) => {
-        if (data.length > 0) {
-          var total = 0;
-          var object : DetalleOrdenCompraCommandInsert[]= [];
-          for (let productoFromCart of data) {
-            total +=
-              productoFromCart.cantidad * productoFromCart.producto.precio;
-          }
 
-          for(let i = 0; i < data.length; i++){
-            var detalleOrdenCompra = new DetalleOrdenCompraCommandInsert();
-            detalleOrdenCompra.cantidad = data[i].cantidad
-            detalleOrdenCompra.idProducto = data[i].producto.id
-            detalleOrdenCompra.precioUnitario = data[i].producto.precio
-            object.push(detalleOrdenCompra);
-          }
-
-          var ordencompra = this.formOrdenCompra.value;
-          ordencompra.valorTotal = total;
-          ordencompra.idEmpleado = this.empleado.id
-          ordencompra.idProveedor = this.myproveedor.id
-
-          if (total > 0) {
-            this.ordenCompraService.realizarOrdenCompraTransaccion(ordencompra, object).subscribe({
-              next: (data) =>{
-                if(data==true){
-                  this.cleanOrdenCompra();
-                  alert("Orden Compra realizada con exito")
-                }else{
-                  alert("Orden Compra sin éxito, solucione la gestión de productos y su stock")
+    if(this.formProveedor.valid){
+      await this.element$.subscribe({
+        next: async (data: CarritoItem[]) => {
+          if (data.length > 0) {
+            var total = 0;
+            var object : DetalleOrdenCompraCommandInsert[]= [];
+            for (let productoFromCart of data) {
+              total +=
+                productoFromCart.cantidad * productoFromCart.producto.precio;
+            }
+  
+            for(let i = 0; i < data.length; i++){
+              var detalleOrdenCompra = new DetalleOrdenCompraCommandInsert();
+              detalleOrdenCompra.cantidad = data[i].cantidad
+              detalleOrdenCompra.idProducto = data[i].producto.id
+              detalleOrdenCompra.precioUnitario = data[i].producto.precio
+              object.push(detalleOrdenCompra);
+            }
+  
+            var ordencompra = this.formOrdenCompra.value;
+            ordencompra.valorTotal = total;
+            ordencompra.idEmpleado = this.empleado.id
+            ordencompra.idProveedor = this.myproveedor.id
+  
+            if (total > 0) {
+              this.ordenCompraService.realizarOrdenCompraTransaccion(ordencompra, object).subscribe({
+                next: (data) =>{
+                  if(data==true){
+                    this.cleanOrdenCompra();
+                    alert("Orden Compra realizada con exito")
+                  }else{
+                    alert("Orden Compra sin éxito, solucione la gestión de productos y su stock")
+                  }
+                },
+                error: () => {
+                  alert("Ocurrio un error inesperado")
                 }
-              },
-              error: () => {
-                alert("Ocurrio un error inesperado")
-              }
-            })
-
+              })
+  
+            } else {
+              alert('el total es 0');
+            }
           } else {
-            alert('el total es 0');
+            alert('No puedes realizar');
           }
-        } else {
-          alert('No puedes realizar');
-        }
-      },
-    });
+        },
+      });
+    }
+
+
   }
 
   cleanOrdenCompra() {
@@ -297,8 +312,8 @@ export class GenerarordencompraComponent implements OnInit {
     this.proveedorService.cleanProveedorService();
     this.formAddingProveedor.reset();
     this.myproveedor = new Proveedor();
-    this.formDirective.resetForm();
     this.formProveedor.reset();
     this.getCartProducts();
   }
 }
+

@@ -14,6 +14,7 @@ import com.jma.productoservice.usuario.domain.response.UserAuthenticateResponse;
 import com.jma.productoservice.security.jwt.JwtService;
 import com.jma.productoservice.usuario.application.service.UsuarioService;
 import com.jma.productoservice.usuario.infrastructure.out.UsuarioRepository;
+import com.jma.productoservice.utils.EstadoD;
 import com.jma.productoservice.utils.TokenType;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -73,7 +74,7 @@ public class UsuarioServiceImpl implements UsuarioService<UsuarioDto> {
 
     @Override
     public UsuarioDto getUsuarioByAlias(String alias) {
-        UsuarioEntity usuarioEntity = usuarioRepository.findUsuarioEntityByAlias(alias).orElse(new UsuarioEntity());
+        UsuarioEntity usuarioEntity = usuarioRepository.findUsuarioEntityByAliasAndEstado(alias,true).orElse(new UsuarioEntity());
         UsuarioDto usuarioDto = UsuarioMapper.mapToDto(usuarioEntity);
         usuarioDto.setRol(RolMapper.mapToDto(usuarioEntity.getRol()));
         return usuarioDto;
@@ -137,6 +138,33 @@ public class UsuarioServiceImpl implements UsuarioService<UsuarioDto> {
     }
 
     @Override
+    public UsuarioDto cambiarEstadoActivo(UsuarioDto object){
+        Optional<UsuarioEntity> opcional = usuarioRepository.findById(object.getId());
+        UsuarioEntity usuario;
+
+        if(opcional.isPresent()){
+            usuario = opcional.get();
+            usuario.setEstado(true);
+            return UsuarioMapper.mapToDto(usuarioRepository.save(usuario));
+        }
+
+        return null;
+    }
+
+    @Override
+    public UsuarioDto cambiarEstadoInactivo(UsuarioDto object) {
+        Optional<UsuarioEntity> opcional = usuarioRepository.findById(object.getId());
+        UsuarioEntity usuario;
+
+        if(opcional.isPresent()){
+            usuario = opcional.get();
+            usuario.setEstado(false);
+            return UsuarioMapper.mapToDto(usuarioRepository.save(usuario));
+        }
+        return null;
+    }
+
+    @Override
     public UsuarioDto actualizar(UsuarioDto object) {
         Optional<UsuarioEntity> opcional = usuarioRepository.findById(object.getId());
         UsuarioEntity usuario;
@@ -168,9 +196,7 @@ public class UsuarioServiceImpl implements UsuarioService<UsuarioDto> {
                         request.getContrasena()
                 )
         );
-        var usuarioEntity = usuarioRepository.findUsuarioEntityByAlias(request.getAlias())
-                .orElseThrow();
-
+        UsuarioEntity usuarioEntity = usuarioRepository.findUsuarioEntityByAliasAndEstado(request.getAlias(),true).orElseThrow();
 
         User user =  mapToUser(usuarioEntity);
         var jwtToken = jwtService.generateToken(user);
@@ -184,7 +210,6 @@ public class UsuarioServiceImpl implements UsuarioService<UsuarioDto> {
     }
 
     private void saveUserToken(UsuarioEntity usuario, String jwtToken) {
-        System.out.println(jwtToken);
         TokenEntity tokenEntity = new TokenEntity();
         tokenEntity.setUsuario(usuario);
         tokenEntity.setToken(jwtToken);
@@ -222,7 +247,7 @@ public class UsuarioServiceImpl implements UsuarioService<UsuarioDto> {
         refreshToken = authHeader.substring(7);
         userEmail = jwtService.extractUsername(refreshToken);
         if (userEmail != null) {
-            UsuarioEntity usuario= usuarioRepository.findUsuarioEntityByAlias(userEmail).orElseThrow();
+            UsuarioEntity usuario= usuarioRepository.findUsuarioEntityByAliasAndEstado(userEmail,true).orElseThrow();
 
             GrantedAuthority rol = new SimpleGrantedAuthority(usuario.getRol().getNombre());
             List<GrantedAuthority> listaRoles = List.of(rol);

@@ -93,6 +93,21 @@ public class EmpleadoServiceImpl implements EmpleadoService<EmpleadoDto> {
     @Transactional
     public EmpleadoDto guardar(EmpleadoDto object) {
 
+
+        if(object.getId()!=null){
+            /*EmpleadoEntity empleadoEntity = empleadoRepository.findById(object.getId()).orElse(null);
+
+            assert empleadoEntity != null;
+            System.out.println(empleadoEntity.getUsuario().getRol().getId());
+
+            UsuarioEntity usuarioEntity = empleadoEntity.getUsuario();
+            EmpleadoDto empleadoPorMapear = EmpleadoMapper.mapToDto(empleadoRepository.save(empleadoEntity));
+            empleadoPorMapear.setUsuarioDto(UsuarioMapper.mapToDto(usuarioEntity));
+
+            System.out.println("Va a actualizar");
+            return empleadoPorMapear;*/
+        }
+
         UsuarioEntity usuarioEntity = usuarioRepository.findById(object.getUsuarioDto().getId()).orElse(null);
 
 
@@ -102,8 +117,6 @@ public class EmpleadoServiceImpl implements EmpleadoService<EmpleadoDto> {
         if (object.getId()!= null) {
             empleadoEntityObt.setId(object.getId());
         }
-
-        System.out.println("El objeto entiti usuario" + usuarioEntity.getAlias());
 
         empleadoEntityObt.setUsuario(usuarioEntity);
         EmpleadoEntity empleadoEntitysaved = empleadoRepository.save(empleadoEntityObt);

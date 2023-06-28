@@ -5,6 +5,7 @@ import { EmpleadoUpdate } from 'src/app/models/commands/empleado/EmpleadoUpdate'
 import { Empleado } from 'src/app/models/dtos/Empleado';
 import { EmpleadoFull } from 'src/app/models/dtos/EmpleadoFull';
 import { EmpleadoResponse } from 'src/app/models/responseapi/EmpleadoResponse';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class EmpleadolistComponent {
   itemsPerPage = 5;
   constructor(
     private empleadoService: EmpleadoService,
-    private router: Router
+    private router: Router,
+    private auth: AuthService
   ) { }
 
   empleados: Empleado[] = [];
@@ -52,10 +54,22 @@ export class EmpleadolistComponent {
       });
   }
   eliminar(empleado: Empleado): void {
-    this.empleadoService.borrarLogicEmpleado(empleado.id).subscribe((data) => {
-      this.getPaginableEmpleados();
-      // Actualizar el estado a "inactivo"
-    });
+    var empleadosession = this.empleadoService.getEmpleadoFromSession();
+    if(empleado.id == empleadosession.id ){
+
+      this.empleadoService.borrarLogicEmpleado(empleado.id).subscribe((data) => {
+        this.logout()
+        this.getPaginableEmpleados();
+        // Actualizar el estado a "inactivo"
+      });
+    }else{
+      this.empleadoService.borrarLogicEmpleado(empleado.id).subscribe((data) => {
+        this.getPaginableEmpleados();
+        // Actualizar el estado a "inactivo"
+      });
+    }
+
+    
   }
 
   pageChangeEvent(event: number) {
@@ -70,4 +84,13 @@ export class EmpleadolistComponent {
       }
     })
   }
+
+
+  logout():void{
+    this.auth.logout()
+    sessionStorage.clear()
+    this.router.navigate(['login'])
+  }
+
+
 }

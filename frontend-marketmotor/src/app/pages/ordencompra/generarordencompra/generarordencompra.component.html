@@ -114,7 +114,7 @@
             </button>
           </div>
           <div class="ms-3">
-            <button type="submit"  class="btn btn-success">
+            <button type="submit" [disabled]="!this.formProveedor.valid"  class="btn btn-success">
               Generar <i class="ps-3 bi bi-save2-fill"></i>
             </button>
           </div>
@@ -192,14 +192,15 @@
             autocomplete="off">
             <div class="form-group">
               <label for="formGroupExampleInput">Producto</label>
-              <input readonly type="text" value="{{ productoToQuantity.descripcion }}" class="form-control"
-                id="formGroupExampleInput" />
+              <input readonly  type="text" value="{{ productoToQuantity.descripcion }}" class="form-control"
+                id="formGroupExampleInput" required/>
             </div>
             <div class="form-group">
               <label for="formGroupExampleInput2">Cantidad</label>
               <input formControlName="cantidad" type="number" class="form-control" id="formGroupExampleInput2"
-                placeholder="Ingrese la cantidad" />
-            </div>
+                placeholder="Ingrese la cantidad" required/>
+            </div>              
+
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                 Cerrar
@@ -207,6 +208,9 @@
               <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
                 Guardar
               </button>
+              <span *ngIf="this.formAddingCartProduct.get('cantidad')?.errors?.['min']" class="alert alert-danger" style="position: absolute;left: 0;">
+                Coloca una cantidad correcta
+              </span>
             </div>
           </form>
         </div>

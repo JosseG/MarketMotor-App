@@ -146,6 +146,8 @@ public class VentaServiceImpl implements VentaService<VentaDto> {
     @Transactional(rollbackOn = Exception.class)
     public boolean realizarVenta(VentaDto a, List<DetalleVentaDto> detalles) throws MyException {
 
+
+
         VentaDto ventaRealizada = guardar(a);
 
         for(DetalleVentaDto detalle: detalles){

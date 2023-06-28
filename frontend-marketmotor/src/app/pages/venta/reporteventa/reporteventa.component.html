@@ -13,9 +13,6 @@
                     <div class="d-flex flex-row  buscadores">
                         <div class="input-group mb-3 col-3 selec_empleado">
 
-                            <!--<select >
-                                <option *ngFor="let i of devices">{{i}}</option>
-                            </select>-->
                             <select   class="form-select " id="inputGroupSelect04" >
                               <option selected value="0">Empleado</option>
                               <option value="1">One</option>
@@ -72,7 +69,6 @@
                             <td>{{venta.venta.empleado.nombre}}</td>
                             <td>{{venta.producto.tipo}} - {{venta.producto.marca}}</td>
                             <td>{{venta.unidades * venta.producto.precio | number : '1.2-2'}}</td>
-                            <!--<td><span class="badge bg-success border-2 px-4 py-2">Completado</span></td>-->
 
                             <td *ngIf="venta.estado != true; else elseBlock">
                                 <button type="button" class="bg-inactivo text-white border-0 px-3 py-1">
