@@ -4,6 +4,7 @@ import com.jma.productoservice.detalleOrdenCompra.domain.command.DetalleOrdenCom
 import com.jma.productoservice.detalleOrdenCompra.domain.command.DetalleOrdenCompraCommandUpdate;
 import com.jma.productoservice.detalleOrdenCompra.domain.dto.DetalleOrdenCompraDto;
 import com.jma.productoservice.detalleOrdenCompra.domain.response.DetalleOrdenCompraResponse;
+import com.jma.productoservice.detalleVenta.domain.dto.DetalleVentaDto;
 import com.jma.productoservice.ordenCompra.domain.dto.OrdenCompraDto;
 import com.jma.productoservice.producto.domain.dto.ProductoDto;
 import com.jma.productoservice.detalleOrdenCompra.application.mapper.DetalleOrdenCompraMapper;
@@ -92,6 +93,14 @@ public class DetalleOrdenCompraController {
         } catch(Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+
+    @GetMapping("/producto/{id}")
+    public ResponseEntity<List<DetalleOrdenCompraDto>> obtenePorFiltroProductoId(
+            @PathVariable Long id
+    ){
+        return ResponseEntity.ok(detalleOrdenCompraService.obtenerPorFiltroProductoId(id));
     }
 
 

@@ -4,6 +4,8 @@ import com.jma.productoservice.detalleOrdenCompra.domain.dto.DetalleOrdenCompraD
 import com.jma.productoservice.detalleOrdenCompra.domain.entity.DetalleOrdenCompraEntity;
 import com.jma.productoservice.detalleOrdenCompra.domain.response.DetalleOrdenCompraResponse;
 import com.jma.productoservice.detalleOrdenCompra.infrastructure.out.DetalleOrdenCompraRepository;
+import com.jma.productoservice.detalleVenta.domain.dto.DetalleVentaDto;
+import com.jma.productoservice.detalleVenta.domain.entity.DetalleVentaEntity;
 import com.jma.productoservice.empleado.application.mapper.EmpleadoMapper;
 import com.jma.productoservice.ordenCompra.domain.entity.OrdenCompraEntity;
 import com.jma.productoservice.ordenCompra.infrastructure.out.OrdenCompraRepository;
@@ -213,6 +215,15 @@ public class DetalleOrdenCompraServiceImpl implements DetalleOrdenCompraService<
         detalleOrdenCompraResponse.setLast(detalleOrdenPageable.isLast());
         detalleOrdenCompraResponse.setTotalPages(detalleOrdenPageable.getTotalPages());
         return detalleOrdenCompraResponse;
+    }
+
+    @Override
+    public List<DetalleOrdenCompraDto> obtenerPorFiltroProductoId(Long id) {
+        List<DetalleOrdenCompraEntity> detalleOrdenesFiltred = detalleOrdenCompraRepository.findDetalleOrdenCompraEntitiesByProducto_Id(id);
+
+        List<DetalleOrdenCompraDto> content = detallesMapeados(detalleOrdenesFiltred);
+
+        return content;
     }
 
     private List<DetalleOrdenCompraDto> detallesMapeados(List<DetalleOrdenCompraEntity> detallesOrdenes) {

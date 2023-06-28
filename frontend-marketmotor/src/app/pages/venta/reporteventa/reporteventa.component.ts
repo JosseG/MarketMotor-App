@@ -81,11 +81,6 @@ export class ReporteventaComponent {
       }
     }
 
-
-    console.log(this.mySet)
-    console.log("son obje")
-
-
     sessionStorage.setItem("reporteVentasFiltred",JSON.stringify(Array.from(this.mySet)))
 
     this.router.navigate(["/reportetemplateventa"])
@@ -103,7 +98,6 @@ export class ReporteventaComponent {
 
     this.detalleVentaService.getAllByProductoId(id).subscribe({
       next: (data: any) => {
-        console.log("LISTA VENTA REEE")
         console.log(data)
         this.detalleVentasConFiltro = data;
       }

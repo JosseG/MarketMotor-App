@@ -1,37 +1,33 @@
+
+<div class="text-center mt-3"><button class="btn btn-secondary"   [useExistingCss]="true" printSectionId="print-section" ngxPrint>Imprimir</button></div>
 <div id="print-section">
     <div class="mt-5">
         <div class="reporte-container px-5">
-            <div class="reporte-header col-md-12 d-flex justify-content-between">
-                <h2>REPORTES DE COMPRA</h2>
+            <div class="reporte-header col-md-12 d-flex justify-content-center">
+                <h2 >REPORTE DE VENTAS</h2>
             </div>
 
             <div class="mt-3">
-                <div class="row align-items-start">
+                <div class="row align-items-start text-center">
+
                     <div class="col w-25 p-3">
-                        <h4>Numero de Orden</h4>
-                        <div class="col">
-                            <div class="col-9">-los cisnes 265</div>
-                        </div>
+                        <h4>Fecha desde</h4>
+                        <div class="col-12">{{fechaInicio | date:'short'}}</div>
                     </div>
 
                     <div class="col w-25 p-3">
-                        <h4>Dirección de Envio</h4>
-                        <div class="col-9">-los cisnes 265</div>
+                        <h4>Fecha hasta</h4>
+                        <div class="col-12">{{fechaFin | date:'short'}}</div>
                     </div>
 
                     <div class="col w-25 p-3">
-                        <h4>Contacto</h4>
-                        <div class="col-9">-los cisnes 265</div>
+                        <h4>Monto Mínimo</h4>
+                        <div class="col-12">S/. {{montoMinimo | number:'1.2'}}</div>
                     </div>
 
                     <div class="col w-25 p-3">
-                        <h4>Contacto</h4>
-                        <div class="col-9">-los cisnes 265</div>
-                    </div>
-
-                    <div class="col w-25 p-3">
-                        <h4>Contacto</h4>
-                        <div class="col-9">-los cisnes 265</div>
+                        <h4>Monto Máximo</h4>
+                        <div class="col-12">S/. {{montoMaximo  | number:'1.2'}}</div>
                     </div>
                 </div>
             </div>
@@ -39,35 +35,35 @@
             <hr />
 
             <div class="mt-3">
-                <div class="row align-items-start">
+                <div class="row align-items-start  text-center">
                     <div class="col w-25 p-3">
-                        <h4>Dirección de Envio</h4>
+                        <h4>Producto mas vendido</h4>
                         <div class="col">
-                            <div class="col-9">-los cisnes 265</div>
-                            <div class="col-9">-pasaje ismael castillo 185 aaaaaaaaaa</div>
-                            <div class="col-9">-av salaverry 3630</div>
-                            <div class="col-9">-las aguilas 365</div>
-                            <div class="col-9">-pedemonte 151</div>
+                            <div class="col-12">{{productoMasVendido.serial}}</div>
+                            <div class="col-12">{{productoMasVendido.tipo}}</div>
+                            <div class="col-12">{{productoMasVendido.marca}}</div>
+                            <div class="col-129">{{productoMasVendido.descripcion}}</div>
+                            <div class="col-12">{{productoMasVendido.precio}}</div>
                         </div>
                     </div>
                     <div class="col w-25 p-3">
-                        <h4>Dirección de Envio</h4>
+                        <h4>Empleado destacado</h4>
                         <div class="col">
-                            <div class="col-9">-los cisnes 265</div>
-                            <div class="col-9">-pasaje ismael castillo 185 aaaaaaaaaa</div>
-                            <div class="col-9">-av salaverry 3630</div>
-                            <div class="col-9">-las aguilas 365</div>
-                            <div class="col-9">-pedemonte 151</div>
+                            <div class="col-12">{{empleadoDestacado.nombre}}</div>
+                            <div class="col-12">{{empleadoDestacado.apellidoPaterno}}</div>
+                            <div class="col-12">{{empleadoDestacado.apellidoMaterno}}</div>
+                            <div class="col-12">{{empleadoDestacado.telefono}}</div>
+                            <div class="col-12">{{empleadoDestacado.correo}}</div>
                         </div>
                     </div>
                     <div class="col w-25 p-3">
-                        <h4>Dirección de Envio</h4>
+                        <h4>Proveedor destacado</h4>
                         <div class="col">
-                            <div class="col-9">-los cisnes 265</div>
-                            <div class="col-9">-pasaje ismael castillo 185 aaaaaaaaaa</div>
-                            <div class="col-9">-av salaverry 3630</div>
-                            <div class="col-9">-las aguilas 365</div>
-                            <div class="col-9">-pedemonte 151</div>
+                            <div class="col-12">{{proveedorDestacado.id}}</div>
+                            <div class="col-12">{{proveedorDestacado.nombreComercial}}</div>
+                            <div class="col-12">{{proveedorDestacado.razonSocial}}</div>
+                            <div class="col-12">{{proveedorDestacado.correo}}</div>
+                            <div class="col-12">{{proveedorDestacado.telefonoProveedor}}</div>
                         </div>
                     </div>
                 </div>
@@ -78,30 +74,26 @@
                     <thead class="table">
                         <tr>
                             <th scope="col" class="text-center">Numero de Orden</th>
-                            <th scope="col" class="text-center">Tipo de Orden</th>
-                            <th scope="col" class="text-center">Proveedor</th>
+                            <th scope="col" class="text-center">Fecha</th>
+                            <th scope="col" class="text-center">Cliente</th>
                             <th scope="col" class="text-center">Encargado</th>
                             <th scope="col" class="text-center">Monto</th>
-                            <th scope="col" class="text-center">Estado</th>
                         </tr>
                     </thead>
                     <tbody class="body_reporte">
                         <tr *ngFor="let compra of compras">
-                            <td class="text-center"></td>
-                            <td class="text-center">Compra de Embrague</td>
-                            <td class="text-center">Wong & Metro</td>
-                            <td class="text-center">Riane</td>
-                            <td class="text-center">600</td>
-                            <td class="text-center">
-                                <span class="badge bg-success border-2 px-4 py-2">Completado</span>
-                            </td>
+                            <td class="text-center">{{compra.ordenCompra.id}}</td>
+                            <td class="text-center">{{compra.creadoEn | date: 'medium'}}</td>
+                            <td class="text-center">{{compra.ordenCompra.proveedor.nombreComercial}}</td>
+                            <td class="text-center">{{compra.ordenCompra.empleado.nombre}}</td>
+                            <td class="text-center">S/. {{compra.ordenCompra.valorTotal | number : '1.2'}}</td>
                         </tr>
                     </tbody>
 
                     <tfoot>
                         <tr>
-                            <td class="" colspan="5">TOTAL</td>
-                            <td class="text-center">1200</td>
+                            <td class="" colspan="4">TOTAL</td>
+                            <td class="text-center text-danger fw-bold">S/. {{total | number : '1.2'}}</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -110,4 +102,3 @@
     </div>
 </div>
 
-<button  [useExistingCss]="true" printSectionId="print-section" ngxPrint>print</button>

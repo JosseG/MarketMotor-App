@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import baserUrl from '../globalurl/UrlApi';
+import { DetalleOrdenCompra } from 'src/app/models/dtos/DetalleOrdenCompra';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,10 @@ export class DetalleordencompraService {
     return this.http.get(`${this.apiUrl}/producto/pagination/${id}`,{
       params: new HttpParams().set('pageNo', pageNo).set('pageSize',pageSize)
     })
+  }
+
+  getAllByProductoId(id:number){
+    return this.http.get<DetalleOrdenCompra[]>(this.apiUrl+"/producto/"+id);
   }
 
 

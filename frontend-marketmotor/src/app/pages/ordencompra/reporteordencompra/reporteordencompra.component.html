@@ -22,10 +22,8 @@
             </div>
             <div class="input-group mb-3 col-3 selec_empleado">
               <select class="form-select" id="inputGroupSelect04" (change)="onChange(val.value)" #val>
-                <option selected value="0">Empleado</option>
-                <option value="1">Shaughn</option>
-                <option value="2">Cello</option>
-                <option value="3">Viviane</option>
+                <option selected value="0">Producto</option>
+                <option *ngFor="let i of productos" value="{{i.id}}">{{i.serial}} {{i.tipo.toLowerCase()}} </option>
               </select>
             </div>
             <div class="input-group mb-3 col-3 selec_proveedor">
@@ -41,7 +39,7 @@
           <div class="d-flex flex-row p_derecha">
 
             <div class="input-group mb-3 buscar_todo">
-              <span class="input-group-text inp_buscar" id="basic-addon1"><i class="bi bi-search"></i></span>
+              <!--<span class="input-group-text inp_buscar" id="basic-addon1"><i class="bi bi-search"></i></span>-->
               <input type="text" class="form-control inp_buscar" placeholder="Busca aquí"
                 aria-describedby="basic-addon1">
             </div>
@@ -70,7 +68,7 @@
 
             <tr
               *ngFor="let detalleOrdenCompra of detalleOrdenCompras | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: total }">
-              <td>{{detalleOrdenCompra.id}}</td>
+              <td>{{detalleOrdenCompra.ordenCompra.id}}</td>
               <td>Compra de {{detalleOrdenCompra.producto.tipo}}</td>
               <td>{{detalleOrdenCompra.ordenCompra.proveedor.nombreComercial}}</td>
               <td>{{detalleOrdenCompra.ordenCompra.empleado.nombre}}</td>
