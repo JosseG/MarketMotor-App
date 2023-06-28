@@ -14,7 +14,7 @@ import { ProductoService } from 'src/app/services/producto/producto.service';
 import { ProveedorService } from '../../../services/proveedor/proveedor.service';
 import { DetalleordencompraService } from 'src/app/services/detalleordencompra/detalleordencompra.service';
 import { genUniqueId } from 'src/app/_shared/serialid/GenerateSerial';
-//import genUniqueId from 'src/app/_shared/serialid/GenerateSerial';
+import { DetalleOrdenCompraCommandInsert } from 'src/app/models/commands/detalleordencompra/DetalleOrdenCompraCommandInsert';
 
 @Component({
   selector: 'app-generarordencompra',
@@ -118,7 +118,9 @@ export class GenerarordencompraComponent implements OnInit {
         next: (data: any) => {
           this.productosPaginable = data;
           this.total = this.productosPaginable.totalElements;
-          this.productos = this.productosPaginable.content;
+          this.productos = this.productosPaginable.content.filter(
+            (e) => e.estado == true && e.stock > 10
+          );
         },
         error: (e) => console.log('Error ' + e),
       });
@@ -134,7 +136,9 @@ export class GenerarordencompraComponent implements OnInit {
         next: (data: any) => {
           this.productosPaginable = data;
           this.total = this.productosPaginable.totalElements;
-          this.productos = this.productosPaginable.content;
+          this.productos = this.productosPaginable.content.filter(
+            (e) => e.estado == true && e.stock > 10
+          );
           console.log('se llego a filtrar ');
           this.isSearching = true;
           console.log(data);
@@ -239,49 +243,45 @@ export class GenerarordencompraComponent implements OnInit {
     this.proveedorToForm = proveedor;
   }
 
-  registrarOrdenCompra() {
-    this.element$.subscribe({
-      next: (data: CarritoItem[]) => {
+  async registrarOrdenCompra() {
+    await this.element$.subscribe({
+      next: async (data: CarritoItem[]) => {
         if (data.length > 0) {
           var total = 0;
-
+          var object : DetalleOrdenCompraCommandInsert[]= [];
           for (let productoFromCart of data) {
             total +=
               productoFromCart.cantidad * productoFromCart.producto.precio;
           }
 
-          var valores = this.formOrdenCompra.value;
-          valores.valorTotal = total;
-          valores.idEmpleado = this.empleado.id
-          valores.idProveedor = this.myproveedor.id
+          for(let i = 0; i < data.length; i++){
+            var detalleOrdenCompra = new DetalleOrdenCompraCommandInsert();
+            detalleOrdenCompra.cantidad = data[i].cantidad
+            detalleOrdenCompra.idProducto = data[i].producto.id
+            detalleOrdenCompra.precioUnitario = data[i].producto.precio
+            object.push(detalleOrdenCompra);
+          }
+
+          var ordencompra = this.formOrdenCompra.value;
+          ordencompra.valorTotal = total;
+          ordencompra.idEmpleado = this.empleado.id
+          ordencompra.idProveedor = this.myproveedor.id
 
           if (total > 0) {
-            this.ordenCompraService.guardarOrdenCompra(valores).subscribe({
-              next: (ordenCompra: any) => {
-                for (let productoFromCart of data) {
-                  var newObject: any = new Object();
-                  newObject.cantidad = productoFromCart.cantidad;
-                  newObject.precioUnitario = productoFromCart.producto.precio;
-                  newObject.idProducto = productoFromCart.producto.id;
-                  newObject.idOrdenCompra = ordenCompra.id;
-
-                  this.detalleOrdenCompraService
-                    .guardarDetalleOrdenCompra(newObject)
-                    .subscribe({
-                      next: (detalle) => {
-                        this.cleanOrdenCompra();
-                        console.log(detalle);
-                      },
-                      error: (e) => {
-                        console.log(e);
-                      },
-                    });
+            this.ordenCompraService.realizarOrdenCompraTransaccion(ordencompra, object).subscribe({
+              next: (data) =>{
+                if(data==true){
+                  this.cleanOrdenCompra();
+                  alert("Orden Compra realizada con exito")
+                }else{
+                  alert("Orden Compra sin éxito, solucione la gestión de productos y su stock")
                 }
               },
-              error: (e) => {
-                console.log(e);
-              },
-            });
+              error: () => {
+                alert("Ocurrio un error inesperado")
+              }
+            })
+
           } else {
             alert('el total es 0');
           }

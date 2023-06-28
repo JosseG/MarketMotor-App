@@ -14,6 +14,7 @@ import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
 import { DetalleventaService } from 'src/app/services/detalleVenta/detalleventa.service';
 import { Venta } from 'src/app/models/dtos/Venta';
 import { Observable } from 'rxjs';
+import { DetalleVentaCommandInsert } from 'src/app/models/commands/detalleventa/DetalleVentaCommandInsert';
 
 @Component({
   selector: 'app-generarventa',
@@ -71,8 +72,8 @@ export class GenerarventaComponent {
   //GENERAR VENTA
   formDetalleVenta: FormGroup = this.formbuilder.group({
     unidades: [0],
-    idProducto: [1],
-    idVenta: [1],
+    idProducto: [0],
+    idVenta: [0],
   });
 
   constructor(
@@ -82,8 +83,7 @@ export class GenerarventaComponent {
     private clienteService: ClienteService,
     private ventaService: VentaService,
     private productoService: ProductoService,
-    private formbuilder: FormBuilder,
-    private detalleVentaService: DetalleventaService
+    private formbuilder: FormBuilder
   ) { }
   ngOnInit(): void {
     this.getClienteForSearch();
@@ -118,7 +118,10 @@ export class GenerarventaComponent {
         next: (data: any) => {
           this.productosPaginable = data;
           this.total = this.productosPaginable.totalElements;
-          this.productos = this.productosPaginable.content;
+          //this.productos = this.productosPaginable.content;
+          this.productos = this.productosPaginable.content.filter(
+            (e) => e.estado == true && e.stock > 10
+          );
         },
         error: (e) => console.log('Error ' + e),
       });
@@ -134,7 +137,10 @@ export class GenerarventaComponent {
         next: (data: any) => {
           this.productosPaginable = data;
           this.total = this.productosPaginable.totalElements;
-          this.productos = this.productosPaginable.content;
+          this.productos = this.productosPaginable.content.filter(
+            (e) => e.estado == true && e.stock > 10
+          );
+          //this.productos.filter((e) => e.estado==true)
           console.log('se llego a filtrar ');
           this.isSearching = true;
           console.log(data);
@@ -242,79 +248,53 @@ export class GenerarventaComponent {
 
   async registrarVenta() {
     this.element$.subscribe({
-      next: async (data: [CarritoItem]) => {
-        if (data.length > 0) {
+      next: async (detalles: [CarritoItem]) => {
+        if (detalles.length > 0) {
           var total = 0;
-
-          for (let productoFromCart of data) {
-            total += productoFromCart.cantidad * productoFromCart.producto.precio;
+          var object : DetalleVentaCommandInsert[]= [];
+          for (let productoFromCart of detalles) {
+            
+            total +=
+              productoFromCart.cantidad * productoFromCart.producto.precio;
+          }
+          for(let i = 0; i < detalles.length; i++){
+            var detalleVenta = new DetalleVentaCommandInsert();
+            detalleVenta.unidades = detalles[i].cantidad
+            detalleVenta.idProducto = detalles[i].producto.id
+            object.push(detalleVenta);
           }
 
-          var valores = this.formVenta.value;
-          valores.preciototal = total;
-          valores.idEmpleado = this.empleado.id
-          valores.idCliente = this.mycliente.id
+          var venta = this.formVenta.value;
+          venta.preciototal = total;
+          venta.idEmpleado = this.empleado.id;
+          venta.idCliente = this.mycliente.id;
 
-          console.log(this.empleado.id + " " + this.mycliente.id)
 
           if (total > 0) {
-            await this.ventaService.guardarVenta(valores).subscribe({
-              next: async (venta: any) => {
-                for (let productoFromCart of data) {
-                  var newObject: any = new Object();
-                  newObject.unidades = productoFromCart.cantidad;
-                  newObject.idProducto = productoFromCart.producto.id;
-                  newObject.idVenta = venta.id;
-
-                  await this.detalleVentaService
-                    .guardarDetalleVenta(newObject)
-                    .subscribe({
-                      next: async (detalle: any) => {
-                        await this.productoService.getProductoId(detalle.producto.id).subscribe({
-                          next: async (producto: any) => {
-                            var productoCommandUpdate = producto
-                            productoCommandUpdate.stock = producto.stock - detalle.unidades
-                            await this.productoService.updateProducto(productoCommandUpdate).subscribe({
-                              next: (productoCantidadUpdated: any) => {
-                                console.log("Disminuyo producto")
-                                console.log(productoCantidadUpdated)
-                              }
-                            })
-                          }
-                        })
-                        this.cleanVenta();
-                        console.log(detalle);
-                      },
-                      error: (e) => {
-                        console.log(e);
-                      },
-                    });
-                    
+            await this.ventaService
+              .realizarVentaTransaccion(venta, object)
+              .subscribe({
+                next: (data:boolean) => {
+                  if(data==true){
+                    this.cleanVenta();
+                    alert("Venta realizada con exito")
+                  }else{
+                    alert("Venta sin éxito, solucione la gestión de productos y su stock")
+                  }
+                },
+                error: () => {
+                  alert("Ocurrio un error inesperado")
                 }
-              },
-              error: (e) => {
-                console.log(e);
-              },
-            });
+              });
           } else {
             alert('el total es 0');
           }
         } else {
           alert('No puedes realizar');
         }
-      }
-    })
-
+      },
+    });
   }
-
-
-
-
-
-
-
-
-
 
   cleanVenta() {
     this.carritoService.cleanCarritoVenta();

@@ -86,6 +86,22 @@ public class ProductoController {
         }
     }
 
+    @PatchMapping("/activar/{id}")
+    public ResponseEntity<Boolean> activar(@PathVariable("id") Long id){
+        try {
+            ProductoDto producto = productoService.obtenerPorId(id);
+            if (producto == null)
+                return ResponseEntity.notFound().build();
+
+            producto.setId(id);
+            producto.declararDisponibilidad(EstadoD.ACTIVO);
+            productoService.guardar(producto);
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar (@PathVariable Long id) {
         String respuesta = productoService.eliminar(id);

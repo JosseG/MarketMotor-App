@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import baserUrl from '../globalurl/UrlApi';
 import { __param } from 'tslib';
+import { DetalleOrdenCompra } from 'src/app/models/dtos/DetalleOrdenCompra';
 
 @Injectable({
   providedIn: 'root'
@@ -60,8 +61,8 @@ export class OrdencompraService {
 
 
 
-  confirmarOrden(id:number){
-    return this.http.patch(`${this.url}/confirmar`,null,  {
+  confirmarOrden(id:number, objects: DetalleOrdenCompra[]){
+    return this.http.post(`${this.url}/confirmar`,objects,  {
       params: new HttpParams().set('id', id)
     })
   }
@@ -71,6 +72,14 @@ export class OrdencompraService {
 
   guardarOrdenCompra(ordenCompra: any){
     return this.http.post(this.url, ordenCompra);
+  }
+
+
+  realizarOrdenCompraTransaccion(ordencompra: any, detalles:any[]){
+    var newObject:any = new Object();
+    newObject.ordenCompra = ordencompra;
+    newObject.detallesOrdenCompra = detalles;
+    return this.http.post<boolean>(this.url+"/realizarOrdenCompra",newObject)
   }
 
 }

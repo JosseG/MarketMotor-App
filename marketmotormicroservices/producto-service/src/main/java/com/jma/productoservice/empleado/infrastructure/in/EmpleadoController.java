@@ -81,6 +81,23 @@ public class EmpleadoController {
         }
     }
 
+    @PatchMapping("/activar/{id}")
+    public ResponseEntity<Boolean> activar(@PathVariable("id") Long id){
+
+        try{
+            EmpleadoDto empleado = empleadoService.obtenerPorId(id);
+            if(empleado == null)
+                return ResponseEntity.notFound().build();
+
+            empleado.setId(id);
+            empleado.declararDisponibilidad(EstadoD.ACTIVO);
+            empleadoService.guardar(empleado);
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(@PathVariable("id") Long id){

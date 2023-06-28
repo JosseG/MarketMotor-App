@@ -1,8 +1,12 @@
 package com.jma.productoservice.ordenCompra.infrastructure.in;
 
+import com.jma.productoservice.detalleOrdenCompra.application.mapper.DetalleOrdenCompraMapper;
+import com.jma.productoservice.detalleOrdenCompra.domain.dto.DetalleOrdenCompraDto;
+import com.jma.productoservice.detalleVenta.application.mapper.DetalleVentaMapper;
 import com.jma.productoservice.empleado.domain.dto.EmpleadoDto;
 import com.jma.productoservice.ordenCompra.domain.command.OrdenCompraCommandInsert;
 import com.jma.productoservice.ordenCompra.domain.command.OrdenCompraCommandUpdate;
+import com.jma.productoservice.ordenCompra.domain.command.OrdenCompraTransactionCommandInsert;
 import com.jma.productoservice.ordenCompra.domain.dto.OrdenCompraDto;
 import com.jma.productoservice.ordenCompra.domain.response.OrdenCompraResponse;
 import com.jma.productoservice.proveedor.domain.dto.ProveedorDto;
@@ -10,6 +14,8 @@ import com.jma.productoservice.ordenCompra.application.mapper.OrdenCompraMapper;
 import com.jma.productoservice.ordenCompra.application.service.OrdenCompraService;
 import com.jma.productoservice.utils.ConstantsService;
 import com.jma.productoservice.utils.EstadoD;
+import com.jma.productoservice.venta.application.mapper.VentaMapper;
+import com.jma.productoservice.venta.domain.command.VentaTransactionCommandInsert;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +25,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/ordencompra")
@@ -67,23 +74,18 @@ public class OrdenCompraController {
 
 
 
-    @PatchMapping("/confirmar")
-    public ResponseEntity<Boolean> confirmar(@RequestParam(value = "id", defaultValue = "0", required = false) Long id){
+    @PostMapping("/confirmar")
+    public ResponseEntity<Boolean> confirmar(@RequestParam(value = "id", defaultValue = "0", required = false) Long id,@Valid @RequestBody List<DetalleOrdenCompraDto> detalles){
 
         try{
-            OrdenCompraDto ordenCompraDto = ordenCompraService.obtenerPorId(id);
-
-            if(ordenCompraDto == null)
-                return ResponseEntity.notFound().build();
-
-            ordenCompraDto.setConfirmado(true);
-            ordenCompraService.guardar(ordenCompraDto);
+            ordenCompraService.confirmarCompra(id, detalles);
             return ResponseEntity.ok(true);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
         }
     }
+
 
 
 
@@ -119,6 +121,21 @@ public class OrdenCompraController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
+    @PostMapping("/realizarOrdenCompra")
+    public ResponseEntity<Boolean> realizarTransaccionOrdenCompra(@RequestBody @Valid OrdenCompraTransactionCommandInsert ordenCompraTransactionCommandInsert) {
+
+        try{
+            boolean result = ordenCompraService.realizarOrdenCompra(OrdenCompraMapper.mapFromCommandInsertToDto(ordenCompraTransactionCommandInsert.getOrdenCompra()),ordenCompraTransactionCommandInsert.getDetallesOrdenCompra().stream().map(DetalleOrdenCompraMapper::mapFromCommandInsertToDto).collect(Collectors.toList()));
+            return ResponseEntity.status(HttpStatus.CREATED).body(result);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(false);
+    }
+
 
     @GetMapping("/pagination")
     public ResponseEntity<OrdenCompraResponse> obtenerTodosPaginados(

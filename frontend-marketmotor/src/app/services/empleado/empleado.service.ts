@@ -68,5 +68,10 @@ export class EmpleadoService {
   }
 
 
+  activarEmpleado(id: number){
+    return this.http.patch(this.apiUrl +"/activar/" + id,null)
+  }
+
+
 
 }

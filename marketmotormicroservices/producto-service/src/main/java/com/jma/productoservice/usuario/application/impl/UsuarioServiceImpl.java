@@ -184,6 +184,7 @@ public class UsuarioServiceImpl implements UsuarioService<UsuarioDto> {
     }
 
     private void saveUserToken(UsuarioEntity usuario, String jwtToken) {
+        System.out.println(jwtToken);
         TokenEntity tokenEntity = new TokenEntity();
         tokenEntity.setUsuario(usuario);
         tokenEntity.setToken(jwtToken);

@@ -19,4 +19,6 @@ public interface DetalleVentaService <T> extends ICrudCommon<T> {
 
     List<DetalleVentaDto> obtenerPorFiltroProductoId(Long id);
 
+
+
 }
