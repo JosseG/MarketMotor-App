@@ -1,5 +1,5 @@
 
-<div class="text-center mt-3"><button   [useExistingCss]="true" printSectionId="print-section" ngxPrint>print</button></div>
+<div class="text-center mt-3"><button class="btn btn-secondary"   [useExistingCss]="true" printSectionId="print-section" ngxPrint>Imprimir</button></div>
 <div id="print-section">
     <div class="mt-5">
         <div class="reporte-container px-5">
@@ -22,12 +22,12 @@
 
                     <div class="col w-25 p-3">
                         <h4>Monto Mínimo</h4>
-                        <div class="col-12">S/. {{montoMinimo}}</div>
+                        <div class="col-12">S/. {{montoMinimo | number:'1.2'}}</div>
                     </div>
 
                     <div class="col w-25 p-3">
                         <h4>Monto Máximo</h4>
-                        <div class="col-12">S/. {{montoMaximo}}</div>
+                        <div class="col-12">S/. {{montoMaximo  | number:'1.2'}}</div>
                     </div>
                 </div>
             </div>

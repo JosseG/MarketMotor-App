@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Empleado } from 'src/app/models/dtos/Empleado';
+import { Rol } from 'src/app/models/dtos/Rol';
 import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
+import { RolService } from 'src/app/services/rol/rol.service';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 
 @Component({
@@ -56,10 +58,12 @@ export class EmpleadoinsertComponent implements OnInit {
   }
   idUsuario = 0;
   empleados?: Empleado[];
+  roles: Rol[] = [];
 
-  constructor(private empleadoService: EmpleadoService, private usuarioService:UsuarioService,private router:Router, private formbuilder: FormBuilder) { }
+  constructor(private empleadoService: EmpleadoService, private usuarioService:UsuarioService,private router:Router, private formbuilder: FormBuilder, private rolService:RolService) { }
 
   ngOnInit(): void {
+    this.getRoles();
   }
 
 
@@ -79,6 +83,14 @@ export class EmpleadoinsertComponent implements OnInit {
       },
       error: (e) => alert("Campos incompletos")
       
+    })
+  }
+
+  getRoles(){
+    this.rolService.getAll().subscribe({
+      next: (data) => {
+        this.roles = data;
+      }
     })
   }
 

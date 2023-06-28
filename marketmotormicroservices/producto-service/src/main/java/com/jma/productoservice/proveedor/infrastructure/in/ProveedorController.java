@@ -1,12 +1,15 @@
 package com.jma.productoservice.proveedor.infrastructure.in;
 
 
+import com.jma.productoservice.empleado.domain.dto.EmpleadoDto;
 import com.jma.productoservice.proveedor.domain.command.ProveedorCommandInsert;
 import com.jma.productoservice.proveedor.domain.command.ProveedorCommandUpdate;
 import com.jma.productoservice.proveedor.domain.dto.ProveedorDto;
 import com.jma.productoservice.proveedor.application.mapper.ProveedorMapper;
 import com.jma.productoservice.proveedor.application.service.ProveedorService;
 import com.jma.productoservice.proveedor.domain.response.ProveedorResponse;
+import com.jma.productoservice.usuario.application.service.UsuarioService;
+import com.jma.productoservice.usuario.domain.dto.UsuarioDto;
 import com.jma.productoservice.utils.ConstantsService;
 import com.jma.productoservice.utils.EstadoD;
 import jakarta.validation.Valid;
@@ -26,6 +29,7 @@ import java.util.List;
 public class ProveedorController {
 
     private final ProveedorService<ProveedorDto> proveedorService;
+    private final UsuarioService<UsuarioDto> usuarioService;
 
     /*
     @Autowired
@@ -75,6 +79,28 @@ public class ProveedorController {
             proveedor.setId(id);
             proveedor.declararDisponibilidad(EstadoD.INACTIVO);
             proveedorService.guardar(proveedor);
+            proveedor.getUsuarioDto().declararDisponibilidad(EstadoD.INACTIVO);
+            usuarioService.cambiarEstadoInactivo(proveedor.getUsuarioDto());
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @PatchMapping("/activar/{id}")
+    public ResponseEntity<Boolean> activar(@PathVariable("id") Long id){
+
+        try{
+            ProveedorDto proveedor = proveedorService.obtenerPorId(id);
+            if(proveedor == null)
+                return ResponseEntity.notFound().build();
+
+            proveedor.setId(id);
+            proveedor.declararDisponibilidad(EstadoD.ACTIVO);
+            proveedorService.guardar(proveedor);
+            usuarioService.cambiarEstadoActivo(proveedor.getUsuarioDto());
+            //usuarioService.guardar(empleado.getUsuarioDto());
             return ResponseEntity.ok(true);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

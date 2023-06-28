@@ -59,5 +59,11 @@ export class ProveedorlistComponent {
     });
   }
 
- 
+  activar(id:number){
+    this.proveedorService.activarProveedor(id).subscribe({
+      next: ()=> {
+        this.getPaginableProveedor();
+      }
+    })
+  }
 }

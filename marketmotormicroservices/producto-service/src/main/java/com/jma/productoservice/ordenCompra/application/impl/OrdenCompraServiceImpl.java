@@ -1,5 +1,8 @@
 package com.jma.productoservice.ordenCompra.application.impl;
 
+import com.jma.productoservice.detalleOrdenCompra.application.service.DetalleOrdenCompraService;
+import com.jma.productoservice.detalleOrdenCompra.domain.dto.DetalleOrdenCompraDto;
+import com.jma.productoservice.detalleVenta.domain.dto.DetalleVentaDto;
 import com.jma.productoservice.empleado.infrastructure.out.EmpleadoRepository;
 import com.jma.productoservice.ordenCompra.domain.dto.OrdenCompraDto;
 import com.jma.productoservice.empleado.domain.entity.EmpleadoEntity;
@@ -7,6 +10,7 @@ import com.jma.productoservice.ordenCompra.domain.entity.OrdenCompraEntity;
 import com.jma.productoservice.ordenCompra.domain.response.OrdenCompraResponse;
 import com.jma.productoservice.ordenCompra.infrastructure.out.OrdenCompraRepository;
 import com.jma.productoservice.producto.application.mapper.ProductoMapper;
+import com.jma.productoservice.producto.application.service.ProductoService;
 import com.jma.productoservice.producto.domain.dto.ProductoDto;
 import com.jma.productoservice.producto.domain.entity.ProductoEntity;
 import com.jma.productoservice.producto.domain.response.ProductoResponse;
@@ -16,12 +20,16 @@ import com.jma.productoservice.ordenCompra.application.mapper.OrdenCompraMapper;
 import com.jma.productoservice.proveedor.application.mapper.ProveedorMapper;
 import com.jma.productoservice.ordenCompra.application.service.OrdenCompraService;
 import com.jma.productoservice.proveedor.infrastructure.out.ProveedorRepository;
+import com.jma.productoservice.utils.MyException;
+import com.jma.productoservice.venta.domain.dto.VentaDto;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,6 +42,8 @@ public class OrdenCompraServiceImpl implements OrdenCompraService<OrdenCompraDto
     private final OrdenCompraRepository ordenCompraRepository;
     private final ProveedorRepository proveedorRepository;
     private final EmpleadoRepository empleadoRepository;
+    private final DetalleOrdenCompraService<DetalleOrdenCompraDto> detalleOrdenCompraService;
+    private final ProductoService<ProductoDto> productoService;
 
     /*
     @Autowired
@@ -167,5 +177,44 @@ public class OrdenCompraServiceImpl implements OrdenCompraService<OrdenCompraDto
             content.get(i).setEmpleado(EmpleadoMapper.mapToDto(ordenes.get(i).getEmpleado()));
         }
         return content;
+    }
+
+
+
+
+    @Override
+    @Transactional(rollbackOn = Exception.class)
+    public boolean realizarOrdenCompra(OrdenCompraDto a, List<DetalleOrdenCompraDto> detalles) throws MyException {
+
+        OrdenCompraDto ordenCompraRealizada = guardar(a);
+
+        for(DetalleOrdenCompraDto detalle: detalles){
+            detalle.getOrdenCompra().setId(ordenCompraRealizada.getId());
+            DetalleOrdenCompraDto detalleGuardado = detalleOrdenCompraService.guardar(detalle);
+            if(!detalleGuardado.getProducto().isEstado()){
+                throw new MyException("Producto inhabilitado");
+            }
+        }
+        return true;
+    }
+
+    @Override
+    @Transactional(rollbackOn = Exception.class)
+    public boolean confirmarCompra(Long id, List<DetalleOrdenCompraDto> a) throws MyException  {
+
+        OrdenCompraDto ordenCompraDto = obtenerPorId(id);
+
+
+        if(ordenCompraDto == null || a.size()<1)
+            throw new MyException("Error en encontrar ordencompra");
+
+        ordenCompraDto.setConfirmado(true);
+        guardar(ordenCompraDto);
+        for(DetalleOrdenCompraDto detalle: a){
+            ProductoDto productoEncontrado = productoService.obtenerPorId(detalle.getProducto().getId());
+            productoEncontrado.setStock(productoEncontrado.getStock() + detalle.getCantidad());
+            productoService.actualizar(productoEncontrado);
+        }
+        return false;
     }
 }

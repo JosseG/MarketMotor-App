@@ -48,5 +48,9 @@ export class ProductoService {
     return this.http.patch(this.url +"/" + id,null)
   }
 
+  activarProducto(id: number){
+    return this.http.patch(this.url +"/activar/" + id,null)
+  }
+
 
 }

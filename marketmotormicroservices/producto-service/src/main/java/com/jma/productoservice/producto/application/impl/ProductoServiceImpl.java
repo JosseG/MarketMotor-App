@@ -86,6 +86,11 @@ public class ProductoServiceImpl implements ProductoService<ProductoDto> {
     }
 
     @Override
+    public List<ProductoDto> obtenerProductosDisponibles() {
+        return null;
+    }
+
+    @Override
     public ProductoDto guardar(ProductoDto object) {
 
         ProductoEntity productoTemp = ProductoMapper.mapToEntity(object);

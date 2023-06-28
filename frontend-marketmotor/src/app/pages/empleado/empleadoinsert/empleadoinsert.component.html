@@ -31,29 +31,20 @@
         *Ingrese un correo válido
       </small>
     </div>
-    
-      <div class="col-auto">
-        <div class="form-floating">
-        
-        <input class="form-control" type="number" id="idRol floatingInputGrid" formControlName="idRol"
-        [class.is-invalid] = "rolNoValido" >
-        <label  for="floatingInputGrid">Rol</label>
-      </div>
-      <small *ngif="rolNoValido">
-        *Ingrese un rol válido
-      </small>
+    <div class="col-12">
+      <div class="form-floating">
+        <select formControlName="idRol" class="form-select" id="inputGroupSelect04" [class.is-invalid] = "rolNoValido">
+          <option *ngFor="let i of roles" value="{{i.id}}">{{i.nombre}}</option>
+        </select>
+      <label  for="floatingInputGrid">Rol</label>
     </div>
-    <div class = "roles-text">
-      <p>Roles</p>
+    <small *ngif="rolNoValido">
+      *Ingrese un rol válido
+    </small>
+  </div>
+
     
-      <span>1- Administrador</span>
-      <br>
-      <span>2- Proveedor</span>
-      <br>
-      <span>3- Asistente</span>
-     
-    </div>
-  
+   
   </div>
   <div class="text-center btnUsua"><button class="btn btn-info mt-3" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Crear</button></div>
   
@@ -169,12 +160,9 @@
       
         </div>
       </div>
-      </div>
-    </form>
-  </div>
-  <div class="card-footer text-muted">
+    
    
-  </div>
+
   </div>
   
   <!-- Modal para usuario -->
@@ -193,5 +181,3 @@
       </div>
     </div>
   </div>
-  </div>
-  

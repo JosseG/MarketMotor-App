@@ -1,14 +1,14 @@
 
 <div class="d-flex">
  
-  <div class="card text-center card-usuario" style="width: 15rem;">
+  <div class="card text-center card-usuario" style="width: 17rem;">
     <div class="card-header">
       Usuario
     </div>
     <div class="card-body">
       <form class="form" [formGroup]="formularioUsuario" (ngSubmit)="guardarUsuario()" autocomplete="off">
         <div class=" row g-1" >
-          <div class="col-auto">
+          <div class="col-12">
             <div class="form-floating">
              
              
@@ -20,8 +20,7 @@
               *Ingrese un correo válido
             </small>
           </div>
-        
-          <div class="col-auto">
+          <div class="col-12">
             <div class="form-floating">
           
           <input class="form-control" type="password" id="contrasena floatingInputGrid" formControlName="contrasena" [class.is-invalid] = "contrasenaNoValido" >
@@ -32,27 +31,18 @@
         </small>
       </div>
       
-        <div class="col-auto">
+        <div class="col-12">
           <div class="form-floating">
-          
-          <input class="form-control" type="number" id="idRol floatingInputGrid" formControlName="idRol"
-          [class.is-invalid] = "rolNoValido" >
+            <select formControlName="idRol" class="form-select" id="inputGroupSelect04"  [class.is-invalid] = "rolNoValido">
+              <option *ngFor="let i of roles" value="{{i.id}}">{{i.nombre}}</option>
+            </select>
           <label  for="floatingInputGrid">Rol</label>
         </div>
         <small *ngif="rolNoValido">
           *Ingrese un rol válido
         </small>
       </div>
-      <div class = "roles-text">
-        <p>Roles</p>
-      
-        <span>1- Administrador</span>
-        <br>
-        <span>2- Proveedor</span>
-        <br>
-        <span>3- Asistente</span>
-       
-      </div>
+   
       </div>
         <div class="text-center btnUsua"><button class="btn btn-info mt-3" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Crear</button></div>
         
@@ -141,6 +131,7 @@
             <input class="form-control"   type="number" id="idUsuario floatingInputGrid" formControlName="idUsuario" [readonly]="true" >
             <label for="floatingInputGrid">Usuario</label>
           </div>
+         
         </div>
       </div>
       <div class="text-center btnAgregar"><button class="btn btn-info mt-3" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2">Agregar</button></div>

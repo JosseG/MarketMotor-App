@@ -21,9 +21,9 @@
               <th scope="col">Acciones</th>
             </tr>
           </thead>
-          <tbody class="accordion-item accordion-flush user-select-none" id="accordionFlushExample">
+          <tbody class="accordion-item accordion-flush user-select-none" id="accordionFlushExample" style="position: relative;">
             <ng-container *ngFor="let producto of productos | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: total }">
-              <tr style="cursor: pointer" class="accordion-header collapsed" data-bs-toggle="collapse"
+              <tr style="cursor: pointer;position: relative;" class="accordion-header collapsed" data-bs-toggle="collapse"
                 attr.data-bs-target="#flush-collapse{{ producto.id }}" aria-expanded="false"
                 attr.aria-controls="flush-collapse{{ producto.id }}">
                 <td>{{ producto.id }}</td>
@@ -44,11 +44,12 @@
                     </button>
                   </td>
                 </ng-template>
-                <td class="icons">
-                  <a (click)="eliminar(producto)"><i class="bi bi-trash-fill"></i></a>
+                <td class="icons d-flex justify-content-evenly border-0">
+                  <button style="padding: 0 !important;"  class="btn btn-light" [disabled]="!producto.estado" (click)="eliminar(producto)"><i class="bi bi-trash-fill m-0"></i></button>
 
 
-                  <a routerLink="/actualizar"  (click)="editar(producto)"><i class="bi bi-pencil-square"></i></a>
+                  <button style="padding: 0 !important;"  class="btn btn-light"  [disabled]="!producto.estado" routerLink="/actualizar"  (click)="editar(producto)"><i class="bi bi-pencil-square m-0"></i></button>
+                  <div  *ngIf="producto.estado != true" style="position: absolute; right:-70px; top:2px; bottom: 2px; display: flex;align-items: center;"><a (click)="activar(producto.id)" class="btn"><i class="bi bi-check2"></i></a></div>
               </td>
               </tr>
               <tr>

@@ -62,7 +62,7 @@ public class ProductoController {
     }
 
     @PutMapping
-    public ResponseEntity<ProductoDto> actualizar(@RequestBody  @Valid ProductoCommandUpdate productoCommandUpdate) {
+    public ResponseEntity<ProductoDto> actualizar(@RequestBody @Valid ProductoCommandUpdate productoCommandUpdate) {
 
         ProductoDto productoDtoObt = productoService.actualizar(ProductoMapper.mapFromCommandUpdateToDto(productoCommandUpdate));
 
@@ -80,6 +80,22 @@ public class ProductoController {
             producto.declararDisponibilidad(EstadoD.INACTIVO);
            productoService.guardar(producto);
 
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PatchMapping("/activar/{id}")
+    public ResponseEntity<Boolean> activar(@PathVariable("id") Long id){
+        try {
+            ProductoDto producto = productoService.obtenerPorId(id);
+            if (producto == null)
+                return ResponseEntity.notFound().build();
+
+            producto.setId(id);
+            producto.declararDisponibilidad(EstadoD.ACTIVO);
+            productoService.guardar(producto);
             return ResponseEntity.ok(true);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -16,6 +16,7 @@ import com.jma.productoservice.utils.ConstantsService;
 import com.jma.productoservice.utils.EstadoD;
 import com.jma.productoservice.venta.domain.command.VentaCommandInsert;
 import com.jma.productoservice.venta.domain.command.VentaCommandUpdate;
+import com.jma.productoservice.venta.domain.command.VentaTransactionCommandInsert;
 import com.jma.productoservice.venta.domain.dto.VentaDto;
 import com.jma.productoservice.venta.domain.response.VentaResponse;
 import jakarta.validation.Valid;
@@ -27,6 +28,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/ventas")
@@ -122,6 +124,20 @@ public class VentaController {
         VentaDto ventaActualizado = ventaService.actualizar(ventaDto);
 
         return ResponseEntity.ok(ventaActualizado);
+    }
+
+
+    @PostMapping("/realizarVenta")
+    public ResponseEntity<Boolean> realizarTransaccionVenta(@RequestBody @Valid VentaTransactionCommandInsert ventaTransactionCommandInsert) {
+
+        try{
+            boolean result = ventaService.realizarVenta(VentaMapper.mapFromCommandInsertToDto(ventaTransactionCommandInsert.getVenta()),ventaTransactionCommandInsert.getDetallesVenta().stream().map(DetalleVentaMapper::mapFromCommandInsertToDto).collect(Collectors.toList()));
+            return ResponseEntity.status(HttpStatus.CREATED).body(result);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(false);
     }
 
 }

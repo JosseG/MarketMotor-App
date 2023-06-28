@@ -113,27 +113,18 @@ export class ValidarordenComponent {
 
   async confirmarOrden(orden: OrdenCompra){
 
-    this.ordencompraService.confirmarOrden(orden.id).subscribe({
-      next: async () => {
-        console.log(this.detalleOrdenCompras)
+    this.ordencompraService.confirmarOrden(orden.id,this.detalleOrdenCompras).subscribe({
+      next: async (data) => {
 
-        for(const detalle of this.detalleOrdenCompras){
-
-          await this.productoService.getProductoId(detalle.producto.id).subscribe({
-            next: async (producto: any) => {
-              //interesante
-              let productoCommandUpdate = producto
-              productoCommandUpdate.stock = producto.stock + detalle.cantidad
-              await this.productoService.updateProducto(productoCommandUpdate).subscribe({
-                next: (productoCantidadUpdated: any) => {
-                  console.log("Aumentó producto")
-                  console.log(productoCantidadUpdated)
-                }
-              })
-            }
-          })
+        if(data == true){
+          alert("Se realizo la orden sin prob")
+          this.getPaginableOrdenCompra();
+  
+        }else{
+          alert("Ocurrió un problema inesperado")
+          this.getPaginableOrdenCompra();
         }
-        this.getPaginableOrdenCompra();
+
       }
     })
     this.confirmado = true

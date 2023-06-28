@@ -73,8 +73,33 @@ public class EmpleadoController {
                 return ResponseEntity.notFound().build();
 
             empleado.setId(id);
+            if(empleado.getUsuarioDto()!=null){
+                System.out.println(empleado.getUsuarioDto().getId());
+            }
+
             empleado.declararDisponibilidad(EstadoD.INACTIVO);
             empleadoService.guardar(empleado);
+            empleado.getUsuarioDto().declararDisponibilidad(EstadoD.INACTIVO);
+            usuarioService.cambiarEstadoInactivo(empleado.getUsuarioDto());
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PatchMapping("/activar/{id}")
+    public ResponseEntity<Boolean> activar(@PathVariable("id") Long id){
+
+        try{
+            EmpleadoDto empleado = empleadoService.obtenerPorId(id);
+            if(empleado == null)
+                return ResponseEntity.notFound().build();
+
+            empleado.setId(id);
+            empleado.declararDisponibilidad(EstadoD.ACTIVO);
+            empleadoService.guardar(empleado);
+            usuarioService.cambiarEstadoActivo(empleado.getUsuarioDto());
+            //usuarioService.guardar(empleado.getUsuarioDto());
             return ResponseEntity.ok(true);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

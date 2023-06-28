@@ -49,6 +49,10 @@ export class ProveedorService {
   }
 
 
+  activarProveedor(id: number){
+    return this.http.patch(this.apiUrl +"/activar/" + id,null)
+  }
+
 
   setProveedorToStorage(proveedor: Proveedor): void {
 

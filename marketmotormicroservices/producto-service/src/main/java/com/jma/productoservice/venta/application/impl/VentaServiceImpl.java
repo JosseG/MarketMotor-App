@@ -1,7 +1,13 @@
 package com.jma.productoservice.venta.application.impl;
 
 import com.jma.productoservice.cliente.infrastructure.out.ClienteRepository;
+import com.jma.productoservice.detalleVenta.application.service.DetalleVentaService;
+import com.jma.productoservice.detalleVenta.domain.dto.DetalleVentaDto;
+import com.jma.productoservice.detalleVenta.infrastructure.out.DetalleVentaRepository;
 import com.jma.productoservice.empleado.infrastructure.out.EmpleadoRepository;
+import com.jma.productoservice.producto.application.service.ProductoService;
+import com.jma.productoservice.producto.domain.dto.ProductoDto;
+import com.jma.productoservice.utils.MyException;
 import com.jma.productoservice.venta.domain.dto.VentaDto;
 import com.jma.productoservice.cliente.domain.entity.ClienteEntity;
 import com.jma.productoservice.empleado.domain.entity.EmpleadoEntity;
@@ -12,6 +18,7 @@ import com.jma.productoservice.venta.application.mapper.VentaMapper;
 import com.jma.productoservice.venta.application.service.VentaService;
 import com.jma.productoservice.venta.domain.response.VentaResponse;
 import com.jma.productoservice.venta.infrastructure.out.VentaRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,6 +37,8 @@ public class VentaServiceImpl implements VentaService<VentaDto> {
     private final VentaRepository ventaRepository;
     private final ClienteRepository clienteRepository;
     private final EmpleadoRepository empleadoRepository;
+    private final DetalleVentaService<DetalleVentaDto> detalleVentaService;
+    private final ProductoService<ProductoDto> productoService;
 
     /*
     @Autowired
@@ -131,6 +140,30 @@ public class VentaServiceImpl implements VentaService<VentaDto> {
         ventaResponse.setTotalPages(ordenPageable.getTotalPages());
         ventaResponse.setLast(ordenPageable.isLast());
         return ventaResponse;
+    }
+
+    @Override
+    @Transactional(rollbackOn = Exception.class)
+    public boolean realizarVenta(VentaDto a, List<DetalleVentaDto> detalles) throws MyException {
+
+
+
+        VentaDto ventaRealizada = guardar(a);
+
+        for(DetalleVentaDto detalle: detalles){
+            detalle.getVenta().setId(ventaRealizada.getId());
+            DetalleVentaDto detalleGuardado = detalleVentaService.guardar(detalle);
+            ProductoDto productoEncontrado = productoService.obtenerPorId(detalleGuardado.getProducto().getId());
+            productoEncontrado.setStock(productoEncontrado.getStock() - detalleGuardado.getUnidades());
+            if(!productoEncontrado.isEstado()){
+                throw new MyException("Producto inhabilitado");
+            }
+            if(productoEncontrado.getStock()<10){
+                throw new MyException("Error en stock");
+            }
+            productoService.actualizar(productoEncontrado);
+        }
+        return true;
     }
 
     private List<VentaDto> ordenesMapeadas(List<VentaEntity> ordenes) {

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Cliente } from 'src/app/models/dtos/Cliente';
 import { Producto } from 'src/app/models/dtos/Producto';
@@ -14,6 +14,7 @@ import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
 import { DetalleventaService } from 'src/app/services/detalleVenta/detalleventa.service';
 import { Venta } from 'src/app/models/dtos/Venta';
 import { Observable } from 'rxjs';
+import { DetalleVentaCommandInsert } from 'src/app/models/commands/detalleventa/DetalleVentaCommandInsert';
 
 @Component({
   selector: 'app-generarventa',
@@ -43,7 +44,7 @@ export class GenerarventaComponent {
   });
 
   formAddingCartProduct: FormGroup = this.formbuilder.group({
-    cantidad: [],
+    cantidad: [0,Validators.compose([Validators.required, Validators.min(1)])]
   });
 
   //Cliente Form
@@ -56,9 +57,9 @@ export class GenerarventaComponent {
   });
 
   formCliente: FormGroup = this.formbuilder.group({
-    dni: [],
-    nombre: [],
-    apellido: [],
+    dni: ['',Validators.required],
+    nombre: ['',Validators.required],
+    apellido: ['',Validators.required],
   });
 
   //GENERAR VENTA
@@ -71,8 +72,8 @@ export class GenerarventaComponent {
   //GENERAR VENTA
   formDetalleVenta: FormGroup = this.formbuilder.group({
     unidades: [0],
-    idProducto: [1],
-    idVenta: [1],
+    idProducto: [0],
+    idVenta: [0],
   });
 
   constructor(
@@ -82,8 +83,7 @@ export class GenerarventaComponent {
     private clienteService: ClienteService,
     private ventaService: VentaService,
     private productoService: ProductoService,
-    private formbuilder: FormBuilder,
-    private detalleVentaService: DetalleventaService
+    private formbuilder: FormBuilder
   ) { }
   ngOnInit(): void {
     this.getClienteForSearch();
@@ -97,18 +97,25 @@ export class GenerarventaComponent {
   productos: Producto[] = [];
   clientes: Cliente[] = [];
   mycliente: Cliente = new Cliente();
-  productosFromCartWith: [CarritoItem] = [new CarritoItem()];
+  productosFromCartWith: CarritoItem[] = [new CarritoItem()];
   clienteSearched: Cliente = new Cliente();
 
   productosPaginable: productoResponse = new productoResponse();
 
   async addToCart(id: number) {
-    const values = this.formAddingCartProduct.value.cantidad;
-    console.log('captured');
-    console.log(id);
+    if(this.formAddingCartProduct.valid && this.productoToQuantity.id>0){
+      const values = this.formAddingCartProduct.value.cantidad;
+      console.log('captured');
+      console.log(id);
+  
+      await this.carritoService.addToCarItemsVenta(String(id), parseInt(values));
+      this.getCartProductsVenta();
+      this.formAddingCartProduct.reset();
+      this.productoToQuantity = new Producto();
+    }else{
+      this.getCartProductsVenta();
+    }
 
-    await this.carritoService.addToCarItemsVenta(String(id), parseInt(values));
-    this.getCartProductsVenta();
   }
 
   getPaginableProductos() {
@@ -118,7 +125,10 @@ export class GenerarventaComponent {
         next: (data: any) => {
           this.productosPaginable = data;
           this.total = this.productosPaginable.totalElements;
-          this.productos = this.productosPaginable.content;
+          //this.productos = this.productosPaginable.content;
+          this.productos = this.productosPaginable.content.filter(
+            (e) => e.estado == true && e.stock > 10
+          );
         },
         error: (e) => console.log('Error ' + e),
       });
@@ -134,7 +144,10 @@ export class GenerarventaComponent {
         next: (data: any) => {
           this.productosPaginable = data;
           this.total = this.productosPaginable.totalElements;
-          this.productos = this.productosPaginable.content;
+          this.productos = this.productosPaginable.content.filter(
+            (e) => e.estado == true && e.stock > 10
+          );
+          //this.productos.filter((e) => e.estado==true)
           console.log('se llego a filtrar ');
           this.isSearching = true;
           console.log(data);
@@ -241,80 +254,57 @@ export class GenerarventaComponent {
   //LUEGO DE REALIZAR LA INSERCIÓN DE VENTA, GESTIONAR EL DETALLEVENTA
 
   async registrarVenta() {
-    this.element$.subscribe({
-      next: async (data: [CarritoItem]) => {
-        if (data.length > 0) {
-          var total = 0;
-
-          for (let productoFromCart of data) {
-            total += productoFromCart.cantidad * productoFromCart.producto.precio;
-          }
-
-          var valores = this.formVenta.value;
-          valores.preciototal = total;
-          valores.idEmpleado = this.empleado.id
-          valores.idCliente = this.mycliente.id
-
-          console.log(this.empleado.id + " " + this.mycliente.id)
-
-          if (total > 0) {
-            await this.ventaService.guardarVenta(valores).subscribe({
-              next: async (venta: any) => {
-                for (let productoFromCart of data) {
-                  var newObject: any = new Object();
-                  newObject.unidades = productoFromCart.cantidad;
-                  newObject.idProducto = productoFromCart.producto.id;
-                  newObject.idVenta = venta.id;
-
-                  await this.detalleVentaService
-                    .guardarDetalleVenta(newObject)
-                    .subscribe({
-                      next: async (detalle: any) => {
-                        await this.productoService.getProductoId(detalle.producto.id).subscribe({
-                          next: async (producto: any) => {
-                            var productoCommandUpdate = producto
-                            productoCommandUpdate.stock = producto.stock - detalle.unidades
-                            await this.productoService.updateProducto(productoCommandUpdate).subscribe({
-                              next: (productoCantidadUpdated: any) => {
-                                console.log("Disminuyo producto")
-                                console.log(productoCantidadUpdated)
-                              }
-                            })
-                          }
-                        })
-                        this.cleanVenta();
-                        console.log(detalle);
-                      },
-                      error: (e) => {
-                        console.log(e);
-                      },
-                    });
-                    
-                }
-              },
-              error: (e) => {
-                console.log(e);
-              },
-            });
+    if(this.formCliente.valid){
+      this.element$.subscribe({
+        next: async (detalles: [CarritoItem]) => {
+          if (detalles.length > 0) {
+            var total = 0;
+            var object : DetalleVentaCommandInsert[]= [];
+            for (let productoFromCart of detalles) {
+              
+              total +=
+                productoFromCart.cantidad * productoFromCart.producto.precio;
+            }
+            for(let i = 0; i < detalles.length; i++){
+              var detalleVenta = new DetalleVentaCommandInsert();
+              detalleVenta.unidades = detalles[i].cantidad
+              detalleVenta.idProducto = detalles[i].producto.id
+              object.push(detalleVenta);
+            }
+  
+            var venta = this.formVenta.value;
+            venta.preciototal = total;
+            venta.idEmpleado = this.empleado.id;
+            venta.idCliente = this.mycliente.id;
+  
+  
+            if (total > 0) {
+              await this.ventaService
+                .realizarVentaTransaccion(venta, object)
+                .subscribe({
+                  next: (data:boolean) => {
+                    if(data==true){
+                      this.cleanVenta();
+                      alert("Venta realizada con exito")
+                    }else{
+                      alert("Venta sin éxito, solucione la gestión de productos y su stock")
+                    }
+                  },
+                  error: () => {
+                    alert("Ocurrio un error inesperado")
+                  }
+                });
+            } else {
+              alert('El total es 0');
+            }
           } else {
-            alert('el total es 0');
+            alert('No puedes realizar la venta');
           }
-        } else {
-          alert('No puedes realizar');
-        }
-      }
-    })
+        },
+      });
+    }
 
   }
-
-
-
-
-
-
-
-
-
 
   cleanVenta() {
     this.carritoService.cleanCarritoVenta();

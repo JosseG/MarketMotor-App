@@ -2,6 +2,7 @@ package com.jma.productoservice.usuario.application.service;
 
 
 import com.jma.productoservice.usuario.domain.command.UsuarioCommandLogin;
+import com.jma.productoservice.usuario.domain.dto.UsuarioDto;
 import com.jma.productoservice.usuario.domain.response.UserAuthenticateResponse;
 import com.jma.productoservice.utils.ICrudCommon;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,5 +19,6 @@ public interface UsuarioService<T> extends ICrudCommon<T> {
 
     UserAuthenticateResponse authenticate(UsuarioCommandLogin request);
     void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException;
-
+    T cambiarEstadoActivo(T object);
+    T cambiarEstadoInactivo(T object);
 }

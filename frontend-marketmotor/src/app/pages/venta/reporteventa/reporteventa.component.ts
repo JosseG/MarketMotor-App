@@ -51,9 +51,14 @@ export class ReporteventaComponent {
   }
 
   getAllDetalleVentas(){
+    this.mySet = new Map<number,DetalleVenta>();  
     this.detalleVentaService.getAll().subscribe({
       next: (data : DetalleVenta[]) => {
-        
+        console.log("dasta asdkfj")
+        console.log(data)
+        for(let element of data){
+          this.mySet.set(element.venta.id,element)
+        }
       }
     })
   }
@@ -63,14 +68,22 @@ export class ReporteventaComponent {
   }
 
   getTemplateReporteVenta() {
-
     this.mySet = new Map<number,DetalleVenta>();  
+
     console.log(this.detalleVentas)
-    for(let element of this.detalleVentasConFiltro){
-      this.mySet.set(element.venta.id,element)
+    if(this.detalleVentasConFiltro.length<1){
+      for(let element of this.detalleVentas){
+        this.mySet.set(element.venta.id,element)
+      }
+    }else{
+      for(let element of this.detalleVentasConFiltro){
+        this.mySet.set(element.venta.id,element)
+      }
     }
 
+
     console.log(this.mySet)
+    console.log("son obje")
 
 
     sessionStorage.setItem("reporteVentasFiltred",JSON.stringify(Array.from(this.mySet)))
@@ -109,7 +122,14 @@ export class ReporteventaComponent {
 
 
   onChange(object:any){
-    this.getPaginableDetalleVentaByProductoId(object)
+    if(object==0){
+      this.getAllDetalleVentas();
+      this.getPaginableDetalleVenta();
+      this.getProductos();
+    }else{
+
+      this.getPaginableDetalleVentaByProductoId(object)
+    }
   }
 
 

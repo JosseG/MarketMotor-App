@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -36,7 +37,11 @@ public class AuthController {
     public ResponseEntity<UserAuthenticateResponse> signin(
             @RequestBody @Valid UsuarioCommandLogin loginCommand
     ) {
-        return ResponseEntity.ok(usuarioService.authenticate(loginCommand));
+
+
+        UserAuthenticateResponse userAuthenticateResponse = usuarioService.authenticate(loginCommand);
+
+        return ResponseEntity.ok(userAuthenticateResponse);
     }
 
     @PostMapping("/refresh-token")

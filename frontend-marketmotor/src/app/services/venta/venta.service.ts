@@ -46,5 +46,12 @@ export class VentaService {
   }
 
 
+  realizarVentaTransaccion(venta: any, detalles:any[]){
+    var newObject:any = new Object();
+    newObject.venta = venta;
+    newObject.detallesVenta = detalles;
+    return this.http.post<boolean>(this.url+"/realizarVenta",newObject)
+  }
+
 
 }

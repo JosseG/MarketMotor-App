@@ -29,7 +29,7 @@ public class ApplicationConfig {
   @Bean
   public UserDetailsService userDetailsService() {
     return username -> {
-      UsuarioEntity usuario= repository.findUsuarioEntityByAlias(username).orElseThrow();
+      UsuarioEntity usuario= repository.findUsuarioEntityByAliasAndEstado(username,true).orElseThrow();
 
       GrantedAuthority rol = new SimpleGrantedAuthority(usuario.getRol().getNombre());
       List<GrantedAuthority> listaRoles = List.of(rol);

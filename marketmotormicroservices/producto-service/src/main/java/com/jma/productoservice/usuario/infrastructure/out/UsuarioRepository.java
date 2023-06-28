@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity,Long> {
 
-    Optional<UsuarioEntity> findUsuarioEntityByAlias(String alias);
+    Optional<UsuarioEntity> findUsuarioEntityByAliasAndEstado(String alias,boolean estado);
 
 }
