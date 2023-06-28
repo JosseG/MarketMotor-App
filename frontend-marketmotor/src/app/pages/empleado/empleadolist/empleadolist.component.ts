@@ -38,7 +38,6 @@ export class EmpleadolistComponent {
       this.router.navigate(['empleados/actualizar']);
   }
   getPaginableEmpleados() {
-
     this.empleadoService.getAllByPaginable(this.currentPage,this.itemsPerPage).subscribe({
       next: (data: any) => {
         this.empleadosPaginable = data;

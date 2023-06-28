@@ -62,7 +62,7 @@ public class ProductoController {
     }
 
     @PutMapping
-    public ResponseEntity<ProductoDto> actualizar(@RequestBody  @Valid ProductoCommandUpdate productoCommandUpdate) {
+    public ResponseEntity<ProductoDto> actualizar(@RequestBody @Valid ProductoCommandUpdate productoCommandUpdate) {
 
         ProductoDto productoDtoObt = productoService.actualizar(ProductoMapper.mapFromCommandUpdateToDto(productoCommandUpdate));
 
