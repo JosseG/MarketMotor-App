@@ -15,53 +15,74 @@
               <label  for="floatingInputGrid">Código</label>
             </div>
          </div>
-          <div class="col-auto">
-            <div class="form-floating">
-              
-       
-              <input class="form-control" type="text" id="razonSocial floatingInputGrid" formControlName="razonSocial">
-              <label  for="floatingInputGrid">Razon Social</label>
+
+              <div class="col-auto">
+                <div class="form-floating">
+                  
+           
+                  <input class="form-control" type="text" id="razonSocial floatingInputGrid" formControlName="razonSocial" [class.is-invalid] = "razonNoValido">
+                  <label  for="floatingInputGrid">Razon Social</label>
+                </div>
+                <small *ngif="razonNoValido">
+                  *Ingrese un nombre válido
+                </small>
+             </div>
+            <div class="col-auto">
+              <div class="form-floating">   
+                <input class="form-control" type="text" id="nombreComercial floatingInputGrid" formControlName="nombreComercial" [class.is-invalid] = "nombreNoValido">
+                <label  for="floatingInputGrid">Nombre</label>
+              </div>
+              <small *ngif="nombreNoValido">
+                *Ingrese un nombre válido
+              </small>
             </div>
-         </div>
-        <div class="col-auto">
-          <div class="form-floating">   
-            <input class="form-control" type="text" id="nombreComercial floatingInputGrid" formControlName="nombreComercial">
-            <label  for="floatingInputGrid">Nombre</label>
+          
+            <div class="col-auto">
+              <div class="form-floating">
+              <input class="form-control" type="text" id="numeroRuc floatingInputGrid"  formControlName="numeroRuc" [class.is-invalid] = "rucNoValido">
+                <label  for="floatingInputGrid">RUC</label>
+              </div>
+              <small *ngif="rucNoValido">
+                *Ingrese un ruc válido
+              </small>
+            </div>
+            <div class="col-auto">
+                <div class="form-floating">
+                <input class="form-control" type="email" id="correo floatingInputGrid" formControlName="correo" [class.is-invalid] = "correoNoValido">
+                <label  for="floatingInputGrid">Correo</label>
+              </div>
+              <small *ngif="correoNoValido">
+                *Ingrese un correo válido
+              </small>
+            </div>
+            <div class="col-auto">
+              <div class="form-floating">
+                <input class="form-control" type="text" id="direccion floatingInputGrid" formControlName="direccion" [class.is-invalid] = "direccionNoValido">
+                <label  for="floatingInputGrid">Direccion</label>
+              </div>
+              <small *ngif="direccionNoValido">
+                *Ingrese una direccion válida
+              </small>
+            </div>
+            <div class="col-auto">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="departamento floatingInputGrid"   formControlName="departamento" [class.is-invalid] = "departamentoNoValido">
+                <label for="floatingInputGrid">Departamento</label>
+              </div>
+              <small *ngif="departamentoNoValido">
+                *Ingrese un departamento válido
+              </small>
+            </div>
+            <div class="col-auto">
+              <div class="form-floating">  
+                <input class="form-control" type="text"  id="telefonoProveedor floatingInputGrid" formControlName="telefonoProveedor" [class.is-invalid] = "telefonoNoValido">
+                <label  for="floatingInputGrid">Telefono</label>
+              </div>
+              <small *ngif="telefonoNoValido">
+                *Ingrese un telefono válida
+              </small>
+            </div>
           </div>
-        </div>
-      
-        <div class="col-auto">
-          <div class="form-floating">
-          <input class="form-control" type="text" id="numeroRuc floatingInputGrid"  formControlName="numeroRuc">
-            <label  for="floatingInputGrid">RUC</label>
-          </div>
-        </div>
-        <div class="col-auto">
-            <div class="form-floating">
-            <input class="form-control" type="email" id="correo floatingInputGrid" formControlName="correo">
-            <label  for="floatingInputGrid">Correo</label>
-          </div>
-        </div>
-        <div class="col-auto">
-          <div class="form-floating">
-            <input class="form-control" type="text" id="direccion floatingInputGrid" formControlName="direccion">
-            <label  for="floatingInputGrid">Direccion</label>
-          </div>
-        </div>
-        <div class="col-auto">
-          <div class="form-floating">
-            <input type="text" class="form-control" id="departamento floatingInputGrid"   formControlName="departamento">
-            <label for="floatingInputGrid">Departamento</label>
-          </div>
-        </div>
-        <div class="col-auto">
-          <div class="form-floating">  
-            <input class="form-control" type="text"  id="telefonoProveedor floatingInputGrid" formControlName="telefonoProveedor">
-            <label  for="floatingInputGrid">Telefono</label>
-          </div>
-        </div>
-      
-        </div>
         <div class="text-center"><button class="btn btn-info mt-3"type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" >Actualizar</button></div>
         <!--  <div class="text-center"><button class="btn btn-info mt-3"type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Actualizar</button></div>-->
             <!-- Modal para actualizar -->

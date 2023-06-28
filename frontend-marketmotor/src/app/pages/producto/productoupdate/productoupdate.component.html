@@ -7,45 +7,64 @@
       <form [formGroup]="formularioProducto" (ngSubmit)="actualizarProducto()" autocomplete="off">
         <div class=" row g-2 contenedorForm" >
      
-        <div class="col-auto">
-          <div class="form-floating">      
-            <input class="form-control" type="text" id="descripcion floatingInputGrid" formControlName="descripcion">
-            <label  for="floatingInputGrid">Descripcion</label>
-          </div>
-       </div>
-        <div class="col-auto">
-          <div class="form-floating">      
-            <input class="form-control" type="text" id="tipo floatingInputGrid" formControlName="tipo">
-            <label  for="floatingInputGrid">Tipo</label>
-          </div>
-       </div>
-  
-        <div class="col-auto">
-          <div class="form-floating">      
-            <input class="form-control" type="text" id="serial floatingInputGrid" formControlName="serial">
-            <label  for="floatingInputGrid">Serial</label>
-          </div>
-       </div>
+          <div class="col-auto">
+            <div class="form-floating">      
+              <input class="form-control" type="text" id="descripcion floatingInputGrid" formControlName="descripcion" [class.is-invalid] = "descripcionNoValido">
+              <label  for="floatingInputGrid">Descripcion</label>
+            </div>
+            <small *ngif="descripcionNoValido">
+              *Ingrese una descripcion válido
+            </small>
+         </div>
+          <div class="col-auto">
+            <div class="form-floating">      
+              <input class="form-control" type="text" id="tipo floatingInputGrid" formControlName="tipo"[class.is-invalid] = "tipoNoValido">
+              <label  for="floatingInputGrid" >Tipo</label>
+            </div>
+            <small *ngif="tipoNoValido">
+              *Ingrese un tipo válido
+            </small>
+         </div>
     
-        <div class="col-auto">
+          <div class="col-auto">
+            <div class="form-floating">      
+              <input class="form-control" type="text" id="serial floatingInputGrid" formControlName="serial" [class.is-invalid] = "serialNoValido">
+              <label  for="floatingInputGrid" >Serial</label>
+            </div>
+            <small *ngif="serialNoValido">
+              *Ingrese un serial válido
+            </small>
+         </div>
+      
+          <div class="col-auto">
+            <div class="form-floating">      
+              <input class="form-control" type="text" id="marca floatingInputGrid" formControlName="marca"  [class.is-invalid] = "marcaNoValido">
+              <label  for="floatingInputGrid">Marca</label>
+            </div>
+            <small *ngif="marcaNoValido">
+              *Ingrese una marca válida
+            </small>
+         </div>
+    
+         <div class="col-auto">
           <div class="form-floating">      
-            <input class="form-control" type="text" id="marca floatingInputGrid" formControlName="marca">
-            <label  for="floatingInputGrid">Marca</label>
+            <input class="form-control" type="number" id="precio floatingInputGrid" formControlName="precio"
+            [class.is-invalid] = "precioNoValido">
+            <label  for="floatingInputGrid">Precio</label>
           </div>
+          <small *ngif="precioNoValido">
+            *Ingrese una precio válido
+          </small>
        </div>
-  
        <div class="col-auto">
         <div class="form-floating">      
-          <input class="form-control" type="number" id="precio floatingInputGrid" formControlName="precio">
-          <label  for="floatingInputGrid">Precio</label>
+          <input class="form-control" type="number" id="stock floatingInputGrid" formControlName="stock"[class.is-invalid] = "stockNoValido">
+          <label  for="floatingInputGrid" >Stock</label>
         </div>
+        <small *ngif="stockNoValido">
+          *Ingrese un stock válido
+        </small>
      </div>
-     <div class="col-auto">
-      <div class="form-floating">      
-        <input class="form-control" type="number" id="stock floatingInputGrid" formControlName="stock">
-        <label  for="floatingInputGrid">Stock</label>
-      </div>
-   </div>
     </div>
     <div class="text-center"><button class="btn btn-info mt-3" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Actualizar</button></div>
      <!-- Modal para actualizar -->

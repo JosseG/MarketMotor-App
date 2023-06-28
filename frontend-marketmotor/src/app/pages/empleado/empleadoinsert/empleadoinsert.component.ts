@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Empleado } from 'src/app/models/dtos/Empleado';
 import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
@@ -13,21 +13,47 @@ import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 export class EmpleadoinsertComponent implements OnInit {
 
   formularioEmpleado: FormGroup = this.formbuilder.group({
-    nombre:[],
-    apellidoPaterno:[],
-    apellidoMaterno:[],
-    telefono:[],
-    correo:[],
-    idUsuario:[],
+    nombre: new FormControl('', [Validators.required]),
+    apellidoPaterno:new FormControl('', [Validators.required]),
+    apellidoMaterno:new FormControl('', [Validators.required]),
+    telefono:new FormControl('', [Validators.required, Validators.pattern('^[0-9]{9}$')]),
+    correo:new FormControl('', [Validators.required, Validators.email]),
+    idUsuario:new FormControl('', [Validators.required]),
   })
+  get correoNoValido(){
+    return this.formularioEmpleado.get('correo')?.invalid && this.formularioEmpleado.get('correo')?.touched;
+  }
+  get telefonoNoValido(){
+    return this.formularioEmpleado.get('telefono')?.invalid && this.formularioEmpleado.get('telefono')?.touched;
+  }
 
+  get apellidoPaternoNoValido(){
+    return this.formularioEmpleado.get('apellidoPaterno')?.invalid && this.formularioEmpleado.get('apellidoPaterno')?.touched;
+  }
+  get apellidoMaternoNoValido(){
+    return this.formularioEmpleado.get('apellidoMaterno')?.invalid && this.formularioEmpleado.get('apellidoMaterno')?.touched;
+  }
+  get usuarioNoValido(){
+    return this.formularioEmpleado.get('idUsuario')?.invalid && this.formularioEmpleado.get('idUsuario')?.touched;
+  }
+  get nombreNoValido(){
+    return this.formularioEmpleado.get('nombre')?.invalid && this.formularioEmpleado.get('nombre')?.touched;
+  }
   formularioUsuario: FormGroup = this.formbuilder.group({
 
-    alias:[],
-    contrasena:[],
-    idRol:[],
+    alias:new FormControl('', [Validators.required]),
+    contrasena:new FormControl('', [Validators.required]),
+    idRol:new FormControl('', [Validators.required]),
   })
-
+  get aliasNoValido(){
+    return this.formularioUsuario.get('alias')?.invalid && this.formularioUsuario.get('alias')?.touched;
+  }
+  get contrasenaNoValido(){
+    return this.formularioUsuario.get('contrasena')?.invalid && this.formularioUsuario.get('contrasena')?.touched;
+  }
+  get rolNoValido(){
+    return this.formularioUsuario.get('idRol')?.invalid && this.formularioUsuario.get('idRol')?.touched;
+  }
   idUsuario = 0;
   empleados?: Empleado[];
 

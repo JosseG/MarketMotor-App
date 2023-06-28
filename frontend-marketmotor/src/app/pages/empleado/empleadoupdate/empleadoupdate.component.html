@@ -4,49 +4,71 @@
   </div>
         <div class="card-body">
           <form class="form" [formGroup]="formularioEmpleado" (ngSubmit)="actualizarEmpleado()" autocomplete="off">
-        <div class=" row g-2 contenedorForm" >
+      <div class=" row g-2 contenedorForm" >
           <div class="col-auto">
             <div class="form-floating">      
               <input class="form-control" type="text" id="id floatingInputGrid" formControlName="id">
               <label  for="floatingInputGrid">Código</label>
             </div>
          </div>
-          <div class="col-auto">
-            <div class="form-floating">      
-              <input class="form-control" type="text" id="nombre floatingInputGrid" formControlName="nombre">
-              <label  for="floatingInputGrid">Nombre</label>
-            </div>
-         </div>
+         <div class="col-auto">
+          <div class="form-floating">      
+            <input class="form-control" type="text" id="nombre floatingInputGrid" formControlName="nombre"[class.is-invalid] = "nombreNoValido" >
+            <label  for="floatingInputGrid">Nombre</label>
+        
+          </div>
+          <small *ngif="nombreNoValido" >
+            *Ingrese un nombre válido
+          </small>
+         
+       </div>
 
    
-      <div class="col-auto">
+       <div class="col-auto">
         <div class="form-floating">      
-          <input class="form-control" type="text" id="apellidoPaterno floatingInputGrid" formControlName="apellidoPaterno">
+          <input class="form-control" type="text" id="apellidoPaterno floatingInputGrid" formControlName="apellidoPaterno" [class.is-invalid] = "apellidoPaternoNoValido" >
           <label  for="floatingInputGrid">Apellido Paterno</label>
+      
         </div>
+        <small *ngif="apellidoPaternoNoValido" >
+         
+        </small>
      </div>
     
       <div class="col-auto">
         <div class="form-floating">      
-          <input class="form-control" type="text" id="apellidoMaterno floatingInputGrid" formControlName="apellidoMaterno">
-          <label  for="floatingInputGrid">Apellido Materno</label>
+          <input class="form-control" type="text" id="apellidoMaterno floatingInputGrid" formControlName="apellidoMaterno" [class.is-invalid] = "apellidoMaternoNoValido" >
+          <label  for="floatingInputGrid" >Apellido Materno</label>
+         
         </div>
+        <small *ngif="apellidoMaternoNoValido" >
+          *Ingrese un apellido válido
+        </small>
      </div>
 
       <div class="col-auto">
         <div class="form-floating">      
-          <input class="form-control" type="text" id="telefono floatingInputGrid" formControlName="telefono">
+          <input class="form-control" type="text" id="telefono floatingInputGrid" formControlName="telefono" [class.is-invalid] = "telefonoNoValido">
           <label  for="floatingInputGrid">Telefono</label>
         </div>
+        <small *ngif="telefonoNoValido" >
+          *Ingrese un apellido válido
+        </small>
      </div>
     
 
-      <div class="col-auto">
-        <div class="form-floating">      
-          <input class="form-control" type="text" id="correo floatingInputGrid" formControlName="correo">
-          <label  for="floatingInputGrid">Correo</label>
-        </div>
-     </div>
+     <div class="col-auto">
+      <div class="form-floating">      
+        <input class="form-control" type="email" id="correo floatingInputGrid" formControlName="correo"
+        [class.is-invalid] = "correoNoValido">
+        <label  for="floatingInputGrid" >Correo</label>
+      
+      </div>
+      
+      <small *ngif="correoNoValido">
+        *Ingrese un correo válido
+      </small>
+   </div>
      
       
       <div class="col-auto">
