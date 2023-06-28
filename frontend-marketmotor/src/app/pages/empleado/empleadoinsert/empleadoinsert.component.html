@@ -1,158 +1,183 @@
 
 <div class="d-flex">
-<div class="card text-center card-usuario" style="width: 17rem;">
-  <div class="card-header">
-    Usuario
+  <div class="card text-center card-usuario" style="width: 15rem;">
+    <div class="card-header">
+      Usuario
+    </div>
+    <div class="card-body">
+      <form class="form" [formGroup]="formularioUsuario" (ngSubmit)="guardarUsuario()" autocomplete="off">
+        <div class=" row g-1" >
+  
+        <div class="col-auto">
+          <div class="form-floating">
+           
+           
+            <input class="form-control" type="text" id="alias floatingInputGrid" formControlName="alias"
+            [class.is-invalid] = "aliasNoValido" >
+            <label  for="floatingInputGrid">Alias</label>
+          </div>
+          <small *ngif="aliasNoValido">
+            *Ingrese un correo válido
+          </small>
+        </div>
+      
+        <div class="col-auto">
+          <div class="form-floating">
+        
+        <input class="form-control" type="password" id="contrasena floatingInputGrid" formControlName="contrasena" [class.is-invalid] = "contrasenaNoValido" >
+        <label  for="floatingInputGrid">Contraseña</label>
+      </div>
+      <small *ngif="contrasenaNoValido">
+        *Ingrese un correo válido
+      </small>
+    </div>
+    <div class="col-12">
+      <div class="form-floating">
+        <select formControlName="idRol" class="form-select" id="inputGroupSelect04" [class.is-invalid] = "rolNoValido">
+          <option *ngFor="let i of roles" value="{{i.id}}">{{i.nombre}}</option>
+        </select>
+      <label  for="floatingInputGrid">Rol</label>
+    </div>
+    <small *ngif="rolNoValido">
+      *Ingrese un rol válido
+    </small>
   </div>
-  <div class="card-body">
-    <form class="form" [formGroup]="formularioUsuario" (ngSubmit)="guardarUsuario()" autocomplete="off">
-      <div class=" row g-1" >
 
-      <div class="col-12">
-        <div class="form-floating">
-         
-         
-          <input class="form-control" type="text" id="alias floatingInputGrid" formControlName="alias">
-          <label  for="floatingInputGrid">Alias</label>
+    
+   
+  </div>
+  <div class="text-center btnUsua"><button class="btn btn-info mt-3" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Crear</button></div>
+  
+  </form>
+  </div>
+  <div class="card-footer text-muted">
+  
+  </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  <div class="card text-center card-proveedor" style="width: 40rem;">
+    <div class="card-header">
+      Nuevo Empleado
+    </div>
+          <div class="card-body">
+            <form class="form" [formGroup]="formularioEmpleado" (ngSubmit)="guardarEmpleado()" autocomplete="off">
+          <div class=" row g-2 contenedorForm" >
+            <div class="col-auto">
+              <div class="form-floating">      
+                <input class="form-control" type="text" id="nombre floatingInputGrid" formControlName="nombre"[class.is-invalid] = "nombreNoValido" >
+                <label  for="floatingInputGrid">Nombre</label>
+            
+              </div>
+              <small *ngif="nombreNoValido" >
+                *Ingrese un nombre válido
+              </small>
+             
+           </div>
+  
+     
+        <div class="col-auto">
+          <div class="form-floating">      
+            <input class="form-control" type="text" id="apellidoPaterno floatingInputGrid" formControlName="apellidoPaterno" [class.is-invalid] = "apellidoPaternoNoValido" >
+            <label  for="floatingInputGrid">Apellido Paterno</label>
+        
+          </div>
+          <small *ngif="apellidoPaternoNoValido" >
+           
+          </small>
+       </div>
+      
+        <div class="col-auto">
+          <div class="form-floating">      
+            <input class="form-control" type="text" id="apellidoMaterno floatingInputGrid" formControlName="apellidoMaterno" [class.is-invalid] = "apellidoMaternoNoValido" >
+            <label  for="floatingInputGrid" >Apellido Materno</label>
+           
+          </div>
+          <small *ngif="apellidoMaternoNoValido" >
+            *Ingrese un apellido válido
+          </small>
+       </div>
+  
+        <div class="col-auto">
+          <div class="form-floating">      
+            <input class="form-control" type="number" id="telefono floatingInputGrid" formControlName="telefono" [class.is-invalid] = "telefonoNoValido">
+            <label  for="floatingInputGrid">Telefono</label>
+          
+          </div>
+          <small *ngif="telefonoNoValido">
+            *Ingrese un telefono válido
+          </small>
+      
+       </div>
+      
+  
+        <div class="col-auto">
+          <div class="form-floating">      
+            <input class="form-control" type="email" id="correo floatingInputGrid" formControlName="correo"
+            [class.is-invalid] = "correoNoValido">
+            <label  for="floatingInputGrid" >Correo</label>
+          
+          </div>
+          
+          <small *ngif="correoNoValido">
+            *Ingrese un correo válido
+          </small>
+       </div>
+       
+        
+        <div class="col-auto">
+          <div class="form-floating">      
+            <input class="form-control" type="number" id="idUsuario floatingInputGrid" formControlName="idUsuario"  required [readonly]="true" >
+            <label  for="floatingInputGrid">Usuario</label>
+           
+          </div>
+          
+          <small *ngif="usuarioNoValido">
+            *Ingrese un usuario válido
+          </small>
+       </div>
+      
+      </div>
+      <div class="text-center btnAgregar"><button class="btn btn-info mt-3 " type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2">Agregar</button></div>
+     <!-- Modal para actualizar -->
+     <div class="modal fade modal-sm" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <br>
+            <br>
+           ¿Desea registrar el empleado?
+           <br>
+           <br>
+           <button class="btn btn-info mt-3" type="submit" data-bs-dismiss="modal" >Sí</button>
+      
+           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          </div>
+      
         </div>
       </div>
     
-      <div class="col-12">
-        <div class="form-floating">
-      
-      <input class="form-control" type="password" id="contrasena floatingInputGrid" formControlName="contrasena">
-      <label  for="floatingInputGrid">Contraseña</label>
-    </div>
+   
+
   </div>
   
-    <div class="col-12">
-      <div class="form-floating">
-        <select formControlName="idRol" class="form-select" id="inputGroupSelect04">
-          <option *ngFor="let i of roles" value="{{i.id}}">{{i.nombre}}</option>
-        </select>
-      <!--<input class="form-control" type="number" id="idRol floatingInputGrid" formControlName="idRol">-->
-      <label  for="floatingInputGrid">Rol</label>
-    </div>
-  </div>
-  <div class = "roles-text">
-    <p>Roles</p>
-  
-    <span>1- Administrador</span>
-    <br>
-    <span>2- Proveedor</span>
-    <br>
-    <span>3- Asistente</span>
-   
-  </div>
-
-</div>
-<div class="text-center btnUsua"><button class="btn btn-info mt-3" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Crear</button></div>
-
-</form>
-</div>
-<div class="card-footer text-muted">
-
-</div>
-</div>
-
-
-
-
-
-
-<div class="card text-center card-proveedor" style="width: 40rem;">
-  <div class="card-header">
-    Nuevo Empleado
-  </div>
-        <div class="card-body">
-          <form class="form" [formGroup]="formularioEmpleado" (ngSubmit)="guardarEmpleado()" autocomplete="off">
-        <div class=" row g-2 contenedorForm" >
-          <div class="col-auto">
-            <div class="form-floating">      
-              <input class="form-control" type="text" id="nombre floatingInputGrid" formControlName="nombre">
-              <label  for="floatingInputGrid">Nombre</label>
-            </div>
-         </div>
-
-   
-      <div class="col-auto">
-        <div class="form-floating">      
-          <input class="form-control" type="text" id="apellidoPaterno floatingInputGrid" formControlName="apellidoPaterno">
-          <label  for="floatingInputGrid">Apellido Paterno</label>
-        </div>
-     </div>
-    
-      <div class="col-auto">
-        <div class="form-floating">      
-          <input class="form-control" type="text" id="apellidoMaterno floatingInputGrid" formControlName="apellidoMaterno">
-          <label  for="floatingInputGrid">Apellido Materno</label>
-        </div>
-     </div>
-
-      <div class="col-auto">
-        <div class="form-floating">      
-          <input class="form-control" type="text" id="telefono floatingInputGrid" formControlName="telefono">
-          <label  for="floatingInputGrid">Telefono</label>
-        </div>
-     </div>
-    
-
-      <div class="col-auto">
-        <div class="form-floating">      
-          <input class="form-control" type="text" id="correo floatingInputGrid" formControlName="correo">
-          <label  for="floatingInputGrid">Correo</label>
-        </div>
-     </div>
-     
-      
-      <div class="col-auto">
-        <div class="form-floating">      
-          <input class="form-control" type="number" id="idUsuario floatingInputGrid" formControlName="idUsuario" [readonly]="true">
-          <label  for="floatingInputGrid">Usuario</label>
-        </div>
-     </div>
-    
-    </div>
-    <div class="text-center btnAgregar"><button class="btn btn-info mt-3 " type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2">Agregar</button></div>
-   <!-- Modal para actualizar -->
-   <div class="modal fade modal-sm" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- Modal para usuario -->
+  <div class="modal fade modal-sm" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-body">
           <br>
-          <br>
-         ¿Desea registrar el empleado?
+         ¡Se creó un nuevo usuario!
+        
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
          <br>
          <br>
-         <button class="btn btn-info mt-3" type="submit" data-bs-dismiss="modal" >Sí</button>
-    
-         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
         </div>
-    
+  
       </div>
-    </div>
-    </div>
-  </form>
-</div>
-<div class="card-footer text-muted">
- 
-</div>
-</div>
-
-<!-- Modal para usuario -->
-<div class="modal fade modal-sm" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-body">
-        <br>
-       ¡Se creó un nuevo usuario!
-      
-       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-       <br>
-       <br>
-      </div>
-
     </div>
   </div>
-</div>
-</div>

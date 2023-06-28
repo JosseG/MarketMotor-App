@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
 import { Proveedor } from 'src/app/models/dtos/Proveedor';
@@ -17,23 +17,53 @@ export class ProveedorinsertComponent
 implements OnInit {
 
   formularioProveedor: FormGroup = this.formbuilder.group({
-    razonSocial:[],
-    nombreComercial:[],
-    numeroRuc:[],
-    correo:[],
-    direccion:[],
-    departamento:[],
-    telefonoProveedor:[],
-    idUsuario:[],
+    razonSocial:new FormControl('', [Validators.required]),
+    nombreComercial:new FormControl('', [Validators.required]),
+    numeroRuc:new FormControl('', [Validators.required, Validators.pattern('^[0-9]{11}$')]),
+    correo:new FormControl('', [Validators.required, Validators.email]),
+    direccion:new FormControl('', [Validators.required]),
+    departamento:new FormControl('', [Validators.required]),
+    telefonoProveedor:new FormControl('', [Validators.required,Validators.pattern('^[0-9]{9}$')]),
+    idUsuario:new FormControl('', [Validators.required]),
   })
-
+  get razonNoValido(){
+    return this.formularioProveedor.get('razonSocial')?.invalid && this.formularioProveedor.get('razonSocial')?.touched;
+  }
+  get nombreNoValido(){
+    return this.formularioProveedor.get('nombreComercial')?.invalid && this.formularioProveedor.get('nombreComercial')?.touched;
+  }
+  get rucNoValido(){
+    return this.formularioProveedor.get('numeroRuc')?.invalid && this.formularioProveedor.get('numeroRuc')?.touched;
+  }
+  get correoNoValido(){
+    return this.formularioProveedor.get('correo')?.invalid && this.formularioProveedor.get('correo')?.touched;
+  }
+  get direccionNoValido(){
+    return this.formularioProveedor.get('direccion')?.invalid && this.formularioProveedor.get('direccion')?.touched;
+  }
+  get departamentoNoValido(){
+    return this.formularioProveedor.get('departamento')?.invalid && this.formularioProveedor.get('departamento')?.touched;
+  }
+  get telefonoNoValido(){
+    return this.formularioProveedor.get('telefonoProveedor')?.invalid && this.formularioProveedor.get('telefonoProveedor')?.touched;
+  }
+ 
   formularioUsuario: FormGroup = this.formbuilder.group({
 
-    alias:[],
-    contrasena:[],
-    idRol:[],
+  
+    alias:new FormControl('', [Validators.required]),
+    contrasena:new FormControl('', [Validators.required]),
+    idRol:new FormControl('', [Validators.required]),
   })
-
+  get aliasNoValido(){
+    return this.formularioUsuario.get('alias')?.invalid && this.formularioUsuario.get('alias')?.touched;
+  }
+  get contrasenaNoValido(){
+    return this.formularioUsuario.get('contrasena')?.invalid && this.formularioUsuario.get('contrasena')?.touched;
+  }
+  get rolNoValido(){
+    return this.formularioUsuario.get('idRol')?.invalid && this.formularioUsuario.get('idRol')?.touched;
+  }
 
   idUsuario = 0;
   proveedores?: Proveedor[];
