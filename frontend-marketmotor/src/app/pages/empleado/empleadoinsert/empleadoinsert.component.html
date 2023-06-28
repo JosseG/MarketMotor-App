@@ -1,6 +1,6 @@
 
 <div class="d-flex">
-<div class="card text-center card-usuario" style="width: 15rem;">
+<div class="card text-center card-usuario" style="width: 17rem;">
   <div class="card-header">
     Usuario
   </div>
@@ -8,7 +8,7 @@
     <form class="form" [formGroup]="formularioUsuario" (ngSubmit)="guardarUsuario()" autocomplete="off">
       <div class=" row g-1" >
 
-      <div class="col-auto">
+      <div class="col-12">
         <div class="form-floating">
          
          
@@ -17,7 +17,7 @@
         </div>
       </div>
     
-      <div class="col-auto">
+      <div class="col-12">
         <div class="form-floating">
       
       <input class="form-control" type="password" id="contrasena floatingInputGrid" formControlName="contrasena">
@@ -25,10 +25,12 @@
     </div>
   </div>
   
-    <div class="col-auto">
+    <div class="col-12">
       <div class="form-floating">
-      
-      <input class="form-control" type="number" id="idRol floatingInputGrid" formControlName="idRol">
+        <select formControlName="idRol" class="form-select" id="inputGroupSelect04">
+          <option *ngFor="let i of roles" value="{{i.id}}">{{i.nombre}}</option>
+        </select>
+      <!--<input class="form-control" type="number" id="idRol floatingInputGrid" formControlName="idRol">-->
       <label  for="floatingInputGrid">Rol</label>
     </div>
   </div>

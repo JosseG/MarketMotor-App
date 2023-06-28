@@ -19,14 +19,12 @@
                               <option value="2">Two</option>
                               <option value="3">Three</option>
                             </select>
-                            <button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button>
                         </div>
                         <div class="input-group mb-3 col-3 selec_produc">
                             <select (change)="onChange(val.value)" class="form-select" id="inputGroupSelect04"#val>
                               <option selected value="0">Producto</option>
-                              <option *ngFor="let i of productos" value="{{i.id}}">{{i.id}}</option>
+                              <option *ngFor="let i of productos" value="{{i.id}}">{{i.serial}} {{i.tipo.toLowerCase()}} </option>
                             </select>
-                            <button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button>
                         </div>
 
                      </div>

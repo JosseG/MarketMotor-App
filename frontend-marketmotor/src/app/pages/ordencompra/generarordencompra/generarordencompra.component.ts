@@ -40,7 +40,6 @@ export class GenerarordencompraComponent implements OnInit {
     descripcion: [],
   });
 
-  value = 0;
   formAddingCartProduct: FormGroup = this.formbuilder.group({
     cantidad: [0,Validators.compose([Validators.required, Validators.min(1)])]
   });
@@ -101,7 +100,7 @@ export class GenerarordencompraComponent implements OnInit {
 
   productos: Producto[] = [];
 
-  productosFromCartWith: [CarritoItem] = [new CarritoItem()];
+  productosFromCartWith: CarritoItem[] = [new CarritoItem()];
 
   productosPaginable: productoResponse = new productoResponse();
 
@@ -295,10 +294,10 @@ export class GenerarordencompraComponent implements OnInit {
               })
   
             } else {
-              alert('el total es 0');
+              alert('El total es 0');
             }
           } else {
-            alert('No puedes realizar');
+            alert('No puedes realizar la orden de compra');
           }
         },
       });

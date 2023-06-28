@@ -51,9 +51,7 @@ public class RolController {
 
     @GetMapping
     public ResponseEntity<List<RolDto>> obtenerTodos(){
-
         List<RolDto> roles = rolService.obtenerTodos();
-
         return ResponseEntity.ok(roles);
     }
 
@@ -67,7 +65,7 @@ public class RolController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<String> desactivar(@PathVariable(name = "id") Long id){
+    public ResponseEntity<Boolean> desactivar(@PathVariable(name = "id") Long id){
 
         try{
             RolDto rol = rolService.obtenerPorId(id);
@@ -77,7 +75,7 @@ public class RolController {
             rol.setId(id);
             rol.declararDisponibilidad(EstadoD.INACTIVO);
             rolService.guardar(rol);
-            return ResponseEntity.ok("Se desactivó correctamente");
+            return ResponseEntity.ok(true);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

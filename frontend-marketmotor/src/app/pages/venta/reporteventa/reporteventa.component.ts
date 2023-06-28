@@ -122,7 +122,14 @@ export class ReporteventaComponent {
 
 
   onChange(object:any){
-    this.getPaginableDetalleVentaByProductoId(object)
+    if(object==0){
+      this.getAllDetalleVentas();
+      this.getPaginableDetalleVenta();
+      this.getProductos();
+    }else{
+
+      this.getPaginableDetalleVentaByProductoId(object)
+    }
   }
 
 

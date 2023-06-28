@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { Proveedor } from 'src/app/models/dtos/Proveedor';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { ProveedorService } from 'src/app/services/proveedor/proveedor.service';
+import { RolService } from 'src/app/services/rol/rol.service';
+import { Rol } from 'src/app/models/dtos/Rol';
 
 @Component({
   selector: 'app-proveedorinsert',
@@ -35,10 +37,12 @@ implements OnInit {
 
   idUsuario = 0;
   proveedores?: Proveedor[];
+  roles: Rol[] = [];
 
-  constructor(private proveedorService: ProveedorService,private router:Router, private usuarioService:UsuarioService,private formbuilder:FormBuilder) { }
+  constructor(private proveedorService: ProveedorService,private router:Router, private usuarioService:UsuarioService,private formbuilder:FormBuilder,private rolService:RolService) { }
 
   ngOnInit(): void {
+    this.getRoles();
   }
 
   guardarUsuario(){
@@ -73,7 +77,15 @@ implements OnInit {
       },
       error: (e) => alert("Campos incompletos")
     })
-
-   
   }
+
+
+  getRoles(){
+    this.rolService.getAll().subscribe({
+      next: (data) => {
+        this.roles = data;
+      }
+    })
+  }
+
 }

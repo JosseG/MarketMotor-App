@@ -1,7 +1,7 @@
 <link rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-<nav class="navbar navbar-expand menu_barra py-4 px-2">
+<nav class="navbar navbar-expand menu_barra py-4 px-2 ">
   <div class="container-fluid justify-content-between">
     <li class="nav-item d-flex align-items-center">
       <a class="nav-link text-black" routerLink="/inicio">
@@ -69,7 +69,7 @@
           </li>
         </b>
 
-        <b *ngIf="isProveedor()"><a href="" class="nav-link border-0 bg-transparent"
+        <b *ngIf="isProveedor()"><a href="" class="nav-link border-0 bg-transparent text-white"
             routerLink="/proveedores/orden/validar">Recepcionar</a></b>
       </ul>
     </div>
@@ -77,14 +77,14 @@
       <div class="top">
         <div class="profile">
           <div class="info">
-            <p class="text-black">
-              Hey, <b class="text-black">{{ usuario }}</b>
+            <p class="text-white">
+              Hey, <b class="text-white">{{ usuario }}</b>
             </p>
-            <small><span class="text-black" style="margin-right: 10px">{{ cargo }}
+            <small><span class="text-white" style="margin-right: 10px">{{ cargo }}
               </span></small>
           </div>
           <div class="dropdownss">
-            <button class="btn bt-dark border border-black profile-photo text-black">
+            <button class="btn bt-white border border-black profile-photo text-white">
               <i class="bi bi-person"></i>
             </button>
             <div class="dropdownss-options">
