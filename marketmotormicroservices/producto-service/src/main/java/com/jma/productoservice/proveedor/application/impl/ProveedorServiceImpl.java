@@ -1,5 +1,7 @@
 package com.jma.productoservice.proveedor.application.impl;
 
+import com.jma.productoservice.empleado.application.mapper.EmpleadoMapper;
+import com.jma.productoservice.empleado.domain.dto.EmpleadoDto;
 import com.jma.productoservice.proveedor.domain.dto.ProveedorDto;
 import com.jma.productoservice.proveedor.domain.entity.ProveedorEntity;
 import com.jma.productoservice.proveedor.domain.response.ProveedorResponse;
@@ -148,6 +150,12 @@ public class ProveedorServiceImpl implements ProveedorService<ProveedorDto> {
             content.get(i).setUsuarioDto(UsuarioMapper.mapToDto(proveedores.get(i).getUsuario()));
         }
         return content;
+    }
+
+
+    @Override
+    public ProveedorDto obtenerProveedorPorUsuarioAlias(String alias) {
+        return proveedorRepository.findProveedorEntityByUserAlias(alias).map(ProveedorMapper::mapToDto).orElse(null);
     }
 
 }

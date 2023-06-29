@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, NgForm, ValidationErrors, Validator, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { Empleado } from 'src/app/models/dtos/Empleado';
 import { Producto } from 'src/app/models/dtos/Producto';
 import { Proveedor } from 'src/app/models/dtos/Proveedor';
@@ -15,6 +15,7 @@ import { ProveedorService } from '../../../services/proveedor/proveedor.service'
 import { DetalleordencompraService } from 'src/app/services/detalleordencompra/detalleordencompra.service';
 import { genUniqueId } from 'src/app/_shared/serialid/GenerateSerial';
 import { DetalleOrdenCompraCommandInsert } from 'src/app/models/commands/detalleordencompra/DetalleOrdenCompraCommandInsert';
+import { EmailService } from 'src/app/services/email/email.service';
 
 @Component({
   selector: 'app-generarordencompra',
@@ -84,7 +85,8 @@ export class GenerarordencompraComponent implements OnInit {
     private ordenCompraService: OrdencompraService,
     private productoService: ProductoService,
     private formbuilder: FormBuilder,
-    private detalleOrdenCompraService: DetalleordencompraService
+    private detalleOrdenCompraService: DetalleordencompraService,
+    private emailService: EmailService
   ) { }
 
   element$: Observable<[CarritoItem]> = new Observable();
@@ -280,8 +282,15 @@ export class GenerarordencompraComponent implements OnInit {
   
             if (total > 0) {
               this.ordenCompraService.realizarOrdenCompraTransaccion(ordencompra, object).subscribe({
-                next: (data) =>{
+                next: async (data) =>{
                   if(data==true){
+                    console.log(this.myproveedor.id)
+                    //await this.emailService.enviarAviso(this.myproveedor.correo,"TIENES UNA ORDEN DE COMPRA PENDIENTE","VALIDAR ORDEN COMPRA")
+                    /*await this.emailService.enviarAviso(this.myproveedor.id).subscribe({
+                      next:()=>{
+                        
+                      }
+                    })*/
                     this.cleanOrdenCompra();
                     alert("Orden Compra realizada con exito")
                   }else{
