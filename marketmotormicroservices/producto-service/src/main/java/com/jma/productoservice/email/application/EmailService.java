@@ -25,7 +25,7 @@ public class EmailService {
         Content content = new Content("text/plain", "Fue enviado una orden");
         Mail mail = new Mail(from, "Recepcionar Orden", to, content);
 
-        SendGrid sg = new SendGrid("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");
+        SendGrid sg = new SendGrid("");
         Request request = new Request();
         try {
             request.setMethod(Method.POST);
