@@ -23,15 +23,15 @@ Fue presentado como proyecto de ciclo del curso de Desarrollo de Servicios Web 2
     <br>
     En orden :
     >4.1. **Roles en bloque** en la carpeta ***Roles***
-    <br>
+    
     >4.2. **Usuarios en bloque** en la carpeta ***Usuarios***
-    <br>
+    
     >4.3. **Empleados en bloque** en la carpeta ***Empleados***
-    <br>
+    
     >4.4. **Productos en bloque** en la carpeta ***Empleados***
-    <br>
+    
     >4.5. **Cliente** en la carpeta ***Clientes***
-    <br>
+    
     >4.6. **Proveedores** en la carpeta ***Proveedores***
 
 ### Frontend
