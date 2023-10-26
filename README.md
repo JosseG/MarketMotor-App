@@ -8,6 +8,7 @@ Fue presentado como proyecto de ciclo del curso de Desarrollo de Servicios Web 2
 - MySQL
 - Angular 12 + 
 - Node JS
+- Postman
 
 
 ## Pasos para ejecución.
@@ -19,7 +20,7 @@ Fue presentado como proyecto de ciclo del curso de Desarrollo de Servicios Web 2
 2. Abrir el proyecto **product-service** (***Se encuentra dentro de marketmotormicroservices***) utilizando el editor de código de su preferencia y configurar su enlace de conexión con la base de datos en el archivo properties de ***product-service***.
 
 3. Ejecutar el proyecto.
-4. Importar y ejecutar en el siguiente orden cada request de la colección adherida a este proyecto. (***SOLO LA PRIMERA VEZ QUE SE EJECUTA EL PROYECTO***)
+4. **IMPORTAR** y ejecutar en el siguiente orden cada request de la colección de Postman adherida a este proyecto. (***SOLO LA PRIMERA VEZ QUE SE EJECUTA EL PROYECTO***)
     <br>
     En orden :
     >4.1. **Roles en bloque** en la carpeta ***Roles***
@@ -41,5 +42,6 @@ Fue presentado como proyecto de ciclo del curso de Desarrollo de Servicios Web 2
 3. Ejecutar el proyecto.
     > ng serve --open
 4. Interactuar.
+    > url: **localhost:4200**
     > Usuario: **johns87** <br>
     > Contraseña: **admin**

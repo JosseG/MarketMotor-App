@@ -1,0 +1,1284 @@
+{
+	"info": {
+		"_postman_id": "33401443-0dcf-412b-a9f3-3d1ece705805",
+		"name": "MarketMotor",
+		"description": "Colección de endpoints para el acceso y definición de datos de Marketmotor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23947195"
+	},
+	"item": [
+		{
+			"name": "Roles",
+			"item": [
+				{
+					"name": "Roles",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"nombre\":\"ROLE_ASISTENTE\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/roles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rol por permiso",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/roles/permisos/1/roles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"roles",
+								"permisos",
+								"1",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Roles en bloque",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\"nombre\":\"ROLE_ADMINISTRADOR\"},{\"nombre\":\"ROLE_PROVEEDOR\"},{\"nombre\":\"ROLE_ASISTENTE\"}]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/roles/guardarTodos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"roles",
+								"guardarTodos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rol por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Roles",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Roles",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Roles",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Proveedores",
+			"item": [
+				{
+					"name": "Proveedores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/proveedores",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proveedores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Proveedor con paginacion",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"razonSocial\":\"CENCOSUD RETAIL PERU S.A.\",\"nombreComercial\":\"Wong & Metro\",\"numeroRuc\":\"20109072177\",\"correo\":\"wong@wongymetro.net\",\"direccion\":\"Cal. Augusto Angulo Nro. 130\",\"departamento\":\"Lima\",\"telefonoProveedor\":\"705648743\",\"idUsuario\":\"2\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/proveedores/pagination",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proveedores",
+								"pagination"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Proveedores",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"razonSocial\": \"CENCOSUD RETAIL PERU S.A.\",\r\n    \"nombreComercial\": \"Wong & Metro\",\r\n    \"numeroRuc\": \"20109072177\",\r\n    \"correo\": \"jose@gmail.com\",\r\n    \"direccion\": \"Cal. Augusto Angulo Nro. 130\",\r\n    \"departamento\": \"Lima\",\r\n    \"telefonoProveedor\": \"705648743\",\r\n    \"idUsuario\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/proveedores",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proveedores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Proveedores",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Proveedores",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Proveedores",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/proveedores/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proveedores",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Proveedor por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Empleados",
+			"item": [
+				{
+					"name": "Empleados",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJjYXJnbyI6IlJPTEVfQVNJU1RFTlRFIiwic3ViIjoianNrZXJtZTgiLCJpYXQiOjE2ODc5MjM1NDksImV4cCI6MTY4ODAwOTk0OX0._FG5ioFiM7O1Av8MDHGx_GHtgEvNRedlvL6k7tYlMmo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/empleados",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"empleados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Empleados en bloque",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\"nombre\":\"María\",\"apellidoPaterno\":\"García\",\"apellidoMaterno\":\"López\",\"telefono\":\"481-469-9536\",\"correo\":\"jq22@gmail.com\",\"idUsuario\":1},\r\n{\"nombre\":\"Juan\",\"apellidoPaterno\":\"Rodríguez\",\"apellidoMaterno\":\"Fernández\",\"telefono\":\"339-473-1544\",\"correo\":\"jquedddd9730@gmail.com\",\"idUsuario\":3},\r\n{\"nombre\":\"Ana\",\"apellidoPaterno\":\"Martínez\",\"apellidoMaterno\":\"Ruiz\",\"telefono\":\"527-538-1738\",\"correo\":\"jque9dadd730@gmail.com\",\"idUsuario\":4},\r\n{\"nombre\":\"Pedro\",\"apellidoPaterno\":\"López\",\"apellidoMaterno\":\"García\",\"telefono\":\"464-716-5956\",\"correo\":\"skennifick4@time.com\",\"idUsuario\":5},\r\n{\"nombre\":\"Laura\",\"apellidoPaterno\":\"Hernández\",\"apellidoMaterno\":\"González\",\"telefono\":\"636-190-9958\",\"correo\":\"cmcquie5@cdbaby.com\",\"idUsuario\":6},\r\n{\"nombre\":\"Luis\",\"apellidoPaterno\":\"Torres\",\"apellidoMaterno\":\"Ramírez\",\"telefono\":\"921-795-2128\",\"correo\":\"vhakey6@google.com\",\"idUsuario\":7},\r\n{\"nombre\":\"Carmen\",\"apellidoPaterno\":\"Morales\",\"apellidoMaterno\":\"Vargas\",\"telefono\":\"631-527-1516\",\"correo\":\"mbayless7@multiply.com\",\"idUsuario\":8},\r\n{\"nombre\":\"Manuel\",\"apellidoPaterno\":\"Sánchez\",\"apellidoMaterno\":\"Herrera\",\"telefono\":\"781-444-4581\",\"correo\":\"drosenboim8@behance.net\",\"idUsuario\":9},\r\n{\"nombre\":\"Patricia\",\"apellidoPaterno\":\"Castro\",\"apellidoMaterno\":\"Jiménez\",\"telefono\":\"499-165-2797\",\"correo\":\"edecayette9@patch.com\",\"idUsuario\":10},\r\n{\"nombre\":\"Jorge\",\"apellidoPaterno\":\"Ramírez\",\"apellidoMaterno\":\"Medina\",\"telefono\":\"510-430-6063\",\"correo\":\"rpaleya@tiny.cc\",\"idUsuario\":11},\r\n{\"nombre\":\"Gabriela\",\"apellidoPaterno\":\"Vargas\",\"apellidoMaterno\":\"Castro\",\"telefono\":\"761-560-1501\",\"correo\":\"rmcdonellb@ovh.net\",\"idUsuario\":12},\r\n{\"nombre\":\"Carlos\",\"apellidoPaterno\":\"Fernández\",\"apellidoMaterno\":\"Morales\",\"telefono\":\"435-893-6922\",\"correo\":\"abloomfieldc@biblegateway.com\",\"idUsuario\":13},\r\n{\"nombre\":\"Andrea\",\"apellidoPaterno\":\"Ruiz\",\"apellidoMaterno\":\"López\",\"telefono\":\"228-241-3032\",\"correo\":\"lkilalead@google.com.br\",\"idUsuario\":14},\r\n{\"nombre\":\"Francisco\",\"apellidoPaterno\":\"González\",\"apellidoMaterno\":\"Torres\",\"telefono\":\"386-611-8789\",\"correo\":\"ndanielle@soup.io\",\"idUsuario\":15},\r\n{\"nombre\":\"Natalia\",\"apellidoPaterno\":\"Herrera\",\"apellidoMaterno\":\"Sánchez\",\"telefono\":\"799-568-3464\",\"correo\":\"wmacfaddenf@whitehouse.gov\",\"idUsuario\":16},\r\n{\"nombre\":\"Alejandro\",\"apellidoPaterno\":\"Jiménez\",\"apellidoMaterno\":\"Rodríguez\",\"telefono\":\"179-724-5542\",\"correo\":\"gsauterg@va.gov\",\"idUsuario\":17},\r\n{\"nombre\":\"Diana\",\"apellidoPaterno\":\"Medina\",\"apellidoMaterno\":\"Martínez\",\"telefono\":\"772-436-9834\",\"correo\":\"jpullerh@surveymonkey.com\",\"idUsuario\":18},\r\n{\"nombre\":\"Sergio\",\"apellidoPaterno\":\"Castro\",\"apellidoMaterno\":\"Ramírez\",\"telefono\":\"712-318-1759\",\"correo\":\"nrosenqvisti@archive.org\",\"idUsuario\":19},\r\n{\"nombre\":\"Carolina\",\"apellidoPaterno\":\"López\",\"apellidoMaterno\":\"Vargas\",\"telefono\":\"898-458-2396\",\"correo\":\"bwoolastonj@wikispaces.com\",\"idUsuario\":20}]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/empleados/guardarTodos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"empleados",
+								"guardarTodos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Empleados",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Empleados",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJjYXJnbyI6IlJPTEVfQVNJU1RFTlRFIiwic3ViIjoianNrZXJtZTgiLCJpYXQiOjE2ODc5MjM1NDksImV4cCI6MTY4ODAwOTk0OX0._FG5ioFiM7O1Av8MDHGx_GHtgEvNRedlvL6k7tYlMmo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/empleados/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"empleados",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Empleados",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Empleado por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Empleado con paginacion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/empleados/pagination",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"empleados",
+								"pagination"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Empleados",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYmlhZ2dpb25pMSIsImlhdCI6MTY4NTQ5NDQ3OSwiZXhwIjoxNjg1NTgwODc5fQ.hIu7fN5m8BkUl4y8mV4J74NKjCBXraj359K6pq3-jMs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"nombre\":\"Hoebart\",\"apellidoPat\":\"Wallage\",\"apellidoMat\":\"Spong\",\"telefono\":\"527-538-1738\",\"correo\":\"hspong3@digg.com\",\"idUsuario\":4}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/empleados",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"empleados"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ordenes",
+			"item": [
+				{
+					"name": "Ordenes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ordenes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ordenes",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ordenes",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ordenes",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Orden por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Orden con Paginacion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DetallesCompras",
+			"item": [
+				{
+					"name": "Detalles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/detalleventa",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"detalleventa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detalles",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detalles",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detalles",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detalles",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detalle por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detalle con paginacion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/detalleordencompra/pagination?pageNo=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"detalleordencompra",
+								"pagination"
+							],
+							"query": [
+								{
+									"key": "pageNo",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/usuarios",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Usuarios en Bloque",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\"alias\":\"johns87\",\"contrasena\":\"admin\",\"idRol\":1},\r\n{\"alias\":\"emmaj22\",\"contrasena\":\"123abc\",\"idRol\":2},\r\n{\"alias\":\"alexw34\",\"contrasena\":\"123456\",\"idRol\":3},\r\n{\"alias\":\"sophiab91\",\"contrasena\":\"root\",\"idRol\":1},\r\n{\"alias\":\"michaeld55\",\"contrasena\":\"123456\",\"idRol\":3},\r\n{\"alias\":\"oliviat18\",\"contrasena\":\"123abc\",\"idRol\":3},\r\n{\"alias\":\"daniela77\",\"contrasena\":\"abc123\",\"idRol\":3},\r\n{\"alias\":\"emilylee29\",\"contrasena\":\"123456\",\"idRol\":3},\r\n{\"alias\":\"williamm42\",\"contrasena\":\"root\",\"idRol\":3},\r\n{\"alias\":\"avag63\",\"contrasena\":\"123123\",\"idRol\":3},\r\n{\"alias\":\"jamesm15\",\"contrasena\":\"123123\",\"idRol\":3},\r\n{\"alias\":\"isabella82\",\"contrasena\":\"123456\",\"idRol\":3},\r\n{\"alias\":\"davidh57\",\"contrasena\":\"123abc\",\"idRol\":3},\r\n{\"alias\":\"miar24\",\"contrasena\":\"123abc\",\"idRol\":1},\r\n{\"alias\":\"benw38\",\"contrasena\":\"123456\",\"idRol\":3},\r\n{\"alias\":\"charlotte11\",\"contrasena\":\"root\",\"idRol\":3},\r\n{\"alias\":\"andrewh86\",\"contrasena\":\"123123\",\"idRol\":3},\r\n{\"alias\":\"harperl51\",\"contrasena\":\"123123\",\"idRol\":3},\r\n{\"alias\":\"mattm73\",\"contrasena\":\"123abc\",\"idRol\":3},\r\n{\"alias\":\"graces44\",\"contrasena\":\"root\",\"idRol\":3}]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/usuarios/guardarTodos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios",
+								"guardarTodos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Usuarios",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/usuarios",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Usuarios",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"alias\":\"marias\",\"contrasena\":\"1234\",\"idRol\":1}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/usuarios",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Usuarios",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Usuarios",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Usuario por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Logins",
+			"item": [
+				{
+					"name": "Signout",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/auth/signout",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"signout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signin",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"alias\":\"jskedrme8\",\"contrasena\":\"5fsu5WBF\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/auth/signin",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/auth/refresh-token",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Productos",
+			"item": [
+				{
+					"name": "Productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/productos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Productos en Bloque",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\r\n    \"tipo\": \"Frenos\",\r\n    \"marca\": \"Renault\",\r\n    \"serial\": \"DF-402065\",\r\n    \"descripcion\": \"Repuesto ORIGINAL RENAULT te garantiza un ajuste perfecto para tu vehículo.\",\r\n    \"precio\": 145.6,\r\n    \"stock\":211\r\n},\r\n{\r\n    \"tipo\": \"Refrigeracon y calefaccion\",\r\n    \"marca\": \"Renault\",\r\n    \"serial\": \"BA-200100\",\r\n    \"descripcion\": \"Repuesto ORIGINAL RENAULT te garantiza un ajuste perfecto para tu vehículo.\",\r\n    \"precio\": 200.6,\r\n    \"stock\":222\r\n},\r\n{\r\n    \"tipo\": \"Afinamiento y Encendido\",\r\n    \"marca\": \"Suzuki\",\r\n    \"serial\": \"BE-094820\",\r\n    \"descripcion\": \"Repuesto ORIGINAL SUZUKI te garantiza un ajuste perfecto para tu vehículo.\",\r\n    \"precio\": 125.0,\r\n    \"stock\":20\r\n},\r\n{\r\n    \"tipo\": \"Frenos\",\r\n    \"marca\": \"Mazda\",\r\n    \"serial\": \"DF-233251\",\r\n    \"descripcion\": \"Repuesto ORIGINAL MAZDA te garantiza un ajuste perfecto para tu vehículo.\",\r\n    \"precio\": 80.6,\r\n    \"stock\":233\r\n},\r\n{\r\n    \"tipo\": \"Refrigeración y Calefacción\",\r\n    \"marca\": \"JAC\",\r\n    \"serial\": \"TE-102730\",\r\n    \"descripcion\": \"Repuesto ORIGINAL JAC te garantiza un ajuste perfecto para tu vehículo.\",\r\n    \"precio\": 250.00,\r\n    \"stock\":254\r\n},\r\n{\r\n    \"tipo\": \"SUSPENSION Y DIRECCION\",\r\n    \"marca\": \"CHANGAN\",\r\n    \"serial\": \"RA-201040\",\r\n    \"descripcion\": \"Repuesto ORIGINAL CHANGAN te garantiza un ajuste perfecto para tu vehículo.\",\r\n    \"precio\": 270.00,\r\n    \"stock\":123\r\n},\r\n{\r\n    \"tipo\": \"AFINAMIENTO Y ENCENDIDO\",\r\n    \"marca\": \"CITROËN\",\r\n    \"serial\": \"FA-144400\",\r\n    \"descripcion\": \"Repuesto ORIGINAL CITROËN te garantiza un ajuste perfecto para tu vehículo.\",\r\n    \"precio\": 375.00,\r\n    \"stock\":80\r\n},\r\n{\r\n    \"tipo\": \"FRENOS\",\r\n    \"marca\": \"JAC\",\r\n    \"serial\": \"BF-350200\",\r\n    \"descripcion\": \"Balatas o zapatas de freno son placas metálicas que forman parte del sistema de frenado de tu automóvil.\",\r\n    \"precio\": 455.00,\r\n    \"stock\":54\r\n},\r\n{\r\n    \"tipo\": \"AFINAMIENTO Y ENCENDIDO\",\r\n    \"marca\": \"JAC\",\r\n    \"serial\": \"FA-101710\",\r\n    \"descripcion\": \"Filtro de Aceite JAC es un artículo fundamental para el buen funcionamiento del motor.\",\r\n    \"precio\": 198.00,\r\n    \"stock\":124\r\n},\r\n{\r\n    \"tipo\": \"FRENOS\",\r\n    \"marca\": \"RENAULT\",\r\n    \"serial\": \"TF-432000\",\r\n    \"descripcion\": \"Repuesto ORIGINAL RENAULT te garantiza un ajuste perfecto para tu vehículo.\",\r\n    \"precio\": 499.00,\r\n    \"stock\": 53\r\n},\r\n{\r\n    \"tipo\": \"EMBRAGUE\",\r\n    \"marca\": \"MAZDA\",\r\n    \"serial\": \"PR-781659\",\r\n    \"descripcion\": \"Prensa ORIGINAL MAZDA te garantiza una mayor fuerza perfeccion para el vehículo.\",\r\n    \"precio\": 719.00,\r\n    \"stock\": 22\r\n},\r\n{\r\n    \"tipo\": \"FRENOS\",\r\n    \"marca\": \"RENAULT\",\r\n    \"serial\": \"TF-432000\",\r\n    \"descripcion\": \"Repuesto ORIGINAL RENAULT te garantiza un ajuste perfecto para tu vehículo.\",\r\n    \"precio\": 499.00,\r\n    \"stock\": 53\r\n},\r\n{\r\n    \"tipo\": \"DISTRIBUCION\",\r\n    \"marca\": \"HYUNDAI\",\r\n    \"serial\": \"FA-413594\",\r\n    \"descripcion\": \"Faja ORIGINAL HYUNDAI te garantiza de regular la entrada y salida de fluidos perfectos para tu vehículo.\",\r\n    \"precio\": 377.00,\r\n    \"stock\": 59\r\n},\r\n{\r\n    \"tipo\": \"TRANSMISION\",\r\n    \"marca\": \"SUZUKI\",\r\n    \"serial\": \"CC-546466\",\r\n    \"descripcion\": \"Caja de Cambios ORIGINAL SUZUKI te garantiza una mejor seleccion de marchas mas comoda para tu vehículo.\",\r\n    \"precio\": 339.00,\r\n    \"stock\": 41\r\n},\r\n{\r\n    \"tipo\": \"EMBRAGUE\",\r\n    \"marca\": \"HYUNDAI\",\r\n    \"serial\": \"RE-325449\",\r\n    \"descripcion\": \"Rodamiento Embrague ORIGINAL HYUNDAI te garantiza una mejor liberación al disco para tu vehículo.\",\r\n    \"precio\": 299.00,\r\n    \"stock\": 69\r\n},\r\n\r\n{\r\n    \"tipo\": \"TRANSMISION\",\r\n    \"marca\": \"CITROËN\",\r\n    \"serial\": \"PA-479317\",\r\n    \"descripcion\": \"Palier ORIGINAL CITROËN te garantiza una mejor transmisión de la potencia para tu vehiculo.\",\r\n    \"precio\": 399.00,\r\n    \"stock\": 21\r\n}\r\n\r\n\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/productos/guardarTodos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"productos",
+								"guardarTodos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Productos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipo\": \"Frenos\",\r\n    \"marca\": \"Mazda\",\r\n    \"serial\": \"DF-233251\",\r\n    \"descripcion\": \"Repuesto ORIGINAL MAZDA te garantiza un ajuste perfecto para tu vehículo.\",\r\n    \"precio\": 80.6\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/productos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Productos",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Productos",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/productos/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"productos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Productos",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Producto por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/productos/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"productos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Producto con paginacion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/productos/pagination",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"productos",
+								"pagination"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "Clientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/clientes",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"dni\":\"75467000\",\"nombre\":\"Jose\",\"apellido\":\"Gutierrez\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/clientes",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cliente por Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/clientes/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ventas",
+			"item": [
+				{
+					"name": "Ventas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJjYXJnbyI6IlJPTEVfQURNSU5JU1RSQURPUiIsInN1YiI6InNwaW1sb2NrMCIsImlhdCI6MTY4Nzk1NDkxNSwiZXhwIjoxNjg4MDQxMzE1fQ.xT5W7J15fUhUJW6s7mkwVKCtTN_wG6rV9PHbkd6BgF0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/ventas",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ventas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Venta por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/ventas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ventas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ventas",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/ventas",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ventas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ventas",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/ventas",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ventas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ventas",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/ventas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ventas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transaction Venta",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJjYXJnbyI6IlJPTEVfQURNSU5JU1RSQURPUiIsInN1YiI6ImpvaG5zODciLCJpYXQiOjE2ODgwMDkyMDgsImV4cCI6MTY4ODA5NTYwOH0.-6rxaC41gHeOnzAR-9QF8YjdDJv_bWhqPFDFapAD3m8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"venta\": {\"preciototal\":20.5,\"idCliente\":1,\"idEmpleado\":1},\r\n    \"detallesVenta\": [\r\n        {\"unidades\":2,\"idProducto\":1,\"idVenta\":0},\r\n        {\"unidades\":2,\"idProducto\":2,\"idVenta\":0}\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/ventas/realizarVenta",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ventas",
+								"realizarVenta"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DetallesVenta",
+			"item": [
+				{
+					"name": "Ventas Paginable",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJjYXJnbyI6IlJPTEVfQURNSU5JU1RSQURPUiIsInN1YiI6InNwaW1sb2NrMCIsImlhdCI6MTY4Nzk1NDkxNSwiZXhwIjoxNjg4MDQxMzE1fQ.xT5W7J15fUhUJW6s7mkwVKCtTN_wG6rV9PHbkd6BgF0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/detalleventa/pagination?pageNo=2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"detalleventa",
+								"pagination"
+							],
+							"query": [
+								{
+									"key": "pageNo",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "email",
+			"item": [
+				{
+					"name": "Enviar Correo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/emails/sendEmail/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"emails",
+								"sendEmail",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
