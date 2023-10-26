@@ -42,6 +42,6 @@ Fue presentado como proyecto de ciclo del curso de Desarrollo de Servicios Web 2
 3. Ejecutar el proyecto.
     > ng serve --open
 4. Interactuar.
-    > url: **localhost:4200**
+    > url: **localhost:4200** <br>
     > Usuario: **johns87** <br>
     > Contraseña: **admin**
